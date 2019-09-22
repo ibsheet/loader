@@ -1,0 +1,161 @@
+{
+  "name": "@ibsheet/loader",
+  "jslib": {
+    "filename": "ibsheet-loader",
+    "global": "IBSheetLoader"
+  },
+  "version": "0.0.1",
+  "description": "Dynamically load support module of IBSheet",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "build": "run-s clean build:prod:*",
+    "build:dev": "webpack --config ./webpack.dev.js --progress --color --display-error-details",
+    "build:prod:module": "tsc -p tsconfig.json",
+    "prebuild:prod:umd": "trash dist/umd",
+    "build:prod:umd": "cross-env NODE_ENV=production webpack --config ./webpack.prod.js --progress --color --display-error-details --bail",
+    "fix": "run-s fix:*",
+    "fix:prettier": "prettier \"src/**/*.ts\" --write",
+    "fix:tslint": "tslint --fix --project .",
+    "test": "run-s build:prod:module test:*",
+    "test:lint": "yarn tslint --project . && yarn prettier \"src/**/*.ts\" --write --list-different",
+    "pretest:unit": "trash .nyc_output",
+    "test:unit": "nyc --silent ava --verbose",
+    "cov": "run-s cov:html && open-cli coverage/index.html",
+    "cov:html": "nyc report --reporter=html",
+    "cov:send": "nyc report --reporter=lcov && codecov",
+    "cov:check": "nyc report && nyc check-coverage --lines 100 --functions 100 --branches 100",
+    "doc": "run-s doc:html && open-cli dist/docs/index.html",
+    "predoc:html": "trash dist/docs",
+    "doc:html": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --out dist/docs",
+    "doc:json": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --json dist/docs/typedoc.json",
+    "predoc:publish": "run-s doc:html",
+    "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d dist/docs",
+    "clean": "trash dist coverage .nyc_output test",
+    "reset": "git clean -dfx && git reset --hard && yarn",
+    "info": "npm-scripts-info",
+    "serve": "run-s serve:dev",
+    "serve:dev": "webpack-dev-server --mode development --config ./webpack.dev.js --hot --inline --progress --watch",
+    "serve:prod": "cross-env NODE_ENV=production webpack-dev-server --config ./webpack.prod.js --port 3040 --host 0.0.0.0 --hot --inline --progress --watch --open --content-base dist/umd",
+    "start": "run-s serve:dev",
+    "prepare-release": "run-s reset test cov:check",
+    "release": "standard-version"
+  },
+  "scripts-info": {
+    "info": "Display information about the package scripts",
+    "build": "Clean and rebuild the project",
+    "fix": "Try to automatically fix any linting problems",
+    "test": "Lint and unit test the project",
+    "watch": "Watch and rebuild the project on save, then rerun relevant tests",
+    "cov": "Rebuild, run tests, then create and open the coverage report",
+    "doc": "Generate HTML API documentation and open it in a browser",
+    "doc:json": "Generate API documentation in typedoc JSON format",
+    "release": "Bump package.json version, update CHANGELOG.md, tag release",
+    "reset": "Delete all untracked files and reset the repo to the last commit",
+    "prepare-release": "One-step: clean, build, test, publish docs, and prep a release"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibsheet/loader.git"
+  },
+  "author": "IB Leaders <support@ibleaders.co.kr>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ibsheet/loader/issues"
+  },
+  "homepage": "https://github.com/ibsheet/loader#readme",
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^0.1.3",
+    "@types/es6-promise": "^3.3.0",
+    "@types/is-url": "^1.2.28",
+    "@types/jquery": "^3.3.31",
+    "@types/lodash": "^4.14.138",
+    "@types/uuid": "^3.4.5",
+    "ava": "^2.3.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "bannerjs": "^1.0.6",
+    "cross-env": "^5.2.1",
+    "css-loader": "^3.2.0",
+    "gh-pages": "^2.1.1",
+    "handlebars-loader": "^1.7.1",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "istanbul-instrumenter-loader": "^3.0.1",
+    "jquery": "^3.4.1",
+    "lodash": "^4.17.15",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.12.0",
+    "npm-run-all": "^4.1.5",
+    "npm-scripts-info": "^0.3.9",
+    "nyc": "^14.1.1",
+    "open-cli": "^5.0.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-loader": "^3.0.0",
+    "prettier": "^1.18.2",
+    "sass-loader": "^8.0.0",
+    "source-map-loader": "^0.2.4",
+    "standard": "^14.1.0",
+    "standard-version": "^7.0.0",
+    "string-replace-loader": "^2.2.0",
+    "style-loader": "^1.0.0",
+    "terser-webpack-plugin": "^2.1.0",
+    "trash-cli": "^3.0.0",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.19.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-immutable": "^6.0.1",
+    "tslint-loader": "^3.5.4",
+    "typedoc": "^0.15.0",
+    "typescript": "^3.6.2",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "dependencies": {
+    "es6-promise": "^4.2.8",
+    "is-url": "^1.2.4",
+    "uuid": "^3.3.3"
+  },
+  "sideEffects": false,
+  "prettier": {
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
+  "ava": {
+    "require": [
+      "ts-node/register"
+    ],
+    "files": [
+      "src/**/*.spec.ts"
+    ],
+    "sources": [
+      "src/**/*.ts"
+    ],
+    "compileEnhancements": false,
+    "extensions": [
+      "ts"
+    ]
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "check-coverage": false,
+    "all": true,
+    "instrument": true,
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ]
+  }
+}
