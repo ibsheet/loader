@@ -49,7 +49,7 @@ npm publish --access public
 
 ### document
 
-API Document: <https://zerot2s.github.io/lazy-loader/>
+API Document: <https://ibsheet.github.io/loader/>
 
 * generate: `yarn doc`
 * publish: `yarn doc:publish`
