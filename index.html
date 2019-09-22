@@ -1,0 +1,318 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@ibsheet/loader</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@ibsheet/loader</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> @ibsheet/loader</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#ibsheet-loader" id="ibsheet-loader" style="color: inherit; text-decoration: none;">
+					<h1>ibsheet-loader</h1>
+				</a>
+				<p><a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg" alt="code style: prettier"></a>
+					<a href="https://conventionalcommits.org"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg" alt="Conventional Commits"></a>
+				<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></p>
+				<p>Dynamically load support module of IBSheet</p>
+				<p><a href="http://standardjs.com"><img src="https://cdn.rawgit.com/standard/standard/master/badge.svg" alt="js-standard-style"></a></p>
+				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+					<h2>features</h2>
+				</a>
+				<ul>
+					<li><input checked="" disabled="" type="checkbox"> <a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-0.html">TypeScript 3.0</a></li>
+					<li><input checked="" disabled="" type="checkbox"> <a href="https://palantir.github.io/tslint/">TSLint</a></li>
+					<li><input checked="" disabled="" type="checkbox"> <a href="https://standardjs.com/">standard JS</a></li>
+					<li><input checked="" disabled="" type="checkbox"> <a href="https://github.com/avajs/ava">AVA</a>, <a href="https://github.com/istanbuljs/nyc">nyc</a></li>
+					<li><input checked="" disabled="" type="checkbox"> <a href="https://webpack.js.org/">Webpack 4</a></li>
+					<li><input checked="" disabled="" type="checkbox"> <a href="https://github.com/conventional-changelog/standard-version">Standard Version</a></li>
+				</ul>
+				<a href="#continuous-integration" id="continuous-integration" style="color: inherit; text-decoration: none;">
+					<h3>continuous integration</h3>
+				</a>
+				<ul>
+					<li><a href="https://www.codacy.com">Codacy</a> - Automated code reviews &amp; code analytics</li>
+					<li><a href="https://circleci.com">CircleCI</a> - Continuous Integration and Delivery</li>
+					<li><a href="https://codecov.io">codecov</a> - leading, dedicated code coverage</li>
+					<li><a href="https://snyk.io">snyk.io</a> - Continuously find and fix vulnerabilities for npm</li>
+				</ul>
+				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
+					<h2>development</h2>
+				</a>
+				<p>run webpack-dev-server <code>localhost:3033</code> </p>
+				<pre><code><span class="hljs-attribute">yarn serve</span></code></pre>
+				<a href="#build" id="build" style="color: inherit; text-decoration: none;">
+					<h3>build</h3>
+				</a>
+				<pre><code><span class="hljs-attribute">yarn build</span></code></pre>
+				<a href="#publish" id="publish" style="color: inherit; text-decoration: none;">
+					<h3>publish</h3>
+				</a>
+				<pre><code><span class="hljs-attr">yarn</span> <span class="hljs-string">build</span>
+<span class="hljs-attr">yarn</span> <span class="hljs-string">release</span>
+<span class="hljs-attr">npm</span> <span class="hljs-string">link</span>
+<span class="hljs-attr">npm</span> <span class="hljs-string">publish --access public</span></code></pre>
+				<a href="#document" id="document" style="color: inherit; text-decoration: none;">
+					<h3>document</h3>
+				</a>
+				<p>API Document: <a href="https://ibsheet.github.io/loader/">https://ibsheet.github.io/loader/</a></p>
+				<ul>
+					<li>generate: <code>yarn doc</code></li>
+					<li>publish: <code>yarn doc:publish</code></li>
+				</ul>
+				<a href="#todo" id="todo" style="color: inherit; text-decoration: none;">
+					<h2>todo</h2>
+				</a>
+				<ul>
+					<li>git integration<ul>
+							<li><input disabled="" type="checkbox"> Codacy</li>
+							<li><input disabled="" type="checkbox"> CircleCI</li>
+							<li><input disabled="" type="checkbox"> codecov</li>
+							<li><input disabled="" type="checkbox"> snyk.io</li>
+						</ul>
+					</li>
+				</ul>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>license</h2>
+				</a>
+				<p><a href="./LICENSE">MIT</a></p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/isheetloaderevent.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/isheetloaderstatus.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/ibsheetloader.html" class="tsd-kind-icon">IBSheet<wbr>Loader</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/loaderregistry.html" class="tsd-kind-icon">Loader<wbr>Registry</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/loaderregistryitem.html" class="tsd-kind-icon">Loader<wbr>Registry<wbr>Item</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iappendelementoptions.html" class="tsd-kind-icon">IAppend<wbr>Element<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ibsheetcreateoptions.html" class="tsd-kind-icon">IBSheet<wbr>Create<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ibsheetinstance.html" class="tsd-kind-icon">IBSheet<wbr>Instance</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ibsheetstatic.html" class="tsd-kind-icon">IBSheet<wbr>Static</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iloaderevent.html" class="tsd-kind-icon">ILoader<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iloaderregistry.html" class="tsd-kind-icon">ILoader<wbr>Registry</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iloaderregistryaliasdata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Alias<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iloaderregistryitem.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iloaderregistryitemdata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iloaderregistryitemrawdata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item<wbr>Raw<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iloaderregistryitemupdatedata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item<wbr>Update<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/isheetloaderoptions.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/isheetloaderstatic.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Static</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/isheetloadertestoptions.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Test<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#loaderregistrydatatype" class="tsd-kind-icon">Loader<wbr>Registry<wbr>Data<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#app_global" class="tsd-kind-icon">APP_<wbr>GLOBAL</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#app_version" class="tsd-kind-icon">APP_<wbr>VERSION</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#loaded_test_retry_interval" class="tsd-kind-icon">LOADED_<wbr>TEST_<wbr>RETRY_<wbr>INTERVAL</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#loaded_test_retry_max_count" class="tsd-kind-icon">LOADED_<wbr>TEST_<wbr>RETRY_<wbr>MAX_<wbr>COUNT</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#version_generate_start_num" class="tsd-kind-icon">VERSION_<wbr>GENERATE_<wbr>START_<wbr>NUM</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#appendcss" class="tsd-kind-icon">append<wbr>Css</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#appendjs" class="tsd-kind-icon">append<wbr>Js</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createlinkelement" class="tsd-kind-icon">create<wbr>Link<wbr>Element</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createscriptelement" class="tsd-kind-icon">create<wbr>Script<wbr>Element</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#documentready" class="tsd-kind-icon">document<wbr>Ready</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#double" class="tsd-kind-icon">double</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#existselementbyid" class="tsd-kind-icon">exists<wbr>Element<wbr>ById</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#power" class="tsd-kind-icon">power</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
