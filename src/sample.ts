@@ -19,7 +19,12 @@ $((): void => {
         name: 'font-awesome',
         url: 'https://kit.fontawesome.com/21c0a510fd.js',
         version: 5,
-        target: 'head'
+        target: 'head',
+        dependency: [
+          'https://kit-free.fontawesome.com/releases/latest/css/free-v4-shims.min.css',
+          'https://kit-free.fontawesome.com/releases/latest/css/free-v4-font-face.min.css',
+          'https://kit-free.fontawesome.com/releases/latest/css/free.min.css'
+        ]
       },
       {
         name: 'swal2',
@@ -59,11 +64,7 @@ $((): void => {
       }
       // }).load('font-awesome@solid')
     })
-    .load([
-      'font-awesome@5',
-      'swal2@8',
-      'ibsheet@8.0'
-    ])
+    .load(['font-awesome@5', 'swal2@8', 'ibsheet@8.0'])
 
   console.log('* IBSheetLoader:', `v${loader.version}`)
 })

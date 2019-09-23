@@ -2,9 +2,7 @@ import { basename } from 'path'
 import { parse as UrlParse } from 'url'
 import uuid from 'uuid/v1'
 
-import {
-  get, isNil
-} from '../../shared/lodash'
+import { get, isNil } from '../../shared/lodash'
 
 import { IRegistryItemUrlData, IRegistryItemURL } from './interface'
 
@@ -39,7 +37,9 @@ class RegistryItemURL implements IRegistryItemURL {
     this._id = uuid()
   }
 
-  get id(): string { return this._id }
+  get id(): string {
+    return this._id
+  }
 
   set value(val: string) {
     if (isNil(val) || !val.length) {

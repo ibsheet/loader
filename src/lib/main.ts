@@ -12,7 +12,7 @@ import {
   assignIn,
   pick,
   now,
-  defaultsDeep,
+  defaultsDeep
 } from './shared/lodash'
 import { documentReady } from './shared/dom-utils'
 
@@ -31,7 +31,6 @@ import {
   LoaderStatus,
   LoaderEvent
 } from './interface'
-import { asyncImportItemUrls, asyncItemTest } from './async-tasks'
 
 const LOADED_TEST_RETRY_MAX_COUNT = 10
 const LOADED_TEST_RETRY_INTERVAL = 200
@@ -54,9 +53,10 @@ class IBSheetLoader extends EventEmitter implements ISheetLoaderStatic {
   registry: ILoaderRegistry
   constructor(options?: ISheetLoaderOptions) {
     super()
-    this._options = defaultsDeep(pick(options, [
-      'debug', 'retry'
-    ]), DefaultOptions)
+    this._options = defaultsDeep(
+      pick(options, ['debug', 'retry']),
+      DefaultOptions
+    )
     const regOption = get(options, 'registry')
     this.registry = new LoaderRegistry(regOption)
     this._jobs = []
@@ -95,35 +95,35 @@ class IBSheetLoader extends EventEmitter implements ISheetLoaderStatic {
     if (this.existsJob(item)) return
     this._jobs.push(item)
     if (immediatly) {
-      documentReady(() => this.startJobs())
+      documentReady(() => this.startLoadJobs())
     }
   }
-  private startJobs(): void {
+  private startLoadJobs(): void {
     this._status = LoaderStatus.STARTED
     const startTime = now()
-    const tasks = this._jobs.map(target => {
-      const eventTarget = { target }
+    const tasks = this._jobs.map(item => {
+      const eventTarget = { target: item }
+      const options = pick(this._options, ['debug', 'retry'])
       return new Promise(resolve => {
-        asyncImportItemUrls
-          .call(this, target)
-          .then(() => {
-            // urls
-            asyncItemTest
-              .call(this, target)
-              .then(() => {
-                // item
-                this.emit(LoaderEvent.LOADED, eventTarget)
-                resolve({ target, success: true })
-              })
-              .catch(() => {
-                this.emit(LoaderEvent.LOAD_ERROR, eventTarget)
-                resolve({ target, success: false })
-              })
+        ;[
+          LoaderEvent.LOADED,
+          LoaderEvent.LOAD_REJECT,
+          LoaderEvent.LOAD_ERROR
+        ].forEach(event => {
+          item.once(event, () => {
+            let success = false
+            switch (event) {
+              case LoaderEvent.LOADED:
+                success = true
+                // const target = evt.target
+                // console.log(`${target.alias} loaded: ${target.loaded}`)
+                break
+            }
+            this.emit(event, eventTarget)
+            resolve({ item, success })
           })
-          .catch((err: any) => {
-            this.emit(LoaderEvent.LOAD_REJECT, assignIn(eventTarget, err))
-            resolve({ target, success: false })
-          })
+        })
+        item.load(options)
       })
     })
     Promise.all(tasks)
@@ -149,30 +149,32 @@ class IBSheetLoader extends EventEmitter implements ISheetLoaderStatic {
   public emit(event: string | symbol, ...args: any[]): boolean {
     return super.emit(event, assignIn({ type: event }, ...args))
   }
-  getOptions(sPath: string, def: any): any {
+  getOptions(sPath: string, def?: any): any {
     return get(this._options, sPath, def)
   }
   load(
     params?: LoaderRegistryDataType | LoaderRegistryDataType[]
   ): ISheetLoaderStatic {
-    castArray(params).forEach(data => {
-      let item: LoaderRegistryItem | null
-      if (isString(data)) {
-        // check localpath or url
-        if (data.indexOf('/') >= 0 || isUrl(data)) {
+    if (!isNil(params)) {
+      castArray(params).forEach(data => {
+        let item: LoaderRegistryItem | null
+        if (isString(data)) {
+          // check localpath or url
+          if (data.indexOf('/') >= 0 || isUrl(data)) {
+            item = this.registry.add(data) as LoaderRegistryItem
+          }
+          // check exists registry
+          else {
+            item = this.registry.get(data)
+          }
+        } else {
           item = this.registry.add(data) as LoaderRegistryItem
         }
-        // check exists registry
-        else {
-          item = this.registry.get(data)
-        }
-      } else {
-        item = this.registry.add(data) as LoaderRegistryItem
-      }
-      if (isNil(item)) return
-      this.addJob(item)
-    })
-    this.startJobs()
+        if (isNil(item)) return
+        this.addJob(item)
+      })
+    }
+    documentReady(() => this.startLoadJobs())
     return this
   }
   reload(): ISheetLoaderStatic {

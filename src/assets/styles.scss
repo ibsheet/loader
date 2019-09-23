@@ -12,4 +12,12 @@ body {
     padding: 0;
     margin: 0;
   }
+  .test-body {
+    background-color: #EEE;
+    border: 1px dashed #CCC;
+    margin: 1rem 0;
+    padding: 1rem;
+    min-height: 5rem;
+    overflow: hidden;
+  }
 }

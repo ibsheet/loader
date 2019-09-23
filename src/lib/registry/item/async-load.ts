@@ -1,11 +1,12 @@
-import { isNil } from '../shared/lodash'
-import { appendJs, appendCss } from '../shared/dom-utils'
-import { LoaderRegistryItem, RegistryItemURL } from '../registry'
+import { isNil, get } from '../../shared/lodash'
+import { appendJs, appendCss } from '../../shared/dom-utils'
+import { LoaderRegistryItem } from './item'
+import { RegistryItemURL } from './url'
 
-export function asyncImportItemUrls(
-  rItem: LoaderRegistryItem
-): Promise<RegistryItemURL[]> {
-  const { urls } = rItem
+export function asyncImportItemUrls(options?: any): Promise<RegistryItemURL[]> {
+  const self: LoaderRegistryItem = this
+  const urls = self.urls
+  const debug = get(options, 'debug', false)
   const tasks: Promise<RegistryItemURL>[] = urls.map(
     (uItem: RegistryItemURL) => {
       return new Promise((resolve, reject) => {
@@ -22,13 +23,13 @@ export function asyncImportItemUrls(
             break
           default:
             // nothing
-            errMsg = `[${rItem.alias}] not supported import type: ${type}`
+            errMsg = `[${self.alias}] not supported import type: ${type}`
         }
         if (isNil(errMsg) && !isSuccess) {
-          errMsg = `[${rItem.alias}] failed to create element in document`
+          errMsg = `[${self.alias}] failed to create element in document`
         }
         if (!isNil(errMsg)) {
-          if (this.debug) {
+          if (debug) {
             console.warn(errMsg)
           }
           reject({ message: errMsg })

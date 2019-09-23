@@ -37,11 +37,14 @@ export interface ILoaderRegistryItemRawData {
 
 export interface ILoaderRegistryItem {
   readonly id: string
-  name: string
-  version: string | null
-  test(): boolean
   readonly urls: IRegistryItemURL[]
   readonly alias: string
   readonly raw: ILoaderRegistryItemRawData
   readonly hasVersion: boolean
+  readonly loaded: boolean
+  name: string
+  version: string | null
+  load(options?: any): this
+  unload(options?: any): this
+  test(): boolean
 }

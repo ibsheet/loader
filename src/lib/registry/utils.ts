@@ -12,7 +12,7 @@ import { isString, isNil, isNumber, toNumber } from '../shared/lodash'
  * @hidden
  */
 export function castRegistryItemData(
-  param: LoaderRegistryDataType|IRegistryItemUrlData
+  param: LoaderRegistryDataType | IRegistryItemUrlData
 ): ILoaderRegistryItemData {
   if (isString(param)) {
     return { url: param }
