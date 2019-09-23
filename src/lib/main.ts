@@ -3,57 +3,65 @@ import { EventEmitter } from 'events'
 import isUrl from 'is-url'
 
 import {
-  get, set, isNil, castArray, isString,
-  find, assignIn
+  get,
+  set,
+  isNil,
+  castArray,
+  isString,
+  find,
+  assignIn,
+  pick,
+  now,
+  defaultsDeep,
 } from './shared/lodash'
-import {
-  documentReady,
-  appendJs,
-  appendCss,
-} from './shared/dom-utils'
+import { documentReady } from './shared/dom-utils'
 
 // import { double, power } from './number'
-import {
-  APP_VERSION,
-  APP_GLOBAL
-} from './constant'
+import { APP_VERSION, APP_GLOBAL } from './constant'
 import {
   ILoaderRegistry,
   LoaderRegistryDataType,
   LoaderRegistry,
-  ILoaderRegistryItem
+  LoaderRegistryItem
 } from './registry'
 import {
   ISheetLoaderOptions,
+  ISheetLoaderConfig,
   ISheetLoaderStatic,
-  ISheetLoaderStatus,
-  ISheetLoaderEvent,
+  LoaderStatus,
+  LoaderEvent
 } from './interface'
+import { asyncImportItemUrls, asyncItemTest } from './async-tasks'
 
 const LOADED_TEST_RETRY_MAX_COUNT = 10
 const LOADED_TEST_RETRY_INTERVAL = 200
+const DefaultOptions = {
+  debug: false,
+  retry: {
+    maxCount: LOADED_TEST_RETRY_MAX_COUNT,
+    intervalTime: LOADED_TEST_RETRY_INTERVAL
+  }
+}
 
 /**
  * IBSheetLoader Main Class
  */
 class IBSheetLoader extends EventEmitter implements ISheetLoaderStatic {
-  private _status: ISheetLoaderStatus = ISheetLoaderStatus.PENDING
+  private _status: LoaderStatus = LoaderStatus.PENDING
   private _ready: boolean = false
-  private _jobs: ILoaderRegistryItem[]
-  private _RETRY_MAX_COUNT: number
-  private _RETRY_INTERVAL_TIME: number
-  private _debugMode: boolean
+  private _jobs: LoaderRegistryItem[]
+  private _options: ISheetLoaderConfig
   registry: ILoaderRegistry
   constructor(options?: ISheetLoaderOptions) {
     super()
-    this._RETRY_MAX_COUNT = get(options, 'retry.maxCount', LOADED_TEST_RETRY_MAX_COUNT)
-    this._RETRY_INTERVAL_TIME = get(options, 'retry.intervalTime', LOADED_TEST_RETRY_INTERVAL)
-    this._debugMode = get(options, 'debug', false)
+    this._options = defaultsDeep(pick(options, [
+      'debug', 'retry'
+    ]), DefaultOptions)
     const regOption = get(options, 'registry')
     this.registry = new LoaderRegistry(regOption)
     this._jobs = []
     this._ready = true
-    this._status = ISheetLoaderStatus.IDLE
+    this._status = LoaderStatus.IDLE
 
     documentReady(() => {
       this._ready = true
@@ -61,11 +69,15 @@ class IBSheetLoader extends EventEmitter implements ISheetLoaderStatic {
       if (!isNil(readyCallback)) {
         readyCallback.call(this)
       }
-    });
+    })
     return this
   }
-  get debug(): boolean { return this._debugMode }
-  get version(): string { return APP_VERSION }
+  get debug(): boolean {
+    return this.getOptions('debug', false)
+  }
+  get version(): string {
+    return APP_VERSION
+  }
   /**
    * @desc
    * DOMContentLoaded 상태를 반환
@@ -73,80 +85,62 @@ class IBSheetLoader extends EventEmitter implements ISheetLoaderStatic {
   get ready(): boolean {
     return this._ready
   }
-  get status(): ISheetLoaderStatus {
-    if (this._status === ISheetLoaderStatus.STARTED && this._jobs.length) {
-      return ISheetLoaderStatus.LOADING
+  get status(): LoaderStatus {
+    if (this._status === LoaderStatus.STARTED && this._jobs.length) {
+      return LoaderStatus.LOADING
     }
     return this._status
   }
-  private addJob(item: ILoaderRegistryItem, immediatly: boolean = false): void {
+  private addJob(item: LoaderRegistryItem, immediatly: boolean = false): void {
     if (this.existsJob(item)) return
     this._jobs.push(item)
     if (immediatly) {
-      documentReady(() => this.startJob())
+      documentReady(() => this.startJobs())
     }
   }
-  private startJob(): void {
-    if (this.status >= ISheetLoaderStatus.STARTED || !this._jobs.length) {
-      return
-    }
-    this._status = ISheetLoaderStatus.STARTED
-    let item: ILoaderRegistryItem
-    while (this._jobs.length) {
-      item = this._jobs.shift() as ILoaderRegistryItem
-      const eventTarget = { target: item }
-      this.emit(ISheetLoaderEvent.LOAD, eventTarget)
-      const { id, url, target, type } = item.jsonData
-      const elData = { id, url, target }
-      let isSuccess: boolean = false
-      let errMsg = null
-      switch (type) {
-        case 'css':
-          isSuccess = appendCss(elData)
-          break
-        case 'js':
-          isSuccess = appendJs(elData)
-          break
-        default:
-          // nothing
-          errMsg = `[${item.alias}] not supported import type: ${type}`
-      }
-      if (isNil(errMsg) && !isSuccess) {
-        errMsg = `[${item.alias}] failed to create element in document`
-      }
-      if (!isNil(errMsg)) {
-        this.emit(ISheetLoaderEvent.LOAD_REJECT, assignIn(eventTarget, { message: errMsg }))
-        if (this.debug) {
-          console.warn(errMsg)
-        }
-        continue
-      }
-      const INTERVAL_TIME = this._RETRY_INTERVAL_TIME
-
-      new Promise((resolve, reject) => {
-        let nCount = 1
-        const testInterval = setInterval(() => {
-          if (nCount > this._RETRY_MAX_COUNT) {
-            return reject()
-          }
-          if (item.test()) {
-            clearInterval(testInterval)
-            return resolve()
-          }
-          if (this.debug) {
-            console.warn(`"${item.alias}" is delayed (${nCount * INTERVAL_TIME}ms)`,)
-          }
-          nCount += 1
-        }, INTERVAL_TIME)
-      }).then(() => {
-        this.emit(ISheetLoaderEvent.LOADED, eventTarget)
-      }).catch(() => {
-        this.emit(ISheetLoaderEvent.LOAD_ERROR, eventTarget)
+  private startJobs(): void {
+    this._status = LoaderStatus.STARTED
+    const startTime = now()
+    const tasks = this._jobs.map(target => {
+      const eventTarget = { target }
+      return new Promise(resolve => {
+        asyncImportItemUrls
+          .call(this, target)
+          .then(() => {
+            // urls
+            asyncItemTest
+              .call(this, target)
+              .then(() => {
+                // item
+                this.emit(LoaderEvent.LOADED, eventTarget)
+                resolve({ target, success: true })
+              })
+              .catch(() => {
+                this.emit(LoaderEvent.LOAD_ERROR, eventTarget)
+                resolve({ target, success: false })
+              })
+          })
+          .catch((err: any) => {
+            this.emit(LoaderEvent.LOAD_REJECT, assignIn(eventTarget, err))
+            resolve({ target, success: false })
+          })
       })
-    }
-    this._status = ISheetLoaderStatus.IDLE
+    })
+    Promise.all(tasks)
+      .then(() => {
+        // res
+        if (this.debug) {
+          console.log(`[IBSheetLoader] all done - ${now() - startTime}ms`)
+        }
+        this._status = LoaderStatus.IDLE
+      })
+      .catch(() => {
+        // err
+        // nothing error
+        this._status = LoaderStatus.IDLE
+      })
   }
-  private existsJob(item: ILoaderRegistryItem): boolean {
+  private existsJob(item: LoaderRegistryItem): boolean {
     const target = find(this._jobs, { id: item.id })
     return !isNil(target)
   }
@@ -155,25 +149,30 @@ class IBSheetLoader extends EventEmitter implements ISheetLoaderStatic {
   public emit(event: string | symbol, ...args: any[]): boolean {
     return super.emit(event, assignIn({ type: event }, ...args))
   }
-
-  load(params?: LoaderRegistryDataType|LoaderRegistryDataType[]): ISheetLoaderStatic {
+  getOptions(sPath: string, def: any): any {
+    return get(this._options, sPath, def)
+  }
+  load(
+    params?: LoaderRegistryDataType | LoaderRegistryDataType[]
+  ): ISheetLoaderStatic {
     castArray(params).forEach(data => {
-      let item: ILoaderRegistryItem|null
+      let item: LoaderRegistryItem | null
       if (isString(data)) {
         // check localpath or url
         if (data.indexOf('/') >= 0 || isUrl(data)) {
-          item = this.registry.add(data) as ILoaderRegistryItem
+          item = this.registry.add(data) as LoaderRegistryItem
         }
         // check exists registry
         else {
           item = this.registry.get(data)
         }
       } else {
-        item = this.registry.add(data) as ILoaderRegistryItem
+        item = this.registry.add(data) as LoaderRegistryItem
       }
       if (isNil(item)) return
-      this.addJob(item, true)
+      this.addJob(item)
     })
+    this.startJobs()
     return this
   }
   reload(): ISheetLoaderStatic {

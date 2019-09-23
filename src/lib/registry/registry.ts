@@ -1,11 +1,9 @@
+import { ILoaderRegistry, LoaderRegistryDataType } from './interface'
 import {
-  ILoaderRegistry,
   ILoaderRegistryItemUpdateData,
-  ILoaderRegistryItem,
   ILoaderRegistryItemData,
-  LoaderRegistryDataType,
-} from './interface'
-import { LoaderRegistryItem } from './item'
+  LoaderRegistryItem
+} from './item'
 import { generateVersion } from './utils'
 import {
   findIndex,
@@ -21,7 +19,7 @@ import {
 import { EventEmitter } from 'events'
 
 class LoaderRegistry extends EventEmitter implements ILoaderRegistry {
-  private _list: ILoaderRegistryItem[]
+  private _list: LoaderRegistryItem[]
   constructor(params?: LoaderRegistryDataType | LoaderRegistryDataType[]) {
     super()
     const self = this
@@ -34,21 +32,23 @@ class LoaderRegistry extends EventEmitter implements ILoaderRegistry {
   get length(): number {
     return this._list.length
   }
-  add(params: LoaderRegistryDataType | LoaderRegistryDataType[]): ILoaderRegistryItem|ILoaderRegistryItem[]|null {
+  add(
+    params: LoaderRegistryDataType | LoaderRegistryDataType[]
+  ): LoaderRegistryItem | LoaderRegistryItem[] | null {
     const self = this
-    const res: ILoaderRegistryItem[] = []
+    const res: LoaderRegistryItem[] = []
     castArray(params).forEach((data: string | ILoaderRegistryItemData) => {
-      let item;
+      let item
       try {
         item = new LoaderRegistryItem(data)
       } catch (err) {
         console.warn(err)
         return
       }
-      const { alias, url } = item.jsonData
+      const { alias, urls } = item.raw
       if (this.exists(alias)) {
         const tItem = this.get(alias) as LoaderRegistryItem
-        if (tItem.url === url) {
+        if (tItem.raw.urls[0] === urls[0]) {
           console.warn(`ignore duplicate script "${alias}"`)
           return
         }
@@ -64,17 +64,17 @@ class LoaderRegistry extends EventEmitter implements ILoaderRegistry {
   exists(alias: string): boolean {
     return !isNil(this.get(alias))
   }
-  get(alias: string): ILoaderRegistryItem | null {
+  get(alias: string): LoaderRegistryItem | null {
     const ndx = this.getIndexByAlias(alias)
     if (ndx < 0) return null
     return this._list[ndx]
   }
   info(alias: string): string {
-    let res: any = this.getAll(alias).map(item => item.toString())
+    let res: any = this.getAll(alias).map(item => item.raw)
     if (res.length === 1) res = res[0]
     return JSON.stringify(res, null, 2)
   }
-  getAll(query: string): ILoaderRegistryItem[] {
+  getAll(query: string): LoaderRegistryItem[] {
     const hasVersion = lastIndexOf(query, '@') > 0
     return this._list.filter(item => {
       if (hasVersion) {
@@ -95,11 +95,11 @@ class LoaderRegistry extends EventEmitter implements ILoaderRegistry {
       }
     })
   }
-  remove(alias: string) {
+  remove(alias: string): void | LoaderRegistryItem | LoaderRegistryItem[] {
     const items = this.getAll(alias)
     if (!items.length) return
     const ids = items.map(item => item.id)
-    const result: ILoaderRegistryItem[] = []
+    const result: LoaderRegistryItem[] = []
     remove(this._list, item => {
       const match = includes(ids, item.id)
       if (match) result.push(item)

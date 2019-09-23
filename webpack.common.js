@@ -1,3 +1,4 @@
+require('dotenv').config()
 const webpack = require('webpack')
 const { resolve: pathResolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -37,7 +38,7 @@ const plugins = [
   }),
   // https://github.com/jantimon/html-webpack-plugin
   new HtmlWebpackPlugin({
-    title: 'LazyLoader Sample',
+    title: 'IBSheetLoader Sample',
     template: 'index.hbs'
   }),
   new MiniCssExtractPlugin({
@@ -69,6 +70,19 @@ const rules = [
         {
           search: '##APP_GLOBAL##',
           replace: GLOBAL_NAME
+        }
+      ]
+    }
+  },
+  {
+    enforce: 'pre',
+    test: /sample\.ts/,
+    loader: 'string-replace-loader',
+    options: {
+      multiple: [
+        {
+          search: '<IBSHEET_BASE_URL>',
+          replace: process.env.IBSHEET_BASE_URL || ''
         }
       ]
     }

@@ -10,17 +10,19 @@ export function documentReady(callback: (evt?: Event) => void): any {
   if (document.readyState !== 'loading') {
     return callback()
   }
-  document.addEventListener('DOMContentLoaded', callback);
+  document.addEventListener('DOMContentLoaded', callback)
 }
 
-export function createLinkElement(data: IAppendElementOptions): HTMLLinkElement {
+export function createLinkElement(
+  data: IAppendElementOptions
+): HTMLLinkElement {
   const { id, url } = data
   const linkEl: HTMLLinkElement = document.createElement('link')
   ;[
     { name: 'id', value: id },
     { name: 'rel', value: 'stylesheet' },
     { name: 'type', value: 'text/css' },
-    { name: 'href', value: url },
+    { name: 'href', value: url }
   ].forEach(attrs => {
     const { name, value } = attrs
     linkEl.setAttribute(name, value)
@@ -28,13 +30,12 @@ export function createLinkElement(data: IAppendElementOptions): HTMLLinkElement 
   return linkEl
 }
 
-export function createScriptElement(data: IAppendElementOptions): HTMLScriptElement {
+export function createScriptElement(
+  data: IAppendElementOptions
+): HTMLScriptElement {
   const { id, url } = data
   const scriptEl: HTMLScriptElement = document.createElement('script')
-  ;[
-    { name: 'id', value: id },
-    { name: 'src', value: url },
-  ].forEach(attrs => {
+  ;[{ name: 'id', value: id }, { name: 'src', value: url }].forEach(attrs => {
     const { name, value } = attrs
     scriptEl.setAttribute(name, value)
   })

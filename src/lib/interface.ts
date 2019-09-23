@@ -9,15 +9,18 @@ export interface ISheetLoaderTestOptions {
   intervalTime?: number
 }
 
-export interface ISheetLoaderOptions {
-  registry?: LoaderRegistryDataType[]
-  ready?: Function
-  load?: LoaderRegistryDataType|LoaderRegistryDataType[]
+export interface ISheetLoaderConfig {
   retry?: ISheetLoaderTestOptions
   debug?: boolean
 }
 
-export enum ISheetLoaderEvent {
+export interface ISheetLoaderOptions extends ISheetLoaderConfig {
+  registry?: LoaderRegistryDataType[]
+  ready?: Function
+  load?: LoaderRegistryDataType | LoaderRegistryDataType[]
+}
+
+export enum LoaderEvent {
   LOAD = 'load',
   LOAD_REJECT = 'load-reject',
   LOAD_ERROR = 'load-error',
@@ -33,26 +36,28 @@ export enum ISheetLoaderEvent {
 }
 
 export interface ILoaderEvent {
-  type: ISheetLoaderEvent
+  type: LoaderEvent
   target: ILoaderRegistryItem
   data?: any
   message?: string
 }
 
-export enum ISheetLoaderStatus {
+export enum LoaderStatus {
   IDLE,
   PENDING,
   STARTED,
-  LOADING,
+  LOADING
 }
 
 export interface ISheetLoaderStatic {
   registry: ILoaderRegistry
   // setConfig: (key: string, value: any) => void
   // getConfig: (key: string) => any
-  load(param?: LoaderRegistryDataType|LoaderRegistryDataType[]): ISheetLoaderStatic
+  load(
+    param?: LoaderRegistryDataType | LoaderRegistryDataType[]
+  ): ISheetLoaderStatic
   readonly ready: boolean
-  readonly status: ISheetLoaderStatus
+  readonly status: LoaderStatus
   reload(): ISheetLoaderStatic
   unload(): ISheetLoaderStatic
   reset(): ISheetLoaderStatic

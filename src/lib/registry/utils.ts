@@ -1,20 +1,18 @@
+import { LoaderRegistryDataType } from './interface'
 import {
-  LoaderRegistryDataType,
   ILoaderRegistryItem,
-  ILoaderRegistryItemData
-} from './interface'
-import {
-  isString, isNil,
-  isNumber, toNumber
-} from '../shared/lodash'
+  ILoaderRegistryItemData,
+  IRegistryItemUrlData
+} from './item'
+import { isString, isNil, isNumber, toNumber } from '../shared/lodash'
 
 /**
  * 인자가 문자열일 경우, ILoaderRegistryItemData 인터페이스로 캐스팅
  * @param param
  * @hidden
  */
-export function castLoaderRegistryItemData(
-  param: LoaderRegistryDataType
+export function castRegistryItemData(
+  param: LoaderRegistryDataType|IRegistryItemUrlData
 ): ILoaderRegistryItemData {
   if (isString(param)) {
     return { url: param }
