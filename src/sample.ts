@@ -53,7 +53,7 @@ $((): void => {
       console.log('ibsheet@8.0:', registry.info('ibsheet@8.0'))
     }
   })
-    .on('loaded', (evt: ILoaderEvent) => {
+    .once('loaded', (evt: ILoaderEvent) => {
       const { type, target } = evt
       console.log(`* LoderEvent.${type}:`, target.alias)
       switch (target.alias) {

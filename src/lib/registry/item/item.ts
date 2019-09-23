@@ -121,6 +121,7 @@ class LoaderRegistryItem extends EventEmitter implements ILoaderRegistryItem {
   load(options?: any): this {
     const target = this
     const eventTarget = { target }
+    this.emit(LoaderEvent.LOAD, eventTarget)
     asyncImportItemUrls
       .call(this, options)
       .then(() => {

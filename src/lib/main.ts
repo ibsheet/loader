@@ -106,6 +106,7 @@ class IBSheetLoader extends EventEmitter implements ISheetLoaderStatic {
       const options = pick(this._options, ['debug', 'retry'])
       return new Promise(resolve => {
         ;[
+          LoaderEvent.LOAD,
           LoaderEvent.LOADED,
           LoaderEvent.LOAD_REJECT,
           LoaderEvent.LOAD_ERROR
