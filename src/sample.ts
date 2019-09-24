@@ -1,6 +1,5 @@
 // tslint:disable:no-expression-statement
 import get from 'lodash/get'
-import { ISheetLoaderStatic, ILoaderEvent } from './lib/interface'
 
 import './assets/styles.scss'
 
@@ -9,7 +8,7 @@ $((): void => {
   const IBSHEET_BASEURL = '<IBSHEET_BASE_URL>'
   console.log('* jquery loaded:', `v${$.fn.jquery}`)
   const IBSheetLoader = get(window, 'IBSheetLoader')
-  const loader: ISheetLoaderStatic = new IBSheetLoader({
+  const options = {
     debug: true,
     retry: {
       intervalTime: 200
@@ -50,8 +49,9 @@ $((): void => {
       // console.log('font-awesome@5:', this.info('font-awesome@5'))
       // console.log('ibsheet@8.0:', this.info('ibsheet@8.0'))
     }
-  })
-    .on('loaded', (evt: ILoaderEvent) => {
+  }
+  const loader = new IBSheetLoader(options)
+    .on('loaded', (evt: any) => {
       const { type, target } = evt
       console.log(`%c* LoderEvent.${type}: ${target.alias}`, 'color: blue')
       switch (target.alias) {
@@ -62,7 +62,7 @@ $((): void => {
       }
       // }).load('font-awesome@solid')
     })
-    .once('load-complete', (evt: ILoaderEvent) => {
+    .once('load-complete', (evt: any) => {
       console.log('***** load complete *****')
       console.log(evt.data.map((item: any) => item.alias))
       console.log(evt.target.list())
@@ -85,5 +85,7 @@ $((): void => {
     .load('pretty-checkbox')
     .load('pretty-checkbox')
     .load('pretty-checkbox')
+
+  // confirm ibsheet-loader version
   console.log('* IBSheetLoader:', `v${loader.version}`)
 })

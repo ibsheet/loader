@@ -40,8 +40,8 @@ import {
 const DefaultOptions = {
   debug: false,
   retry: {
-    maxCount: LOAD_TEST_RETRY_INTERVAL,
-    intervalTime: LOAD_TEST_RETRY_MAX_COUNT
+    maxCount: LOAD_TEST_RETRY_MAX_COUNT,
+    intervalTime: LOAD_TEST_RETRY_INTERVAL
   }
 }
 
@@ -70,6 +70,7 @@ class IBSheetLoader extends EventEmitter implements ISheetLoaderStatic {
     documentReady(() => {
       this._ready = true
       const readyCallback = get(options, 'ready')
+      this._status = LoaderStatus.IDLE
       if (!isNil(readyCallback)) readyCallback.call(this)
     })
     return this
@@ -141,7 +142,7 @@ class IBSheetLoader extends EventEmitter implements ISheetLoaderStatic {
     Promise.all(asyncTasks)
       .then(items => {
         if (this.debug) {
-          console.log(`[IBSheetLoader] all done - ${now() - startTime}ms`)
+          console.log(`%c[IBSheetLoader] all done -- ${now() - startTime}ms`, 'color: violet')
         }
         this.emit(LoaderEvent.LOAD_COMPLETE, { target: this, data: items })
         this._status = LoaderStatus.IDLE

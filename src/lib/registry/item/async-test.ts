@@ -21,7 +21,7 @@ export function asyncItemTest(options: any): Promise<LoaderRegistryItem> {
         return resolve(self)
       }
       if (debug) {
-        console.warn(`"${self.alias}" is delayed (${nCount * INTERVAL_TIME}ms)`)
+        console.warn(`"${self.alias}" load delayed (${nCount * INTERVAL_TIME}ms)`)
       }
       nCount += 1
     }, INTERVAL_TIME)
