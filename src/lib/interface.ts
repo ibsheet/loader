@@ -1,6 +1,5 @@
 import {
-  ILoaderRegistry,
-  ILoaderRegistryItem,
+  LoaderRegistry,
   LoaderRegistryDataType
 } from './registry'
 
@@ -25,6 +24,7 @@ export enum LoaderEvent {
   LOAD_REJECT = 'load-reject',
   LOAD_ERROR = 'load-error',
   LOADED = 'loaded',
+  LOAD_COMPLETE = 'load-complete',
   CREATE = 'create',
   CREATE_ERROR = 'create-error',
   CREATED = 'created',
@@ -35,9 +35,15 @@ export enum LoaderEvent {
   UNLOADED = 'unloaded'
 }
 
+export interface IRegisteredItem {
+  alias: string
+  loaded: boolean
+  error?: any
+}
+
 export interface ILoaderEvent {
   type: LoaderEvent
-  target: ILoaderRegistryItem
+  target: any
   data?: any
   message?: string
 }
@@ -50,17 +56,18 @@ export enum LoaderStatus {
 }
 
 export interface ISheetLoaderStatic {
-  registry: ILoaderRegistry
+  registry: LoaderRegistry
   // setConfig: (key: string, value: any) => void
   // getConfig: (key: string) => any
+  list(): IRegisteredItem[]
   load(
     param?: LoaderRegistryDataType | LoaderRegistryDataType[]
-  ): ISheetLoaderStatic
+  ): this
   readonly ready: boolean
   readonly status: LoaderStatus
-  reload(): ISheetLoaderStatic
-  unload(): ISheetLoaderStatic
-  reset(): ISheetLoaderStatic
+  reload(): this
+  unload(): this
+  reset(): this
   // create
   // get
   // getIndexById

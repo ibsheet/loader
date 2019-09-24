@@ -22,9 +22,8 @@ const {
 })
 
 const {
-  DefinePlugin,
+  DefinePlugin
   // ProvidePlugin,
-  LoaderOptionsPlugin
 } = webpack
 
 const plugins = [
@@ -45,14 +44,6 @@ const plugins = [
     filename: `assets/${devMode ? '[name].css' : '[name].[hash].css'}`,
     chunkFilename: `assets/${devMode ? '[id].css' : '[id].[hash].css'}`,
     ignoreOrder: false // Enable to remove warnings about conflicting order
-  }),
-  new LoaderOptionsPlugin({
-    options: {
-      tslint: {
-        emitErrors: true,
-        failOnHint: true
-      }
-    }
   })
 ]
 

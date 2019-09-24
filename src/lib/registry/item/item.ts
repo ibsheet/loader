@@ -29,8 +29,9 @@ class LoaderRegistryItem extends EventEmitter implements ILoaderRegistryItem {
   private _name: string
   private _version: string | null
   private _urls: IRegistryItemURL[]
-  private _loadedValidator: Function | null
+  private _validate: Function | null
   private _loaded: boolean = false
+  error = null
 
   constructor(data: string | ILoaderRegistryItemData) {
     super()
@@ -76,7 +77,7 @@ class LoaderRegistryItem extends EventEmitter implements ILoaderRegistryItem {
     this.version = get(data, 'version', null)
 
     // test callback
-    this._loadedValidator = get(data, 'test', null)
+    this._validate = get(data, 'test', null)
 
     // id
     this._id = uuid()
@@ -110,8 +111,11 @@ class LoaderRegistryItem extends EventEmitter implements ILoaderRegistryItem {
   get urls(): IRegistryItemURL[] {
     return this._urls
   }
+  setValidator(fn: Function): void {
+    this._validate = fn
+  }
   test(): boolean {
-    const validator = this._loadedValidator
+    const validator = this._validate
     if (isNil(validator)) return true
     return validator.call(window)
   }
@@ -148,22 +152,24 @@ class LoaderRegistryItem extends EventEmitter implements ILoaderRegistryItem {
   }
 
   get raw(): ILoaderRegistryItemRawData {
-    return {
+    const raw = {
       id: this.id,
       urls: this.urls.map(url => url.value),
       name: this.name,
       version: this.version,
       alias: this.alias,
-      test: this._loadedValidator
+      validator: !isNil(this._validate)
     }
+    if (!isNil(this.error)) {
+      set(raw, 'error', this.error)
+    }
+    return raw
   }
   // @override
   public emit(event: string | symbol, ...args: any[]): boolean {
     return super.emit(event, assignIn({ type: event }, ...args))
   }
-  public toString = (): string => {
-    return this.alias
-  }
+  public toString = (): string => { return this.alias }
 }
 
 export { LoaderRegistryItem }

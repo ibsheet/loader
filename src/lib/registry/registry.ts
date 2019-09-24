@@ -1,10 +1,3 @@
-import { ILoaderRegistry, LoaderRegistryDataType } from './interface'
-import {
-  ILoaderRegistryItemUpdateData,
-  ILoaderRegistryItemData,
-  LoaderRegistryItem
-} from './item'
-import { generateVersion } from './utils'
 import {
   findIndex,
   keys,
@@ -16,6 +9,18 @@ import {
   includes,
   lastIndexOf
 } from '../shared/lodash'
+import {
+  IBSHEET,
+  IBSHEET_GLOBAL
+} from '../constant'
+import { ILoaderRegistry, LoaderRegistryDataType } from './interface'
+import {
+  ILoaderRegistryItemUpdateData,
+  ILoaderRegistryItemData,
+  LoaderRegistryItem
+} from './item'
+import { generateVersion } from './utils'
+
 import { EventEmitter } from 'events'
 
 class LoaderRegistry extends EventEmitter implements ILoaderRegistry {
@@ -45,6 +50,7 @@ class LoaderRegistry extends EventEmitter implements ILoaderRegistry {
         console.warn(err)
         return
       }
+
       const { alias, urls } = item.raw
       if (this.exists(alias)) {
         const tItem = this.get(alias) as LoaderRegistryItem
@@ -53,6 +59,12 @@ class LoaderRegistry extends EventEmitter implements ILoaderRegistry {
           return
         }
         item.version = generateVersion(item)
+      }
+      // IBSheet Default Validator
+      if (item.name === IBSHEET && !has(data, 'validate')) {
+        item.setValidator(() => {
+          return window[IBSHEET_GLOBAL] != null
+        })
       }
       res.push(item)
       self._list.push(item)

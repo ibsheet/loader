@@ -31,7 +31,7 @@ $((): void => {
         version: 8,
         url: 'https://cdn.jsdelivr.net/npm/sweetalert2@8',
         type: 'js',
-        test: () => window['Swal'] != null
+        validate: () => window['Swal'] != null
       },
       {
         name: 'ibsheet',
@@ -42,20 +42,18 @@ $((): void => {
           { url: 'css/default/main.css', target: 'head' },
           'locale/ko.js',
           `${IBSHEET_BASEURL}/v8/ibleaders.js`
-        ],
-        test: () => window['IBSheet'] != null
+        ]
       }
     ],
     ready: function() {
-      const registry = this.registry
-      console.log('registry list:', registry.list())
-      console.log('font-awesome@5:', registry.info('font-awesome@5'))
-      console.log('ibsheet@8.0:', registry.info('ibsheet@8.0'))
+      console.log('* registry list:', this.list())
+      // console.log('font-awesome@5:', this.info('font-awesome@5'))
+      // console.log('ibsheet@8.0:', this.info('ibsheet@8.0'))
     }
   })
-    .once('loaded', (evt: ILoaderEvent) => {
+    .on('loaded', (evt: ILoaderEvent) => {
       const { type, target } = evt
-      console.log(`* LoderEvent.${type}:`, target.alias)
+      console.log(`%c* LoderEvent.${type}: ${target.alias}`, 'color: blue')
       switch (target.alias) {
         case 'swal2@8':
           // const swal = window['Swal']
@@ -64,7 +62,28 @@ $((): void => {
       }
       // }).load('font-awesome@solid')
     })
-    .load(['font-awesome@5', 'swal2@8', 'ibsheet@8.0'])
+    .once('load-complete', (evt: ILoaderEvent) => {
+      console.log('***** load complete *****')
+      console.log(evt.data.map((item: any) => item.alias))
+      console.log(evt.target.list())
+    })
+    .load()
+    // .load(['font-awesome@5', 'swal2@8', 'ibsheet@8.0'])
 
+  // stress load test
+  loader
+    .load('asdads')
+    .load('asdsdfadfsdfs')
+    .load()
+    .load()
+    .load({
+      name: 'pretty-checkbox',
+      url: 'https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'
+    })
+    .load('ancd')
+    .load('pretty-checkbox')
+    .load('pretty-checkbox')
+    .load('pretty-checkbox')
+    .load('pretty-checkbox')
   console.log('* IBSheetLoader:', `v${loader.version}`)
 })

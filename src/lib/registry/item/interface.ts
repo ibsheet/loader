@@ -32,7 +32,8 @@ export interface ILoaderRegistryItemRawData {
   name: string
   version: string | null
   alias: string
-  test: Function | null
+  validator?: boolean
+  error?: any
 }
 
 export interface ILoaderRegistryItem {
@@ -44,7 +45,9 @@ export interface ILoaderRegistryItem {
   readonly loaded: boolean
   name: string
   version: string | null
+  error: any
   load(options?: any): this
   unload(options?: any): this
+  setValidator(fn: Function): void
   test(): boolean
 }
