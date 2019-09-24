@@ -50,7 +50,7 @@ const plugins = [
 const rules = [
   {
     enforce: 'pre',
-    test: /constant\.ts/,
+    test: /constant\/constant\.ts/,
     loader: 'string-replace-loader',
     options: {
       multiple: [
@@ -67,7 +67,7 @@ const rules = [
   },
   {
     enforce: 'pre',
-    test: /sample\.ts/,
+    test: /examples\/constant\.ts/,
     loader: 'string-replace-loader',
     options: {
       multiple: [

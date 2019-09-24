@@ -9,6 +9,7 @@ body {
   background-color: whitesmoke;
   border-radius: .25rem;
   color: #555;
+  position: relative;
   .title {
     padding: 0;
     margin: 0;
@@ -20,5 +21,13 @@ body {
     padding: 1rem;
     min-height: 5rem;
     overflow: hidden;
+  }
+  .test-ctrl {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    button[data-alias="on"]:hover {
+      background-color: #28a745
+    }
   }
 }

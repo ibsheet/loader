@@ -2,6 +2,7 @@ import {
   LoaderRegistry,
   LoaderRegistryDataType
 } from './registry'
+import { EventEmitter } from 'events';
 
 export interface ISheetLoaderTestOptions {
   maxCount?: number
@@ -55,7 +56,10 @@ export enum LoaderStatus {
   LOADING
 }
 
-export interface ISheetLoaderStatic {
+export interface ISheetLoaderStatic extends EventEmitter {
+  readonly ready: boolean
+  readonly status: LoaderStatus
+
   registry: LoaderRegistry
   // setConfig: (key: string, value: any) => void
   // getConfig: (key: string) => any
@@ -63,10 +67,9 @@ export interface ISheetLoaderStatic {
   load(
     param?: LoaderRegistryDataType | LoaderRegistryDataType[]
   ): this
-  readonly ready: boolean
-  readonly status: LoaderStatus
-  reload(): this
-  unload(): this
+  bind(events: string | symbol, listener: (...args: any[]) => void): this
+  reload(alias?: string): this
+  unload(alias?: string): this
   reset(): this
   // create
   // get

@@ -142,7 +142,7 @@ class IBSheetLoader extends EventEmitter implements ISheetLoaderStatic {
     Promise.all(asyncTasks)
       .then(items => {
         if (this.debug) {
-          console.log(`%c[IBSheetLoader] all done -- ${now() - startTime}ms`, 'color: violet')
+          console.log(`%c[IBSheetLoader] all done -- ${now() - startTime}ms`, 'color: green')
         }
         this.emit(LoaderEvent.LOAD_COMPLETE, { target: this, data: items })
         this._status = LoaderStatus.IDLE
@@ -171,6 +171,15 @@ class IBSheetLoader extends EventEmitter implements ISheetLoaderStatic {
   // @override
   public emit(event: string | symbol, ...args: any[]): boolean {
     return super.emit(event, assignIn({ type: event }, ...args))
+  }
+  bind(events: string | symbol, listener: (...args: any[]) => void): this {
+    if (isString(events) && events.indexOf(' ') > 0) {
+      events.split(' ').forEach(event => {
+        this.on(event, listener)
+      })
+      return this
+    }
+    return this.on(events, listener)
   }
   getOptions(sPath: string, def?: any): any {
     return get(this._options, sPath, def)
@@ -232,10 +241,12 @@ class IBSheetLoader extends EventEmitter implements ISheetLoaderStatic {
     documentReady(() => this._startTasks())
     return this
   }
-  reload(): this {
+  reload(_alias?: string): this {
+    console.log('reload:', _alias)
     return this
   }
-  unload(): this {
+  unload(_alias?: string): this {
+    console.log('unload:', _alias)
     return this
   }
   reset(): this {
