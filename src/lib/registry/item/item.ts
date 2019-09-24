@@ -22,6 +22,7 @@ import {
 } from './interface'
 import { RegistryItemURL } from './url'
 import { asyncImportItemUrls } from './async-load'
+import { asyncRemoveItemUrls } from './async-unload'
 import { asyncItemTest } from './async-test'
 
 class LoaderRegistryItem extends EventEmitter implements ILoaderRegistryItem {
@@ -123,9 +124,8 @@ class LoaderRegistryItem extends EventEmitter implements ILoaderRegistryItem {
     return this._loaded
   }
   load(options?: any): this {
-    const target = this
-    const eventTarget = { target }
-    this.emit(LoaderEvent.LOAD, eventTarget)
+    const eventData = { target: this }
+    this.emit(LoaderEvent.LOAD, eventData)
     asyncImportItemUrls
       .call(this, options)
       .then(() => {
@@ -135,19 +135,28 @@ class LoaderRegistryItem extends EventEmitter implements ILoaderRegistryItem {
           .then(() => {
             // item
             this._loaded = true
-            this.emit(LoaderEvent.LOADED, eventTarget)
+            this.emit(LoaderEvent.LOADED, eventData)
           })
           .catch(() => {
-            this.emit(LoaderEvent.LOAD_ERROR, eventTarget)
+            this.emit(LoaderEvent.LOAD_FAILED, eventData)
           })
       })
       .catch((err: any) => {
-        this.emit(LoaderEvent.LOAD_REJECT, assignIn(eventTarget, err))
+        this.emit(LoaderEvent.LOAD_REJECT, assignIn(eventData, err))
       })
     return this
   }
   unload(options?: any): this {
-    console.log(options)
+    const eventData = { target: this }
+    this.emit(LoaderEvent.UNLOAD, eventData)
+    asyncRemoveItemUrls
+      .call(this, options)
+      .then(() => {
+        this.emit(LoaderEvent.UNLOADED, eventData)
+      })
+      .catch((err: any) => {
+        this.emit(LoaderEvent.UNLOAD_FAILED, assignIn(eventData, err))
+      })
     return this
   }
 
@@ -158,6 +167,7 @@ class LoaderRegistryItem extends EventEmitter implements ILoaderRegistryItem {
       name: this.name,
       version: this.version,
       alias: this.alias,
+      loaded: this.loaded,
       validator: !isNil(this._validate)
     }
     if (!isNil(this.error)) {

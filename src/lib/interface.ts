@@ -23,16 +23,14 @@ export interface ISheetLoaderOptions extends ISheetLoaderConfig {
 export enum LoaderEvent {
   LOAD = 'load',
   LOAD_REJECT = 'load-reject',
-  LOAD_ERROR = 'load-error',
+  LOAD_FAILED = 'load-failed',
   LOADED = 'loaded',
   LOAD_COMPLETE = 'load-complete',
   CREATE = 'create',
-  CREATE_ERROR = 'create-error',
+  CREATE_FAILED = 'create-failed',
   CREATED = 'created',
-  REMOVE = 'remove',
-  REMOVE_ERROR = 'remove-error',
-  REMOVED = 'removed',
   UNLOAD = 'unload',
+  UNLOAD_FAILED = 'unload-failed',
   UNLOADED = 'unloaded'
 }
 
@@ -69,7 +67,7 @@ export interface ISheetLoaderStatic extends EventEmitter {
   ): this
   bind(events: string | symbol, listener: (...args: any[]) => void): this
   reload(alias?: string): this
-  unload(alias?: string): this
+  unload(alias?: string|string[]): this
   reset(): this
   // create
   // get

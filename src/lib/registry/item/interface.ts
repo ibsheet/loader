@@ -32,6 +32,7 @@ export interface ILoaderRegistryItemRawData {
   name: string
   version: string | null
   alias: string
+  loaded: boolean
   validator?: boolean
   error?: any
 }
