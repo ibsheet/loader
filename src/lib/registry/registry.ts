@@ -21,9 +21,9 @@ import {
 } from './item'
 import { generateVersion } from './utils'
 
-import { EventEmitter } from 'events'
+import { CustomEventEmitter } from '../custom'
 
-class LoaderRegistry extends EventEmitter implements ILoaderRegistry {
+class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
   private _list: LoaderRegistryItem[]
   constructor(params?: LoaderRegistryDataType | LoaderRegistryDataType[]) {
     super()

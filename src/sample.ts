@@ -21,19 +21,22 @@ $((): void => {
     })
     .once('load-complete', (evt: any) => {
       console.log('***** load complete *****')
-      console.log(evt.data.map((item: any) => item.alias))
-      console.log(evt.target.list())
+      console.log('%c[IBSheetLoader] Registered Items:', 'color:magenta', loader.list())
+      console.log('loaded items:', evt.data.map((item: any) => item.alias))
     })
 
   // init test-box controls
   initCtrls(loader)
 
+  console.log(`~~~~~~~~~~~~~ 1 ~~~~~~~~~~~~~`)
   loader.load()
 
+  console.log(`~~~~~~~~~~~~~ 2 ~~~~~~~~~~~~~`)
   // stress load test
   loader
     .load('asdads')
     .load('asdsdfadfsdfs')
+    .load()
     .load()
     .load()
     .load({

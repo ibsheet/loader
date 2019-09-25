@@ -13,7 +13,6 @@ import isArray from 'lodash/isArray'
 import castArray from 'lodash/castArray'
 import lastIndexOf from 'lodash/lastIndexOf'
 import keys from 'lodash/keys'
-import remove from 'lodash/remove'
 import includes from 'lodash/includes'
 import last from 'lodash/last'
 import assignIn from 'lodash/assignIn'
@@ -21,6 +20,7 @@ import defaults from 'lodash/defaults'
 import defaultsDeep from 'lodash/defaultsDeep'
 import trim from 'lodash/trim'
 import now from 'lodash/now'
+import remove from 'lodash/remove'
 
 export {
   get,

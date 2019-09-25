@@ -4,6 +4,8 @@ import {
   ILoaderRegistryItemUpdateData
 } from './item'
 
+import { CustomEventEmitter } from '../custom'
+
 export interface ILoaderRegistryAliasData {
   name: string
   version?: string
@@ -11,7 +13,7 @@ export interface ILoaderRegistryAliasData {
 
 export type LoaderRegistryDataType = string | ILoaderRegistryItemData
 
-export interface ILoaderRegistry {
+export interface ILoaderRegistry extends CustomEventEmitter {
   add(
     params: LoaderRegistryDataType | LoaderRegistryDataType[]
   ): LoaderRegistryItem | LoaderRegistryItem[] | null

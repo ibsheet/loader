@@ -43,7 +43,7 @@ export const loaderOptions = {
     }
   ],
   ready: function() {
-    console.log('* registry list:', this.list())
+    console.log('%c[IBSheetLoader] Registered Items:', 'color:magenta', this.list())
     // console.log('font-awesome@5:', this.info('font-awesome@5'))
     // console.log('ibsheet@8.0:', this.info('ibsheet@8.0'))
   }

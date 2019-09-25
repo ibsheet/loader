@@ -2,7 +2,7 @@ import {
   LoaderRegistry,
   LoaderRegistryDataType
 } from './registry'
-import { EventEmitter } from 'events';
+import { CustomEventEmitter } from './custom';
 
 export interface ISheetLoaderTestOptions {
   maxCount?: number
@@ -50,11 +50,10 @@ export interface ILoaderEvent {
 export enum LoaderStatus {
   IDLE,
   PENDING,
-  STARTED,
-  LOADING
+  WORKING
 }
 
-export interface ISheetLoaderStatic extends EventEmitter {
+export interface ISheetLoaderStatic extends CustomEventEmitter {
   readonly ready: boolean
   readonly status: LoaderStatus
 

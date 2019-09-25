@@ -1,6 +1,6 @@
 import uuid from 'uuid/v1'
-import { EventEmitter } from 'events'
 
+import { CustomEventEmitter } from '../../custom'
 import {
   get,
   set,
@@ -25,7 +25,7 @@ import { asyncImportItemUrls } from './async-load'
 import { asyncRemoveItemUrls } from './async-unload'
 import { asyncItemTest } from './async-test'
 
-class LoaderRegistryItem extends EventEmitter implements ILoaderRegistryItem {
+class LoaderRegistryItem extends CustomEventEmitter implements ILoaderRegistryItem {
   private _id: string
   private _name: string
   private _version: string | null

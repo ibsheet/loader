@@ -1,3 +1,5 @@
+import { CustomEventEmitter } from '../../custom'
+
 // export type RegistryItemUrlType = 'css'|'js'
 // export type RegistryItemUrlTarget = 'head'|'body'
 
@@ -37,7 +39,7 @@ export interface ILoaderRegistryItemRawData {
   error?: any
 }
 
-export interface ILoaderRegistryItem {
+export interface ILoaderRegistryItem extends CustomEventEmitter {
   readonly id: string
   readonly urls: IRegistryItemURL[]
   readonly alias: string
