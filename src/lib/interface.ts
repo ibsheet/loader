@@ -55,28 +55,17 @@ export enum LoaderStatus {
   WORKING
 }
 
-export interface ISheetLoaderStatic extends CustomEventEmitter {
+export interface IBSheetLoaderStatic extends CustomEventEmitter {
   readonly ready: boolean
   readonly status: LoaderStatus
-
   registry: LoaderRegistry
-  // setConfig: (key: string, value: any) => void
-  // getConfig: (key: string) => any
   list(): IRegisteredItem[]
   load(
     param?: LoaderRegistryDataType | LoaderRegistryDataType[]
   ): this
-  bind(events: string | symbol, listener: (...args: any[]) => void): this
+  createSheet(options: any): any
   reload(alias?: string): this
   unload(alias?: string|string[]): this
   reset(): this
-  // create
-  // get
-  // getIndexById
-  // getIdByIndex
-  // getList
-  // removeById
-  // removeByIndex
-  // removeAll
   version: string
 }

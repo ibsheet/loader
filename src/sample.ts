@@ -2,7 +2,8 @@
 import './examples/base'
 import {
   getLoaderInstance,
-  initTestBoxControls
+  initTestBoxControls,
+  IBSheetSampleData
 } from './examples'
 
 // document ready
@@ -28,31 +29,38 @@ $((): void => {
   // init test-box controls
   initTestBoxControls(loader)
 
-  // first load
-  console.log(`~~~~~~~~~~~~~ 1: first load ~~~~~~~~~~~~~`)
-  loader.load()
+  // ==================== first load ====================
+  // console.log(`~~~~~~~~~~~~~ 1: first load ~~~~~~~~~~~~~`)
+  // loader.load()
 
-  // load stress test
-  console.log(`~~~~~~~~~~~~~ 2: load stress test ~~~~~~~~~~~~~`)
-  loader
-    .load('asdads')
-    .load('asdsdfadfsdfs')
-    .load()
-    .load()
-    .load()
-    .load({
-      name: 'pretty-checkbox',
-      url: 'https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'
-    })
-    .load('ancd')
-    .load('pretty-checkbox')
-    .load('pretty-checkbox')
-    .load('pretty-checkbox')
-    .load('pretty-checkbox')
+  // ==================== load stress test ====================
+  // console.log(`~~~~~~~~~~~~~ 2: load stress test ~~~~~~~~~~~~~`)
+  // loader
+  //   .load('asdads')
+  //   .load('asdsdfadfsdfs')
+  //   .load()
+  //   .load()
+  //   .load()
+  //   .load({
+  //     name: 'pretty-checkbox',
+  //     url: 'https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'
+  //   })
+  //   .load('ancd')
+  //   .load('pretty-checkbox')
+  //   .load('pretty-checkbox')
+  //   .load('pretty-checkbox')
+  //   .load('pretty-checkbox')
 
-  // load another library
-  console.log(`~~~~~~~~~~~~~ 3: load another libraries ~~~~~~~~~~~~~`)
-  loader.load(['font-awesome', 'swal2'])
+  // ==================== load another library ====================
+  // console.log(`~~~~~~~~~~~~~ 3: load another libraries ~~~~~~~~~~~~~`)
+  // loader.load(['font-awesome', 'swal2'])
+
+  // ==================== create ibsheet ====================
+  console.log(`~~~~~~~~~~~~~ 4: create ibsheet ~~~~~~~~~~~~~`)
+  const options = IBSheetSampleData[0]
+
+  loader.createSheet(options)
+
 
   // confirm ibsheet-loader version
   console.log('* IBSheetLoader:', `v${loader.version}`)

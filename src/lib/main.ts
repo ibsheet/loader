@@ -35,7 +35,7 @@ import {
 import {
   ISheetLoaderOptions,
   ISheetLoaderConfig,
-  ISheetLoaderStatic,
+  IBSheetLoaderStatic,
   IRegisteredItem,
   LoaderStatus
 } from './interface'
@@ -51,7 +51,7 @@ const DefaultOptions = {
 /**
  * IBSheetLoader Main Class
  */
-class IBSheetLoader extends CustomEventEmitter implements ISheetLoaderStatic {
+class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
   private _status: LoaderStatus = LoaderStatus.PENDING
   private _ready: boolean = false
   private _loadTaskMan: LoaderTaskManager
@@ -183,6 +183,11 @@ class IBSheetLoader extends CustomEventEmitter implements ISheetLoaderStatic {
     taskMan.start()
     return this
   }
+
+  createSheet(_options?: any): any {
+    return
+  }
+
   reload(_alias?: string): this {
     console.log('reload:', _alias)
     return this

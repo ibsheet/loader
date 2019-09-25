@@ -1,7 +1,7 @@
 import find from 'lodash/find'
 import isNil from 'lodash/isNil'
 import get from 'lodash/get'
-import { ISheetLoaderStatic } from '../lib'
+import { IBSheetLoaderStatic } from '../lib'
 
 const ALIAS_FONTAWESOME = 'font-awesome@5'
 const ALIAS_SWEETALERT = 'swal2@8'
@@ -68,7 +68,7 @@ function updateTestBoxControls(alias: string, bool: boolean) {
     ])
 }
 
-export function initTestBoxControls(loader: ISheetLoaderStatic) {
+export function initTestBoxControls(loader: IBSheetLoaderStatic) {
   loader.bind('loaded unloaded', evt => {
     const { alias, loaded } = evt.target.raw
     updateTestBoxControls(alias, loaded)
