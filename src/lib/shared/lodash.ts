@@ -21,6 +21,7 @@ import defaultsDeep from 'lodash/defaultsDeep'
 import trim from 'lodash/trim'
 import now from 'lodash/now'
 import remove from 'lodash/remove'
+import bind from 'lodash/bind'
 
 export {
   get,
@@ -45,5 +46,6 @@ export {
   remove,
   includes,
   last,
-  assignIn
+  assignIn,
+  bind
 }

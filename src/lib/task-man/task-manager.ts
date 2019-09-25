@@ -8,24 +8,30 @@ import {
   pick, remove
 } from '../shared/lodash'
 
+import { LoaderTaskType } from './interface'
+import {
+  getTaskEventsByType,
+  isResolveTaskEvent
+} from './utils'
+
 export class LoaderTaskManager extends CustomEventEmitter {
-  private _name: string
+  private _type: LoaderTaskType
   private _stack: LoaderRegistryItem[]
   private _wipList: LoaderRegistryItem[]
   private _working: boolean = false
   private _reserved: number = 0
   private _options: any
 
-  constructor(name: string, options?: any) {
+  constructor(type: LoaderTaskType, options?: any) {
     super()
-    this._name = name;
+    this._type = type;
     this._stack = []
     this._wipList = []
     this._options = options || {}
   }
 
   get working(): boolean { return this._working }
-  get name(): string { return this._name }
+  get type(): LoaderTaskType { return this._type }
   get debug(): boolean { return get(this._options, 'debug', false) }
   get reserved(): boolean { return this._reserved > 0 }
   private reserveJobs(): void {
@@ -87,26 +93,25 @@ export class LoaderTaskManager extends CustomEventEmitter {
     while(this._stack.length) {
       item = this.newWipItem(this._stack.shift())
       if (isNil(item) || item.loaded) continue
-      console.log(`%c[TMAN.start] ${item.alias}`, 'color:royalblue')
+      if (this.debug) {
+        console.log(`%c[${this.type}.start] ${item.alias}`, 'color:royalblue')
+      }
       const eventData = { target: item }
       this.emit(LoaderEvent.LOAD, eventData)
       const options = pick(this._options, ['debug', 'retry'])
+      const eventList = getTaskEventsByType(this.type)
       const task = new Promise(resolve => {
-        ;[
-          LoaderEvent.LOAD,
-          LoaderEvent.LOADED,
-          LoaderEvent.LOAD_REJECT,
-          LoaderEvent.LOAD_FAILED
-        ].forEach(event => {
+        ;eventList.forEach(event => {
           item.once(event, (evt: any) => {
             this.emit(event, eventData)
-            if (event !== LoaderEvent.LOAD) {
+            if (isResolveTaskEvent(event)) {
               this.resolveWipItem(evt.target)
               resolve(evt.target)
             }
           })
         })
-        item.load(options)
+        const taskHandler = item[this.type]
+        taskHandler.call(item, options)
       })
       asyncTasks.push(task)
     }
@@ -114,7 +119,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
     Promise.all(asyncTasks)
       .then(items => {
         if (this.debug) {
-          console.log(`%c[IBSheetLoader] ${this.name} tasks all done -- ${now() - startTime}ms`, 'color: green')
+          console.log(`%c[IBSheetLoader] ${this.type} tasks all done -- ${now() - startTime}ms`, 'color: green')
         }
         this.emit(LoaderEvent.LOAD_COMPLETE, { target: this, data: items })
         this._working = false

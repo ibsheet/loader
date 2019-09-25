@@ -11,10 +11,15 @@ import {
   isString,
   pick,
   defaultsDeep,
+  bind,
   isArray
 } from './shared/lodash'
 import { documentReady } from './shared/dom-utils'
-import { LoaderTaskManager } from './task-man'
+import {
+  LoaderTaskManager,
+  createTaskManager,
+  LoaderTaskType,
+} from './task-man'
 
 // import { double, power } from './number'
 import {
@@ -32,8 +37,7 @@ import {
   ISheetLoaderConfig,
   ISheetLoaderStatic,
   IRegisteredItem,
-  LoaderStatus,
-  LoaderEvent
+  LoaderStatus
 } from './interface'
 
 const DefaultOptions = {
@@ -51,8 +55,9 @@ class IBSheetLoader extends CustomEventEmitter implements ISheetLoaderStatic {
   private _status: LoaderStatus = LoaderStatus.PENDING
   private _ready: boolean = false
   private _loadTaskMan: LoaderTaskManager
-  // private _unloadTaskMan: LoaderTaskManager
+  private _unloadTaskMan: LoaderTaskManager
   private _options: ISheetLoaderConfig
+
   registry: LoaderRegistry
   constructor(options?: ISheetLoaderOptions) {
     super()
@@ -63,8 +68,7 @@ class IBSheetLoader extends CustomEventEmitter implements ISheetLoaderStatic {
     this._options = loaderOpts
     const regOpts = get(options, 'registry')
     this.registry = new LoaderRegistry(regOpts)
-    this._initLoadTaskMan(loaderOpts)
-    // this._unloadTaskMan = new LoaderTaskManager('unload', loaderOpts)
+    this._initTasksManagers(loaderOpts)
     this._ready = true
     this._status = LoaderStatus.IDLE
 
@@ -96,18 +100,11 @@ class IBSheetLoader extends CustomEventEmitter implements ISheetLoaderStatic {
     }
     return items[0]
   }
-  private _initLoadTaskMan(options?: any): void {
-    const taskMan = new LoaderTaskManager('load', options)
-    ;[
-      LoaderEvent.LOAD,
-      LoaderEvent.LOADED,
-      LoaderEvent.LOAD_REJECT,
-      LoaderEvent.LOAD_FAILED,
-      LoaderEvent.LOAD_COMPLETE
-    ].forEach(event => {
-      taskMan.on(event, evt => this.emit(event, evt))
-    })
-    this._loadTaskMan = taskMan
+
+  private _initTasksManagers(options?: any): void {
+    const createTaskMan = bind(createTaskManager, this)
+    this._loadTaskMan = createTaskMan(LoaderTaskType.LOAD, options)
+    this._unloadTaskMan = createTaskMan(LoaderTaskType.UNLOAD, options)
   }
 
   getOptions(sPath: string, def?: any): any {
@@ -191,14 +188,56 @@ class IBSheetLoader extends CustomEventEmitter implements ISheetLoaderStatic {
     return this
   }
   unload(params?: string | string[]): this {
+    const registry = this.registry
+    const taskMan = this._unloadTaskMan
+
+    // prepend default library
     const sheetLib = this._getDefaultSheetLib()
     const { alias: defaultAlias } = sheetLib.raw
-    if (isNil(params)) {
-      if (!sheetLib.loaded) return this
-      params = [defaultAlias]
+    if (sheetLib.loaded && !taskMan.exists(sheetLib)) {
+      if (isNil(params)) {
+        params = [defaultAlias]
+      } else if (isString(params) && params.indexOf('ibsheet') < 0 || !isArray(params)) {
+        params = [defaultAlias, params]
+      } else if (!params.filter(t => isString(t) && t.indexOf('ibsheet') >= 0).length) {
+        params.unshift(defaultAlias)
+      }
     }
 
-    if (isNil(params)) return this
+    // no action
+    if (isNil(params)) {
+      return this
+    }
+
+    // add load tasks
+    const tasks = castArray(params).map(data => {
+      let item: any
+      if (isString(data)) {
+        item = registry.get(data)
+      }
+      // todo: support json type
+      if (isNil(item)) {
+        console.warn(`invalid paramater: ${data}`)
+        return
+      }
+
+      if (!item.loaded) {
+        if (this.debug) {
+          console.warn(`already unloaded library: ${item.alias}`)
+        }
+        return
+      }
+
+      return taskMan.add(item)
+    }).filter(Boolean)
+
+    if (!tasks.length) {
+      return this
+    }
+    // console.log('@@@', tasks.map((o: any) => o.alias))
+
+    // start remove library
+    taskMan.start()
     return this
   }
   reset(): this {

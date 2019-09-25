@@ -26,12 +26,14 @@ export enum LoaderEvent {
   LOAD_FAILED = 'load-failed',
   LOADED = 'loaded',
   LOAD_COMPLETE = 'load-complete',
+  UNLOAD = 'unload',
+  UNLOAD_REJECT = 'unload-reject',
+  UNLOAD_FAILED = 'unload-failed',
+  UNLOADED = 'unloaded',
+  UNLOAD_COMPLETE = 'unload-complete',
   CREATE = 'create',
   CREATE_FAILED = 'create-failed',
   CREATED = 'created',
-  UNLOAD = 'unload',
-  UNLOAD_FAILED = 'unload-failed',
-  UNLOADED = 'unloaded'
 }
 
 export interface IRegisteredItem {
