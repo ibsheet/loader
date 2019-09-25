@@ -37,8 +37,8 @@ export class LoaderTaskManager extends CustomEventEmitter {
   private reserveJobs(): void {
     this._reserved += 1
   }
-  private resolveJobs(): void {
-    // console.log(`%c[TMAN.resolveJobs] ${this._reserved}`, 'background-color:red;color:white')
+  private _resolveJobs(): void {
+    // console.log(`%c[TMAN._resolveJobs] ${this._reserved}`, 'background-color:red;color:white')
     if (this.reserved) {
       this._reserved -= 1
       if (this._stack.length) {
@@ -46,20 +46,23 @@ export class LoaderTaskManager extends CustomEventEmitter {
       }
     }
   }
-  private newWipItem(item?: LoaderRegistryItem): LoaderRegistryItem|null {
+  private _newWipItem(item?: LoaderRegistryItem): LoaderRegistryItem|null {
     if (isNil(item)) return null
     // console.log(`%c[WIP]: ${item.alias}`, 'background-color:royalblue;color:white')
     this._wipList.push(item)
     return item
   }
-  private resolveWipItem(item: LoaderRegistryItem): LoaderRegistryItem {
+  private _resolveWipItem(item: LoaderRegistryItem): LoaderRegistryItem {
     remove(this._wipList, o => o.id === item.id)
     return item
   }
+  private _checkIgnoreItem(item: LoaderRegistryItem): boolean {
+    return this.type === LoaderTaskType.LOAD ? item.loaded : !item.loaded
+  }
   add(item: LoaderRegistryItem, immediatly: boolean = false): LoaderRegistryItem | null {
-    if (item.loaded) {
+    if (this._checkIgnoreItem(item)) {
       if (this.debug) {
-        console.warn(`"${item.alias}" is already loaded`)
+        console.warn(`"${item.alias}" is already ${this.type}ed`)
       }
       return null
     }
@@ -91,8 +94,8 @@ export class LoaderTaskManager extends CustomEventEmitter {
     const asyncTasks = []
     let item: any
     while(this._stack.length) {
-      item = this.newWipItem(this._stack.shift())
-      if (isNil(item) || item.loaded) continue
+      item = this._newWipItem(this._stack.shift())
+      if (isNil(item) || this._checkIgnoreItem(item)) continue
       if (this.debug) {
         console.log(`%c[${this.type}.start] ${item.alias}`, 'color:royalblue')
       }
@@ -105,7 +108,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
           item.once(event, (evt: any) => {
             this.emit(event, eventData)
             if (isResolveTaskEvent(event)) {
-              this.resolveWipItem(evt.target)
+              this._resolveWipItem(evt.target)
               resolve(evt.target)
             }
           })
@@ -123,7 +126,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
         }
         this.emit(LoaderEvent.LOAD_COMPLETE, { target: this, data: items })
         this._working = false
-        this.resolveJobs()
+        this._resolveJobs()
       })
       .catch((err: any) => {
         this.emit(LoaderEvent.LOAD_FAILED, err)

@@ -194,14 +194,8 @@ class IBSheetLoader extends CustomEventEmitter implements ISheetLoaderStatic {
     // prepend default library
     const sheetLib = this._getDefaultSheetLib()
     const { alias: defaultAlias } = sheetLib.raw
-    if (sheetLib.loaded && !taskMan.exists(sheetLib)) {
-      if (isNil(params)) {
-        params = [defaultAlias]
-      } else if (isString(params) && params.indexOf('ibsheet') < 0 || !isArray(params)) {
-        params = [defaultAlias, params]
-      } else if (!params.filter(t => isString(t) && t.indexOf('ibsheet') >= 0).length) {
-        params.unshift(defaultAlias)
-      }
+    if (sheetLib.loaded && !taskMan.exists(sheetLib) && isNil(params)) {
+      params = [defaultAlias]
     }
 
     // no action
@@ -234,7 +228,7 @@ class IBSheetLoader extends CustomEventEmitter implements ISheetLoaderStatic {
     if (!tasks.length) {
       return this
     }
-    // console.log('@@@', tasks.map((o: any) => o.alias))
+    // console.log('@@@ unload', tasks.map((o: any) => o.alias))
 
     // start remove library
     taskMan.start()

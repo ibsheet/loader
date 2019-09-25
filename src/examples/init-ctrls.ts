@@ -69,7 +69,6 @@ function updateTestBoxControls(alias: string, bool: boolean) {
 export function initCtrls(loader: ISheetLoaderStatic) {
   loader.bind('loaded unloaded', evt => {
     const { alias, loaded } = evt.target.raw
-    console.log(alias, loaded)
     updateTestBoxControls(alias, loaded)
   }).list().forEach(data => {
     const { alias, loaded } = data

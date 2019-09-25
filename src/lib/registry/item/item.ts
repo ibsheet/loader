@@ -152,6 +152,7 @@ class LoaderRegistryItem extends CustomEventEmitter implements ILoaderRegistryIt
     asyncRemoveItemUrls
       .call(this, options)
       .then(() => {
+        this._loaded = false
         this.emit(LoaderEvent.UNLOADED, eventData)
       })
       .catch((err: any) => {
