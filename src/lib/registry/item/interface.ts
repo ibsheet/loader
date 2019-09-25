@@ -17,11 +17,17 @@ export interface IRegistryItemURL {
   target: string
 }
 
-export interface ILoaderRegistryItemUpdateData extends IRegistryItemUrlData {
+export interface ILoaderRegistryItemOptions {
+  validate?: Function | null
+  load?: Function | null
+  unload?: Function | null
+  dependentUrls?: string[]
+}
+
+export interface ILoaderRegistryItemUpdateData extends IRegistryItemUrlData, ILoaderRegistryItemOptions {
   name?: string
   version?: string | null
   urls?: IRegistryItemURL[]
-  test?: Function | null
 }
 
 export interface ILoaderRegistryItemData extends ILoaderRegistryItemUpdateData {
@@ -35,7 +41,6 @@ export interface ILoaderRegistryItemRawData {
   version: string | null
   alias: string
   loaded: boolean
-  validator?: boolean
   error?: any
 }
 
@@ -51,6 +56,6 @@ export interface ILoaderRegistryItem extends CustomEventEmitter {
   error: any
   load(options?: any): this
   unload(options?: any): this
-  setValidator(fn: Function): void
+  setOption(name: string, value: any): void
   test(): boolean
 }

@@ -94,11 +94,11 @@ class IBSheetLoader extends CustomEventEmitter implements ISheetLoaderStatic {
   get status(): LoaderStatus { return this._status }
 
   private _getDefaultSheetLib(): LoaderRegistryItem {
-    const items = this.registry.getAll('ibsheet')
-    if (!items.length) {
+    const item = this.registry.findOne('ibsheet')
+    if (isNil(item)) {
       throw new Error('undefined ibsheet library')
     }
-    return items[0]
+    return item
   }
 
   private _initTasksManagers(options?: any): void {
@@ -154,7 +154,7 @@ class IBSheetLoader extends CustomEventEmitter implements ISheetLoaderStatic {
         }
         // check exists registry
         else {
-          item = registry.get(data)
+          item = registry.findOne(data)
         }
       } else {
         item = registry.add(data) as LoaderRegistryItem

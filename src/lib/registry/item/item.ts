@@ -17,6 +17,7 @@ import {
   ILoaderRegistryItem,
   ILoaderRegistryItemData,
   ILoaderRegistryItemRawData,
+  ILoaderRegistryItemOptions,
   IRegistryItemUrlData,
   IRegistryItemURL
 } from './interface'
@@ -30,8 +31,8 @@ class LoaderRegistryItem extends CustomEventEmitter implements ILoaderRegistryIt
   private _name: string
   private _version: string | null
   private _urls: IRegistryItemURL[]
-  private _validate: Function | null
   private _loaded: boolean = false
+  private _options: ILoaderRegistryItemOptions
   error = null
 
   constructor(data: string | ILoaderRegistryItemData) {
@@ -77,8 +78,11 @@ class LoaderRegistryItem extends CustomEventEmitter implements ILoaderRegistryIt
     // version
     this.version = get(data, 'version', null)
 
-    // test callback
-    this._validate = get(data, 'test', null)
+    // event options
+    this._options = pick(data, [
+      'validate', 'load', 'unload',
+      'dependentUrls'
+    ])
 
     // id
     this._id = uuid()
@@ -112,11 +116,19 @@ class LoaderRegistryItem extends CustomEventEmitter implements ILoaderRegistryIt
   get urls(): IRegistryItemURL[] {
     return this._urls
   }
-  setValidator(fn: Function): void {
-    this._validate = fn
+  private _customEventHandle(name: string, ...args: any[]) {
+    const fn = this.getOption(name)
+    if (isNil(fn)) return
+    fn.apply(this, args)
+  }
+  getOption(name: string, def?: any) {
+    return get(this._options, name, def)
+  }
+  setOption(name: string, value: any): void {
+    set(this._options, name, value)
   }
   test(): boolean {
-    const validator = this._validate
+    const validator = this.getOption('validate')
     if (isNil(validator)) return true
     return validator.call(window)
   }
@@ -136,6 +148,10 @@ class LoaderRegistryItem extends CustomEventEmitter implements ILoaderRegistryIt
             // item
             this._loaded = true
             this.emit(LoaderEvent.LOADED, eventData)
+            this._customEventHandle('load', {
+              type: LoaderEvent.LOADED,
+              target: this
+            })
           })
           .catch(() => {
             this.emit(LoaderEvent.LOAD_FAILED, eventData)
@@ -154,6 +170,10 @@ class LoaderRegistryItem extends CustomEventEmitter implements ILoaderRegistryIt
       .then(() => {
         this._loaded = false
         this.emit(LoaderEvent.UNLOADED, eventData)
+        this._customEventHandle('unload', {
+          type: LoaderEvent.UNLOADED,
+          target: this
+        })
       })
       .catch((err: any) => {
         this.emit(LoaderEvent.UNLOAD_FAILED, assignIn(eventData, err))
@@ -168,8 +188,7 @@ class LoaderRegistryItem extends CustomEventEmitter implements ILoaderRegistryIt
       name: this.name,
       version: this.version,
       alias: this.alias,
-      loaded: this.loaded,
-      validator: !isNil(this._validate)
+      loaded: this.loaded
     }
     if (!isNil(this.error)) {
       set(raw, 'error', this.error)

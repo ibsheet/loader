@@ -6,6 +6,7 @@ import { ISheetLoaderStatic } from '../lib'
 const ALIAS_FONTAWESOME = 'font-awesome@5'
 const ALIAS_SWEETALERT = 'swal2@8'
 const ALIAS_PRETTYCHKBOX = 'pretty-checkbox'
+const ALIAS_IBSHEET = 'ibsheet@8.0'
 
 const DEACTIVE_CLASS = 'btn-outline-secondary'
 const controlsData = [
@@ -19,6 +20,7 @@ const controlsData = [
   }
 ]
 const testBoxList = [
+  { alias: ALIAS_IBSHEET, selector: '#ibsheet.test-box' },
   { alias: ALIAS_FONTAWESOME, selector: '#fa.test-box' },
   { alias: ALIAS_SWEETALERT, selector: '#swal.test-box' },
   { alias: ALIAS_PRETTYCHKBOX, selector: '#pcheckbox.test-box' },
@@ -66,7 +68,7 @@ function updateTestBoxControls(alias: string, bool: boolean) {
     ])
 }
 
-export function initCtrls(loader: ISheetLoaderStatic) {
+export function initTestBoxControls(loader: ISheetLoaderStatic) {
   loader.bind('loaded unloaded', evt => {
     const { alias, loaded } = evt.target.raw
     updateTestBoxControls(alias, loaded)
@@ -74,6 +76,7 @@ export function initCtrls(loader: ISheetLoaderStatic) {
     const { alias, loaded } = data
     updateTestBoxControls(alias, loaded)
   })
+
   // init test-box
   testBoxList.forEach(data => {
     const { alias, selector } = data
@@ -105,6 +108,7 @@ export function initCtrls(loader: ISheetLoaderStatic) {
         }
       })
     })
+
     $('<div/>', {
       class: 'test-ctrl btn-group'
     }).append(ctrlBtns)

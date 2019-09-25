@@ -6,11 +6,11 @@ import isNil from 'lodash/isNil'
 import { loaderOptions } from './loader-options'
 
 let ibsheetLoader: any
-export function getLoader(options?: any) {
+export function getLoaderInstance(options?: any) {
   if (!isNil(ibsheetLoader)) return ibsheetLoader
   const IBSheetLoader = get(window, 'IBSheetLoader')
   ibsheetLoader = new IBSheetLoader(assignIn(loaderOptions, options))
   return ibsheetLoader
 }
 
-export default getLoader
+export default getLoaderInstance

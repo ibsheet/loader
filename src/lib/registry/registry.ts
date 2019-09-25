@@ -61,10 +61,17 @@ class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
         item.version = generateVersion(item)
       }
       // IBSheet Default Validator
-      if (item.name === IBSHEET && !has(data, 'validate')) {
-        item.setValidator(() => {
-          return window[IBSHEET_GLOBAL] != null
-        })
+      if (item.name === IBSHEET) {
+        if (!has(data, 'validate')) {
+          item.setOption('validate', () => {
+            return window[IBSHEET_GLOBAL] != null
+          })
+        }
+        if (!has(data, 'unload')) {
+          item.setOption('unload', () => {
+            return window[IBSHEET_GLOBAL] = undefined
+          })
+        }
       }
       res.push(item)
       self._list.push(item)
@@ -94,6 +101,11 @@ class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
       }
       return item.name === query
     })
+  }
+  findOne(query: string): LoaderRegistryItem | null {
+    const items = this.getAll(query)
+    if (items.length) return items[0]
+    return null
   }
   getIndexByAlias(alias: string): number {
     return findIndex(this._list, { alias })

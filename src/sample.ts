@@ -1,13 +1,13 @@
 // tslint:disable:no-expression-statement
 import './examples/base'
 import {
-  getLoader,
-  initCtrls
+  getLoaderInstance,
+  initTestBoxControls
 } from './examples'
 
 // document ready
 $((): void => {
-  const loader = getLoader()
+  const loader = getLoaderInstance()
     .on('loaded', (evt: any) => {
       const { type, target } = evt
       console.log(`%c* LoderEvent.${type}: ${target.alias}`, 'color: blue')
@@ -20,19 +20,20 @@ $((): void => {
       // }).load('font-awesome@solid')
     })
     .once('load-complete', (evt: any) => {
-      console.log('***** load complete *****')
+      console.log('***** loader first load tasks all done *****')
       console.log('%c[IBSheetLoader] Registered Items:', 'color:magenta', loader.list())
       console.log('loaded items:', evt.data.map((item: any) => item.alias))
     })
 
   // init test-box controls
-  initCtrls(loader)
+  initTestBoxControls(loader)
 
-  console.log(`~~~~~~~~~~~~~ 1 ~~~~~~~~~~~~~`)
+  // first load
+  console.log(`~~~~~~~~~~~~~ 1: first load ~~~~~~~~~~~~~`)
   loader.load()
 
-  console.log(`~~~~~~~~~~~~~ 2 ~~~~~~~~~~~~~`)
-  // stress load test
+  // load stress test
+  console.log(`~~~~~~~~~~~~~ 2: load stress test ~~~~~~~~~~~~~`)
   loader
     .load('asdads')
     .load('asdsdfadfsdfs')
@@ -48,6 +49,10 @@ $((): void => {
     .load('pretty-checkbox')
     .load('pretty-checkbox')
     .load('pretty-checkbox')
+
+  // load another library
+  console.log(`~~~~~~~~~~~~~ 3: load another libraries ~~~~~~~~~~~~~`)
+  loader.load(['font-awesome', 'swal2'])
 
   // confirm ibsheet-loader version
   console.log('* IBSheetLoader:', `v${loader.version}`)

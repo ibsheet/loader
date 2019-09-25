@@ -24,6 +24,7 @@ export interface ILoaderRegistry extends CustomEventEmitter {
   exists(alias: string): boolean
   info(alias: string): string
   getAll(alias: string): LoaderRegistryItem[] | []
+  findOne(alias: string): LoaderRegistryItem | null
   getIndexByAlias(alias: string): number
   update(alias: string, data: ILoaderRegistryItemUpdateData): void
 }

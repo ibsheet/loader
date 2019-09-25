@@ -22,6 +22,7 @@ import trim from 'lodash/trim'
 import now from 'lodash/now'
 import remove from 'lodash/remove'
 import bind from 'lodash/bind'
+import concat from 'lodash/concat'
 
 export {
   get,
@@ -47,5 +48,6 @@ export {
   includes,
   last,
   assignIn,
-  bind
+  bind,
+  concat
 }

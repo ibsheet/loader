@@ -80,3 +80,8 @@ export function removeElemById(id: string): HTMLElement | null {
   elem.parentElement.removeChild(elem)
   return elem
 }
+
+export function getElementsByTagName(tagName: string): HTMLElement[] {
+  const elems = document.getElementsByTagName(tagName)
+  return Array.prototype.slice.call(elems, 0)
+}

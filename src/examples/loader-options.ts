@@ -19,11 +19,20 @@ const fontAwesome = {
   url: 'https://kit.fontawesome.com/21c0a510fd.js',
   version: 5,
   target: 'head',
-  dependency: [
+  dependentUrls: [
     'https://kit-free.fontawesome.com/releases/latest/css/free-v4-shims.min.css',
     'https://kit-free.fontawesome.com/releases/latest/css/free-v4-font-face.min.css',
     'https://kit-free.fontawesome.com/releases/latest/css/free.min.css'
   ]
+}
+
+const swal2 = {
+  name: 'swal2',
+  version: 8,
+  url: 'https://cdn.jsdelivr.net/npm/sweetalert2@8',
+  type: 'js',
+  validate: () => window['Swal'] != null,
+  unload: () => window['Swal'] = undefined
 }
 
 export const loaderOptions = {
@@ -34,13 +43,7 @@ export const loaderOptions = {
   registry: [
     ibsheetJs,
     fontAwesome,
-    {
-      name: 'swal2',
-      version: 8,
-      url: 'https://cdn.jsdelivr.net/npm/sweetalert2@8',
-      type: 'js',
-      validate: () => window['Swal'] != null
-    }
+    swal2
   ],
   ready: function() {
     console.log('%c[IBSheetLoader] Registered Items:', 'color:magenta', this.list())
