@@ -7,6 +7,8 @@ export interface IRegistryItemUrlData {
   url?: string
   type?: string
   target?: string
+  urls?: IRegistryItemURL[]
+  baseUrl?: string
 }
 
 export interface IRegistryItemURL {
@@ -17,21 +19,20 @@ export interface IRegistryItemURL {
   target: string
 }
 
-export interface ILoaderRegistryItemOptions {
+export interface IRegistryItemEventOptions {
   validate?: Function | null
   load?: Function | null
   unload?: Function | null
   dependentUrls?: string[]
 }
 
-export interface ILoaderRegistryItemUpdateData extends IRegistryItemUrlData, ILoaderRegistryItemOptions {
-  name?: string
-  version?: string | null
-  urls?: IRegistryItemURL[]
+export interface ILoaderRegistryItemUpdateData extends IRegistryItemUrlData, IRegistryItemEventOptions {
+  // any others
 }
 
 export interface ILoaderRegistryItemData extends ILoaderRegistryItemUpdateData {
-  urls?: IRegistryItemURL[]
+  name?: string
+  version?: string | null
 }
 
 export interface ILoaderRegistryItemRawData {
@@ -56,6 +57,8 @@ export interface ILoaderRegistryItem extends CustomEventEmitter {
   error: any
   load(options?: any): this
   unload(options?: any): this
-  setOption(name: string, value: any): void
+  getEventOption(name: string, def?: any): any
+  setEventOption(name: string, value: any): void
+  update(data: any): void
   test(): boolean
 }

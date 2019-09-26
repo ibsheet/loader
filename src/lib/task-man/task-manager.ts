@@ -1,12 +1,14 @@
-import { CustomEventEmitter } from '../custom'
-import { LoaderRegistryItem } from '../registry'
-
-import { LoaderEvent } from '../interface'
 import { documentReady } from '../shared/dom-utils'
 import {
   get, find, isNil, now,
   pick, remove
 } from '../shared/lodash'
+
+import { CustomEventEmitter } from '../custom'
+import { LoaderRegistryItem } from '../registry'
+import {
+  LoaderEvent, ISheetLoaderConfig
+} from '../interface'
 
 import { LoaderTaskType } from './interface'
 import {
@@ -20,14 +22,14 @@ export class LoaderTaskManager extends CustomEventEmitter {
   private _wipList: LoaderRegistryItem[]
   private _working: boolean = false
   private _reserved: number = 0
-  private _options: any
+  private _options: ISheetLoaderConfig
 
-  constructor(type: LoaderTaskType, options?: any) {
+  constructor(type: LoaderTaskType, uberOptions?: ISheetLoaderConfig) {
     super()
     this._type = type;
     this._stack = []
     this._wipList = []
-    this._options = options || {}
+    this._options = uberOptions || {}
   }
 
   get working(): boolean { return this._working }

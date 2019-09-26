@@ -2,6 +2,7 @@
 import './examples/base'
 import {
   getLoaderInstance,
+  // loaderOptions,
   initTestBoxControls,
   IBSheetSampleData
 } from './examples'
@@ -9,22 +10,24 @@ import {
 // document ready
 $((): void => {
   const loader = getLoaderInstance()
-    .on('loaded', (evt: any) => {
-      const { type, target } = evt
-      console.log(`%c* LoderEvent.${type}: ${target.alias}`, 'color: blue')
-      switch (target.alias) {
-        case 'swal2@8':
-          // const swal = window['Swal']
-          // swal.fire('awesome library!')
-          break
-      }
-      // }).load('font-awesome@solid')
-    })
-    .once('load-complete', (evt: any) => {
-      console.log('***** loader first load tasks all done *****')
-      console.log('%c[IBSheetLoader] Registered Items:', 'color:magenta', loader.list())
-      console.log('loaded items:', evt.data.map((item: any) => item.alias))
-    })
+  // loader.config(loaderOptions)
+  // loader
+  //   .on('loaded', (evt: any) => {
+  //     const { type, target } = evt
+  //     console.log(`%c* LoderEvent.${type}: ${target.alias}`, 'color: blue')
+  //     switch (target.alias) {
+  //       case 'swal2@8':
+  //         // const swal = window['Swal']
+  //         // swal.fire('awesome library!')
+  //         break
+  //     }
+  //     // }).load('font-awesome@solid')
+  //   })
+  //   .once('load-complete', (evt: any) => {
+  //     console.log('***** loader first load tasks all done *****')
+  //     console.log('%c[IBSheetLoader] Registered Items:', 'color:magenta', loader.list())
+  //     console.log('loaded items:', evt.data.map((item: any) => item.alias))
+  //   })
 
   // init test-box controls
   initTestBoxControls(loader)

@@ -9,7 +9,9 @@ import {
   castArray,
   pick,
   trim,
-  assignIn
+  defaultsDeep,
+  assignIn,
+  isEmpty
 } from '../../shared/lodash'
 import { castRegistryItemData } from '../utils'
 import { LoaderEvent } from '../../interface'
@@ -17,7 +19,7 @@ import {
   ILoaderRegistryItem,
   ILoaderRegistryItemData,
   ILoaderRegistryItemRawData,
-  ILoaderRegistryItemOptions,
+  IRegistryItemEventOptions,
   IRegistryItemUrlData,
   IRegistryItemURL
 } from './interface'
@@ -32,39 +34,19 @@ class LoaderRegistryItem extends CustomEventEmitter implements ILoaderRegistryIt
   private _version: string | null
   private _urls: IRegistryItemURL[]
   private _loaded: boolean = false
-  private _options: ILoaderRegistryItemOptions
+  private _urlOptions: IRegistryItemUrlData
+  private _evtOptions: IRegistryItemEventOptions
   error = null
 
   constructor(data: string | ILoaderRegistryItemData) {
     super()
     data = castRegistryItemData(data)
 
-    const hasUrl = has(data, 'url')
-    const hasUrls = has(data, 'urls')
-    if (!hasUrl && !hasUrls) {
+    this.update(data)
+
+    if (isNil(this.urls)) {
       throw new Error('required "url" or "urls" property')
     }
-
-    if (hasUrl && hasUrls) {
-      console.warn('ignore "url" property, cannot be used with the "urls"')
-    }
-
-    const urls: any = get(data, 'urls', pick(data, ['url', 'target', 'type']))
-    const baseUrl = get(data, 'baseUrl')
-    this._urls = castArray(urls).map(_data => {
-      _data = castRegistryItemData(_data) as IRegistryItemUrlData
-      const { url } = _data
-      if (!isNil(baseUrl) && !/^\w+:\/\//.test(url)) {
-        set(
-          _data,
-          'url',
-          [trim(baseUrl).replace(/\/$/, ''), trim(url).replace(/^\//, '')].join(
-            '/'
-          )
-        )
-      }
-      return new RegistryItemURL(_data)
-    })
 
     // name
     const firstUrl = this.urls[0]
@@ -77,12 +59,6 @@ class LoaderRegistryItem extends CustomEventEmitter implements ILoaderRegistryIt
 
     // version
     this.version = get(data, 'version', null)
-
-    // event options
-    this._options = pick(data, [
-      'validate', 'load', 'unload',
-      'dependentUrls'
-    ])
 
     // id
     this._id = uuid()
@@ -116,19 +92,94 @@ class LoaderRegistryItem extends CustomEventEmitter implements ILoaderRegistryIt
   get urls(): IRegistryItemURL[] {
     return this._urls
   }
+
+  get raw(): ILoaderRegistryItemRawData {
+    const raw = {
+      id: this.id,
+      urls: this.urls.map(url => url.value),
+      name: this.name,
+      version: this.version,
+      alias: this.alias,
+      loaded: this.loaded
+    }
+    if (!isNil(this.error)) {
+      set(raw, 'error', this.error)
+    }
+    return raw
+  }
+
   private _customEventHandle(name: string, ...args: any[]) {
-    const fn = this.getOption(name)
+    const fn = this.getEventOption(name)
     if (isNil(fn)) return
     fn.apply(this, args)
   }
-  getOption(name: string, def?: any) {
-    return get(this._options, name, def)
+
+  private _setUrls(data: ILoaderRegistryItemData) {
+    const targetOpts = pick(data, [
+      'baseUrl',
+      'url',
+      'type',
+      'target',
+      'urls',
+    ])
+    if (isEmpty(targetOpts)) {
+      return
+    }
+    const options = defaultsDeep(targetOpts, this._urlOptions)
+    const hasUrl = has(options, 'url')
+    const hasUrls = has(options, 'urls')
+
+    if (hasUrl && hasUrls) {
+      console.warn('ignore "url" property, cannot be used with the "urls"')
+    }
+
+    const urls: any = get(options, 'urls', pick(options, ['url', 'target', 'type']))
+    const baseUrl = get(options, 'baseUrl')
+    this._urls = castArray(urls).map(_data => {
+      _data = castRegistryItemData(_data) as IRegistryItemUrlData
+      const { url } = _data
+      if (!isNil(baseUrl) && !/^\w+:\/\//.test(url)) {
+        set(
+          _data,
+          'url',
+          [trim(baseUrl).replace(/\/$/, ''), trim(url).replace(/^\//, '')].join(
+            '/'
+          )
+        )
+      }
+      return new RegistryItemURL(_data)
+    })
+    this._urlOptions = options
   }
-  setOption(name: string, value: any): void {
-    set(this._options, name, value)
+
+  private _setEventOptions(data: ILoaderRegistryItemData) {
+    const targetOpts = pick(data, [
+      'validate',
+      'load',
+      'unload',
+      'dependentUrls'
+    ])
+    if (isEmpty(targetOpts)) {
+      return
+    }
+    this._evtOptions = defaultsDeep(targetOpts, this._evtOptions)
   }
+  getEventOption(name: string, def?: any): any {
+    return get(this._evtOptions, name, def)
+  }
+  setEventOption(name: string, value: any): void {
+    set(this._evtOptions, name, value)
+  }
+
+  update(data: any): void {
+    if (isNil(data)) return
+    data = castRegistryItemData(data)
+    this._setUrls(data)
+    this._setEventOptions(data)
+  }
+
   test(): boolean {
-    const validator = this.getOption('validate')
+    const validator = this.getEventOption('validate')
     if (isNil(validator)) return true
     return validator.call(window)
   }
@@ -181,20 +232,6 @@ class LoaderRegistryItem extends CustomEventEmitter implements ILoaderRegistryIt
     return this
   }
 
-  get raw(): ILoaderRegistryItemRawData {
-    const raw = {
-      id: this.id,
-      urls: this.urls.map(url => url.value),
-      name: this.name,
-      version: this.version,
-      alias: this.alias,
-      loaded: this.loaded
-    }
-    if (!isNil(this.error)) {
-      set(raw, 'error', this.error)
-    }
-    return raw
-  }
   // @override
   public emit(event: string | symbol, ...args: any[]): boolean {
     return super.emit(event, assignIn({ type: event }, ...args))

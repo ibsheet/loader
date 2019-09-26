@@ -12,6 +12,7 @@ import {
   pick,
   defaultsDeep,
   bind,
+  clone,
   isArray
 } from './shared/lodash'
 import { documentReady } from './shared/dom-utils'
@@ -33,7 +34,6 @@ import {
   LoaderRegistryItem
 } from './registry'
 import {
-  ISheetLoaderOptions,
   ISheetLoaderConfig,
   IBSheetLoaderStatic,
   IRegisteredItem,
@@ -59,24 +59,15 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
   private _options: ISheetLoaderConfig
 
   registry: LoaderRegistry
-  constructor(options?: ISheetLoaderOptions) {
+  constructor() {
     super()
-    const loaderOpts = defaultsDeep(
-      pick(options, ['debug', 'retry']),
-      DefaultOptions
-    )
-    this._options = loaderOpts
-    const regOpts = get(options, 'registry')
-    this.registry = new LoaderRegistry(regOpts)
-    this._initTasksManagers(loaderOpts)
-    this._ready = true
-    this._status = LoaderStatus.IDLE
-
+    const opts = clone(DefaultOptions)
+    this._options = opts
+    this.registry = new LoaderRegistry()
+    this._initTasksManagers(opts)
     documentReady(() => {
       this._ready = true
-      const readyCallback = get(options, 'ready')
       this._status = LoaderStatus.IDLE
-      if (!isNil(readyCallback)) readyCallback.call(this)
     })
     return this
   }
@@ -105,6 +96,20 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
     const createTaskMan = bind(createTaskManager, this)
     this._loadTaskMan = createTaskMan(LoaderTaskType.LOAD, options)
     this._unloadTaskMan = createTaskMan(LoaderTaskType.UNLOAD, options)
+  }
+
+  config(options?: ISheetLoaderConfig) {
+    const loaderOpts = pick(options, ['debug', 'retry'])
+    this._options = defaultsDeep(loaderOpts, this._options)
+    const regOpts = get(options, 'registry')
+    if (!isNil(regOpts)) {
+      this.registry.add(regOpts, true)
+    }
+    const readyCallback = get(options, 'ready')
+    if (!isNil(readyCallback)) {
+      documentReady(() => readyCallback.call(this))
+    }
+    return this
   }
 
   getOptions(sPath: string, def?: any): any {
@@ -255,9 +260,11 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
 // fn.double = double
 // fn.power = power
 
+const loaderInstance = new IBSheetLoader()
+
 // set global variable
 if (!has(window, APP_GLOBAL)) {
-  set(window, APP_GLOBAL, IBSheetLoader)
+  set(window, APP_GLOBAL, loaderInstance)
 }
 
-export default IBSheetLoader
+export default loaderInstance

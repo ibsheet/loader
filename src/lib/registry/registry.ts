@@ -1,8 +1,6 @@
 import {
   findIndex,
-  keys,
   has,
-  set,
   isNil,
   castArray,
   remove,
@@ -25,20 +23,17 @@ import { CustomEventEmitter } from '../custom'
 
 class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
   private _list: LoaderRegistryItem[]
-  constructor(params?: LoaderRegistryDataType | LoaderRegistryDataType[]) {
+  constructor() {
     super()
-    const self = this
     this._list = []
-    if (!isNil(params)) {
-      self.add(params)
-    }
     return this
   }
   get length(): number {
     return this._list.length
   }
   add(
-    params: LoaderRegistryDataType | LoaderRegistryDataType[]
+    params: LoaderRegistryDataType | LoaderRegistryDataType[],
+    orUpdate: boolean = false
   ): LoaderRegistryItem | LoaderRegistryItem[] | null {
     const self = this
     const res: LoaderRegistryItem[] = []
@@ -52,9 +47,12 @@ class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
       }
 
       const { alias, urls } = item.raw
-      if (this.exists(alias)) {
-        const tItem = this.get(alias) as LoaderRegistryItem
-        if (tItem.raw.urls[0] === urls[0]) {
+      const existItem = this.get('alias')
+      if (!isNil(existItem)) {
+        if (orUpdate) {
+          return existItem.update(data)
+        }
+        else if (existItem.raw.urls[0] === urls[0]) {
           console.warn(`ignore duplicate script "${alias}"`)
           return
         }
@@ -63,12 +61,12 @@ class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
       // IBSheet Default Validator
       if (item.name === IBSHEET) {
         if (!has(data, 'validate')) {
-          item.setOption('validate', () => {
+          item.setEventOption('validate', () => {
             return window[IBSHEET_GLOBAL] != null
           })
         }
         if (!has(data, 'unload')) {
-          item.setOption('unload', () => {
+          item.setEventOption('unload', () => {
             return window[IBSHEET_GLOBAL] = undefined
           })
         }
@@ -113,11 +111,7 @@ class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
   update(alias: string, data: ILoaderRegistryItemUpdateData) {
     const item = this.get(alias)
     if (isNil(item)) return
-    keys(data).forEach(key => {
-      if (has(item, key)) {
-        set(item, key, data[key])
-      }
-    })
+    item.update(data)
   }
   remove(alias: string): void | LoaderRegistryItem | LoaderRegistryItem[] {
     const items = this.getAll(alias)

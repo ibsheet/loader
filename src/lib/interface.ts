@@ -4,17 +4,14 @@ import {
 } from './registry'
 import { CustomEventEmitter } from './custom';
 
-export interface ISheetLoaderTestOptions {
+export interface ISheetLoaderValidateOptions {
   maxCount?: number
   intervalTime?: number
 }
 
 export interface ISheetLoaderConfig {
-  retry?: ISheetLoaderTestOptions
+  retry?: ISheetLoaderValidateOptions
   debug?: boolean
-}
-
-export interface ISheetLoaderOptions extends ISheetLoaderConfig {
   registry?: LoaderRegistryDataType[]
   ready?: Function
   load?: LoaderRegistryDataType | LoaderRegistryDataType[]
@@ -59,6 +56,7 @@ export interface IBSheetLoaderStatic extends CustomEventEmitter {
   readonly ready: boolean
   readonly status: LoaderStatus
   registry: LoaderRegistry
+  config(options: ISheetLoaderConfig): this
   list(): IRegisteredItem[]
   load(
     param?: LoaderRegistryDataType | LoaderRegistryDataType[]
