@@ -1,16 +1,16 @@
 import { documentReady } from '../shared/dom-utils'
 import {
-  get, find, isNil, now,
-  pick, remove
+  find, isNil, now, remove
 } from '../shared/lodash'
 
 import { CustomEventEmitter } from '../custom'
 import { LoaderRegistryItem } from '../registry'
-import {
-  LoaderEvent, ISheetLoaderConfig
-} from '../interface'
+import { LoaderEvent, IBSheetLoaderStatic } from '../interface'
 
-import { LoaderTaskType } from './interface'
+import {
+  LoaderTaskType,
+  ITaskManagerOptions,
+} from './interface'
 import {
   getTaskEventsByType,
   isResolveTaskEvent
@@ -22,23 +22,27 @@ export class LoaderTaskManager extends CustomEventEmitter {
   private _wipList: LoaderRegistryItem[]
   private _working: boolean = false
   private _reserved: number = 0
-  private _options: ISheetLoaderConfig
+  private _uber: IBSheetLoaderStatic
 
-  constructor(type: LoaderTaskType, uberOptions?: ISheetLoaderConfig) {
+  constructor(type: LoaderTaskType, uber: IBSheetLoaderStatic) {
     super()
     this._type = type;
     this._stack = []
     this._wipList = []
-    this._options = uberOptions || {}
+    this._uber = uber
   }
 
   get working(): boolean { return this._working }
   get type(): LoaderTaskType { return this._type }
-  get debug(): boolean { return get(this._options, 'debug', false) }
-  get reserved(): boolean { return this._reserved > 0 }
-  private reserveJobs(): void {
-    this._reserved += 1
+  get debug(): boolean { return this._uber.debug }
+  get options(): ITaskManagerOptions {
+    return {
+      debug: this.debug,
+      retry: this._uber.getOption('retry')
+    }
   }
+  get reserved(): boolean { return this._reserved > 0 }
+  private _reserveJobs(): void { this._reserved += 1 }
   private _resolveJobs(): void {
     // console.log(`%c[TMAN._resolveJobs] ${this._reserved}`, 'background-color:red;color:white')
     if (this.reserved) {
@@ -88,7 +92,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
   }
   private _start(): void {
     if (this.working) {
-      this.reserveJobs()
+      this._reserveJobs()
       return
     }
     this._working = true
@@ -103,7 +107,6 @@ export class LoaderTaskManager extends CustomEventEmitter {
       }
       const eventData = { target: item }
       this.emit(LoaderEvent.LOAD, eventData)
-      const options = pick(this._options, ['debug', 'retry'])
       const eventList = getTaskEventsByType(this.type)
       const task = new Promise(resolve => {
         ;eventList.forEach(event => {
@@ -116,7 +119,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
           })
         })
         const taskHandler = item[this.type]
-        taskHandler.call(item, options)
+        taskHandler.call(item, this.options)
       })
       asyncTasks.push(task)
     }

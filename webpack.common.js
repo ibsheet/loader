@@ -11,7 +11,7 @@ const { get } = require('lodash')
 const pkg = require('./package.json')
 
 const nodeEnv = process.env.NODE_ENV || 'development'
-const devMode = nodeEnv === 'development'
+const isDevMode = nodeEnv === 'development'
 
 const {
   filename: OUTPUT_FILE,
@@ -41,8 +41,8 @@ const plugins = [
     template: 'index.hbs'
   }),
   new MiniCssExtractPlugin({
-    filename: `assets/${devMode ? '[name].css' : '[name].[hash].css'}`,
-    chunkFilename: `assets/${devMode ? '[id].css' : '[id].[hash].css'}`,
+    filename: `assets/${isDevMode ? '[name].css' : '[name].[hash].css'}`,
+    chunkFilename: `assets/${isDevMode ? '[id].css' : '[id].[hash].css'}`,
     ignoreOrder: false // Enable to remove warnings about conflicting order
   })
 ]
@@ -87,7 +87,7 @@ const rules = [
         loader: 'awesome-typescript-loader',
         options: {
           // https://github.com/s-panferov/awesome-typescript-loader#loader-options
-          configFileName: 'tsconfig.webpack.json'
+          configFileName: !isDevMode ? 'tsconfig.webpack.json' : 'tsconfig.webpack.dev.json'
         }
       },
       'source-map-loader'
@@ -103,7 +103,7 @@ const rules = [
         loader: MiniCssExtractPlugin.loader,
         options: {
           // only enable hot in development
-          hmr: devMode
+          hmr: isDevMode
           // if hmr does not work, this is a forceful method
           // reloadAll: true
         }
@@ -149,8 +149,8 @@ const config = {
   },
   plugins,
   optimization: {
-    minimize: !devMode
-    // minimizer: !devMode ? [
+    minimize: !isDevMode
+    // minimizer: !isDevMode ? [
     //   new TerserJSPlugin({}),
     //   new OptimizeCSSAssetsPlugin({})
     // ] : []

@@ -58,6 +58,7 @@ class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
         }
         item.version = generateVersion(item)
       }
+
       // IBSheet Default Validator
       if (item.name === IBSHEET) {
         if (!has(data, 'validate')) {
@@ -100,10 +101,10 @@ class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
       return item.name === query
     })
   }
-  findOne(query: string): LoaderRegistryItem | null {
+  findOne(query: string): LoaderRegistryItem | undefined {
     const items = this.getAll(query)
     if (items.length) return items[0]
-    return null
+    return
   }
   getIndexByAlias(alias: string): number {
     return findIndex(this._list, { alias })

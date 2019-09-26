@@ -13,8 +13,9 @@ import {
   assignIn,
   isEmpty
 } from '../../shared/lodash'
-import { castRegistryItemData } from '../utils'
 import { LoaderEvent } from '../../interface'
+
+import { castRegistryItemData } from '../utils'
 import {
   ILoaderRegistryItem,
   ILoaderRegistryItemData,
@@ -50,12 +51,13 @@ class LoaderRegistryItem extends CustomEventEmitter implements ILoaderRegistryIt
 
     // name
     const firstUrl = this.urls[0]
-    this.name = get(data, 'name', firstUrl.basename)
-    if (isNil(this.name) || !this.name.length) {
+    const name = get(data, 'name', firstUrl.basename)
+    if (isNil(name) || !name.length) {
       throw new Error(
-        `invalid url or required name property: ${firstUrl.value}`
+        `required name property, not found from url: ${firstUrl.value}`
       )
     }
+    this.name = trim(name)
 
     // version
     this.version = get(data, 'version', null)

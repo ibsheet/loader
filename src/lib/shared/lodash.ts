@@ -15,6 +15,7 @@ import isEmpty from 'lodash/isEmpty'
 import isNil from 'lodash/isNil'
 import isNumber from 'lodash/isNumber'
 import isString from 'lodash/isString'
+import isObject from 'lodash/isObject'
 import keys from 'lodash/keys'
 import last from 'lodash/last'
 import lastIndexOf from 'lodash/lastIndexOf'
@@ -44,6 +45,7 @@ export {
   isNil,
   isNumber,
   isString,
+  isObject,
   keys,
   last,
   lastIndexOf,

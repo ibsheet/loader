@@ -6,7 +6,7 @@ import { IBSheetLoaderStatic } from '../lib'
 const ALIAS_FONTAWESOME = 'font-awesome@5'
 const ALIAS_SWEETALERT = 'swal2@8'
 const ALIAS_PRETTYCHKBOX = 'pretty-checkbox'
-const ALIAS_IBSHEET = 'ibsheet@8.0'
+const ALIAS_IBSHEET = 'ibsheet'
 
 const DEACTIVE_CLASS = 'btn-outline-secondary'
 const controlsData = [

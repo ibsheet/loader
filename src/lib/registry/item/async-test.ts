@@ -2,7 +2,7 @@ import { get } from '../../shared/lodash'
 import {
   LOAD_TEST_RETRY_INTERVAL,
   LOAD_TEST_RETRY_MAX_COUNT
-} from '../../constant'
+} from '../../config'
 import { LoaderRegistryItem } from './item'
 
 export function asyncItemTest(options: any): Promise<LoaderRegistryItem> {

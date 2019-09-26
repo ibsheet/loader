@@ -2,15 +2,15 @@ import {
   IBSHEET_BASEURL
 } from './constant'
 
-const ibsheetJs = {
+export const ibseetLibData = {
   name: 'ibsheet',
-  version: '8.0',
+  // version: '8.0',
   baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`,
   urls: [
     'ibsheet.js',
     { url: 'css/default/main.css', target: 'head' },
     'locale/ko.js',
-    `${IBSHEET_BASEURL}/v8/ibleaders.js`
+    // `${IBSHEET_BASEURL}/v8/ibleaders.js`
   ]
 }
 
@@ -41,7 +41,7 @@ export const loaderOptions = {
     intervalTime: 200
   },
   registry: [
-    ibsheetJs,
+    ibseetLibData,
     fontAwesome,
     swal2
   ],
