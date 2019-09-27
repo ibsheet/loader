@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * default options ([f7875c0](https://github.com/ibsheet/loader/commit/f7875c0))
-* not change item stuats of unload processing ([f4a7e47](https://github.com/ibsheet/loader/commit/f4a7e47))
+* not change item status of unload processing ([f4a7e47](https://github.com/ibsheet/loader/commit/f4a7e47))
 
 
 ### Features
