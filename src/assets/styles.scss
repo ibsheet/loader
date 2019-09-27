@@ -7,9 +7,27 @@ body {
   margin: 1em;
   padding: 1em;
   background-color: whitesmoke;
+  border-radius: .25rem;
   color: #555;
+  position: relative;
   .title {
     padding: 0;
     margin: 0;
+  }
+  .test-body {
+    background-color: #EEE;
+    border: 1px dashed #CCC;
+    margin: 1rem 0;
+    padding: 1rem;
+    min-height: 5rem;
+    overflow: hidden;
+  }
+  .test-ctrl {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    button[data-alias="on"]:hover {
+      background-color: #28a745
+    }
   }
 }

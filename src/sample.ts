@@ -1,54 +1,104 @@
-// tslint:disable:no-expression-statement
-import get from 'lodash/get'
+/** tslint:disable:no-expression-statement no-unused-variable */
+import './examples/base'
 import {
-  ISheetLoaderStatic,
-  ILoaderEvent
-} from './lib/interface'
-
-import './assets/styles.scss'
+  getLoaderInstance,
+  ibseetLibData,
+  loaderOptions,
+  initTestBoxControls,
+  IBSheetSampleData
+} from './examples'
 
 // document ready
 $((): void => {
-  console.log('* jquery loaded:', `v${$.fn.jquery}`)
-  const IBSheetLoader = get(window, 'IBSheetLoader')
-  const loader: ISheetLoaderStatic = new IBSheetLoader({
-    debug: true,
-    retry: {
-      intervalTime: 100
-    },
-    registry: [
-      {
-        name: 'font-awesome',
-        url: 'https://kit.fontawesome.com/21c0a510fd.js',
-        version: 5,
-        target: 'head'
-      },
-      {
-        name: 'swal2',
-        version: 8,
-        url: 'https://cdn.jsdelivr.net/npm/sweetalert2@8',
-        type: 'js',
-        test: () => window['Swal'] != null
-      }
-    ],
-    ready: function() {
-      console.log('registry list:', this.registry.list())
-    }
-  }).on('loaded', (evt: ILoaderEvent) => {
-    const { type, target } = evt
-    console.log(`* LoderEvent.${type}:`, target.alias)
-    switch (target.alias) {
-      case 'swal2@8':
-        // const swal = window['Swal']
-        // swal.fire('awesome library!')
-        break
-    }
-  // }).load('font-awesome@solid')
-  }).load([
-    'font-awesome@5',
-    'swal2@8'
-  ])
+  const loader = getLoaderInstance()
 
+  // console.log(`==================== 1: SET CONFIG ====================`)
+  // loader.config({ debug: true })
+  loader.config(loaderOptions)
+
+  // console.log(`==================== 2: ADD EVENT LISTENER ====================`)
+  loader
+    .on('loaded', (evt: any) => {
+      const { type, target } = evt
+      console.log(`%c* LoderEvent.${type}: ${target.alias}`, 'color: blue')
+      switch (target.alias) {
+        case 'swal2@8':
+          // const swal = window['Swal']
+          // swal.fire('awesome library!')
+          break
+      }
+      // }).load('font-awesome@solid')
+    })
+    .on('unloaded', (evt: any) => {
+      const { type, target } = evt
+      console.log(`%c* LoderEvent.${type}: ${target.alias}`, 'color: red')
+    })
+    .once('load-complete', (evt: any) => {
+      console.log(
+        '%c***** (once) load tasks all done *****',
+        'background-color:blue;color:white'
+      )
+      console.log(
+        '%c[IBSheetLoader] Registered Items:',
+        'color:magenta',
+        loader.list()
+      )
+      console.log('loaded items:', evt.data.map((item: any) => item.alias))
+    })
+
+  // console.log(`==================== 3: SETUP TEST-BOX CONTROLS ====================`)
+  // init test-box controls
+  initTestBoxControls(loader)
+
+  console.log(
+    `==================== 4-1: FIRST LOAD (registry) ====================`
+  )
+  loader.load()
+
+  console.log(
+    `==================== 4-2: FIRST LOAD (immediatly) ====================`
+  )
+  // loader.load(555555)
+  loader.load(ibseetLibData)
+  // loader.load('aaaaaaaa')
+  // loader.load(7777)
+
+  console.log(`==================== 5: LOAD STRESS TEST ====================`)
+  loader
+    .load('asdads')
+    .load('asdsdfadfsdfs')
+    .load()
+    .load()
+    .load()
+    .load({
+      name: 'pretty-checkbox',
+      url:
+        'https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'
+    })
+    .load('pretty-checkbox')
+    .load('ancd')
+    .load('pretty-checkbox')
+    .load('pretty-checkbox')
+    .load('pretty-checkbox')
+
+  // console.log(`==================== 6: LOAD ANOTHER LIBRARIES ====================`)
+  // loader.load(['font-awesome', 'swal2'])
+
+  console.log(`==================== 7: CREATE IBSHEET ====================`)
+  const options = IBSheetSampleData[0]
+  loader.createSheet(options)
+
+  // console.log(`==================== 8: RELOAD TEST ====================`)
+  // loader.once('loaded', function (evt: any) {
+  //   console.log('%c** reload default library', 'background-color: yellow')
+  //   const target = evt.target
+  //   switch (target.alias) {
+  //     case 'ibsheet':
+  //       this.reload()
+  //       break
+  //   }
+  // })
+
+  // confirm ibsheet-loader version
   console.log('* IBSheetLoader:', `v${loader.version}`)
-  console.log(loader.registry.info('font-awesome@5'))
 })

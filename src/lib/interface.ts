@@ -1,68 +1,53 @@
-import {
-  ILoaderRegistry,
-  ILoaderRegistryItem,
-  LoaderRegistryDataType
-} from './registry'
+import { LoaderRegistry } from './registry'
+import { ISheetLoaderConfig } from './config'
+import { CustomEventEmitter } from './custom'
 
-export interface ISheetLoaderTestOptions {
-  maxCount?: number
-  intervalTime?: number
-}
-
-export interface ISheetLoaderOptions {
-  registry?: LoaderRegistryDataType[]
-  ready?: Function
-  load?: LoaderRegistryDataType|LoaderRegistryDataType[]
-  retry?: ISheetLoaderTestOptions
-  debug?: boolean
-}
-
-export enum ISheetLoaderEvent {
+export enum LoaderEvent {
   LOAD = 'load',
   LOAD_REJECT = 'load-reject',
-  LOAD_ERROR = 'load-error',
+  LOAD_FAILED = 'load-failed',
   LOADED = 'loaded',
-  CREATE = 'create',
-  CREATE_ERROR = 'create-error',
-  CREATED = 'created',
-  REMOVE = 'remove',
-  REMOVE_ERROR = 'remove-error',
-  REMOVED = 'removed',
+  LOAD_COMPLETE = 'load-complete',
   UNLOAD = 'unload',
-  UNLOADED = 'unloaded'
+  UNLOAD_REJECT = 'unload-reject',
+  UNLOAD_FAILED = 'unload-failed',
+  UNLOADED = 'unloaded',
+  UNLOAD_COMPLETE = 'unload-complete',
+  CREATE = 'create',
+  CREATE_FAILED = 'create-failed',
+  CREATED = 'created'
 }
 
+export interface IRegisteredItem {
+  alias: string
+  loaded: boolean
+  error?: any
+}
 export interface ILoaderEvent {
-  type: ISheetLoaderEvent
-  target: ILoaderRegistryItem
+  type: LoaderEvent
+  target: any
   data?: any
   message?: string
 }
 
-export enum ISheetLoaderStatus {
+export enum LoaderStatus {
   IDLE,
   PENDING,
-  STARTED,
-  LOADING,
+  WORKING
 }
 
-export interface ISheetLoaderStatic {
-  registry: ILoaderRegistry
-  // setConfig: (key: string, value: any) => void
-  // getConfig: (key: string) => any
-  load(param?: LoaderRegistryDataType|LoaderRegistryDataType[]): ISheetLoaderStatic
+export interface IBSheetLoaderStatic extends CustomEventEmitter {
   readonly ready: boolean
-  readonly status: ISheetLoaderStatus
-  reload(): ISheetLoaderStatic
-  unload(): ISheetLoaderStatic
-  reset(): ISheetLoaderStatic
-  // create
-  // get
-  // getIndexById
-  // getIdByIndex
-  // getList
-  // removeById
-  // removeByIndex
-  // removeAll
+  readonly debug: boolean
+  readonly status: LoaderStatus
+  registry: LoaderRegistry
+  config(options: ISheetLoaderConfig): this
+  getOption(name: string): any
+  list(): IRegisteredItem[]
+  load(args?: any, alsoDefault?: boolean): this
+  createSheet(options: any): any
+  reload(alias?: string): this
+  unload(alias?: string | string[]): this
+  reset(): this
   version: string
 }

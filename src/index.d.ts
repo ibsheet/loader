@@ -1,5 +1,5 @@
-import { ISheetLoaderStatic } from './lib/interface'
+import { IBSheetLoaderStatic } from './lib/interface'
 
-declare const IBSheetLoader: ISheetLoaderStatic
+declare const IBSheetLoader: IBSheetLoaderStatic
 
 export default IBSheetLoader

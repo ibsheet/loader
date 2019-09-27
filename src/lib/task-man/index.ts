@@ -1,4 +1,3 @@
 export * from './interface'
-export * from './registry'
+export * from './task-manager'
 export * from './utils'
-export * from './item'

@@ -1,4 +1,7 @@
-const { BannerPlugin } = require('webpack')
+const {
+  BannerPlugin,
+  LoaderOptionsPlugin
+} = require('webpack')
 const webpackMerge = require('webpack-merge')
 const common = require('./webpack.common')
 const pkg = require('./package.json')
@@ -25,6 +28,14 @@ const prodConfig = {
     new BannerPlugin({
       raw: true,
       banner
+    }),
+    new LoaderOptionsPlugin({
+      options: {
+        tslint: {
+          emitErrors: true,
+          failOnHint: true
+        }
+      }
     })
   ]
 }
