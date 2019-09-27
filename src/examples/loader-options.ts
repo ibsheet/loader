@@ -1,6 +1,4 @@
-import {
-  IBSHEET_BASEURL
-} from './constant'
+import { IBSHEET_BASEURL } from './constant'
 
 export const ibseetLibData = {
   name: 'ibsheet',
@@ -9,7 +7,7 @@ export const ibseetLibData = {
   urls: [
     'ibsheet.js',
     { url: 'css/default/main.css', target: 'head' },
-    'locale/ko.js',
+    'locale/ko.js'
     // `${IBSHEET_BASEURL}/v8/ibleaders.js`
   ]
 }
@@ -32,7 +30,7 @@ const swal2 = {
   url: 'https://cdn.jsdelivr.net/npm/sweetalert2@8',
   type: 'js',
   validate: () => window['Swal'] != null,
-  unload: () => window['Swal'] = undefined
+  unload: () => (window['Swal'] = undefined)
 }
 
 export const loaderOptions = {
@@ -40,13 +38,13 @@ export const loaderOptions = {
   retry: {
     intervalTime: 200
   },
-  registry: [
-    ibseetLibData,
-    fontAwesome,
-    swal2
-  ],
+  registry: [ibseetLibData, fontAwesome, swal2],
   ready: function() {
-    console.log('%c[IBSheetLoader] Registered Items:', 'color:magenta', this.list())
+    console.log(
+      '%c[IBSheetLoader] Registered Items:',
+      'color:magenta',
+      this.list()
+    )
     // console.log('font-awesome@5:', this.info('font-awesome@5'))
     // console.log('ibsheet@8.0:', this.info('ibsheet@8.0'))
   }

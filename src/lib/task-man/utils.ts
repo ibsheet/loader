@@ -1,10 +1,5 @@
-import {
-  LoaderEvent,
-  LoaderStatus
-} from '../interface'
-import {
-  LoaderTaskType
-} from './interface'
+import { LoaderEvent, LoaderStatus } from '../interface'
+import { LoaderTaskType } from './interface'
 
 import { LoaderTaskManager } from './task-manager'
 
@@ -13,7 +8,10 @@ import { LoaderTaskManager } from './task-manager'
  * @param taskMan
  * @param eventList
  */
-export function bindTaskManEvents(taskMan: LoaderTaskManager, eventList: LoaderEvent[]): void {
+export function bindTaskManEvents(
+  taskMan: LoaderTaskManager,
+  eventList: LoaderEvent[]
+): void {
   eventList.forEach(event => {
     taskMan.on(event, evt => {
       switch (evt.type) {
@@ -59,26 +57,31 @@ export function isResolveTaskEvent(event: LoaderEvent): boolean {
  * @hidden
  */
 export function getTaskEventsByType(type: LoaderTaskType): LoaderEvent[] {
-  return (type === LoaderTaskType.LOAD) ? [
-    LoaderEvent.LOAD,
-    LoaderEvent.LOADED,
-    LoaderEvent.LOAD_REJECT,
-    LoaderEvent.LOAD_FAILED,
-    LoaderEvent.LOAD_COMPLETE
-  ] : [
-    LoaderEvent.UNLOAD,
-    LoaderEvent.UNLOADED,
-    LoaderEvent.UNLOAD_REJECT,
-    LoaderEvent.UNLOAD_FAILED,
-    LoaderEvent.UNLOAD_COMPLETE
-  ]
+  return type === LoaderTaskType.LOAD
+    ? [
+        LoaderEvent.LOAD,
+        LoaderEvent.LOADED,
+        LoaderEvent.LOAD_REJECT,
+        LoaderEvent.LOAD_FAILED,
+        LoaderEvent.LOAD_COMPLETE
+      ]
+    : [
+        LoaderEvent.UNLOAD,
+        LoaderEvent.UNLOADED,
+        LoaderEvent.UNLOAD_REJECT,
+        LoaderEvent.UNLOAD_FAILED,
+        LoaderEvent.UNLOAD_COMPLETE
+      ]
 }
 
 /**
  * @hidden
  * @param type
  */
-export function createTaskManager(type: LoaderTaskType, options?: any): LoaderTaskManager {
+export function createTaskManager(
+  type: LoaderTaskType,
+  options?: any
+): LoaderTaskManager {
   const taskMan = new LoaderTaskManager(type, options)
   const events = getTaskEventsByType(type)
   bindTaskManEvents.apply(this, [taskMan, events])

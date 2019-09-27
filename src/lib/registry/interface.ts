@@ -11,13 +11,18 @@ export interface ILoaderRegistryAliasData {
   version?: string
 }
 
+export interface IRegistryIdentifier extends ILoaderRegistryAliasData {
+  alias: string
+}
+
 export type LoaderRegistryDataType = string | ILoaderRegistryItemData
 
 export interface ILoaderRegistry extends CustomEventEmitter {
-  add(
+  add(param: string | ILoaderRegistryItemData): LoaderRegistryItem | undefined
+  addAll(
     params: LoaderRegistryDataType | LoaderRegistryDataType[]
-  ): LoaderRegistryItem | LoaderRegistryItem[] | null
-  remove(alias: string): void | LoaderRegistryItem | LoaderRegistryItem[]
+  ): LoaderRegistryItem[]
+  remove(alias: string): undefined | LoaderRegistryItem | LoaderRegistryItem[]
   list(): string[]
   readonly length: number
   get(alias: string): LoaderRegistryItem | null
@@ -25,6 +30,7 @@ export interface ILoaderRegistry extends CustomEventEmitter {
   info(alias: string): string
   getAll(alias: string): LoaderRegistryItem[] | []
   findOne(alias: string): LoaderRegistryItem | undefined
+  findLoadedOne(alias: string): LoaderRegistryItem | undefined
   getIndexByAlias(alias: string): number
   update(alias: string, data: ILoaderRegistryItemUpdateData): void
 }

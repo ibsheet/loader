@@ -1,22 +1,8 @@
-import { basename } from 'path'
-import { parse as UrlParse } from 'url'
 import uuid from 'uuid/v1'
 
 import { get, isNil } from '../../shared/lodash'
-
+import { getFilenameFromURL } from '../utils'
 import { IRegistryItemUrlData, IRegistryItemURL } from './interface'
-
-/**
- * @hidden
- */
-const getFilenameFromURL = (url: string): string => {
-  let { pathname } = UrlParse(url)
-  if (isNil(pathname)) {
-    console.warn('[UrlParser]', `${url} failed parse basename`)
-    return 'undefined'
-  }
-  return basename(pathname)
-}
 
 class RegistryItemURL implements IRegistryItemURL {
   private _id: string
@@ -45,14 +31,16 @@ class RegistryItemURL implements IRegistryItemURL {
     if (isNil(val) || !val.length) {
       throw new Error('undefiend registry url')
     }
+    let sType
     const basename = getFilenameFromURL(val)
-    const file = basename.split('.')
-    let sType = null
-    if (file.length > 1) {
-      sType = file.pop()
-      this._basename = file.join('.')
-    } else {
-      this._basename = basename
+    if (!isNil(basename)) {
+      const file = basename.split('.')
+      if (file.length > 1) {
+        sType = file.pop()
+        this._basename = file.join('.')
+      } else {
+        this._basename = basename
+      }
     }
     if (!isNil(sType)) {
       this.type = sType

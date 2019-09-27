@@ -1,10 +1,22 @@
-import { LoaderRegistryDataType } from './interface'
+import { basename } from 'path'
+import { parse as UrlParse } from 'url'
+
+import {
+  get,
+  set,
+  isString,
+  isNil,
+  trim,
+  isNumber,
+  toNumber
+} from '../shared/lodash'
+import { VERSION_GENERATE_START_NUM } from '../config'
+import { LoaderRegistryDataType, IRegistryIdentifier } from './interface'
 import {
   ILoaderRegistryItem,
   ILoaderRegistryItemData,
   IRegistryItemUrlData
 } from './item'
-import { isString, isNil, isNumber, toNumber } from '../shared/lodash'
 
 /**
  * 인자가 문자열일 경우, ILoaderRegistryItemData 인터페이스로 캐스팅
@@ -20,7 +32,53 @@ export function castRegistryItemData(
   return param
 }
 
-const VERSION_GENERATE_START_NUM = 2
+/**
+ * @hidden
+ */
+export const getFilenameFromURL = (
+  url: string | undefined
+): string | undefined => {
+  if (isNil(url)) return
+  let { pathname } = UrlParse(url)
+  if (isNil(pathname)) {
+    console.warn('[UrlParser]', `${url} failed parse basename`)
+    return
+  }
+  return basename(pathname)
+}
+
+export function castRegistryAlias(
+  data: ILoaderRegistryItemData
+): string | undefined {
+  const idf = getRegistryIdentifier(data)
+  if (isNil(idf)) return
+  return idf.alias
+}
+
+export function getRegistryIdentifier(
+  data: ILoaderRegistryItemData
+): IRegistryIdentifier | undefined {
+  let name = get(data, 'name')
+  const url = get(data, 'url')
+  if (isNil(name) && !isNil(url)) {
+    name = getFilenameFromURL(url)
+  }
+  if (isNil(name) || !name.length) return
+  name = trim(name)
+  const res = {
+    name,
+    alias: name
+  }
+  let version = get(data, 'version')
+  if (!isNil(version)) {
+    version = trim(version)
+    set(res, 'version', version)
+    set(res, 'alias', [name, version].join('@'))
+    // alias += `@${version}`
+  }
+  return res
+}
+
 /**
  * 별칭이 중복될 경우 임의로 버전을 업데이트
  * @param item

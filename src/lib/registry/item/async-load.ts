@@ -5,7 +5,8 @@ import { RegistryItemURL } from './url'
 
 export function asyncImportItemUrls(options?: any): Promise<RegistryItemURL[]> {
   const self: LoaderRegistryItem = this
-  const urls = self.urls
+  const urls = !this.changed ? this.urls : this.updateUrls
+
   const debug = get(options, 'debug', false)
   const tasks: Promise<RegistryItemURL>[] = urls.map(
     (uItem: RegistryItemURL) => {

@@ -1,6 +1,5 @@
 import { CustomEventEmitter } from './custom'
 // import { parse as parseURL } from 'url'
-import isUrl from 'is-url'
 
 import {
   get,
@@ -9,43 +8,29 @@ import {
   isNil,
   castArray,
   isString,
-  isObject,
-  isArray,
   pick,
   defaultsDeep,
   bind,
-  clone,
-  concat,
+  clone
 } from './shared/lodash'
 import { documentReady } from './shared/dom-utils'
 import {
   LoaderTaskManager,
   createTaskManager,
-  LoaderTaskType,
+  LoaderTaskType
 } from './task-man'
+import { getLoadItems } from './modules'
 
 // import { double, power } from './number'
+import { IBSHEET, APP_VERSION, APP_GLOBAL } from './constant'
+import { ISheetLoaderConfig, DefaultLoaderConfig } from './config'
+import { LoaderRegistry, LoaderRegistryItem } from './registry'
 import {
-  IBSHEET,
-  APP_VERSION, APP_GLOBAL,
-} from './constant'
-import {
-  ISheetLoaderConfig,
-  DefaultLoaderConfig
-} from './config'
-import {
-  LoaderRegistry,
-  LoaderRegistryItem
-} from './registry'
-import {
-
   IBSheetLoaderStatic,
   IRegisteredItem,
-  LoaderStatus
+  LoaderStatus,
+  LoaderEvent
 } from './interface'
-import {
-  validSheetRegistData
-} from './ibsheet'
 
 /**
  * IBSheetLoader Main Class
@@ -61,7 +46,7 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
   constructor() {
     super()
     this._options = clone(DefaultLoaderConfig)
-    this.registry = new LoaderRegistry()
+    this.registry = new LoaderRegistry(this)
     this._initTasksManagers()
     documentReady(() => {
       this._ready = true
@@ -79,9 +64,13 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
    * @desc
    * DOMContentLoaded 상태를 반환
    */
-  get ready(): boolean { return this._ready }
-  get status(): LoaderStatus { return this._status }
-  get loadedSheetLib(): boolean {
+  get ready(): boolean {
+    return this._ready
+  }
+  get status(): LoaderStatus {
+    return this._status
+  }
+  get loadedDefaultLib(): boolean {
     const item = this._getDefaultRegItem(false)
     if (isNil(item)) return false
     return item.loaded
@@ -107,7 +96,7 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
       this._options = defaultsDeep(loaderOpts, this._options)
       const regOpts = get(options, 'registry')
       if (!isNil(regOpts)) {
-        this.registry.add(regOpts, true)
+        this.registry.addAll(regOpts, true)
       }
       const readyCallback = get(options, 'ready')
       if (!isNil(readyCallback)) {
@@ -120,7 +109,11 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
   getOption(sPath: string, def?: any): any {
     return get(this._options, sPath, def)
   }
-  info(alias: string): string { return this.registry.info(alias) }
+
+  info(alias: string): string {
+    return this.registry.info(alias)
+  }
+
   list(): IRegisteredItem[] {
     return this.registry.list().map(alias => {
       const item = this.registry.get(alias) as LoaderRegistryItem
@@ -130,69 +123,28 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
       }
     })
   }
-  load(args?: any): this {
-    const registry = this.registry
+
+  load(arg?: any, alsoDefaultLib: boolean = true): this {
+    // const registry = this.registry
     const taskMan = this._loadTaskMan
-    const needDefaultLoadTask = !this.loadedSheetLib
-    const noArgs = isNil(args)
-
-    let needDefaultItem = false
-    // define default library
-    if (needDefaultLoadTask) {
-      if (noArgs) {
-        needDefaultItem = true
-      } else if (isString(args) || isObject(args)) {
-        needDefaultItem = !validSheetRegistData(args)
-      } else if (isArray(args)) {
-        const arr = args.filter((t: any) => validSheetRegistData(t))
-        needDefaultItem = !arr.length
-      }
-    }
-
-    if (needDefaultItem) {
-      const defItem = this._getDefaultRegItem()
-      const { alias } = defItem.raw
-      args = noArgs ? [alias] : concat(alias, args)
-    }
-
-    // no action
-    if (isNil(args)) return this
+    const aLoadItems = getLoadItems.apply(this, [arg, alsoDefaultLib])
 
     // add load tasks
-    const tasks = castArray(args).map(data => {
-      let item: any
-      if (isString(data)) {
-        // check localpath or url
-        if (data.indexOf('/') >= 0 || isUrl(data)) {
-          item = registry.add(data)
+    const tasks = aLoadItems
+      .map((item: LoaderRegistryItem) => {
+        if (item.changed) {
+          const alias = item.alias
+          if (item.loaded) {
+            this.reload(alias)
+            return
+          } else if (taskMan.exists(item)) {
+            item.resolveUpdateUrls(() => this.reload(alias))
+            return
+          }
         }
-        // check exists registry
-        else {
-          item = registry.findOne(data)
-        }
-      } else {
-        item = registry.add(data)
-      }
-
-      if (isNil(item)) {
-        console.warn(`invalid paramater: ${data}`)
-        return
-      }
-
-      if (item.loaded) {
-        if (this.debug) {
-          console.warn(`already loaded library: ${item.alias}`)
-        }
-        return
-      }
-
-      // mute debug log for default library
-      if (item.alias === IBSHEET && taskMan.exists(item)) {
-        return
-      }
-
-      return taskMan.add(item)
-    }).filter(Boolean)
+        return taskMan.add(item)
+      })
+      .filter(Boolean)
 
     if (!tasks.length) {
       return this
@@ -204,14 +156,45 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
     return this
   }
 
-  createSheet(_options?: any): any {
-    return
+  createSheet(_options?: any): Promise<any> {
+    return Promise.resolve()
   }
 
-  reload(_alias?: string): this {
-    console.log('reload:', _alias)
+  reload(arg?: string | string[]): this {
+    const self = this
+    if (isNil(arg)) {
+      const item = this._getDefaultRegItem(false)
+      if (isNil(item)) return this
+      arg = item.alias
+    }
+    castArray(arg).forEach(alias => {
+      const item = this.registry.findOne(alias)
+      if (isNil(item)) {
+        if (this.debug) {
+          console.warn(`not found item: ${alias}`)
+        }
+        return
+      }
+      if (item.loaded) {
+        item.once(LoaderEvent.UNLOADED, evt => {
+          const target = evt.target
+          const tAlias = target.alias
+          if (this.debug) {
+            console.log(
+              `%c[IBSheetLoader] reload start - ${tAlias}`,
+              'background-color:green;color:white'
+            )
+          }
+          self.load(tAlias, false)
+        })
+        this.unload(alias)
+        return
+      }
+      this.load(alias, false)
+    })
     return this
   }
+
   unload(params?: string | string[]): this {
     const registry = this.registry
     const taskMan = this._unloadTaskMan
@@ -229,26 +212,28 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
     }
 
     // add load tasks
-    const tasks = castArray(params).map(data => {
-      let item: any
-      if (isString(data)) {
-        item = registry.get(data)
-      }
-      // todo: support json type
-      if (isNil(item)) {
-        console.warn(`invalid paramater: ${data}`)
-        return
-      }
-
-      if (!item.loaded) {
-        if (this.debug) {
-          console.warn(`already unloaded library: ${item.alias}`)
+    const tasks = castArray(params)
+      .map(data => {
+        let item: any
+        if (isString(data)) {
+          item = registry.get(data)
         }
-        return
-      }
+        // todo: support json type
+        if (isNil(item)) {
+          console.warn(`invalid paramater: ${data}`)
+          return
+        }
 
-      return taskMan.add(item)
-    }).filter(Boolean)
+        if (!item.loaded) {
+          if (this.debug) {
+            console.warn(`already unloaded library: ${item.alias}`)
+          }
+          return
+        }
+
+        return taskMan.add(item)
+      })
+      .filter(Boolean)
 
     if (!tasks.length) {
       return this
@@ -259,6 +244,7 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
     taskMan.start()
     return this
   }
+
   reset(): this {
     return this
   }

@@ -1,6 +1,17 @@
-export interface IBSheetCreateOptions {}
+import { IBSheetOptions } from './options'
 
-export interface IBSheetStatic {
+export interface IBSheetCreateOptions {
+  // global name
+  id: string
+  // traget element id
+  el: string
+  // ibsheet options
+  options: IBSheetOptions
+  data?: any
+}
+
+export interface IBSheetGlobalStatic {
+  // create: (...args: any[]) => void
   create: (options: IBSheetCreateOptions) => void
 }
 

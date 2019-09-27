@@ -13,7 +13,7 @@ export interface IRegistryItemUrlData {
 
 export interface IRegistryItemURL {
   readonly id: string
-  readonly basename: string
+  readonly basename: string | undefined
   value: string
   type: string
   target: string
@@ -26,7 +26,9 @@ export interface IRegistryItemEventOptions {
   dependentUrls?: string[]
 }
 
-export interface ILoaderRegistryItemUpdateData extends IRegistryItemUrlData, IRegistryItemEventOptions {
+export interface ILoaderRegistryItemUpdateData
+  extends IRegistryItemUrlData,
+    IRegistryItemEventOptions {
   // any others
 }
 
@@ -48,17 +50,21 @@ export interface ILoaderRegistryItemRawData {
 export interface ILoaderRegistryItem extends CustomEventEmitter {
   readonly id: string
   readonly urls: IRegistryItemURL[]
+  readonly updateUrls: IRegistryItemURL[]
   readonly alias: string
   readonly raw: ILoaderRegistryItemRawData
   readonly hasVersion: boolean
   readonly loaded: boolean
+  readonly changed: boolean
+  readonly isResolveUpdateUrls: boolean
   name: string
   version: string | null
   error: any
+  resolveUpdateUrls(fn: (...args: any[]) => void): void
   load(options?: any): this
   unload(options?: any): this
   getEventOption(name: string, def?: any): any
   setEventOption(name: string, value: any): void
-  update(data: any): void
+  update(data: any, isInit?: boolean): void
   test(): boolean
 }

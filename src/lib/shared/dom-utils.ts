@@ -74,9 +74,9 @@ export function appendJs(data: IAppendElementOptions): boolean {
   return true
 }
 
-export function removeElemById(id: string): HTMLElement | null {
+export function removeElemById(id: string): HTMLElement | undefined {
   const elem: any = document.getElementById(id)
-  if (isNil(elem)) return null
+  if (isNil(elem)) return
   elem.parentElement.removeChild(elem)
   return elem
 }

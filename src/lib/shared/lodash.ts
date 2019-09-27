@@ -55,5 +55,5 @@ export {
   set,
   toNumber,
   trim,
-  unset,
+  unset
 }

@@ -1,20 +1,12 @@
 import { documentReady } from '../shared/dom-utils'
-import {
-  find, isNil, now, remove
-} from '../shared/lodash'
+import { find, isNil, now, remove } from '../shared/lodash'
 
 import { CustomEventEmitter } from '../custom'
 import { LoaderRegistryItem } from '../registry'
 import { LoaderEvent, IBSheetLoaderStatic } from '../interface'
 
-import {
-  LoaderTaskType,
-  ITaskManagerOptions,
-} from './interface'
-import {
-  getTaskEventsByType,
-  isResolveTaskEvent
-} from './utils'
+import { LoaderTaskType, ITaskManagerOptions } from './interface'
+import { getTaskEventsByType, isResolveTaskEvent } from './utils'
 
 export class LoaderTaskManager extends CustomEventEmitter {
   private _type: LoaderTaskType
@@ -26,23 +18,33 @@ export class LoaderTaskManager extends CustomEventEmitter {
 
   constructor(type: LoaderTaskType, uber: IBSheetLoaderStatic) {
     super()
-    this._type = type;
+    this._type = type
     this._stack = []
     this._wipList = []
     this._uber = uber
   }
 
-  get working(): boolean { return this._working }
-  get type(): LoaderTaskType { return this._type }
-  get debug(): boolean { return this._uber.debug }
+  get working(): boolean {
+    return this._working
+  }
+  get type(): LoaderTaskType {
+    return this._type
+  }
+  get debug(): boolean {
+    return this._uber.debug
+  }
   get options(): ITaskManagerOptions {
     return {
       debug: this.debug,
       retry: this._uber.getOption('retry')
     }
   }
-  get reserved(): boolean { return this._reserved > 0 }
-  private _reserveJobs(): void { this._reserved += 1 }
+  get reserved(): boolean {
+    return this._reserved > 0
+  }
+  private _reserveJobs(): void {
+    this._reserved += 1
+  }
   private _resolveJobs(): void {
     // console.log(`%c[TMAN._resolveJobs] ${this._reserved}`, 'background-color:red;color:white')
     if (this.reserved) {
@@ -52,7 +54,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
       }
     }
   }
-  private _newWipItem(item?: LoaderRegistryItem): LoaderRegistryItem|null {
+  private _newWipItem(item?: LoaderRegistryItem): LoaderRegistryItem | null {
     if (isNil(item)) return null
     // console.log(`%c[WIP]: ${item.alias}`, 'background-color:royalblue;color:white')
     this._wipList.push(item)
@@ -65,7 +67,10 @@ export class LoaderTaskManager extends CustomEventEmitter {
   private _checkIgnoreItem(item: LoaderRegistryItem): boolean {
     return this.type === LoaderTaskType.LOAD ? item.loaded : !item.loaded
   }
-  add(item: LoaderRegistryItem, immediatly: boolean = false): LoaderRegistryItem | null {
+  add(
+    item: LoaderRegistryItem,
+    immediatly: boolean = false
+  ): LoaderRegistryItem | null {
     if (this._checkIgnoreItem(item)) {
       if (this.debug) {
         console.warn(`"${item.alias}" is already ${this.type}ed`)
@@ -99,7 +104,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
     const startTime = now()
     const asyncTasks = []
     let item: any
-    while(this._stack.length) {
+    while (this._stack.length) {
       item = this._newWipItem(this._stack.shift())
       if (isNil(item) || this._checkIgnoreItem(item)) continue
       if (this.debug) {
@@ -109,7 +114,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
       this.emit(LoaderEvent.LOAD, eventData)
       const eventList = getTaskEventsByType(this.type)
       const task = new Promise(resolve => {
-        ;eventList.forEach(event => {
+        eventList.forEach(event => {
           item.once(event, (evt: any) => {
             this.emit(event, eventData)
             if (isResolveTaskEvent(event)) {
@@ -127,7 +132,11 @@ export class LoaderTaskManager extends CustomEventEmitter {
     Promise.all(asyncTasks)
       .then(items => {
         if (this.debug) {
-          console.log(`%c[IBSheetLoader] ${this.type} tasks all done -- ${now() - startTime}ms`, 'color: green')
+          console.log(
+            `%c[IBSheetLoader] ${this.type} tasks all done -- ${now() -
+              startTime}ms`,
+            'color: green'
+          )
         }
         this.emit(LoaderEvent.LOAD_COMPLETE, { target: this, data: items })
         this._working = false

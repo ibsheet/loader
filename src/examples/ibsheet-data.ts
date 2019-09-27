@@ -1,7 +1,9 @@
-export const IBSheetSampleData = [{
+export const IBSheetSampleData = [
+  {
     id: 'sheet1',
     config: {
-      Cols: [{
+      Cols: [
+        {
           Header: '열1',
           Name: 'colName1',
           Type: 'Text'
@@ -37,7 +39,8 @@ export const IBSheetSampleData = [{
       }
     ],
     config: {
-      Cols: [{
+      Cols: [
+        {
           Header: '이름',
           Name: 'sa_nm',
           Type: 'Text'
@@ -67,7 +70,7 @@ export const IBSheetSampleData = [{
           Name: 'sa_enterdate',
           Type: 'Date',
           Width: 100,
-          Format: 'yyyy/MM/dd',
+          Format: 'yyyy/MM/dd'
         },
         {
           Header: '비고',
@@ -77,5 +80,5 @@ export const IBSheetSampleData = [{
       ]
     },
     elementId: 'sheet2-wrapper'
-  },
+  }
 ]

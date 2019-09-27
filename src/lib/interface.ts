@@ -1,8 +1,6 @@
-import {
-  LoaderRegistry,
-} from './registry'
+import { LoaderRegistry } from './registry'
 import { ISheetLoaderConfig } from './config'
-import { CustomEventEmitter } from './custom';
+import { CustomEventEmitter } from './custom'
 
 export enum LoaderEvent {
   LOAD = 'load',
@@ -17,7 +15,7 @@ export enum LoaderEvent {
   UNLOAD_COMPLETE = 'unload-complete',
   CREATE = 'create',
   CREATE_FAILED = 'create-failed',
-  CREATED = 'created',
+  CREATED = 'created'
 }
 
 export interface IRegisteredItem {
@@ -46,10 +44,10 @@ export interface IBSheetLoaderStatic extends CustomEventEmitter {
   config(options: ISheetLoaderConfig): this
   getOption(name: string): any
   list(): IRegisteredItem[]
-  load(args: any): this
+  load(args?: any, alsoDefault?: boolean): this
   createSheet(options: any): any
   reload(alias?: string): this
-  unload(alias?: string|string[]): this
+  unload(alias?: string | string[]): this
   reset(): this
   version: string
 }

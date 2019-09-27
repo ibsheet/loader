@@ -1,8 +1,5 @@
-import {
-  isString,
-  assignIn
-} from '../shared/lodash'
-import { EventEmitter } from 'events';
+import { isString, assignIn } from '../shared/lodash'
+import { EventEmitter } from 'events'
 
 export class CustomEventEmitter extends EventEmitter {
   constructor() {
