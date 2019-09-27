@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ISheetLoaderEvent | @ibsheet/loader</title>
+	<title>LoaderEvent | @ibsheet/loader</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="isheetloaderevent.html">ISheetLoaderEvent</a>
+					<a href="loaderevent.html">LoaderEvent</a>
 				</li>
 			</ul>
-			<h1>Enumeration ISheetLoaderEvent</h1>
+			<h1>Enumeration LoaderEvent</h1>
 		</div>
 	</div>
 </header>
@@ -73,18 +73,19 @@
 						<section class="tsd-index-section ">
 							<h3>Enumeration members</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="isheetloaderevent.html#create" class="tsd-kind-icon">CREATE</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="isheetloaderevent.html#created" class="tsd-kind-icon">CREATED</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="isheetloaderevent.html#create_error" class="tsd-kind-icon">CREATE_<wbr>ERROR</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="isheetloaderevent.html#load" class="tsd-kind-icon">LOAD</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="isheetloaderevent.html#loaded" class="tsd-kind-icon">LOADED</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="isheetloaderevent.html#load_error" class="tsd-kind-icon">LOAD_<wbr>ERROR</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="isheetloaderevent.html#load_reject" class="tsd-kind-icon">LOAD_<wbr>REJECT</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="isheetloaderevent.html#remove" class="tsd-kind-icon">REMOVE</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="isheetloaderevent.html#removed" class="tsd-kind-icon">REMOVED</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="isheetloaderevent.html#remove_error" class="tsd-kind-icon">REMOVE_<wbr>ERROR</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="isheetloaderevent.html#unload" class="tsd-kind-icon">UNLOAD</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="isheetloaderevent.html#unloaded" class="tsd-kind-icon">UNLOADED</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="loaderevent.html#create" class="tsd-kind-icon">CREATE</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="loaderevent.html#created" class="tsd-kind-icon">CREATED</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="loaderevent.html#create_failed" class="tsd-kind-icon">CREATE_<wbr>FAILED</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="loaderevent.html#load" class="tsd-kind-icon">LOAD</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="loaderevent.html#loaded" class="tsd-kind-icon">LOADED</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="loaderevent.html#load_complete" class="tsd-kind-icon">LOAD_<wbr>COMPLETE</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="loaderevent.html#load_failed" class="tsd-kind-icon">LOAD_<wbr>FAILED</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="loaderevent.html#load_reject" class="tsd-kind-icon">LOAD_<wbr>REJECT</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="loaderevent.html#unload" class="tsd-kind-icon">UNLOAD</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="loaderevent.html#unloaded" class="tsd-kind-icon">UNLOADED</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="loaderevent.html#unload_complete" class="tsd-kind-icon">UNLOAD_<wbr>COMPLETE</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="loaderevent.html#unload_failed" class="tsd-kind-icon">UNLOAD_<wbr>FAILED</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="loaderevent.html#unload_reject" class="tsd-kind-icon">UNLOAD_<wbr>REJECT</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,7 +99,7 @@
 					<div class="tsd-signature tsd-kind-icon">CREATE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;create&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/interface.ts#L25">lib/interface.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/interface.ts#L16">lib/interface.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -108,17 +109,17 @@
 					<div class="tsd-signature tsd-kind-icon">CREATED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;created&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/interface.ts#L27">lib/interface.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/interface.ts#L18">lib/interface.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="create_error" class="tsd-anchor"></a>
-					<h3>CREATE_<wbr>ERROR</h3>
-					<div class="tsd-signature tsd-kind-icon">CREATE_<wbr>ERROR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;create-error&quot;</span></div>
+					<a name="create_failed" class="tsd-anchor"></a>
+					<h3>CREATE_<wbr>FAILED</h3>
+					<div class="tsd-signature tsd-kind-icon">CREATE_<wbr>FAILED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;create-failed&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/interface.ts#L26">lib/interface.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/interface.ts#L17">lib/interface.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -128,7 +129,7 @@
 					<div class="tsd-signature tsd-kind-icon">LOAD<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;load&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/interface.ts#L21">lib/interface.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/interface.ts#L6">lib/interface.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -138,17 +139,27 @@
 					<div class="tsd-signature tsd-kind-icon">LOADED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;loaded&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/interface.ts#L24">lib/interface.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/interface.ts#L9">lib/interface.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="load_error" class="tsd-anchor"></a>
-					<h3>LOAD_<wbr>ERROR</h3>
-					<div class="tsd-signature tsd-kind-icon">LOAD_<wbr>ERROR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;load-error&quot;</span></div>
+					<a name="load_complete" class="tsd-anchor"></a>
+					<h3>LOAD_<wbr>COMPLETE</h3>
+					<div class="tsd-signature tsd-kind-icon">LOAD_<wbr>COMPLETE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;load-complete&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/interface.ts#L23">lib/interface.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/interface.ts#L10">lib/interface.ts:10</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="load_failed" class="tsd-anchor"></a>
+					<h3>LOAD_<wbr>FAILED</h3>
+					<div class="tsd-signature tsd-kind-icon">LOAD_<wbr>FAILED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;load-failed&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/interface.ts#L8">lib/interface.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -158,37 +169,7 @@
 					<div class="tsd-signature tsd-kind-icon">LOAD_<wbr>REJECT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;load-reject&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/interface.ts#L22">lib/interface.ts:22</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="remove" class="tsd-anchor"></a>
-					<h3>REMOVE</h3>
-					<div class="tsd-signature tsd-kind-icon">REMOVE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;remove&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/interface.ts#L28">lib/interface.ts:28</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="removed" class="tsd-anchor"></a>
-					<h3>REMOVED</h3>
-					<div class="tsd-signature tsd-kind-icon">REMOVED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;removed&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/interface.ts#L30">lib/interface.ts:30</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="remove_error" class="tsd-anchor"></a>
-					<h3>REMOVE_<wbr>ERROR</h3>
-					<div class="tsd-signature tsd-kind-icon">REMOVE_<wbr>ERROR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;remove-error&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/interface.ts#L29">lib/interface.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/interface.ts#L7">lib/interface.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -198,7 +179,7 @@
 					<div class="tsd-signature tsd-kind-icon">UNLOAD<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;unload&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/interface.ts#L31">lib/interface.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/interface.ts#L11">lib/interface.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -208,7 +189,37 @@
 					<div class="tsd-signature tsd-kind-icon">UNLOADED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;unloaded&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/interface.ts#L32">lib/interface.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/interface.ts#L14">lib/interface.ts:14</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="unload_complete" class="tsd-anchor"></a>
+					<h3>UNLOAD_<wbr>COMPLETE</h3>
+					<div class="tsd-signature tsd-kind-icon">UNLOAD_<wbr>COMPLETE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;unload-complete&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/interface.ts#L15">lib/interface.ts:15</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="unload_failed" class="tsd-anchor"></a>
+					<h3>UNLOAD_<wbr>FAILED</h3>
+					<div class="tsd-signature tsd-kind-icon">UNLOAD_<wbr>FAILED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;unload-failed&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/interface.ts#L13">lib/interface.ts:13</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="unload_reject" class="tsd-anchor"></a>
+					<h3>UNLOAD_<wbr>REJECT</h3>
+					<div class="tsd-signature tsd-kind-icon">UNLOAD_<wbr>REJECT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;unload-reject&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/interface.ts#L12">lib/interface.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -227,144 +238,51 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-enum">
-						<a href="isheetloaderevent.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Event</a>
+						<a href="loaderevent.html" class="tsd-kind-icon">Loader<wbr>Event</a>
 						<ul>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="isheetloaderevent.html#create" class="tsd-kind-icon">CREATE</a>
+								<a href="loaderevent.html#create" class="tsd-kind-icon">CREATE</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="isheetloaderevent.html#created" class="tsd-kind-icon">CREATED</a>
+								<a href="loaderevent.html#created" class="tsd-kind-icon">CREATED</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="isheetloaderevent.html#create_error" class="tsd-kind-icon">CREATE_<wbr>ERROR</a>
+								<a href="loaderevent.html#create_failed" class="tsd-kind-icon">CREATE_<wbr>FAILED</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="isheetloaderevent.html#load" class="tsd-kind-icon">LOAD</a>
+								<a href="loaderevent.html#load" class="tsd-kind-icon">LOAD</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="isheetloaderevent.html#loaded" class="tsd-kind-icon">LOADED</a>
+								<a href="loaderevent.html#loaded" class="tsd-kind-icon">LOADED</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="isheetloaderevent.html#load_error" class="tsd-kind-icon">LOAD_<wbr>ERROR</a>
+								<a href="loaderevent.html#load_complete" class="tsd-kind-icon">LOAD_<wbr>COMPLETE</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="isheetloaderevent.html#load_reject" class="tsd-kind-icon">LOAD_<wbr>REJECT</a>
+								<a href="loaderevent.html#load_failed" class="tsd-kind-icon">LOAD_<wbr>FAILED</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="isheetloaderevent.html#remove" class="tsd-kind-icon">REMOVE</a>
+								<a href="loaderevent.html#load_reject" class="tsd-kind-icon">LOAD_<wbr>REJECT</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="isheetloaderevent.html#removed" class="tsd-kind-icon">REMOVED</a>
+								<a href="loaderevent.html#unload" class="tsd-kind-icon">UNLOAD</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="isheetloaderevent.html#remove_error" class="tsd-kind-icon">REMOVE_<wbr>ERROR</a>
+								<a href="loaderevent.html#unloaded" class="tsd-kind-icon">UNLOADED</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="isheetloaderevent.html#unload" class="tsd-kind-icon">UNLOAD</a>
+								<a href="loaderevent.html#unload_complete" class="tsd-kind-icon">UNLOAD_<wbr>COMPLETE</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="isheetloaderevent.html#unloaded" class="tsd-kind-icon">UNLOADED</a>
+								<a href="loaderevent.html#unload_failed" class="tsd-kind-icon">UNLOAD_<wbr>FAILED</a>
+							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+								<a href="loaderevent.html#unload_reject" class="tsd-kind-icon">UNLOAD_<wbr>REJECT</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-enum">
-						<a href="isheetloaderstatus.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Status</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/ibsheetloader.html" class="tsd-kind-icon">IBSheet<wbr>Loader</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/loaderregistry.html" class="tsd-kind-icon">Loader<wbr>Registry</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/loaderregistryitem.html" class="tsd-kind-icon">Loader<wbr>Registry<wbr>Item</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iappendelementoptions.html" class="tsd-kind-icon">IAppend<wbr>Element<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/ibsheetcreateoptions.html" class="tsd-kind-icon">IBSheet<wbr>Create<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/ibsheetinstance.html" class="tsd-kind-icon">IBSheet<wbr>Instance</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/ibsheetstatic.html" class="tsd-kind-icon">IBSheet<wbr>Static</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderevent.html" class="tsd-kind-icon">ILoader<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderregistry.html" class="tsd-kind-icon">ILoader<wbr>Registry</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderregistryaliasdata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Alias<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderregistryitem.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderregistryitemdata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderregistryitemrawdata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item<wbr>Raw<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderregistryitemupdatedata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item<wbr>Update<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/isheetloaderoptions.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/isheetloaderstatic.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Static</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/isheetloadertestoptions.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Test<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#loaderregistrydatatype" class="tsd-kind-icon">Loader<wbr>Registry<wbr>Data<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#app_global" class="tsd-kind-icon">APP_<wbr>GLOBAL</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#app_version" class="tsd-kind-icon">APP_<wbr>VERSION</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="../globals.html#loaded_test_retry_interval" class="tsd-kind-icon">LOADED_<wbr>TEST_<wbr>RETRY_<wbr>INTERVAL</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="../globals.html#loaded_test_retry_max_count" class="tsd-kind-icon">LOADED_<wbr>TEST_<wbr>RETRY_<wbr>MAX_<wbr>COUNT</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="../globals.html#version_generate_start_num" class="tsd-kind-icon">VERSION_<wbr>GENERATE_<wbr>START_<wbr>NUM</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#appendcss" class="tsd-kind-icon">append<wbr>Css</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#appendjs" class="tsd-kind-icon">append<wbr>Js</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#createlinkelement" class="tsd-kind-icon">create<wbr>Link<wbr>Element</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#createscriptelement" class="tsd-kind-icon">create<wbr>Script<wbr>Element</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#documentready" class="tsd-kind-icon">document<wbr>Ready</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#double" class="tsd-kind-icon">double</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#existselementbyid" class="tsd-kind-icon">exists<wbr>Element<wbr>ById</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#power" class="tsd-kind-icon">power</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

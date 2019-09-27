@@ -70,7 +70,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">EventEmitter</span>
+						<a href="customeventemitter.html" class="tsd-signature-type">CustomEventEmitter</a>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">LoaderRegistry</span>
@@ -92,19 +92,21 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="loaderregistry.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="loaderregistry.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="loaderregistry.html#_list" class="tsd-kind-icon">_list</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="loaderregistry.html#_uber" class="tsd-kind-icon">_uber</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="loaderregistry.html#defaultmaxlisteners" class="tsd-kind-icon">default<wbr>Max<wbr>Listeners</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="loaderregistry.html#debug" class="tsd-kind-icon">debug</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="loaderregistry.html#length" class="tsd-kind-icon">length</a></li>
 							</ul>
 						</section>
@@ -112,10 +114,14 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="loaderregistry.html#add" class="tsd-kind-icon">add</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="loaderregistry.html#addall" class="tsd-kind-icon">add<wbr>All</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="loaderregistry.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="loaderregistry.html#bind" class="tsd-kind-icon">bind</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="loaderregistry.html#emit" class="tsd-kind-icon">emit</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="loaderregistry.html#eventnames" class="tsd-kind-icon">event<wbr>Names</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="loaderregistry.html#exists" class="tsd-kind-icon">exists</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="loaderregistry.html#findloadedone" class="tsd-kind-icon">find<wbr>Loaded<wbr>One</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="loaderregistry.html#findone" class="tsd-kind-icon">find<wbr>One</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="loaderregistry.html#get" class="tsd-kind-icon">get</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="loaderregistry.html#getall" class="tsd-kind-icon">get<wbr>All</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="loaderregistry.html#getindexbyalias" class="tsd-kind-icon">get<wbr>Index<wbr>ByAlias</a></li>
@@ -143,23 +149,24 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Loader<wbr>Registry<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">?: </span><a href="../globals.html#loaderregistrydatatype" class="tsd-signature-type">LoaderRegistryDataType</a><span class="tsd-signature-symbol"> | </span><a href="../globals.html#loaderregistrydatatype" class="tsd-signature-type">LoaderRegistryDataType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="loaderregistry.html" class="tsd-signature-type">LoaderRegistry</a></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Loader<wbr>Registry<span class="tsd-signature-symbol">(</span>uber<span class="tsd-signature-symbol">: </span><a href="../interfaces/ibsheetloaderstatic.html" class="tsd-signature-type">IBSheetLoaderStatic</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="loaderregistry.html" class="tsd-signature-type">LoaderRegistry</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overrides <a href="customeventemitter.html">CustomEventEmitter</a>.<a href="customeventemitter.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/registry/registry.ts#L24">lib/registry/registry.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L23">lib/registry/registry.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> params: <a href="../globals.html#loaderregistrydatatype" class="tsd-signature-type">LoaderRegistryDataType</a><span class="tsd-signature-symbol"> | </span><a href="../globals.html#loaderregistrydatatype" class="tsd-signature-type">LoaderRegistryDataType</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>uber: <a href="../interfaces/ibsheetloaderstatic.html" class="tsd-signature-type">IBSheetLoaderStatic</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="loaderregistry.html" class="tsd-signature-type">LoaderRegistry</a></h4>
@@ -172,10 +179,20 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_list" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _list</h3>
-					<div class="tsd-signature tsd-kind-icon">_list<span class="tsd-signature-symbol">:</span> <a href="../interfaces/iloaderregistryitem.html" class="tsd-signature-type">ILoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span></div>
+					<div class="tsd-signature tsd-kind-icon">_list<span class="tsd-signature-symbol">:</span> <a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/registry/registry.ts#L24">lib/registry/registry.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L22">lib/registry/registry.ts:22</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_uber" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _uber</h3>
+					<div class="tsd-signature tsd-kind-icon">_uber<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ibsheetloaderstatic.html" class="tsd-signature-type">IBSheetLoaderStatic</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L23">lib/registry/registry.ts:23</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -184,6 +201,7 @@
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> default<wbr>Max<wbr>Listeners</h3>
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Max<wbr>Listeners<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#defaultmaxlisteners">defaultMaxListeners</a></p>
 						<p>Inherited from EventEmitter.defaultMaxListeners</p>
 						<ul>
 							<li>Defined in /Users/Euiyeon/dev/ib-sheet-loader/node_modules/@types/node/events.d.ts:9</li>
@@ -194,6 +212,23 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="debug" class="tsd-anchor"></a>
+					<h3>debug</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> debug<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L30">lib/registry/registry.ts:30</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="length" class="tsd-anchor"></a>
 					<h3>length</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
@@ -203,7 +238,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/registry/registry.ts#L34">lib/registry/registry.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L33">lib/registry/registry.ts:33</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -217,28 +252,54 @@
 					<a name="add" class="tsd-anchor"></a>
 					<h3>add</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../globals.html#loaderregistrydatatype" class="tsd-signature-type">LoaderRegistryDataType</a><span class="tsd-signature-symbol"> | </span><a href="../globals.html#loaderregistrydatatype" class="tsd-signature-type">LoaderRegistryDataType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/iloaderregistryitem.html" class="tsd-signature-type">ILoaderRegistryItem</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/iloaderregistryitem.html" class="tsd-signature-type">ILoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/iloaderregistryitemdata.html" class="tsd-signature-type">ILoaderRegistryItemData</a>, overwrite<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#add">add</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/registry/registry.ts#L37">lib/registry/registry.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L37">lib/registry/registry.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>params: <a href="../globals.html#loaderregistrydatatype" class="tsd-signature-type">LoaderRegistryDataType</a><span class="tsd-signature-symbol"> | </span><a href="../globals.html#loaderregistrydatatype" class="tsd-signature-type">LoaderRegistryDataType</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>data: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/iloaderregistryitemdata.html" class="tsd-signature-type">ILoaderRegistryItemData</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> overwrite: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/iloaderregistryitem.html" class="tsd-signature-type">ILoaderRegistryItem</a>
+							<h4 class="tsd-returns-title">Returns <a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a>
 								<span class="tsd-signature-symbol"> | </span>
-								<a href="../interfaces/iloaderregistryitem.html" class="tsd-signature-type">ILoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span>
-								<span class="tsd-signature-symbol"> | </span>
-								<span class="tsd-signature-type">null</span>
+								<span class="tsd-signature-type">undefined</span>
 							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="addall" class="tsd-anchor"></a>
+					<h3>add<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>All<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../globals.html#loaderregistrydatatype" class="tsd-signature-type">LoaderRegistryDataType</a><span class="tsd-signature-symbol">[]</span>, overwrite<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L90">lib/registry/registry.ts:90</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>params: <a href="../globals.html#loaderregistrydatatype" class="tsd-signature-type">LoaderRegistryDataType</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> overwrite: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -288,6 +349,51 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="bind" class="tsd-anchor"></a>
+					<h3>bind</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">bind<span class="tsd-signature-symbol">(</span>events<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span>, listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="customeventemitter.html">CustomEventEmitter</a>.<a href="customeventemitter.html#bind">bind</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/custom/custom-event-emitter.ts#L12">lib/custom/custom-event-emitter.ts:12</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>events: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h5>
+								</li>
+								<li>
+									<h5>listener: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="emit" class="tsd-anchor"></a>
 					<h3>emit</h3>
@@ -297,10 +403,11 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from EventEmitter.emit</p>
+								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#emit">emit</a></p>
+								<p>Inherited from <a href="customeventemitter.html">CustomEventEmitter</a>.<a href="customeventemitter.html#emit">emit</a></p>
 								<p>Overrides EventEmitter.emit</p>
 								<ul>
-									<li>Defined in /Users/Euiyeon/dev/ib-sheet-loader/node_modules/@types/node/events.d.ts:23</li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/custom/custom-event-emitter.ts#L9">lib/custom/custom-event-emitter.ts:9</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -325,6 +432,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#eventnames">eventNames</a></p>
 								<p>Inherited from EventEmitter.eventNames</p>
 								<p>Overrides EventEmitter.eventNames</p>
 								<ul>
@@ -346,7 +454,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#exists">exists</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/registry/registry.ts#L64">lib/registry/registry.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L101">lib/registry/registry.ts:101</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -360,17 +468,71 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="findloadedone" class="tsd-anchor"></a>
+					<h3>find<wbr>Loaded<wbr>One</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">find<wbr>Loaded<wbr>One<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#findloadedone">findLoadedOne</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L133">lib/registry/registry.ts:133</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>query: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">undefined</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="findone" class="tsd-anchor"></a>
+					<h3>find<wbr>One</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">find<wbr>One<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#findone">findOne</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L127">lib/registry/registry.ts:127</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>query: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">undefined</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>alias<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/iloaderregistryitem.html" class="tsd-signature-type">ILoaderRegistryItem</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>alias<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#get">get</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/registry/registry.ts#L67">lib/registry/registry.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L105">lib/registry/registry.ts:105</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -379,7 +541,7 @@
 									<h5>alias: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/iloaderregistryitem.html" class="tsd-signature-type">ILoaderRegistryItem</a>
+							<h4 class="tsd-returns-title">Returns <a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a>
 								<span class="tsd-signature-symbol"> | </span>
 								<span class="tsd-signature-type">null</span>
 							</h4>
@@ -390,14 +552,14 @@
 					<a name="getall" class="tsd-anchor"></a>
 					<h3>get<wbr>All</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>All<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/iloaderregistryitem.html" class="tsd-signature-type">ILoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>All<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#getall">getAll</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/registry/registry.ts#L77">lib/registry/registry.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L117">lib/registry/registry.ts:117</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -406,7 +568,7 @@
 									<h5>query: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/iloaderregistryitem.html" class="tsd-signature-type">ILoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -421,7 +583,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#getindexbyalias">getIndexByAlias</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/registry/registry.ts#L86">lib/registry/registry.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L140">lib/registry/registry.ts:140</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -443,6 +605,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#getmaxlisteners">getMaxListeners</a></p>
 								<p>Inherited from EventEmitter.getMaxListeners</p>
 								<p>Overrides EventEmitter.getMaxListeners</p>
 								<ul>
@@ -464,7 +627,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#info">info</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/registry/registry.ts#L72">lib/registry/registry.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L111">lib/registry/registry.ts:111</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -488,7 +651,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#list">list</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/registry/registry.ts#L111">lib/registry/registry.ts:111</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L164">lib/registry/registry.ts:164</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -504,6 +667,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#listenercount">listenerCount</a></p>
 								<p>Inherited from EventEmitter.listenerCount</p>
 								<p>Overrides EventEmitter.listenerCount</p>
 								<ul>
@@ -529,6 +693,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#listeners">listeners</a></p>
 								<p>Inherited from EventEmitter.listeners</p>
 								<p>Overrides EventEmitter.listeners</p>
 								<ul>
@@ -784,6 +949,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#rawlisteners">rawListeners</a></p>
 								<p>Inherited from EventEmitter.rawListeners</p>
 								<p>Overrides EventEmitter.rawListeners</p>
 								<ul>
@@ -804,14 +970,14 @@
 					<a name="remove" class="tsd-anchor"></a>
 					<h3>remove</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">remove<span class="tsd-signature-symbol">(</span>alias<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/iloaderregistryitem.html" class="tsd-signature-type">ILoaderRegistryItem</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/iloaderregistryitem.html" class="tsd-signature-type">ILoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">remove<span class="tsd-signature-symbol">(</span>alias<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a><span class="tsd-signature-symbol"> | </span><a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#remove">remove</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/registry/registry.ts#L98">lib/registry/registry.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L150">lib/registry/registry.ts:150</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -820,11 +986,11 @@
 									<h5>alias: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span>
+							<h4 class="tsd-returns-title">Returns <a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a>
 								<span class="tsd-signature-symbol"> | </span>
-								<a href="../interfaces/iloaderregistryitem.html" class="tsd-signature-type">ILoaderRegistryItem</a>
+								<a href="loaderregistryitem.html" class="tsd-signature-type">LoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span>
 								<span class="tsd-signature-symbol"> | </span>
-								<a href="../interfaces/iloaderregistryitem.html" class="tsd-signature-type">ILoaderRegistryItem</a><span class="tsd-signature-symbol">[]</span>
+								<span class="tsd-signature-type">undefined</span>
 							</h4>
 						</li>
 					</ul>
@@ -838,6 +1004,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#removealllisteners">removeAllListeners</a></p>
 								<p>Inherited from EventEmitter.removeAllListeners</p>
 								<p>Overrides EventEmitter.removeAllListeners</p>
 								<ul>
@@ -909,6 +1076,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#setmaxlisteners">setMaxListeners</a></p>
 								<p>Inherited from EventEmitter.setMaxListeners</p>
 								<p>Overrides EventEmitter.setMaxListeners</p>
 								<ul>
@@ -936,7 +1104,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#update">update</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/a4d7fc6/src/lib/registry/registry.ts#L89">lib/registry/registry.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/6867330/src/lib/registry/registry.ts#L144">lib/registry/registry.ts:144</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -961,6 +1129,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/iloaderregistry.html">ILoaderRegistry</a>.<a href="../interfaces/iloaderregistry.html#listenercount-1">listenerCount</a></p>
 								<p>Inherited from EventEmitter.listenerCount</p>
 								<ul>
 									<li>Defined in /Users/Euiyeon/dev/ib-sheet-loader/node_modules/@types/node/events.d.ts:8</li>
@@ -998,28 +1167,25 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-enum">
-						<a href="../enums/isheetloaderevent.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="../enums/isheetloaderstatus.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Status</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="ibsheetloader.html" class="tsd-kind-icon">IBSheet<wbr>Loader</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
 						<a href="loaderregistry.html" class="tsd-kind-icon">Loader<wbr>Registry</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="loaderregistry.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="loaderregistry.html#_list" class="tsd-kind-icon">_list</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="loaderregistry.html#_uber" class="tsd-kind-icon">_uber</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 								<a href="loaderregistry.html#defaultmaxlisteners" class="tsd-kind-icon">default<wbr>Max<wbr>Listeners</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="loaderregistry.html#debug" class="tsd-kind-icon">debug</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="loaderregistry.html#length" class="tsd-kind-icon">length</a>
@@ -1027,8 +1193,14 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="loaderregistry.html#add" class="tsd-kind-icon">add</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="loaderregistry.html#addall" class="tsd-kind-icon">add<wbr>All</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="loaderregistry.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="loaderregistry.html#bind" class="tsd-kind-icon">bind</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="loaderregistry.html#emit" class="tsd-kind-icon">emit</a>
@@ -1038,6 +1210,12 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="loaderregistry.html#exists" class="tsd-kind-icon">exists</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="loaderregistry.html#findloadedone" class="tsd-kind-icon">find<wbr>Loaded<wbr>One</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="loaderregistry.html#findone" class="tsd-kind-icon">find<wbr>One</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="loaderregistry.html#get" class="tsd-kind-icon">get</a>
@@ -1103,93 +1281,6 @@
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class">
-						<a href="loaderregistryitem.html" class="tsd-kind-icon">Loader<wbr>Registry<wbr>Item</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iappendelementoptions.html" class="tsd-kind-icon">IAppend<wbr>Element<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/ibsheetcreateoptions.html" class="tsd-kind-icon">IBSheet<wbr>Create<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/ibsheetinstance.html" class="tsd-kind-icon">IBSheet<wbr>Instance</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/ibsheetstatic.html" class="tsd-kind-icon">IBSheet<wbr>Static</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderevent.html" class="tsd-kind-icon">ILoader<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderregistry.html" class="tsd-kind-icon">ILoader<wbr>Registry</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderregistryaliasdata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Alias<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderregistryitem.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderregistryitemdata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderregistryitemrawdata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item<wbr>Raw<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iloaderregistryitemupdatedata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item<wbr>Update<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/isheetloaderoptions.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/isheetloaderstatic.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Static</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/isheetloadertestoptions.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Test<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#loaderregistrydatatype" class="tsd-kind-icon">Loader<wbr>Registry<wbr>Data<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#app_global" class="tsd-kind-icon">APP_<wbr>GLOBAL</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#app_version" class="tsd-kind-icon">APP_<wbr>VERSION</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="../globals.html#loaded_test_retry_interval" class="tsd-kind-icon">LOADED_<wbr>TEST_<wbr>RETRY_<wbr>INTERVAL</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="../globals.html#loaded_test_retry_max_count" class="tsd-kind-icon">LOADED_<wbr>TEST_<wbr>RETRY_<wbr>MAX_<wbr>COUNT</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="../globals.html#version_generate_start_num" class="tsd-kind-icon">VERSION_<wbr>GENERATE_<wbr>START_<wbr>NUM</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#appendcss" class="tsd-kind-icon">append<wbr>Css</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#appendjs" class="tsd-kind-icon">append<wbr>Js</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#createlinkelement" class="tsd-kind-icon">create<wbr>Link<wbr>Element</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#createscriptelement" class="tsd-kind-icon">create<wbr>Script<wbr>Element</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#documentready" class="tsd-kind-icon">document<wbr>Ready</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#double" class="tsd-kind-icon">double</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#existselementbyid" class="tsd-kind-icon">exists<wbr>Element<wbr>ById</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#power" class="tsd-kind-icon">power</a>
-					</li>
 				</ul>
 			</nav>
 		</div>
