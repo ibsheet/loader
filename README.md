@@ -107,7 +107,7 @@ loader.config({
       baseUrl: '<publicpath>/ibsheet',
       urls: [
         'ibsheet.js',
-        'css/default/main.css,
+        'css/default/main.css',
         'locale/ko.js'
         'ibleaders.js'
       ]
