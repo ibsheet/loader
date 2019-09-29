@@ -6,6 +6,8 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://badge.fury.io/js/%40ibsheet%2Floader.svg)](https://badge.fury.io/js/%40ibsheet%2Floader)
+[![install size](https://packagephobia.now.sh/badge?p=@ibsheet/loader)](https://packagephobia.now.sh/result?p=@ibsheet/loader)
 
 Dynamically load support module of IBSheet
 
