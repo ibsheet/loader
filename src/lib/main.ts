@@ -173,7 +173,7 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
           resolve(window[IBSHEET_GLOBAL])
         })
         this.load()
-      } catch(err) {
+      } catch (err) {
         reject(err)
       }
     })
@@ -189,10 +189,11 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
       { key: 'id' },
       { key: 'el', alias: ['elementId'] },
       { key: 'options', alias: ['config'] },
-      { key: 'data' },
+      { key: 'data' }
     ].forEach(o => {
       const { key } = o
-      concat(key, get(o, 'alias')).filter(Boolean)
+      concat(key, get(o, 'alias'))
+        .filter(Boolean)
         .forEach((prop: string) => {
           if (has(options, prop)) {
             ibsheetOpts[key] = get(options, prop)

@@ -86,16 +86,17 @@ $((): void => {
 
   console.log(`==================== 7: CREATE IBSHEET ====================`)
   const sheet1Opts = IBSheetSampleData[1]
-  $('#ibsheet.test-box>.test-body').append($('<div/>', {
-    id: sheet1Opts.elementId,
-    css: {
-      width: '100%',
-      height: '240px'
-    }
-  }))
+  $('#ibsheet.test-box>.test-body').append(
+    $('<div/>', {
+      id: sheet1Opts.elementId,
+      css: {
+        width: '100%',
+        height: '240px'
+      }
+    })
+  )
   loader.createSheet(sheet1Opts).then((sheet: any) => {
     console.log(sheet.id)
-
   })
 
   // console.log(`==================== 8: RELOAD TEST ====================`)

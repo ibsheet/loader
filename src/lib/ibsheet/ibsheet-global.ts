@@ -1,9 +1,6 @@
 import { IBSHEET_GLOBAL } from '../constant'
 import { has, isNil } from '../shared/lodash'
-import {
-  IBSheetGlobalStatic,
-  IBSheetCreateOptions
-} from './interface'
+import { IBSheetGlobalStatic, IBSheetCreateOptions } from './interface'
 
 class IBSheetGlobal implements IBSheetGlobalStatic {
   constructor() {
