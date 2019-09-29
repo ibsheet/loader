@@ -62,12 +62,12 @@ loader.config({
       baseUrl: '<publicpath>/ibsheet',
       urls: [
         'ibsheet.js',
-        { url: 'css/default/main.css', target: 'head' },
+        'css/default/main.css,
         'locale/ko.js'
         'ibleaders.js'
       ]
     }
-  ],
+  ]
 })
 loader.createSheet(options)
 ```
@@ -84,17 +84,17 @@ loader.config({
       baseUrl: '<publicpath>/ibsheet',
       urls: [
         'ibsheet.js',
-        { url: 'css/default/main.css', target: 'head' },
+        'css/default/main.css',
         'locale/ko.js'
         'ibleaders.js'
       ]
     }
-  ],
+  ]
 })
 loader.createSheet(options)
 ```
 
-### note: Typescript usage
+### note: TypeScript usage
 
 ```ts
 import { IBSheetLoaderInstance as loader } from '@ibsheet/loader'
@@ -106,12 +106,12 @@ loader.config({
       baseUrl: '<publicpath>/ibsheet',
       urls: [
         'ibsheet.js',
-        { url: 'css/default/main.css', target: 'head' },
+        'css/default/main.css,
         'locale/ko.js'
         'ibleaders.js'
       ]
     }
-  ],
+  ]
 })
 loader.createSheet(options)
 ```
