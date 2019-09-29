@@ -64,7 +64,7 @@ loader.config({
       urls: [
         'ibsheet.js',
         'css/default/main.css,
-        'locale/ko.js'
+        'locale/ko.js',
         'ibleaders.js'
       ]
     }
@@ -86,7 +86,7 @@ loader.config({
       urls: [
         'ibsheet.js',
         'css/default/main.css',
-        'locale/ko.js'
+        'locale/ko.js',
         'ibleaders.js'
       ]
     }
@@ -108,7 +108,7 @@ loader.config({
       urls: [
         'ibsheet.js',
         'css/default/main.css',
-        'locale/ko.js'
+        'locale/ko.js',
         'ibleaders.js'
       ]
     }
