@@ -2,17 +2,17 @@ import { IBSheetOptions } from './options'
 
 export interface IBSheetCreateOptions {
   // global name
-  id: string
+  id?: string
   // traget element id
-  el: string
+  el?: string
   // ibsheet options
-  options: IBSheetOptions
+  options?: IBSheetOptions
   data?: any
 }
 
 export interface IBSheetGlobalStatic {
   // create: (...args: any[]) => void
-  create: (options: IBSheetCreateOptions) => void
+  create: (options: IBSheetCreateOptions) => any
 }
 
 export interface IBSheetInstance {
