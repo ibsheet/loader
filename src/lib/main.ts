@@ -329,11 +329,11 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
 // fn.double = double
 // fn.power = power
 
-const loaderInstance = new IBSheetLoader()
+export const IBSheetLoaderInstance = new IBSheetLoader()
 
 // set global variable
 if (!has(window, APP_GLOBAL)) {
-  set(window, APP_GLOBAL, loaderInstance)
+  set(window, APP_GLOBAL, IBSheetLoaderInstance)
 }
 
-export default loaderInstance
+export default IBSheetLoaderInstance
