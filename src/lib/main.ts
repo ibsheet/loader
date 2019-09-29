@@ -190,7 +190,7 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
       { key: 'el', alias: ['elementId'] },
       { key: 'options', alias: ['config'] },
       { key: 'data' }
-    ].forEach(o => {
+    ].forEach((o: any) => {
       const { key } = o
       concat(key, get(o, 'alias'))
         .filter(Boolean)
