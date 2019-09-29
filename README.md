@@ -60,10 +60,11 @@ API Document: <https://ibsheet.github.io/loader/>
 ## todo
 
 * git integration
-  * [ ] Codacy
-  * [ ] CircleCI
-  * [ ] codecov
-  * [ ] snyk.io
+  * [x] Codacy
+  * [x] CircleCI
+  * [x] codecov
+  * [X] snyk.io
+  * [ ] npm badge
 
 ## license
 
