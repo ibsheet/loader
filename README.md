@@ -29,44 +29,111 @@ Dynamically load support module of IBSheet
 * [codecov](https://codecov.io) - leading, dedicated code coverage
 * [snyk.io](https://snyk.io) - Continuously find and fix vulnerabilities for npm
 
+## installing
+
+Using npm:
+```sh
+$ npm install @ibsheet/loader
+```
+
+Using yarn:
+```sh
+$ npm install @ibsheet/loader
+```
+
+Using browser:
+```html
+<script src="https://unpkg.com/@ibsheet/loader/dist/umd/ibsheet-loader.min.js">
+```
+
+## example
+
+API Document: <https://ibsheet.github.io/loader/>
+
+### note: Browser usage
+
+```js
+var loader = window.IBSheetLoader
+loader.config({
+  registry: [
+    {
+      name: 'ibsheet',
+      // version: 8,
+      baseUrl: '<publicpath>/ibsheet',
+      urls: [
+        'ibsheet.js',
+        { url: 'css/default/main.css', target: 'head' },
+        'locale/ko.js'
+        'ibleaders.js'
+      ]
+    }
+  ],
+})
+loader.createSheet(options)
+```
+
+### note: CommonJS usage
+
+```js
+const loader = require('@ibsheet/loader')
+loader.config({
+  registry: [
+    {
+      name: 'ibsheet',
+      // version: 8,
+      baseUrl: '<publicpath>/ibsheet',
+      urls: [
+        'ibsheet.js',
+        { url: 'css/default/main.css', target: 'head' },
+        'locale/ko.js'
+        'ibleaders.js'
+      ]
+    }
+  ],
+})
+loader.createSheet(options)
+```
+
+### note: Typescript usage
+
+```ts
+import { IBSheetLoaderInstance as loader } from '@ibsheet/loader'
+loader.config({
+  registry: [
+    {
+      name: 'ibsheet',
+      // version: 8,
+      baseUrl: '<publicpath>/ibsheet',
+      urls: [
+        'ibsheet.js',
+        { url: 'css/default/main.css', target: 'head' },
+        'locale/ko.js'
+        'ibleaders.js'
+      ]
+    }
+  ],
+})
+loader.createSheet(options)
+```
+
 ## development
 
 run webpack-dev-server `localhost:3033` 
 
-```
+```sh
 yarn serve
 ```
 
 ### build
 
-```
+```sh
 yarn build
-```
-
-### publish
-
-```
-yarn build
-yarn release
-npm link
-npm publish --access public
 ```
 
 ### document
 
-API Document: <https://ibsheet.github.io/loader/>
-
 * generate: `yarn doc`
 * publish: `yarn doc:publish`
-
-## todo
-
-* git integration
-  * [x] Codacy
-  * [x] CircleCI
-  * [x] codecov
-  * [X] snyk.io
-  * [ ] npm badge
 
 ## license
 
