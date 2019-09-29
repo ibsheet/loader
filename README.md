@@ -8,6 +8,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![npm version](https://badge.fury.io/js/%40ibsheet%2Floader.svg)](https://badge.fury.io/js/%40ibsheet%2Floader)
 [![install size](https://packagephobia.now.sh/badge?p=@ibsheet/loader)](https://packagephobia.now.sh/result?p=@ibsheet/loader)
+[![vulnerabilities](https://snyk.io/test/github/ibsheet/loader/badge.svg)](https://snyk.io/test/github/ibsheet/loader)
 
 Dynamically load support module of IBSheet
 
@@ -38,7 +39,7 @@ $ npm install @ibsheet/loader
 
 Using yarn:
 ```sh
-$ npm install @ibsheet/loader
+$ yarn install @ibsheet/loader
 ```
 
 Using browser:
