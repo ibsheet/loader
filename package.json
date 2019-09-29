@@ -5,7 +5,7 @@
     "global": "IBSheetLoader"
   },
   "version": "0.0.3",
-  "description": "Dynamically load support module of IBSheet",
+  "description": "Dynamically load support module for IBSheet",
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
