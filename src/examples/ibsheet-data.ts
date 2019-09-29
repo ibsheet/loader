@@ -2,6 +2,9 @@ export const IBSheetSampleData = [
   {
     id: 'sheet1',
     config: {
+      Def: {
+        RelWidth: 1
+      },
       Cols: [
         {
           Header: '열1',
@@ -39,6 +42,11 @@ export const IBSheetSampleData = [
       }
     ],
     config: {
+      Def: {
+        Col: {
+          RelWidth: 1
+        }
+      },
       Cols: [
         {
           Header: '이름',

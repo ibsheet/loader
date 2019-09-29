@@ -11,6 +11,7 @@ import {
   pick,
   defaultsDeep,
   bind,
+  concat,
   clone
 } from './shared/lodash'
 import { documentReady } from './shared/dom-utils'
@@ -20,9 +21,14 @@ import {
   LoaderTaskType
 } from './task-man'
 import { getLoadItems } from './modules'
+import {
+  IBSheetGlobalInstance as IBSheet,
+  IBSheetInstance,
+  IBSheetCreateOptions
+} from './ibsheet'
 
 // import { double, power } from './number'
-import { IBSHEET, APP_VERSION, APP_GLOBAL } from './constant'
+import { IBSHEET, APP_VERSION, APP_GLOBAL, IBSHEET_GLOBAL } from './constant'
 import { ISheetLoaderConfig, DefaultLoaderConfig } from './config'
 import { LoaderRegistry, LoaderRegistryItem } from './registry'
 import {
@@ -156,8 +162,69 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
     return this
   }
 
-  createSheet(_options?: any): Promise<any> {
-    return Promise.resolve()
+  getSheetGlobalObject(): Promise<any> {
+    if (this.loadedDefaultLib) {
+      return Promise.resolve(window[IBSHEET_GLOBAL])
+    }
+    return new Promise((resolve, reject) => {
+      try {
+        const defItem = this._getDefaultRegItem()
+        defItem.once(LoaderEvent.LOADED, () => {
+          resolve(window[IBSHEET_GLOBAL])
+        })
+        this.load()
+      } catch(err) {
+        reject(err)
+      }
+    })
+  }
+
+  createSheet(options: any): Promise<IBSheetInstance> {
+    // id: sheet1Opts.id,
+    // el: sheet1Opts.elementId,
+    // options: sheet1Opts.config,
+    // data: sheet1Opts.data
+    const ibsheetOpts: IBSheetCreateOptions = {}
+    ;[
+      { key: 'id' },
+      { key: 'el', alias: ['elementId'] },
+      { key: 'options', alias: ['config'] },
+      { key: 'data' },
+    ].forEach(o => {
+      const { key } = o
+      concat(key, get(o, 'alias')).filter(Boolean)
+        .forEach((prop: string) => {
+          if (has(options, prop)) {
+            ibsheetOpts[key] = get(options, prop)
+          }
+        })
+    })
+    return new Promise(async (resolve, reject) => {
+      let sheet: any
+      if (this.loadedDefaultLib) {
+        try {
+          sheet = await IBSheet.create(ibsheetOpts)
+          return resolve(sheet)
+        } catch (err) {
+          return reject(err)
+        }
+      }
+      // if not loaded
+      const defItem = this._getDefaultRegItem()
+      defItem.once(LoaderEvent.LOADED, async () => {
+        try {
+          sheet = await IBSheet.create(ibsheetOpts)
+        } catch (err) {
+          reject(err)
+        }
+        return resolve(sheet)
+      })
+      try {
+        this.load()
+      } catch (err) {
+        reject(err)
+      }
+    })
   }
 
   reload(arg?: string | string[]): this {

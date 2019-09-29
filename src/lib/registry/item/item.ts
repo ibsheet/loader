@@ -38,8 +38,8 @@ class LoaderRegistryItem extends CustomEventEmitter
   private _loaded: boolean = false
   private _isResolveUpdateUrls: boolean
   private _updateUrls: IRegistryItemURL[]
-  private _urlOptions: IRegistryItemUrlData
-  private _evtOptions: IRegistryItemEventOptions
+  private _urlOptions: IRegistryItemUrlData = {}
+  private _evtOptions: IRegistryItemEventOptions = {}
   error = null
 
   constructor(data: string | ILoaderRegistryItemData) {
@@ -233,12 +233,10 @@ class LoaderRegistryItem extends CustomEventEmitter
     this.emit(LoaderEvent.LOAD, eventData)
     asyncImportItemUrls
       .call(this, options)
-      .then(() => {
-        // urls
+      .then(() => { // urls
         asyncItemTest
           .call(this, options)
-          .then(() => {
-            // item
+          .then(() => { // item
             this._loaded = true
             this.emit(LoaderEvent.LOADED, eventData)
             try {

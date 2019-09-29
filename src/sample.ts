@@ -2,7 +2,7 @@
 import './examples/base'
 import {
   getLoaderInstance,
-  ibseetLibData,
+  // ibseetLibData,
   loaderOptions,
   initTestBoxControls,
   IBSheetSampleData
@@ -50,43 +50,53 @@ $((): void => {
   // init test-box controls
   initTestBoxControls(loader)
 
-  console.log(
-    `==================== 4-1: FIRST LOAD (registry) ====================`
-  )
-  loader.load()
+  // console.log(
+  //   `==================== 4-1: FIRST LOAD (registry) ====================`
+  // )
+  // loader.load()
 
-  console.log(
-    `==================== 4-2: FIRST LOAD (immediatly) ====================`
-  )
+  // console.log(
+  //   `==================== 4-2: FIRST LOAD (immediatly) ====================`
+  // )
   // loader.load(555555)
-  loader.load(ibseetLibData)
+  // loader.load(ibseetLibData)
   // loader.load('aaaaaaaa')
   // loader.load(7777)
 
-  console.log(`==================== 5: LOAD STRESS TEST ====================`)
-  loader
-    .load('asdads')
-    .load('asdsdfadfsdfs')
-    .load()
-    .load()
-    .load()
-    .load({
-      name: 'pretty-checkbox',
-      url:
-        'https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'
-    })
-    .load('pretty-checkbox')
-    .load('ancd')
-    .load('pretty-checkbox')
-    .load('pretty-checkbox')
-    .load('pretty-checkbox')
+  // console.log(`==================== 5: LOAD STRESS TEST ====================`)
+  // loader
+  //   .load('asdads')
+  //   .load('asdsdfadfsdfs')
+  //   .load()
+  //   .load()
+  //   .load()
+  //   .load({
+  //     name: 'pretty-checkbox',
+  //     url:
+  //       'https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'
+  //   })
+  //   .load('pretty-checkbox')
+  //   .load('ancd')
+  //   .load('pretty-checkbox')
+  //   .load('pretty-checkbox')
+  //   .load('pretty-checkbox')
 
   // console.log(`==================== 6: LOAD ANOTHER LIBRARIES ====================`)
   // loader.load(['font-awesome', 'swal2'])
 
   console.log(`==================== 7: CREATE IBSHEET ====================`)
-  const options = IBSheetSampleData[0]
-  loader.createSheet(options)
+  const sheet1Opts = IBSheetSampleData[1]
+  $('#ibsheet.test-box>.test-body').append($('<div/>', {
+    id: sheet1Opts.elementId,
+    css: {
+      width: '100%',
+      height: '240px'
+    }
+  }))
+  loader.createSheet(sheet1Opts).then((sheet: any) => {
+    console.log(sheet.id)
+
+  })
 
   // console.log(`==================== 8: RELOAD TEST ====================`)
   // loader.once('loaded', function (evt: any) {
