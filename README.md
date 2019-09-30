@@ -75,8 +75,12 @@ loader.createSheet(options)
 
 ### note: CommonJS usage
 
+*** comming soon ***
+
+### note: ESModule usage
+
 ```js
-const loader = require('@ibsheet/loader')
+import loader from '@ibsheet/loader'
 loader.config({
   registry: [
     {

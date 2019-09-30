@@ -1,4 +1,4 @@
-import { basename } from 'path'
+import path from 'path'
 import { parse as UrlParse } from 'url'
 
 import {
@@ -44,7 +44,7 @@ export const getFilenameFromURL = (
     console.warn('[UrlParser]', `${url} failed parse basename`)
     return
   }
-  return basename(pathname)
+  return path.basename(pathname)
 }
 
 export function castRegistryAlias(

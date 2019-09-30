@@ -28,7 +28,8 @@ export interface ILoaderRegistry extends CustomEventEmitter {
   get(alias: string): LoaderRegistryItem | null
   exists(alias: string): boolean
   info(alias: string): string
-  getAll(alias: string): LoaderRegistryItem[] | []
+  // todo: 20190930-angualr tslint error
+  // getAll(alias: string): LoaderRegistryItem[] | []
   findOne(alias: string): LoaderRegistryItem | undefined
   findLoadedOne(alias: string): LoaderRegistryItem | undefined
   getIndexByAlias(alias: string): number
