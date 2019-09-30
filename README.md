@@ -39,7 +39,7 @@ $ npm install @ibsheet/loader
 
 Using yarn:
 ```sh
-$ yarn install @ibsheet/loader
+$ yarn add @ibsheet/loader
 ```
 
 Using browser:
@@ -75,7 +75,7 @@ loader.createSheet(options)
 
 ### note: CommonJS usage
 
-*** comming soon ***
+***comming soon***
 
 ```js
 const loader = require('@ibsheet/loader')
