@@ -44,7 +44,7 @@ $ yarn add @ibsheet/loader
 
 Using browser:
 ```html
-<script src="https://unpkg.com/@ibsheet/loader/dist/umd/ibsheet-loader.min.js">
+<script src="https://unpkg.com/@ibsheet/loader/dist/umd/ibsheet-loader.min.js"></script>
 ```
 
 ## example
