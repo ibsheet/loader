@@ -1,4 +1,3 @@
-import path from 'path'
 import { parse as UrlParse } from 'url'
 
 import {
@@ -44,7 +43,9 @@ export const getFilenameFromURL = (
     console.warn('[UrlParser]', `${url} failed parse basename`)
     return
   }
-  return path.basename(pathname)
+  // todo: angular package error
+  // return path.basename(pathname)
+  return pathname
 }
 
 export function castRegistryAlias(
