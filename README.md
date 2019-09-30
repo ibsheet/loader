@@ -77,6 +77,26 @@ loader.createSheet(options)
 
 *** comming soon ***
 
+```js
+const loader = require('@ibsheet/loader')
+loader.config({
+  registry: [
+    {
+      name: 'ibsheet',
+      // version: 8,
+      baseUrl: '<publicpath>/ibsheet',
+      urls: [
+        'ibsheet.js',
+        'css/default/main.css',
+        'locale/ko.js',
+        'ibleaders.js'
+      ]
+    }
+  ]
+})
+loader.createSheet(options)
+```
+
 ### note: ESModule usage
 
 ```js
