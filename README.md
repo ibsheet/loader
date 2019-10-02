@@ -10,8 +10,8 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-![Github Issues](https://img.shields.io/github/issues/ibsheet/loader)
-![Discord](https://img.shields.io/discord/628734683823472650)
+![[Github Issues](https://img.shields.io/github/issues/ibsheet/loader)](https://github.com/ibsheet/loader/issues)
+![[Discord](https://img.shields.io/discord/628734683823472650)](https://discord.gg/H2wyHXb)
 
 Dynamically load support module for IBSheet
 
