@@ -1,7 +1,7 @@
 # https://circleci.com/docs/2.0/language-javascript/
 version: 2
 jobs:
-  'node-10':
+  'code-coverage':
     docker:
       - image: circleci/node:10
     working_directory: ~/loader
@@ -32,29 +32,29 @@ jobs:
             - ~/.cache/yarn
       - run: yarn test
       - run: yarn cov:send
-      - run: yarn cov:check
-  # 'node-latest':
-  #   docker:
-  #     - image: circleci/node:latest
-  #   working_directory: ~/loader
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         keys:
-  #           - v1-dependencies-{{ checksum "package.json" }}
-  #           - v1-dependencies-
-  #     - run: npm install
-  #     - save_cache:
-  #         paths:
-  #           - node_modules
-  #         key: v1-dependencies-{{ checksum "package.json" }}
-  #     - run: npm test
-  #     - run: npm run cov:send
-  #     - run: npm run cov:check
+      # - run: yarn cov:check
+  # 'build':
+  # 'deploy-npm':
+
 
 workflows:
   version: 2
-  build:
+  test:
     jobs:
-      - 'node-10'
-      # - 'node-latest'
+      - 'code-coverage':
+          filters:
+            branches:
+              only:
+                - master
+  # build-n-deploy:
+  #   jobs:
+  #     - 'build':
+  #         filters:
+  #           branches:
+  #             only:
+  #               - master
+  #     - 'deploy-npm':
+  #         filters:
+  #           branches:
+  #             only:
+  #               - master
