@@ -35,7 +35,7 @@ Dynamically load support module for [IBSheet](https://www.ibsheet.com)
 
 ## documents
 
-* TypeDoc: <https://ibsheet.github.io/loader/>
+* TypeDoc: <https://ibsheet.github.io/loader>
 * Manual: <https://ibsheet.github.io/loader-manual>
 
 ## installing
