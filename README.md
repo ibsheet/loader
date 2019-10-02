@@ -33,6 +33,11 @@ Dynamically load support module for [IBSheet](https://www.ibsheet.com)
 * [codecov](https://codecov.io) - leading, dedicated code coverage
 * [snyk.io](https://snyk.io) - Continuously find and fix vulnerabilities for npm
 
+## documents
+
+* TypeDoc: <https://ibsheet.github.io/loader/>
+* Manual: <https://ibsheet.github.io/loader-manual>
+
 ## installing
 
 Using npm:
@@ -51,8 +56,6 @@ Using browser:
 ```
 
 ## example
-
-API Document: <https://ibsheet.github.io/loader/>
 
 ### note: Browser usage
 
