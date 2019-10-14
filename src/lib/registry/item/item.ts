@@ -17,27 +17,24 @@ import { LoaderEvent } from '../../interface'
 
 import { castRegistryItemData, castRegistryAlias } from '../utils'
 import {
-  ILoaderRegistryItem,
   ILoaderRegistryItemData,
   ILoaderRegistryItemRawData,
   IRegistryItemEventOptions,
   IRegistryItemUrlData,
-  IRegistryItemURL
 } from './interface'
 import { RegistryItemURL } from './url'
 import { asyncImportItemUrls } from './async-load'
 import { asyncRemoveItemUrls } from './async-unload'
 import { asyncItemTest } from './async-test'
 
-class LoaderRegistryItem extends CustomEventEmitter
-  implements ILoaderRegistryItem {
+class LoaderRegistryItem extends CustomEventEmitter {
   private _id: string
   private _name: string
   private _version: string | null
-  private _urls: IRegistryItemURL[]
+  private _urls: RegistryItemURL[]
   private _loaded: boolean = false
   private _isResolveUpdateUrls: boolean
-  private _updateUrls: IRegistryItemURL[]
+  private _updateUrls: RegistryItemURL[]
   private _urlOptions: IRegistryItemUrlData = {}
   private _evtOptions: IRegistryItemEventOptions = {}
   error = null
@@ -94,10 +91,10 @@ class LoaderRegistryItem extends CustomEventEmitter
       version: this.version
     }) as string
   }
-  get urls(): IRegistryItemURL[] {
+  get urls(): RegistryItemURL[] {
     return this._urls
   }
-  get updateUrls(): IRegistryItemURL[] {
+  get updateUrls(): RegistryItemURL[] {
     return this._updateUrls
   }
   get isResolveUpdateUrls(): boolean {

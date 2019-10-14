@@ -3,7 +3,8 @@ import { find, isNil, now, remove } from '../shared/lodash'
 
 import { CustomEventEmitter } from '../custom'
 import { LoaderRegistryItem } from '../registry'
-import { LoaderEvent, IBSheetLoaderStatic } from '../interface'
+import { LoaderEvent } from '../interface'
+import { IBSheetLoaderUber } from '../main'
 
 import { LoaderTaskType, ITaskManagerOptions } from './interface'
 import { getTaskEventsByType, isResolveTaskEvent } from './utils'
@@ -14,9 +15,9 @@ export class LoaderTaskManager extends CustomEventEmitter {
   private _wipList: LoaderRegistryItem[]
   private _working: boolean = false
   private _reserved: number = 0
-  private _uber: IBSheetLoaderStatic
+  private _uber: IBSheetLoaderUber
 
-  constructor(type: LoaderTaskType, uber: IBSheetLoaderStatic) {
+  constructor(type: LoaderTaskType, uber: IBSheetLoaderUber) {
     super()
     this._type = type
     this._stack = []

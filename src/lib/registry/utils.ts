@@ -12,7 +12,7 @@ import {
 import { VERSION_GENERATE_START_NUM } from '../config'
 import { LoaderRegistryDataType, IRegistryIdentifier } from './interface'
 import {
-  ILoaderRegistryItem,
+  LoaderRegistryItem,
   ILoaderRegistryItemData,
   IRegistryItemUrlData
 } from './item'
@@ -85,7 +85,7 @@ export function getRegistryIdentifier(
  * @param item
  * @hidden
  */
-export function generateVersion(item: ILoaderRegistryItem): string {
+export function generateVersion(item: LoaderRegistryItem): string {
   const { version: ver } = item
 
   if (isNil(ver)) {

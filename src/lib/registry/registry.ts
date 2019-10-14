@@ -8,8 +8,8 @@ import {
   lastIndexOf
 } from '../shared/lodash'
 import { IBSHEET, IBSHEET_GLOBAL } from '../constant'
-import { IBSheetLoaderStatic } from '../interface'
-import { ILoaderRegistry, LoaderRegistryDataType } from './interface'
+import { IBSheetLoaderUber } from '../main'
+import { LoaderRegistryDataType } from './interface'
 import { CustomEventEmitter } from '../custom'
 import {
   ILoaderRegistryItemUpdateData,
@@ -18,10 +18,10 @@ import {
 } from './item'
 import { generateVersion } from './utils'
 
-class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
+class LoaderRegistry extends CustomEventEmitter {
   private _list: LoaderRegistryItem[]
-  private _uber: IBSheetLoaderStatic
-  constructor(uber: IBSheetLoaderStatic) {
+  private _uber: IBSheetLoaderUber
+  constructor(uber: IBSheetLoaderUber) {
     super()
     this._list = []
     this._uber = uber
@@ -108,8 +108,9 @@ class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
     return this._list[ndx]
   }
 
-  info(alias: string): string {
+  info(alias: string): string | undefined {
     let res: any = this.getAll(alias).map(item => item.raw)
+    if (!res.length) return
     if (res.length === 1) res = res[0]
     return JSON.stringify(res, null, 2)
   }

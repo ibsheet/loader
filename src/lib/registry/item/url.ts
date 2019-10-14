@@ -2,9 +2,9 @@ import uuid from 'uuid/v1'
 
 import { get, isNil } from '../../shared/lodash'
 import { getFilenameFromURL } from '../utils'
-import { IRegistryItemUrlData, IRegistryItemURL } from './interface'
+import { IRegistryItemUrlData } from './interface'
 
-class RegistryItemURL implements IRegistryItemURL {
+class RegistryItemURL {
   private _id: string
   private _value: string
   private _basename: string

@@ -32,16 +32,15 @@ import { IBSHEET, APP_VERSION, APP_GLOBAL, IBSHEET_GLOBAL } from './constant'
 import { ISheetLoaderConfig, DefaultLoaderConfig } from './config'
 import { LoaderRegistry, LoaderRegistryItem } from './registry'
 import {
-  IBSheetLoaderStatic,
   IRegisteredItem,
   LoaderStatus,
   LoaderEvent
 } from './interface'
 
 /**
- * IBSheetLoader Main Class
+ * IBSheetLoaderUber Main Class
  */
-class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
+export class IBSheetLoaderUber extends CustomEventEmitter {
   private _status: LoaderStatus = LoaderStatus.PENDING
   private _ready: boolean = false
   private _loadTaskMan: LoaderTaskManager
@@ -116,7 +115,7 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
     return get(this._options, sPath, def)
   }
 
-  info(alias: string): string {
+  info(alias: string): string | undefined {
     return this.registry.info(alias)
   }
 
@@ -325,15 +324,15 @@ class IBSheetLoader extends CustomEventEmitter implements IBSheetLoaderStatic {
  * test prototype
  * @hidden
  */
-// const fn = IBSheetLoader.prototype
+// const fn = IBSheetLoaderUber.prototype
 // fn.double = double
 // fn.power = power
 
-export const IBSheetLoaderInstance = new IBSheetLoader()
+export const IBSheetLoader = new IBSheetLoaderUber()
 
 // set global variable
 if (!has(window, APP_GLOBAL)) {
-  set(window, APP_GLOBAL, IBSheetLoaderInstance)
+  set(window, APP_GLOBAL, IBSheetLoader)
 }
 
-export default IBSheetLoaderInstance
+export default IBSheetLoader
