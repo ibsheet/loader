@@ -26,3 +26,4 @@ tslint.yaml
 webpack.*.js
 yarn.lock
 .env
+typedoc.js
