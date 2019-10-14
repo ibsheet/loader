@@ -5,9 +5,10 @@ export const ibseetLibData = {
   // version: '8.0',
   baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`,
   urls: [
+    'locale/ko.js',
+    // 'locale/en.js',
     'ibsheet.js',
     { url: 'css/default/main.css', target: 'head' },
-    'locale/ko.js'
     // `${IBSHEET_BASEURL}/v8/ibleaders.js`
   ]
 }

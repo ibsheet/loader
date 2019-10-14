@@ -41,7 +41,10 @@ export const IBSheetSampleData = [
         sa_desc: ''
       }
     ],
-    config: {
+    options: {
+      // Cfg: {
+      //   IgnoreFocused: true
+      // },
       Def: {
         Col: {
           RelWidth: 1
@@ -51,27 +54,31 @@ export const IBSheetSampleData = [
         {
           Header: '이름',
           Name: 'sa_nm',
-          Type: 'Text'
+          Type: 'Text',
+          Width: 100
         },
         {
           Header: '사원번호',
           Name: 'sa_id',
           Type: 'Text',
-          Align: 'center'
+          Align: 'center',
+          Width: 100
         },
         {
           Header: '부서',
           Name: 'sa_dept',
           Type: 'Enum',
           Enum: '|경영지원|총무|인사|설계|시공1|시공2',
-          EnumKeys: '|01|02|03|04|05|06'
+          EnumKeys: '|01|02|03|04|05|06',
+          Width: 100
         },
         {
           Header: '직급',
           Name: 'sa_position',
           Type: 'Enum',
           Enum: '|대표|상무|이사|부장|차장|과장|대리|사원',
-          EnumKeys: '|A1|A2|A3|B0|B1|C4|C5|C6'
+          EnumKeys: '|A1|A2|A3|B0|B1|C4|C5|C6',
+          Width: 100
         },
         {
           Header: '입사일',
@@ -83,10 +90,11 @@ export const IBSheetSampleData = [
         {
           Header: '비고',
           Name: 'sa_desc',
-          Type: 'Lines'
+          Type: 'Lines',
+          Width: 100
         }
       ]
     },
-    elementId: 'sheet2-wrapper'
+    el: 'sheet2-wrapper'
   }
 ]
