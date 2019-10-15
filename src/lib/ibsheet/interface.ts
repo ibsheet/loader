@@ -12,7 +12,7 @@ export interface IBSheetCreateOptions {
 
 export interface IBSheetGlobalStatic {
   // create: (...args: any[]) => void
-  create: (options: IBSheetCreateOptions) => any
+  create: (options: IBSheetCreateOptions) => Promise<IBSheetInstance>
 }
 
 export interface IBSheetInstance {

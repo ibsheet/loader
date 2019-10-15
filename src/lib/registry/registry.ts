@@ -8,7 +8,7 @@ import {
   lastIndexOf
 } from '../shared/lodash'
 import { IBSHEET, IBSHEET_GLOBAL } from '../constant'
-import { IBSheetLoaderUber } from '../main'
+import { IBSheetLoaderStatic } from '../main'
 import { LoaderRegistryDataType } from './interface'
 import { CustomEventEmitter } from '../custom'
 import {
@@ -20,8 +20,8 @@ import { generateVersion } from './utils'
 
 class LoaderRegistry extends CustomEventEmitter {
   private _list: LoaderRegistryItem[]
-  private _uber: IBSheetLoaderUber
-  constructor(uber: IBSheetLoaderUber) {
+  private _uber: IBSheetLoaderStatic
+  constructor(uber: IBSheetLoaderStatic) {
     super()
     this._list = []
     this._uber = uber

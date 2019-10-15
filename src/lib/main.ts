@@ -38,9 +38,9 @@ import {
 } from './interface'
 
 /**
- * IBSheetLoaderUber Main Class
+ * IBSheetLoaderStatic Main Class
  */
-export class IBSheetLoaderUber extends CustomEventEmitter {
+export class IBSheetLoaderStatic extends CustomEventEmitter {
   private _status: LoaderStatus = LoaderStatus.PENDING
   private _ready: boolean = false
   private _loadTaskMan: LoaderTaskManager
@@ -179,10 +179,6 @@ export class IBSheetLoaderUber extends CustomEventEmitter {
   }
 
   createSheet(options: any): Promise<IBSheetInstance> {
-    // id: sheet1Opts.id,
-    // el: sheet1Opts.elementId,
-    // options: sheet1Opts.config,
-    // data: sheet1Opts.data
     const ibsheetOpts: IBSheetCreateOptions = {}
     ;[
       { key: 'id' },
@@ -324,11 +320,11 @@ export class IBSheetLoaderUber extends CustomEventEmitter {
  * test prototype
  * @hidden
  */
-// const fn = IBSheetLoaderUber.prototype
+// const fn = IBSheetLoaderStatic.prototype
 // fn.double = double
 // fn.power = power
 
-export const IBSheetLoader = new IBSheetLoaderUber()
+export const IBSheetLoader = new IBSheetLoaderStatic()
 
 // set global variable
 if (!has(window, APP_GLOBAL)) {

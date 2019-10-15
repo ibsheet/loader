@@ -9,7 +9,7 @@ import {
 } from './examples'
 
 // document ready
-$((): void => {
+$(async () => {
   const loader = getLoaderInstance()
 
   // console.log(`==================== 1: SET CONFIG ====================`)
@@ -85,18 +85,24 @@ $((): void => {
   // loader.load(['font-awesome', 'swal2'])
 
   console.log(`==================== 7: CREATE IBSHEET ====================`)
-  const sheet1Opts = IBSheetSampleData[1]
+  const sheetOpts1 = IBSheetSampleData[0]
+  const sheetOpts2 = IBSheetSampleData[1]
   $('#ibsheet.test-box>.test-body').append(
-    $('<div/>', {
-      id: sheet1Opts.elementId,
-      css: {
-        width: '100%',
-        height: '240px'
-      }
+    IBSheetSampleData.map(data => {
+      return $('<div/>', {
+        id: data.el,
+        css: {
+          width: '100%',
+          height: '240px'
+        }
+      })
     })
   )
-  loader.createSheet(sheet1Opts).then((sheet: any) => {
-    console.log(sheet.id)
+  loader.createSheet(sheetOpts1).then((sheet: any) => {
+    console.log('ibsheet1 created:', sheet.id)
+  })
+  loader.createSheet(sheetOpts2).then((sheet: any) => {
+    console.log('ibsheet2 created:', sheet.id)
   })
 
   // console.log(`==================== 8: RELOAD TEST ====================`)

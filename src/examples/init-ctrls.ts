@@ -63,12 +63,12 @@ function updateTestBoxControls(alias: string, bool: boolean) {
 
 export function initTestBoxControls(loader: IBSheetLoaderStatic) {
   loader
-    .bind('loaded unloaded', evt => {
+    .bind('loaded unloaded', (evt: any) => {
       const { alias, loaded } = evt.target.raw
       updateTestBoxControls(alias, loaded)
     })
     .list()
-    .forEach(data => {
+    .forEach((data: any) => {
       const { alias, loaded } = data
       updateTestBoxControls(alias, loaded)
     })

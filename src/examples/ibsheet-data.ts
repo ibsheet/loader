@@ -1,7 +1,7 @@
 export const IBSheetSampleData = [
   {
     id: 'sheet1',
-    config: {
+    options: {
       Def: {
         RelWidth: 1
       },
@@ -19,7 +19,7 @@ export const IBSheetSampleData = [
         }
       ]
     },
-    elementId: 'sheet1-wrapper'
+    el: 'sheet1-wrapper'
   },
   {
     id: 'sheet2',
