@@ -11,6 +11,7 @@ import { IBSHEET, IBSHEET_GLOBAL } from '../constant'
 import { IBSheetLoaderStatic } from '../main'
 import { RegistryParam } from './interface'
 import { CustomEventEmitter } from '../custom'
+import { existsIBSheetStatic, destroyIBSheetStatic } from '../ibsheet'
 import { RegistryItemUpdateData, RegistryItemData, RegistryItem } from './item'
 import { generateVersion } from './utils'
 
@@ -67,14 +68,19 @@ class LoaderRegistry extends CustomEventEmitter {
 
     // IBSheet Default Validator
     if (item.name === IBSHEET) {
+      const CustomGlobalName = this._uber.getOption('globals.ibsheet', IBSHEET_GLOBAL)
       if (!has(data, 'validate')) {
-        item.setEventOption('validate', () => {
-          return window[IBSHEET_GLOBAL] != null
+        item.setEventOption('validate', function() {
+          return existsIBSheetStatic(CustomGlobalName)
         })
       }
+
       if (!has(data, 'unload')) {
-        item.setEventOption('unload', () => {
-          return (window[IBSHEET_GLOBAL] = undefined)
+        item.setEventOption('unload', function() {
+          if (this.debug) {
+            console.log(`%c[${this.name}.unload / custom] ${this.alias}`, 'color:royalblue')
+          }
+          destroyIBSheetStatic(CustomGlobalName)
         })
       }
     }

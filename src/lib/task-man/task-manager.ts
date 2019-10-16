@@ -143,6 +143,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
       .catch((err: any) => {
         this.emit(LoaderEventName.LOAD_FAILED, err)
         this._working = false
+        throw new Error(err)
       })
   }
   start(): void {

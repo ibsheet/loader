@@ -222,6 +222,14 @@ class RegistryItem extends CustomEventEmitter {
   load(options?: any): this {
     const eventData = { target: this }
     this.clearUpdateUrls()
+    try {
+      this._customEventHandle('load', {
+        type: LoaderEventName.LOADED,
+        target: this
+      })
+    } catch (err) {
+      throw new Error(err)
+    }
     this.emit(LoaderEventName.LOAD, eventData)
     asyncImportItemUrls
       .call(this, options)
@@ -233,14 +241,6 @@ class RegistryItem extends CustomEventEmitter {
             // item
             this._loaded = true
             this.emit(LoaderEventName.LOADED, eventData)
-            try {
-              this._customEventHandle('load', {
-                type: LoaderEventName.LOADED,
-                target: this
-              })
-            } catch (err) {
-              console.error(err)
-            }
           })
           .catch(() => {
             this.emit(LoaderEventName.LOAD_FAILED, eventData)
@@ -254,19 +254,19 @@ class RegistryItem extends CustomEventEmitter {
   unload(options?: any): this {
     const eventData = { target: this }
     this.emit(LoaderEventName.UNLOAD, eventData)
+    try {
+      this._customEventHandle('unload', {
+        type: LoaderEventName.UNLOAD,
+        target: this
+      })
+    } catch (err) {
+      throw new Error(err)
+    }
     asyncRemoveItemUrls
       .call(this, options)
       .then(() => {
         this._loaded = false
         this.emit(LoaderEventName.UNLOADED, eventData)
-        try {
-          this._customEventHandle('unload', {
-            type: LoaderEventName.UNLOADED,
-            target: this
-          })
-        } catch (err) {
-          console.error(err)
-        }
       })
       .catch((err: any) => {
         this.emit(LoaderEventName.UNLOAD_FAILED, assignIn(eventData, err))

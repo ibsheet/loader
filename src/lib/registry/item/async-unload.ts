@@ -74,6 +74,7 @@ export function asyncRemoveItemUrls(options?: any): Promise<any[]> {
       resolve(uItem)
     })
   })
+
   const subTasks = asyncRemoveDepndentUrls.call(this, options)
   if (!isNil(subTasks)) {
     tasks = concat(tasks, subTasks)

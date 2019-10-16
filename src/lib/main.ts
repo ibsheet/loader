@@ -94,7 +94,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   }
 
   private _getSheetStatic(): any {
-    const name = this.getOption('globals.sheet')
+    const name = this.getOption('globals.ibsheet')
     return getIBSheetStatic(name)
   }
 
