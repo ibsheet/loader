@@ -31,7 +31,7 @@ import {
 
 // import { double, power } from './number'
 import { IBSHEET, APP_VERSION, APP_GLOBAL } from './constant'
-import { ISheetLoaderConfig, DefaultLoaderConfig } from './config'
+import { LoaderConfigOptions, DefaultLoaderConfig } from './config'
 import { LoaderRegistry, RegistryItem } from './registry'
 import { RegisteredItem, LoaderStatus, LoaderEventName } from './interface'
 
@@ -43,7 +43,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   private _ready: boolean = false
   private _loadTaskMan: LoaderTaskManager
   private _unloadTaskMan: LoaderTaskManager
-  private _options: ISheetLoaderConfig
+  private _options: LoaderConfigOptions
 
   registry: LoaderRegistry
   constructor() {
@@ -98,7 +98,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     return getIBSheetStatic(name)
   }
 
-  config(options?: ISheetLoaderConfig): this {
+  config(options?: LoaderConfigOptions): this {
     if (!isNil(options)) {
       const loaderOpts = pick(options, ['debug', 'retry', 'globals'])
       this._options = defaultsDeep(loaderOpts, this._options)
