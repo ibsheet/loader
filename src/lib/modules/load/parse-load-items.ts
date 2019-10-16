@@ -4,15 +4,13 @@ import { IBSHEET } from '../../constant'
 import { isString, castArray, isNil, isObject } from '../../shared/lodash'
 import {
   LoaderRegistry,
-  LoaderRegistryItem,
-  ILoaderRegistryItemData,
+  RegistryItem,
+  RegistryItemData,
   getRegistryIdentifier
 } from '../../registry'
 import { LoaderTaskManager } from '../../task-man'
 
-function parseLoadItemData(
-  data: ILoaderRegistryItemData
-): LoaderRegistryItem | undefined {
+function parseLoadItemData(data: RegistryItemData): RegistryItem | undefined {
   const registry: LoaderRegistry = this.registry
   let item: any
   if (isString(data)) {
@@ -51,17 +49,12 @@ function parseLoadItemData(
   return item
 }
 
-export function parseLoadItems(
-  loadItems: ILoaderRegistryItemData[]
-): LoaderRegistryItem[] {
+export function parseLoadItems(loadItems: RegistryItemData[]): RegistryItem[] {
   const taskMan: LoaderTaskManager = this._loadTaskMan
 
   const res = castArray(loadItems)
-    .map((data: ILoaderRegistryItemData) => {
-      let item: LoaderRegistryItem | undefined = parseLoadItemData.call(
-        this,
-        data
-      )
+    .map((data: RegistryItemData) => {
+      let item: RegistryItem | undefined = parseLoadItemData.call(this, data)
 
       if (isNil(item)) {
         console.warn(`invalid paramater: ${data}`)
@@ -85,5 +78,5 @@ export function parseLoadItems(
     })
     .filter(Boolean)
 
-  return res as LoaderRegistryItem[]
+  return res as RegistryItem[]
 }

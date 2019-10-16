@@ -1,4 +1,4 @@
-export enum LoaderEvent {
+export enum LoaderEventName {
   LOAD = 'load',
   LOAD_REJECT = 'load-reject',
   LOAD_FAILED = 'load-failed',
@@ -14,14 +14,14 @@ export enum LoaderEvent {
   CREATED = 'created'
 }
 
-export interface IRegisteredItem {
+export interface RegisteredItem {
   alias: string
   loaded: boolean
   error?: any
 }
 
-export interface ILoaderEvent {
-  type: LoaderEvent
+export interface LoaderEvent {
+  type: LoaderEventName
   target: any
   data?: any
   message?: string

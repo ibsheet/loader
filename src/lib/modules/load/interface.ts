@@ -1,3 +1,3 @@
-export interface ILoadTaskOptions {
+export interface LoadTaskOptions {
   defaultLibrary?: boolean
 }

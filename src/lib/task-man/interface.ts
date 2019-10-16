@@ -1,11 +1,11 @@
-export interface ILoaderRetryOptions {
+export interface RetryOptions {
   maxCount?: number
   intervalTime?: number
 }
 
-export interface ITaskManagerOptions {
+export interface TaskManagerOptions {
   debug?: boolean
-  retry?: ILoaderRetryOptions
+  retry?: RetryOptions
 }
 
 export enum LoaderTaskType {

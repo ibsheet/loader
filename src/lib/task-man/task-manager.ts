@@ -2,17 +2,17 @@ import { documentReady } from '../shared/dom-utils'
 import { find, isNil, now, remove } from '../shared/lodash'
 
 import { CustomEventEmitter } from '../custom'
-import { LoaderRegistryItem } from '../registry'
-import { LoaderEvent } from '../interface'
+import { RegistryItem } from '../registry'
+import { LoaderEventName } from '../interface'
 import { IBSheetLoaderStatic } from '../main'
 
-import { LoaderTaskType, ITaskManagerOptions } from './interface'
+import { LoaderTaskType, TaskManagerOptions } from './interface'
 import { getTaskEventsByType, isResolveTaskEvent } from './utils'
 
 export class LoaderTaskManager extends CustomEventEmitter {
   private _type: LoaderTaskType
-  private _stack: LoaderRegistryItem[]
-  private _wipList: LoaderRegistryItem[]
+  private _stack: RegistryItem[]
+  private _wipList: RegistryItem[]
   private _working: boolean = false
   private _reserved: number = 0
   private _uber: IBSheetLoaderStatic
@@ -34,7 +34,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
   get debug(): boolean {
     return this._uber.debug
   }
-  get options(): ITaskManagerOptions {
+  get options(): TaskManagerOptions {
     return {
       debug: this.debug,
       retry: this._uber.getOption('retry')
@@ -55,23 +55,20 @@ export class LoaderTaskManager extends CustomEventEmitter {
       }
     }
   }
-  private _newWipItem(item?: LoaderRegistryItem): LoaderRegistryItem | null {
+  private _newWipItem(item?: RegistryItem): RegistryItem | null {
     if (isNil(item)) return null
     // console.log(`%c[WIP]: ${item.alias}`, 'background-color:royalblue;color:white')
     this._wipList.push(item)
     return item
   }
-  private _resolveWipItem(item: LoaderRegistryItem): LoaderRegistryItem {
+  private _resolveWipItem(item: RegistryItem): RegistryItem {
     remove(this._wipList, o => o.id === item.id)
     return item
   }
-  private _checkIgnoreItem(item: LoaderRegistryItem): boolean {
+  private _checkIgnoreItem(item: RegistryItem): boolean {
     return this.type === LoaderTaskType.LOAD ? item.loaded : !item.loaded
   }
-  add(
-    item: LoaderRegistryItem,
-    immediatly: boolean = false
-  ): LoaderRegistryItem | null {
+  add(item: RegistryItem, immediatly: boolean = false): RegistryItem | null {
     if (this._checkIgnoreItem(item)) {
       if (this.debug) {
         console.warn(`"${item.alias}" is already ${this.type}ed`)
@@ -89,7 +86,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
     if (immediatly) this.start()
     return item
   }
-  exists(item: LoaderRegistryItem): boolean {
+  exists(item: RegistryItem): boolean {
     let target = find(this._stack, { id: item.id })
     if (isNil(target) && this._wipList.length) {
       target = find(this._wipList, { id: item.id })
@@ -112,7 +109,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
         console.log(`%c[${this.type}.start] ${item.alias}`, 'color:royalblue')
       }
       const eventData = { target: item }
-      this.emit(LoaderEvent.LOAD, eventData)
+      this.emit(LoaderEventName.LOAD, eventData)
       const eventList = getTaskEventsByType(this.type)
       const task = new Promise(resolve => {
         eventList.forEach(event => {
@@ -139,12 +136,12 @@ export class LoaderTaskManager extends CustomEventEmitter {
             'color: green'
           )
         }
-        this.emit(LoaderEvent.LOAD_COMPLETE, { target: this, data: items })
+        this.emit(LoaderEventName.LOAD_COMPLETE, { target: this, data: items })
         this._working = false
         this._resolveJobs()
       })
       .catch((err: any) => {
-        this.emit(LoaderEvent.LOAD_FAILED, err)
+        this.emit(LoaderEventName.LOAD_FAILED, err)
         this._working = false
       })
   }

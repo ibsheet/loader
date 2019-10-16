@@ -1,8 +1,12 @@
 import { isString, trim, get, isNil } from '../shared/lodash'
-import { IBSHEET } from '../constant'
-import { LoaderRegistryDataType } from '../registry'
+import { IBSHEET, IBSHEET_GLOBAL } from '../constant'
+import { RegistryParam } from '../registry'
 
-export function validSheetRegistData(param?: LoaderRegistryDataType): boolean {
+export function getIBSheetStatic(name: string = IBSHEET_GLOBAL) {
+  return get(window, name)
+}
+
+export function validSheetRegistData(param?: RegistryParam): boolean {
   if (isString(param)) {
     return param.indexOf(IBSHEET) > -1
   }

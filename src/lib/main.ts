@@ -22,20 +22,18 @@ import {
 } from './task-man'
 import { getLoadItems } from './modules'
 import {
-  IBSheetGlobalInstance as IBSheet,
+  IBSheet,
   IBSheetInstance,
-  IBSheetCreateOptions
+  IBSheetCreateOptions,
+  getIBSheetStatic,
+  SheetGlobalStatic
 } from './ibsheet'
 
 // import { double, power } from './number'
-import { IBSHEET, APP_VERSION, APP_GLOBAL, IBSHEET_GLOBAL } from './constant'
+import { IBSHEET, APP_VERSION, APP_GLOBAL } from './constant'
 import { ISheetLoaderConfig, DefaultLoaderConfig } from './config'
-import { LoaderRegistry, LoaderRegistryItem } from './registry'
-import {
-  IRegisteredItem,
-  LoaderStatus,
-  LoaderEvent
-} from './interface'
+import { LoaderRegistry, RegistryItem } from './registry'
+import { RegisteredItem, LoaderStatus, LoaderEventName } from './interface'
 
 /**
  * IBSheetLoaderStatic Main Class
@@ -81,12 +79,12 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     return item.loaded
   }
 
-  private _getDefaultRegItem(throwError: boolean = true): LoaderRegistryItem {
+  private _getDefaultRegItem(throwError: boolean = true): RegistryItem {
     const item = this.registry.findOne(IBSHEET)
     if (throwError && isNil(item)) {
       throw new Error(`not found registration data for ${IBSHEET} library`)
     }
-    return item as LoaderRegistryItem
+    return item as RegistryItem
   }
 
   private _initTasksManagers(): void {
@@ -95,9 +93,14 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     this._unloadTaskMan = createTaskMan(LoaderTaskType.UNLOAD, this)
   }
 
+  private _getSheetStatic(): any {
+    const name = this.getOption('globals.sheet')
+    return getIBSheetStatic(name)
+  }
+
   config(options?: ISheetLoaderConfig): this {
     if (!isNil(options)) {
-      const loaderOpts = pick(options, ['debug', 'retry'])
+      const loaderOpts = pick(options, ['debug', 'retry', 'globals'])
       this._options = defaultsDeep(loaderOpts, this._options)
       const regOpts = get(options, 'registry')
       if (!isNil(regOpts)) {
@@ -119,9 +122,9 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     return this.registry.info(alias)
   }
 
-  list(): IRegisteredItem[] {
+  list(): RegisteredItem[] {
     return this.registry.list().map(alias => {
-      const item = this.registry.get(alias) as LoaderRegistryItem
+      const item = this.registry.get(alias) as RegistryItem
       return {
         alias,
         loaded: item.loaded
@@ -136,7 +139,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
 
     // add load tasks
     const tasks = aLoadItems
-      .map((item: LoaderRegistryItem) => {
+      .map((item: RegistryItem) => {
         if (item.changed) {
           const alias = item.alias
           if (item.loaded) {
@@ -161,15 +164,21 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     return this
   }
 
-  getSheetGlobalObject(): Promise<any> {
+  sheetReady(
+    callback?: (ibsheet?: SheetGlobalStatic) => void
+  ): Promise<SheetGlobalStatic> {
     if (this.loadedDefaultLib) {
-      return Promise.resolve(window[IBSHEET_GLOBAL])
+      return Promise.resolve(this._getSheetStatic())
     }
     return new Promise((resolve, reject) => {
       try {
         const defItem = this._getDefaultRegItem()
-        defItem.once(LoaderEvent.LOADED, () => {
-          resolve(window[IBSHEET_GLOBAL])
+        defItem.once(LoaderEventName.LOADED, () => {
+          const ibsheetStatic = this._getSheetStatic()
+          if (!isNil(callback)) {
+            callback.call(ibsheetStatic, ibsheetStatic)
+          }
+          resolve(ibsheetStatic)
         })
         this.load()
       } catch (err) {
@@ -207,7 +216,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       }
       // if not loaded
       const defItem = this._getDefaultRegItem()
-      defItem.once(LoaderEvent.LOADED, async () => {
+      defItem.once(LoaderEventName.LOADED, async () => {
         try {
           sheet = await IBSheet.create(ibsheetOpts)
         } catch (err) {
@@ -239,7 +248,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
         return
       }
       if (item.loaded) {
-        item.once(LoaderEvent.UNLOADED, evt => {
+        item.once(LoaderEventName.UNLOADED, evt => {
           const target = evt.target
           const tAlias = target.alias
           if (this.debug) {

@@ -3,10 +3,10 @@ import {
   LOAD_TEST_RETRY_INTERVAL,
   LOAD_TEST_RETRY_MAX_COUNT
 } from '../../config'
-import { LoaderRegistryItem } from './item'
+import { RegistryItem } from './item'
 
-export function asyncItemTest(options: any): Promise<LoaderRegistryItem> {
-  const self: LoaderRegistryItem = this
+export function asyncItemTest(options: any): Promise<RegistryItem> {
+  const self: RegistryItem = this
   const debug = get(options, 'debug', false)
   const MAX_RETRY = get(options, 'retry.maxCount', LOAD_TEST_RETRY_MAX_COUNT)
   const INTERVAL_TIME = get(

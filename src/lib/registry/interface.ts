@@ -1,14 +1,12 @@
-import {
-  ILoaderRegistryItemData
-} from './item'
+import { RegistryItemData } from './item'
 
-export interface ILoaderRegistryAliasData {
+export interface RegistryAliasData {
   name: string
   version?: string
 }
 
-export interface IRegistryIdentifier extends ILoaderRegistryAliasData {
+export interface RegistryIdentifier extends RegistryAliasData {
   alias: string
 }
 
-export type LoaderRegistryDataType = string | ILoaderRegistryItemData
+export type RegistryParam = string | RegistryItemData

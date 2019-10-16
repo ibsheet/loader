@@ -2,7 +2,7 @@ import uuid from 'uuid/v1'
 
 import { get, isNil } from '../../shared/lodash'
 import { getFilenameFromURL } from '../utils'
-import { IRegistryItemUrlData } from './interface'
+import { RegistryItemUrlData } from './interface'
 
 class RegistryItemURL {
   private _id: string
@@ -11,7 +11,7 @@ class RegistryItemURL {
   type: string = 'js'
   target: string = 'body'
 
-  constructor(data: IRegistryItemUrlData) {
+  constructor(data: RegistryItemUrlData) {
     // console.log(data)
     let url = get(data, 'url')
     if (isNil(url)) {

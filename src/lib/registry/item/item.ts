@@ -13,21 +13,21 @@ import {
   assignIn,
   isEmpty
 } from '../../shared/lodash'
-import { LoaderEvent } from '../../interface'
+import { LoaderEventName } from '../../interface'
 
 import { castRegistryItemData, castRegistryAlias } from '../utils'
 import {
-  ILoaderRegistryItemData,
-  ILoaderRegistryItemRawData,
-  IRegistryItemEventOptions,
-  IRegistryItemUrlData,
+  RegistryItemData,
+  RegistryItemRawData,
+  RegistryItemEventOptions,
+  RegistryItemUrlData
 } from './interface'
 import { RegistryItemURL } from './url'
 import { asyncImportItemUrls } from './async-load'
 import { asyncRemoveItemUrls } from './async-unload'
 import { asyncItemTest } from './async-test'
 
-class LoaderRegistryItem extends CustomEventEmitter {
+class RegistryItem extends CustomEventEmitter {
   private _id: string
   private _name: string
   private _version: string | null
@@ -35,11 +35,11 @@ class LoaderRegistryItem extends CustomEventEmitter {
   private _loaded: boolean = false
   private _isResolveUpdateUrls: boolean
   private _updateUrls: RegistryItemURL[]
-  private _urlOptions: IRegistryItemUrlData = {}
-  private _evtOptions: IRegistryItemEventOptions = {}
+  private _urlOptions: RegistryItemUrlData = {}
+  private _evtOptions: RegistryItemEventOptions = {}
   error = null
 
-  constructor(data: string | ILoaderRegistryItemData) {
+  constructor(data: string | RegistryItemData) {
     super()
     data = castRegistryItemData(data)
     this._updateUrls = []
@@ -102,7 +102,7 @@ class LoaderRegistryItem extends CustomEventEmitter {
     return this._isResolveUpdateUrls
   }
 
-  get raw(): ILoaderRegistryItemRawData {
+  get raw(): RegistryItemRawData {
     const raw = {
       id: this.id,
       urls: this.urls.map(url => url.value),
@@ -127,9 +127,7 @@ class LoaderRegistryItem extends CustomEventEmitter {
     fn.apply(this, args)
   }
 
-  private _createUrls(
-    data: ILoaderRegistryItemData
-  ): RegistryItemURL[] | undefined {
+  private _createUrls(data: RegistryItemData): RegistryItemURL[] | undefined {
     const targetOpts = pick(data, ['baseUrl', 'url', 'type', 'target', 'urls'])
     if (isEmpty(targetOpts)) {
       return
@@ -152,7 +150,7 @@ class LoaderRegistryItem extends CustomEventEmitter {
     const baseUrl = get(options, 'baseUrl')
 
     return castArray(urls).map(_data => {
-      _data = castRegistryItemData(_data) as IRegistryItemUrlData
+      _data = castRegistryItemData(_data) as RegistryItemUrlData
       const { url } = _data
       if (!isNil(baseUrl) && !/^\w+:\/\//.test(url)) {
         set(
@@ -166,10 +164,7 @@ class LoaderRegistryItem extends CustomEventEmitter {
       return new RegistryItemURL(_data)
     })
   }
-  private _setUrls(
-    data: ILoaderRegistryItemData,
-    bChange: boolean = false
-  ): void {
+  private _setUrls(data: RegistryItemData, bChange: boolean = false): void {
     const urls = this._createUrls(data)
     if (isNil(urls)) return
     if (bChange) {
@@ -179,7 +174,7 @@ class LoaderRegistryItem extends CustomEventEmitter {
     this._urls = urls
   }
 
-  private _setEventOptions(data: ILoaderRegistryItemData) {
+  private _setEventOptions(data: RegistryItemData) {
     const targetOpts = pick(data, [
       'validate',
       'load',
@@ -200,7 +195,7 @@ class LoaderRegistryItem extends CustomEventEmitter {
   resolveUpdateUrls(callback: (...args: any[]) => void) {
     if (this.isResolveUpdateUrls) return
     this._isResolveUpdateUrls = true
-    this.once(LoaderEvent.LOADED, callback)
+    this.once(LoaderEventName.LOADED, callback)
   }
   clearUpdateUrls(): void {
     if (!this.changed) return
@@ -227,7 +222,7 @@ class LoaderRegistryItem extends CustomEventEmitter {
   load(options?: any): this {
     const eventData = { target: this }
     this.clearUpdateUrls()
-    this.emit(LoaderEvent.LOAD, eventData)
+    this.emit(LoaderEventName.LOAD, eventData)
     asyncImportItemUrls
       .call(this, options)
       .then(() => {
@@ -237,10 +232,10 @@ class LoaderRegistryItem extends CustomEventEmitter {
           .then(() => {
             // item
             this._loaded = true
-            this.emit(LoaderEvent.LOADED, eventData)
+            this.emit(LoaderEventName.LOADED, eventData)
             try {
               this._customEventHandle('load', {
-                type: LoaderEvent.LOADED,
+                type: LoaderEventName.LOADED,
                 target: this
               })
             } catch (err) {
@@ -248,25 +243,25 @@ class LoaderRegistryItem extends CustomEventEmitter {
             }
           })
           .catch(() => {
-            this.emit(LoaderEvent.LOAD_FAILED, eventData)
+            this.emit(LoaderEventName.LOAD_FAILED, eventData)
           })
       })
       .catch((err: any) => {
-        this.emit(LoaderEvent.LOAD_REJECT, assignIn(eventData, err))
+        this.emit(LoaderEventName.LOAD_REJECT, assignIn(eventData, err))
       })
     return this
   }
   unload(options?: any): this {
     const eventData = { target: this }
-    this.emit(LoaderEvent.UNLOAD, eventData)
+    this.emit(LoaderEventName.UNLOAD, eventData)
     asyncRemoveItemUrls
       .call(this, options)
       .then(() => {
         this._loaded = false
-        this.emit(LoaderEvent.UNLOADED, eventData)
+        this.emit(LoaderEventName.UNLOADED, eventData)
         try {
           this._customEventHandle('unload', {
-            type: LoaderEvent.UNLOADED,
+            type: LoaderEventName.UNLOADED,
             target: this
           })
         } catch (err) {
@@ -274,7 +269,7 @@ class LoaderRegistryItem extends CustomEventEmitter {
         }
       })
       .catch((err: any) => {
-        this.emit(LoaderEvent.UNLOAD_FAILED, assignIn(eventData, err))
+        this.emit(LoaderEventName.UNLOAD_FAILED, assignIn(eventData, err))
       })
     return this
   }
@@ -288,5 +283,5 @@ class LoaderRegistryItem extends CustomEventEmitter {
   }
 }
 
-export { LoaderRegistryItem }
-export default LoaderRegistryItem
+export { RegistryItem }
+export default RegistryItem

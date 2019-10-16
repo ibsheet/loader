@@ -85,8 +85,6 @@ $(async () => {
   // loader.load(['font-awesome', 'swal2'])
 
   console.log(`==================== 7: CREATE IBSHEET ====================`)
-  const sheetOpts1 = IBSheetSampleData[0]
-  const sheetOpts2 = IBSheetSampleData[1]
   $('#ibsheet.test-box>.test-body').append(
     IBSheetSampleData.map(data => {
       return $('<div/>', {
@@ -98,10 +96,20 @@ $(async () => {
       })
     })
   )
-  loader.createSheet(sheetOpts1).then((sheet: any) => {
-    console.log('ibsheet1 created:', sheet.id)
-  })
-  loader.createSheet(sheetOpts2).then((sheet: any) => {
+  // loader.createSheet(sheetOpts1).then((sheet: any) => {
+  //   console.log('ibsheet1 created:', sheet.id)
+  // })
+  // loader.createSheet(IBSheetSampleData[1]).then((sheet: any) => {
+  //   console.log('ibsheet2 created:', sheet.id)
+  // })
+
+  // loader.sheetReady().then((ibsheet: any) => {
+  //   const sheet = ibsheet.create(IBSheetSampleData[1])
+  //   console.log('ibsheet2 created:', sheet.id)
+  // })
+
+  loader.sheetReady(function(_ibsheet: any) {
+    const sheet = this.create(IBSheetSampleData[1])
     console.log('ibsheet2 created:', sheet.id)
   })
 

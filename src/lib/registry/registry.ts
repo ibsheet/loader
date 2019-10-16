@@ -9,17 +9,13 @@ import {
 } from '../shared/lodash'
 import { IBSHEET, IBSHEET_GLOBAL } from '../constant'
 import { IBSheetLoaderStatic } from '../main'
-import { LoaderRegistryDataType } from './interface'
+import { RegistryParam } from './interface'
 import { CustomEventEmitter } from '../custom'
-import {
-  ILoaderRegistryItemUpdateData,
-  ILoaderRegistryItemData,
-  LoaderRegistryItem
-} from './item'
+import { RegistryItemUpdateData, RegistryItemData, RegistryItem } from './item'
 import { generateVersion } from './utils'
 
 class LoaderRegistry extends CustomEventEmitter {
-  private _list: LoaderRegistryItem[]
+  private _list: RegistryItem[]
   private _uber: IBSheetLoaderStatic
   constructor(uber: IBSheetLoaderStatic) {
     super()
@@ -35,13 +31,13 @@ class LoaderRegistry extends CustomEventEmitter {
   }
 
   add(
-    data: string | ILoaderRegistryItemData,
+    data: string | RegistryItemData,
     overwrite: boolean = false
-  ): LoaderRegistryItem | undefined {
+  ): RegistryItem | undefined {
     const self = this
     let item
     try {
-      item = new LoaderRegistryItem(data)
+      item = new RegistryItem(data)
     } catch (err) {
       console.warn(err)
       return
@@ -87,22 +83,19 @@ class LoaderRegistry extends CustomEventEmitter {
     return item
   }
 
-  addAll(
-    params: LoaderRegistryDataType[],
-    overwrite: boolean = false
-  ): LoaderRegistryItem[] {
+  addAll(params: RegistryParam[], overwrite: boolean = false): RegistryItem[] {
     return castArray(params)
       .map((data: any) => {
         return this.add(data, overwrite)
       })
-      .filter(Boolean) as LoaderRegistryItem[]
+      .filter(Boolean) as RegistryItem[]
   }
 
   exists(alias: string): boolean {
     return !isNil(this.get(alias))
   }
 
-  get(alias: string): LoaderRegistryItem | null {
+  get(alias: string): RegistryItem | null {
     const ndx = this.getIndexByAlias(alias)
     if (ndx < 0) return null
     return this._list[ndx]
@@ -115,7 +108,7 @@ class LoaderRegistry extends CustomEventEmitter {
     return JSON.stringify(res, null, 2)
   }
 
-  getAll(query: string): LoaderRegistryItem[] {
+  getAll(query: string): RegistryItem[] {
     const hasVersion = lastIndexOf(query, '@') > 0
     return this._list.filter(item => {
       if (hasVersion) {
@@ -125,13 +118,13 @@ class LoaderRegistry extends CustomEventEmitter {
     })
   }
 
-  findOne(query: string): LoaderRegistryItem | undefined {
+  findOne(query: string): RegistryItem | undefined {
     const items = this.getAll(query)
     if (items.length) return items[0]
     return
   }
 
-  findLoadedOne(query: string): LoaderRegistryItem | undefined {
+  findLoadedOne(query: string): RegistryItem | undefined {
     const items = this.getAll(query)
     const loadedItems = items.filter(item => item.loaded)
     if (loadedItems.length) return loadedItems[0]
@@ -142,17 +135,17 @@ class LoaderRegistry extends CustomEventEmitter {
     return findIndex(this._list, { alias })
   }
 
-  update(alias: string, data: ILoaderRegistryItemUpdateData) {
+  update(alias: string, data: RegistryItemUpdateData) {
     const item = this.get(alias)
     if (isNil(item)) return
     item.update(data)
   }
 
-  remove(alias: string): LoaderRegistryItem | LoaderRegistryItem[] | undefined {
+  remove(alias: string): RegistryItem | RegistryItem[] | undefined {
     const items = this.getAll(alias)
     if (!items.length) return
     const ids = items.map(item => item.id)
-    const result: LoaderRegistryItem[] = []
+    const result: RegistryItem[] = []
     remove(this._list, item => {
       const match = includes(ids, item.id)
       if (match) result.push(item)

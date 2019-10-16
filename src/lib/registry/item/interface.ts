@@ -2,7 +2,7 @@ import { RegistryItemURL } from './url'
 // export type RegistryItemUrlType = 'css'|'js'
 // export type RegistryItemUrlTarget = 'head'|'body'
 
-export interface IRegistryItemUrlData {
+export interface RegistryItemUrlData {
   url?: string
   type?: string
   target?: string
@@ -10,25 +10,25 @@ export interface IRegistryItemUrlData {
   baseUrl?: string
 }
 
-export interface IRegistryItemEventOptions {
+export interface RegistryItemEventOptions {
   validate?: Function | null
   load?: Function | null
   unload?: Function | null
   dependentUrls?: string[]
 }
 
-export interface ILoaderRegistryItemUpdateData
-  extends IRegistryItemUrlData,
-    IRegistryItemEventOptions {
+export interface RegistryItemUpdateData
+  extends RegistryItemUrlData,
+    RegistryItemEventOptions {
   // any others
 }
 
-export interface ILoaderRegistryItemData extends ILoaderRegistryItemUpdateData {
+export interface RegistryItemData extends RegistryItemUpdateData {
   name?: string
   version?: string | null
 }
 
-export interface ILoaderRegistryItemRawData {
+export interface RegistryItemRawData {
   id: string
   urls: string[]
   name: string

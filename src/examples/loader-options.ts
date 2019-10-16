@@ -8,7 +8,7 @@ export const ibseetLibData = {
     'locale/ko.js',
     // 'locale/en.js',
     'ibsheet.js',
-    { url: 'css/default/main.css', target: 'head' },
+    { url: 'css/default/main.css', target: 'head' }
     // `${IBSHEET_BASEURL}/v8/ibleaders.js`
   ]
 }

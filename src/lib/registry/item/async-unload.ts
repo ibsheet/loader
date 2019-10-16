@@ -7,7 +7,7 @@ import {
   includes
 } from '../../shared/lodash'
 import { removeElemById, getElementsByTagName } from '../../shared/dom-utils'
-// import { LoaderRegistryItem } from './item'
+// import { RegistryItem } from './item'
 import { RegistryItemURL } from './url'
 
 export function asyncRemoveDepndentUrls(

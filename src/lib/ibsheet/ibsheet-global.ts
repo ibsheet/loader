@@ -1,15 +1,23 @@
-import { IBSHEET_GLOBAL } from '../constant'
 import { has, isNil } from '../shared/lodash'
-import { IBSheetGlobalStatic, IBSheetCreateOptions, IBSheetInstance } from './interface'
 
-class IBSheetGlobal implements IBSheetGlobalStatic {
+import {
+  SheetGlobalStatic,
+  IBSheetCreateOptions,
+  IBSheetInstance
+} from './interface'
+import { getIBSheetStatic } from './utils'
+
+/**
+ * @hidden
+ */
+class IBSheetGlobal implements SheetGlobalStatic {
   constructor() {
     return this
   }
-  private get _global(): IBSheetGlobalStatic {
-    return window[IBSHEET_GLOBAL]
+  private get _global(): SheetGlobalStatic {
+    return getIBSheetStatic()
   }
-  async create (options: IBSheetCreateOptions): Promise<IBSheetInstance> {
+  async create(options: IBSheetCreateOptions): Promise<IBSheetInstance> {
     const ibsheet = this._global
     if (isNil(options)) {
       throw new Error('undefined options')
@@ -31,4 +39,7 @@ class IBSheetGlobal implements IBSheetGlobalStatic {
   }
 }
 
-export const IBSheetGlobalInstance = new IBSheetGlobal()
+/**
+ * @hidden
+ */
+export const IBSheet = new IBSheetGlobal()

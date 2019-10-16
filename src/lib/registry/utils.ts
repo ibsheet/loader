@@ -10,21 +10,17 @@ import {
   toNumber
 } from '../shared/lodash'
 import { VERSION_GENERATE_START_NUM } from '../config'
-import { LoaderRegistryDataType, IRegistryIdentifier } from './interface'
-import {
-  LoaderRegistryItem,
-  ILoaderRegistryItemData,
-  IRegistryItemUrlData
-} from './item'
+import { RegistryParam, RegistryIdentifier } from './interface'
+import { RegistryItem, RegistryItemData, RegistryItemUrlData } from './item'
 
 /**
- * 인자가 문자열일 경우, ILoaderRegistryItemData 인터페이스로 캐스팅
+ * 인자가 문자열일 경우, RegistryItemData 인터페이스로 캐스팅
  * @param param
  * @hidden
  */
 export function castRegistryItemData(
-  param: LoaderRegistryDataType | IRegistryItemUrlData
-): ILoaderRegistryItemData {
+  param: RegistryParam | RegistryItemUrlData
+): RegistryItemData {
   if (isString(param)) {
     return { url: param }
   }
@@ -48,17 +44,15 @@ export const getFilenameFromURL = (
   return pathname
 }
 
-export function castRegistryAlias(
-  data: ILoaderRegistryItemData
-): string | undefined {
+export function castRegistryAlias(data: RegistryItemData): string | undefined {
   const idf = getRegistryIdentifier(data)
   if (isNil(idf)) return
   return idf.alias
 }
 
 export function getRegistryIdentifier(
-  data: ILoaderRegistryItemData
-): IRegistryIdentifier | undefined {
+  data: RegistryItemData
+): RegistryIdentifier | undefined {
   let name = get(data, 'name')
   const url = get(data, 'url')
   if (isNil(name) && !isNil(url)) {
@@ -85,7 +79,7 @@ export function getRegistryIdentifier(
  * @param item
  * @hidden
  */
-export function generateVersion(item: LoaderRegistryItem): string {
+export function generateVersion(item: RegistryItem): string {
   const { version: ver } = item
 
   if (isNil(ver)) {
