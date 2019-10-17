@@ -57,7 +57,7 @@ class RegistryItem extends CustomEventEmitter {
         `required name property, not found from url: ${firstUrl.value}`
       )
     }
-    this.name = trim(name)
+    this.name = trim(name).toLowerCase()
 
     // version
     this.version = get(data, 'version', null)
