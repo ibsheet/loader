@@ -6,7 +6,7 @@ export function existsIBSheetStatic(name: string = IBSHEET_GLOBAL) {
   return !isNil(get(window, name))
 }
 
-export function getIBSheetStatic(name: string = IBSHEET_GLOBAL) {
+export function getIBSheetStatic(name: string = IBSHEET_GLOBAL): any {
   return get(window, name)
 }
 
