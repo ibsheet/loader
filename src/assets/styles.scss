@@ -30,4 +30,23 @@ body {
       background-color: #28a745
     }
   }
+
+  .ibsheet-ctrlbox {
+    margin-bottom: 1rem;
+    .form-check * {
+      cursor: pointer;
+    }
+  }
+
+  .ibsheet-container {
+    border: 1px dashed #F72604;
+    background-color: #FEFEFE;
+    + .ibsheet-container {
+      margin-top: 1rem;
+    }
+    &.loaded {
+      border: none;
+      background-color: transparent;
+    }
+  }
 }

@@ -39,7 +39,15 @@ export const loaderOptions = {
   retry: {
     intervalTime: 200
   },
-  registry: [ibseetLibData, fontAwesome, swal2],
+  registry: [
+    ibseetLibData,
+    fontAwesome,
+    swal2,
+    {
+      name: 'pretty-checkbox',
+      url: 'https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'
+    }
+  ],
   ready: function() {
     console.log(
       '%c[IBSheetLoader] Registered Items:',

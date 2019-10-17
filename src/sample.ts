@@ -5,7 +5,7 @@ import {
   // ibseetLibData,
   loaderOptions,
   initTestBoxControls,
-  IBSheetSampleData
+  // IBSheetSampleData
 } from './examples'
 
 // document ready
@@ -18,15 +18,20 @@ $(async () => {
 
   // console.log(`==================== 2: ADD EVENT LISTENER ====================`)
   loader
-    .on('loaded', (evt: any) => {
+    .on('loaded', function(evt: any) {
       const { type, target } = evt
-      console.log(`%c* LoderEvent.${type}: ${target.alias}`, 'color: blue')
-      switch (target.alias) {
-        case 'swal2@8':
-          // const swal = window['Swal']
-          // swal.fire('awesome library!')
-          break
-      }
+      console.log(`%c* LoderEvent.${type}: ${target.alias}`, 'color: yellow')
+      // switch (target.alias) {
+      //   // case 'swal2@8':
+      //   //   const swal = window['Swal']
+      //   //   swal.fire('awesome library!')
+      //   //   break
+      //   case 'ibsheet':
+      //     this.createSheet(IBSheetSampleData[1]).then((sheet: any) => {
+      //       console.log('ibsheet2 created:', sheet.id)
+      //     })
+      //     break
+      // }
       // }).load('font-awesome@solid')
     })
     .on('unloaded', (evt: any) => {
@@ -36,7 +41,7 @@ $(async () => {
     .once('load-complete', (evt: any) => {
       console.log(
         '%c***** (once) load tasks all done *****',
-        'background-color:blue;color:white'
+        'background-color:green;color:white'
       )
       console.log(
         '%c[IBSheetLoader] Registered Items:',
@@ -50,10 +55,10 @@ $(async () => {
   // init test-box controls
   initTestBoxControls(loader)
 
-  // console.log(
-  //   `==================== 4-1: FIRST LOAD (registry) ====================`
-  // )
-  // loader.load()
+  console.log(
+    `==================== 4-1: FIRST LOAD (registry) ====================`
+  )
+  loader.load()
 
   // console.log(
   //   `==================== 4-2: FIRST LOAD (immediatly) ====================`
@@ -85,17 +90,7 @@ $(async () => {
   // loader.load(['font-awesome', 'swal2'])
 
   console.log(`==================== 7: CREATE IBSHEET ====================`)
-  $('#ibsheet.test-box>.test-body').append(
-    IBSheetSampleData.map(data => {
-      return $('<div/>', {
-        id: data.el,
-        css: {
-          width: '100%',
-          height: '240px'
-        }
-      })
-    })
-  )
+
   // loader.createSheet(sheetOpts1).then((sheet: any) => {
   //   console.log('ibsheet1 created:', sheet.id)
   // })
@@ -108,10 +103,11 @@ $(async () => {
   //   console.log('ibsheet2 created:', sheet.id)
   // })
 
-  loader.sheetReady(function(_ibsheet: any) {
-    const sheet = this.create(IBSheetSampleData[1])
-    console.log('ibsheet2 created:', sheet.id)
-  })
+  // loader.sheetReady(function(_ibsheet: any) {
+  //   const sheet = this.create(IBSheetSampleData[1])
+  //   console.log('IBSheet version:', sheet.version())
+  //   console.log('ibsheet2 created:', sheet.id)
+  // })
 
   // console.log(`==================== 8: RELOAD TEST ====================`)
   // loader.once('loaded', function (evt: any) {

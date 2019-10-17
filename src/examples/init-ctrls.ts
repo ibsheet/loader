@@ -3,6 +3,8 @@ import isNil from 'lodash/isNil'
 import get from 'lodash/get'
 import { IBSheetLoaderStatic } from '../lib'
 
+import { IBSheetSampleData } from './ibsheet-data'
+
 const ALIAS_FONTAWESOME = 'font-awesome@5'
 const ALIAS_SWEETALERT = 'swal2@8'
 const ALIAS_PRETTYCHKBOX = 'pretty-checkbox'
@@ -61,6 +63,60 @@ function updateTestBoxControls(alias: string, bool: boolean) {
   $activeBtn.removeClass(DEACTIVE_CLASS).addClass(['active', activeClass])
 }
 
+function initIBSheetContainers(loader: IBSheetLoaderStatic) {
+  const ctrlbox = $('<div/>', {
+    class: 'ibsheet-ctrlbox'
+  }).append(
+    IBSheetSampleData.map(data => {
+      const checkboxId = `${data.id}-ctrl`
+      return $('<div/>', {
+        class: 'form-check form-check-inline'
+      }).append(
+        $('<input/>', {
+          id: checkboxId,
+          type: 'checkbox',
+          class: 'form-check-input',
+          'data-alias': data.id
+        }).on('change', function(_evt) {
+          const el = this as HTMLInputElement
+          const bool = el.checked
+          if (bool) {
+            loader.createSheet(data).then((sheet: any) => {
+              console.log('IBSheet version:', sheet.version())
+              console.log('ibsheet created:', sheet.id)
+            }).catch(err => {
+              throw new Error(err)
+            })
+          } else {
+            loader.removeSheet(data.id)
+          }
+        }),
+        $('<label/>', {
+          type: 'checkbox',
+          class: 'form-check-label',
+          for: checkboxId,
+          text: data.id
+        })
+      )
+    })
+  )
+
+  // init ibsheet container
+  $('#ibsheet.test-box>.test-body').append(
+    ctrlbox,
+    IBSheetSampleData.map(data => {
+      return $('<div/>', {
+        id: data.el,
+        class: 'ibsheet-container',
+        css: {
+          width: '100%',
+          height: '240px'
+        }
+      })
+    })
+  )
+}
+
 export function initTestBoxControls(loader: IBSheetLoaderStatic) {
   loader
     .bind('loaded unloaded', (evt: any) => {
@@ -111,4 +167,6 @@ export function initTestBoxControls(loader: IBSheetLoaderStatic) {
       .append(ctrlBtns)
       .appendTo($testBox)
   })
+
+  initIBSheetContainers(loader)
 }
