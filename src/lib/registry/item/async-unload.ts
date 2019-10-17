@@ -7,6 +7,7 @@ import {
   includes
 } from '../../shared/lodash'
 import { removeElemById, getElementsByTagName } from '../../shared/dom-utils'
+import { IBSHEET } from '../../constant'
 // import { RegistryItem } from './item'
 import { RegistryItemURL } from './url'
 
@@ -53,10 +54,43 @@ export function asyncRemoveDepndentUrls(
   })
 }
 
+export function asyncRemoveIBSheetElements(options?: any): Promise<any>[] {
+  const isDebugMode = get(options, 'debug', false)
+  return [
+    '.SheetMain.IBMain',
+    '#IBSheetControlsSheetMain'
+  ].map(xpath => {
+    return new Promise((resolve, reject) => {
+      let success = false
+      let el: HTMLElement | null = null
+      try {
+        el = document.querySelector(xpath)
+        if (!isNil(el)) {
+          const parent = el.parentElement as HTMLElement
+          parent.removeChild(el)
+          success = true
+        }
+      } catch(err) {
+        reject(err)
+      }
+      if (isDebugMode) {
+        console.log('# remove element:', xpath, '--' , success)
+      }
+      resolve(el)
+    })
+  })
+}
+
 export function asyncRemoveItemUrls(options?: any): Promise<any[]> {
   const urls = this.urls
   const isDebugMode = get(options, 'debug', false)
-  let tasks: Promise<any>[] = urls.map((uItem: RegistryItemURL) => {
+
+  let removeOptionElements: Promise<any>[] = []
+  if (this.name === IBSHEET) {
+    removeOptionElements = asyncRemoveIBSheetElements(options)
+  }
+
+  const removeUrlTasks1 = urls.map((uItem: RegistryItemURL) => {
     return new Promise((resolve, reject) => {
       const { value: url, id } = uItem
       let errMsg
@@ -75,9 +109,11 @@ export function asyncRemoveItemUrls(options?: any): Promise<any[]> {
     })
   })
 
-  const subTasks = asyncRemoveDepndentUrls.call(this, options)
-  if (!isNil(subTasks)) {
-    tasks = concat(tasks, subTasks)
-  }
+  const removeUrlTasks2 = asyncRemoveDepndentUrls.call(this, options) || []
+  const tasks: Promise<any>[] = concat(
+    removeOptionElements,
+    removeUrlTasks1,
+    removeUrlTasks2
+  )
   return Promise.all(tasks)
 }

@@ -15,6 +15,7 @@ import {
   clone
 } from './shared/lodash'
 import { documentReady } from './shared/dom-utils'
+import { IntervalManager } from './shared/interval-manager'
 import {
   LoaderTaskManager,
   createTaskManager,
@@ -22,11 +23,9 @@ import {
 } from './task-man'
 import { getLoadItems } from './modules'
 import {
-  IBSheet,
   IBSheetInstance,
   IBSheetCreateOptions,
-  getIBSheetStatic,
-  SheetGlobalStatic
+  IBSheetGlobalStatic
 } from './ibsheet'
 
 // import { double, power } from './number'
@@ -44,10 +43,14 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   private _loadTaskMan: LoaderTaskManager
   private _unloadTaskMan: LoaderTaskManager
   private _options: LoaderConfigOptions
+  private _ibsheet: IBSheetGlobalStatic
 
+  intervalMan: IntervalManager
   registry: LoaderRegistry
+
   constructor() {
     super()
+    this._ibsheet = new IBSheetGlobalStatic()
     this._options = clone(DefaultLoaderConfig)
     this.registry = new LoaderRegistry(this)
     this._initTasksManagers()
@@ -93,15 +96,13 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     this._unloadTaskMan = createTaskMan(LoaderTaskType.UNLOAD, this)
   }
 
-  private _getSheetStatic(): any {
-    const name = this.getOption('globals.ibsheet')
-    return getIBSheetStatic(name)
-  }
-
   config(options?: LoaderConfigOptions): this {
+    let loaderOpts
     if (!isNil(options)) {
-      const loaderOpts = pick(options, ['debug', 'retry', 'globals'])
+      loaderOpts = pick(options, ['debug', 'retry', 'globals'])
       this._options = defaultsDeep(loaderOpts, this._options)
+      const sheetGlobal = get(loaderOpts, 'globals.ibsheet')
+      this._ibsheet.setGlobalName(sheetGlobal)
       const regOpts = get(options, 'registry')
       if (!isNil(regOpts)) {
         this.registry.addAll(regOpts, true)
@@ -111,6 +112,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
         documentReady(() => readyCallback.call(this))
       }
     }
+    if (this.debug) {
+      this.intervalMan = new IntervalManager(window, loaderOpts)
+    }
+
     return this
   }
 
@@ -164,29 +169,6 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     return this
   }
 
-  sheetReady(
-    callback?: (ibsheet?: SheetGlobalStatic) => void
-  ): Promise<SheetGlobalStatic> {
-    if (this.loadedDefaultLib) {
-      return Promise.resolve(this._getSheetStatic())
-    }
-    return new Promise((resolve, reject) => {
-      try {
-        const defItem = this._getDefaultRegItem()
-        defItem.once(LoaderEventName.LOADED, () => {
-          const ibsheetStatic = this._getSheetStatic()
-          if (!isNil(callback)) {
-            callback.call(ibsheetStatic, ibsheetStatic)
-          }
-          resolve(ibsheetStatic)
-        })
-        this.load()
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
   createSheet(options: any): Promise<IBSheetInstance> {
     const ibsheetOpts: IBSheetCreateOptions = {}
     ;[
@@ -204,11 +186,12 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
           }
         })
     })
+    const createFn = bind(this._ibsheet.create, this._ibsheet)
     return new Promise(async (resolve, reject) => {
       let sheet: any
       if (this.loadedDefaultLib) {
         try {
-          sheet = await IBSheet.create(ibsheetOpts)
+          sheet = await createFn(ibsheetOpts)
           return resolve(sheet)
         } catch (err) {
           return reject(err)
@@ -218,7 +201,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       const defItem = this._getDefaultRegItem()
       defItem.once(LoaderEventName.LOADED, async () => {
         try {
-          sheet = await IBSheet.create(ibsheetOpts)
+          sheet = await createFn(ibsheetOpts)
         } catch (err) {
           reject(err)
         }
@@ -229,6 +212,45 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       } catch (err) {
         reject(err)
       }
+    })
+  }
+
+  removeSheet(sid: string): void {
+    if (!this.loadedDefaultLib) return
+    const ibsheet = this._ibsheet.global
+    try {
+      ibsheet[sid].dispose()
+    } catch(err) {
+      console.error(err)
+    }
+  }
+
+  sheetReady(
+    callback?: (ibsheet?: any) => void
+  ): any {
+    if (this.loadedDefaultLib) {
+      return Promise.resolve(this._ibsheet.global)
+    }
+    return new Promise((resolve, reject) => {
+      try {
+        const defItem = this._getDefaultRegItem()
+        defItem.once(LoaderEventName.LOADED, () => {
+          const ibsheetStatic = this._ibsheet.global
+          try {
+            if (!isNil(callback)) {
+              callback.call(ibsheetStatic, ibsheetStatic)
+            }
+            resolve(ibsheetStatic)
+          } catch(err) {
+            reject(err)
+          }
+        })
+        this.load()
+      } catch (err) {
+        reject(err)
+      }
+    }).catch(err => {
+      throw new Error(err)
     })
   }
 
