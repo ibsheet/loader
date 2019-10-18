@@ -39,10 +39,14 @@ body {
   }
 
   .ibsheet-container {
-    border: 1px dashed #F72604;
+    border: 2px dashed #F72604;
     background-color: #FEFEFE;
+    display: none;
     + .ibsheet-container {
       margin-top: 1rem;
+    }
+    &.active {
+      display: block;
     }
     &.loaded {
       border: none;

@@ -220,14 +220,12 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     const ibsheet = this._ibsheet.global
     try {
       ibsheet[sid].dispose()
-    } catch(err) {
+    } catch (err) {
       console.error(err)
     }
   }
 
-  sheetReady(
-    callback?: (ibsheet?: any) => void
-  ): any {
+  sheetReady(callback?: (ibsheet?: any) => void): any {
     if (this.loadedDefaultLib) {
       return Promise.resolve(this._ibsheet.global)
     }
@@ -241,7 +239,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
               callback.call(ibsheetStatic, ibsheetStatic)
             }
             resolve(ibsheetStatic)
-          } catch(err) {
+          } catch (err) {
             reject(err)
           }
         })

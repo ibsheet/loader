@@ -56,10 +56,7 @@ export function asyncRemoveDepndentUrls(
 
 export function asyncRemoveIBSheetElements(options?: any): Promise<any>[] {
   const isDebugMode = get(options, 'debug', false)
-  return [
-    '.SheetMain.IBMain',
-    '#IBSheetControlsSheetMain'
-  ].map(xpath => {
+  return ['.SheetMain.IBMain', '#IBSheetControlsSheetMain'].map(xpath => {
     return new Promise((resolve, reject) => {
       let success = false
       let el: HTMLElement | null = null
@@ -70,11 +67,11 @@ export function asyncRemoveIBSheetElements(options?: any): Promise<any>[] {
           parent.removeChild(el)
           success = true
         }
-      } catch(err) {
+      } catch (err) {
         reject(err)
       }
       if (isDebugMode) {
-        console.log('# remove element:', xpath, '--' , success)
+        console.log('# remove element:', xpath, '--', success)
       }
       resolve(el)
     })

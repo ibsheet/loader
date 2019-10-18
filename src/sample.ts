@@ -4,7 +4,7 @@ import {
   getLoaderInstance,
   // ibseetLibData,
   loaderOptions,
-  initTestBoxControls,
+  initTestBoxControls
   // IBSheetSampleData
 } from './examples'
 

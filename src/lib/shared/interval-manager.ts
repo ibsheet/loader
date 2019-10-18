@@ -6,7 +6,11 @@ import { get, bind, remove } from './lodash'
 
 interface NativeFunctions {
   // https://www.w3schools.com/jsref/met_win_setinterval.asp
-  setInterval: (callback: TimerHandler, timeout?: number | undefined, ...args: any[]) => number
+  setInterval: (
+    callback: TimerHandler,
+    timeout?: number | undefined,
+    ...args: any[]
+  ) => number
   clearInterval: (handle?: number | undefined) => void
 }
 

@@ -45,7 +45,8 @@ export const loaderOptions = {
     swal2,
     {
       name: 'pretty-checkbox',
-      url: 'https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'
+      url:
+        'https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'
     }
   ],
   ready: function() {

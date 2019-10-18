@@ -68,7 +68,10 @@ class LoaderRegistry extends CustomEventEmitter {
 
     // IBSheet Default Validator
     if (item.name === IBSHEET) {
-      const CustomGlobalName = this._uber.getOption('globals.ibsheet', IBSHEET_GLOBAL)
+      const CustomGlobalName = this._uber.getOption(
+        'globals.ibsheet',
+        IBSHEET_GLOBAL
+      )
       if (!has(data, 'validate')) {
         item.setEventOption('validate', function() {
           return existsIBSheetStatic(CustomGlobalName)
@@ -78,7 +81,10 @@ class LoaderRegistry extends CustomEventEmitter {
       if (!has(data, 'unload')) {
         item.setEventOption('unload', function() {
           if (this.debug) {
-            console.log(`%c[${this.name}.unload / custom] ${this.alias}`, 'color:royalblue')
+            console.log(
+              `%c[${this.name}.unload / custom] ${this.alias}`,
+              'color:royalblue'
+            )
           }
           destroyIBSheetStatic(CustomGlobalName)
         })

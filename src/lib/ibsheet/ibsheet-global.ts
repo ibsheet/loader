@@ -1,10 +1,7 @@
 import { IBSHEET_GLOBAL } from '../constant'
 import { has, isNil } from '../shared/lodash'
 
-import {
-  IBSheetCreateOptions,
-  IBSheetInstance
-} from './interface'
+import { IBSheetCreateOptions, IBSheetInstance } from './interface'
 import { getIBSheetStatic } from './utils'
 
 /**
