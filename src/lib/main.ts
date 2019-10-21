@@ -16,6 +16,7 @@ import {
 } from './shared/lodash'
 import { documentReady } from './shared/dom-utils'
 import { IntervalManager } from './shared/interval-manager'
+import { asyncRemoveIBSheetElements } from './registry/item/async-unload'
 import {
   LoaderTaskManager,
   createTaskManager,
@@ -76,6 +77,9 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   get status(): LoaderStatus {
     return this._status
   }
+  get options(): LoaderConfigOptions {
+    return clone(this._options)
+  }
   get loadedDefaultLib(): boolean {
     const item = this._getDefaultRegItem(false)
     if (isNil(item)) return false
@@ -120,7 +124,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   }
 
   getOption(sPath: string, def?: any): any {
-    return get(this._options, sPath, def)
+    return get(this.options, sPath, def)
   }
 
   info(alias: string): string | undefined {
@@ -220,6 +224,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     const ibsheet = this._ibsheet.global
     try {
       ibsheet[sid].dispose()
+      asyncRemoveIBSheetElements(this.options, true)
     } catch (err) {
       console.error(err)
     }

@@ -2,7 +2,7 @@ import uuid from 'uuid/v1'
 
 import { get, isNil } from '../../shared/lodash'
 import { getFilenameFromURL } from '../utils'
-import { RegistryItemUrlData } from './interface'
+import { RegItemUrlData } from './interface'
 
 class RegistryItemURL {
   private _id: string
@@ -11,7 +11,7 @@ class RegistryItemURL {
   type: string = 'js'
   target: string = 'body'
 
-  constructor(data: RegistryItemUrlData) {
+  constructor(data: RegItemUrlData) {
     // console.log(data)
     let url = get(data, 'url')
     if (isNil(url)) {
@@ -32,14 +32,14 @@ class RegistryItemURL {
       throw new Error('undefiend registry url')
     }
     let sType
-    const basename = getFilenameFromURL(val)
-    if (!isNil(basename)) {
-      const file = basename.split('.')
+    const filename = getFilenameFromURL(val)
+    if (!isNil(filename)) {
+      const file = filename.split('.')
       if (file.length > 1) {
         sType = file.pop()
         this._basename = file.join('.')
       } else {
-        this._basename = basename
+        this._basename = filename
       }
     }
     if (!isNil(sType)) {

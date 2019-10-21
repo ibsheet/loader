@@ -14,11 +14,6 @@ interface NativeFunctions {
   clearInterval: (handle?: number | undefined) => void
 }
 
-// const NativeFn = {
-//   setInterval: window.setInterval,
-//   clearInterval: window.clearInterval
-// }
-
 export class IntervalManager {
   private _native: NativeFunctions
   private _store: number[] = []

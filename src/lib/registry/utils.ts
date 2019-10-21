@@ -6,12 +6,14 @@ import {
   isString,
   isNil,
   trim,
+  find,
   isNumber,
-  toNumber
+  toNumber,
+  last
 } from '../shared/lodash'
 import { VERSION_GENERATE_START_NUM } from '../config'
 import { RegistryParam, RegistryIdentifier } from './interface'
-import { RegistryItem, RegistryItemData, RegistryItemUrlData } from './item'
+import { RegistryItem, RegistryItemData, RegItemUrlData } from './item'
 
 /**
  * 인자가 문자열일 경우, RegistryItemData 인터페이스로 캐스팅
@@ -19,7 +21,7 @@ import { RegistryItem, RegistryItemData, RegistryItemUrlData } from './item'
  * @hidden
  */
 export function castRegistryItemData(
-  param: RegistryParam | RegistryItemUrlData
+  param: RegistryParam | RegItemUrlData
 ): RegistryItemData {
   if (isString(param)) {
     return { url: param }
@@ -39,9 +41,7 @@ export const getFilenameFromURL = (
     console.warn('[UrlParser]', `${url} failed parse basename`)
     return
   }
-  // todo: angular package error
-  // return path.basename(pathname)
-  return pathname
+  return last(pathname.split('/'))
 }
 
 export function castRegistryAlias(data: RegistryItemData): string | undefined {
@@ -95,4 +95,16 @@ export function generateVersion(item: RegistryItem): string {
     return `${ver}-${VERSION_GENERATE_START_NUM}`
   }
   return `${arr.join('-')}-${toNumber(num) + 1}`
+}
+
+/**
+ * if not exists push url
+ * @param urls
+ * @param url
+ */
+export function pushIfNotExistsUrl(urls: { url: string }[], url: string) {
+  const exists = find(urls, o => o.url.indexOf(url) > -1)
+  if (isNil(exists)) {
+    urls.push({ url })
+  }
 }

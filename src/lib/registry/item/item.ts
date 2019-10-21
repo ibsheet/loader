@@ -11,38 +11,46 @@ import {
   trim,
   defaultsDeep,
   assignIn,
-  isEmpty
+  isEmpty,
+  sortBy,
+  includes
 } from '../../shared/lodash'
 import { LoaderEventName } from '../../interface'
+import { isIBSheet } from '../../ibsheet'
 
 import { castRegistryItemData, castRegistryAlias } from '../utils'
 import {
   RegistryItemData,
-  RegistryItemRawData,
-  RegistryItemEventOptions,
-  RegistryItemUrlData
+  RegItemRawData,
+  RegItemEventOptions,
+  RegItemUrlData,
+  RegItemEventName
 } from './interface'
 import { RegistryItemURL } from './url'
 import { asyncImportItemUrls } from './async-load'
 import { asyncRemoveItemUrls } from './async-unload'
 import { asyncItemTest } from './async-test'
+import { defaultsIBSheetUrls } from '../for-ibsheet'
 
 class RegistryItem extends CustomEventEmitter {
   private _id: string
-  private _name: string
+  private _name: string | undefined
   private _version: string | null
   private _urls: RegistryItemURL[]
   private _loaded: boolean = false
   private _isResolveUpdateUrls: boolean
   private _updateUrls: RegistryItemURL[]
-  private _urlOptions: RegistryItemUrlData = {}
-  private _evtOptions: RegistryItemEventOptions = {}
+  private _urlOptions: RegItemUrlData = {}
+  private _evtOptions: RegItemEventOptions = {}
   error = null
 
   constructor(data: string | RegistryItemData) {
     super()
     data = castRegistryItemData(data)
     this._updateUrls = []
+    this.name = get(data, 'name')
+
+    // url, evt
     this.update(data, false)
 
     if (isNil(this.urls)) {
@@ -50,14 +58,16 @@ class RegistryItem extends CustomEventEmitter {
     }
 
     // name
-    const firstUrl = this.urls[0]
-    const name = get(data, 'name', firstUrl.basename)
-    if (isNil(name) || !name.length) {
-      throw new Error(
-        `required name property, not found from url: ${firstUrl.value}`
-      )
+    if (isNil(this.name)) {
+      const firstUrl = this.urls[0]
+      const name = firstUrl.basename
+      if (isNil(name) || !name.length) {
+        throw new Error(
+          `required name property, not found from url: ${firstUrl.value}`
+        )
+      }
+      this.name = name
     }
-    this.name = trim(name).toLowerCase()
 
     // version
     this.version = get(data, 'version', null)
@@ -70,11 +80,12 @@ class RegistryItem extends CustomEventEmitter {
   get id(): string {
     return this._id
   }
-  get name(): string {
+  get name(): string | undefined {
     return this._name
   }
-  set name(value: string) {
-    this._name = value
+  set name(value: string | undefined) {
+    if (isEmpty(value)) return
+    this._name = trim(value).toLowerCase()
   }
   get version(): string | null {
     return this._version
@@ -102,11 +113,11 @@ class RegistryItem extends CustomEventEmitter {
     return this._isResolveUpdateUrls
   }
 
-  get raw(): RegistryItemRawData {
+  get raw(): RegItemRawData {
     const raw = {
       id: this.id,
       urls: this.urls.map(url => url.value),
-      name: this.name,
+      name: this.name as string,
       version: this.version,
       alias: this.alias,
       loaded: this.loaded
@@ -117,6 +128,9 @@ class RegistryItem extends CustomEventEmitter {
     return raw
   }
 
+  get loaded(): boolean {
+    return this._loaded
+  }
   get changed(): boolean {
     return !!this._updateUrls.length
   }
@@ -128,10 +142,17 @@ class RegistryItem extends CustomEventEmitter {
   }
 
   private _createUrls(data: RegistryItemData): RegistryItemURL[] | undefined {
-    const targetOpts = pick(data, ['baseUrl', 'url', 'type', 'target', 'urls'])
+    const targetOpts = pick(data, [
+      'baseUrl', 'url', 'type', 'target', 'urls',
+      'corefile', 'theme', 'plugins', 'locale',
+      'license'
+    ])
     if (isEmpty(targetOpts)) {
       return
     }
+
+    const bIBSheet = isIBSheet(this.name)
+
     const options = defaultsDeep(targetOpts, this._urlOptions)
     this._urlOptions = options
 
@@ -142,32 +163,41 @@ class RegistryItem extends CustomEventEmitter {
       console.warn('ignore "url" property, cannot be used with the "urls"')
     }
 
-    const urls: any = get(
-      options,
-      'urls',
-      pick(options, ['url', 'target', 'type'])
-    )
-    const baseUrl = get(options, 'baseUrl')
+    let urls: any
+    if (!bIBSheet) {
+      urls = get(
+        options,
+        'urls',
+        pick(options, ['url', 'target', 'type'])
+      )
+    } else {
+      urls = defaultsIBSheetUrls(data)
+    }
 
-    return castArray(urls).map(_data => {
-      _data = castRegistryItemData(_data) as RegistryItemUrlData
-      const { url } = _data
+    if (isEmpty(urls)) return
+
+    const baseUrl = get(options, 'baseUrl')
+    const res = castArray(urls).map(data => {
+      data = castRegistryItemData(data) as RegItemUrlData
+      const { url } = data
       if (!isNil(baseUrl) && !/^\w+:\/\//.test(url)) {
         set(
-          _data,
+          data,
           'url',
           [trim(baseUrl).replace(/\/$/, ''), trim(url).replace(/^\//, '')].join(
             '/'
           )
         )
       }
-      return new RegistryItemURL(_data)
+      return new RegistryItemURL(data)
     })
+    return res
   }
-  private _setUrls(data: RegistryItemData, bChange: boolean = false): void {
+  private _setUrls(data: RegistryItemData, isUpdate: boolean = false): void {
     const urls = this._createUrls(data)
+
     if (isNil(urls)) return
-    if (bChange) {
+    if (isUpdate) {
       this._updateUrls = urls
       return
     }
@@ -176,10 +206,10 @@ class RegistryItem extends CustomEventEmitter {
 
   private _setEventOptions(data: RegistryItemData) {
     const targetOpts = pick(data, [
-      'validate',
-      'load',
-      'unload',
-      'dependentUrls'
+      RegItemEventName.VALIDATE,
+      RegItemEventName.LOAD,
+      RegItemEventName.UNLOAD,
+      RegItemEventName.DEPENDENT_URLS,
     ])
     if (isEmpty(targetOpts)) {
       return
@@ -188,6 +218,9 @@ class RegistryItem extends CustomEventEmitter {
   }
   getEventOption(name: string, def?: any): any {
     return get(this._evtOptions, name, def)
+  }
+  hasEventOption(name: string): boolean {
+    return !isNil(get(this._evtOptions, name))
   }
   setEventOption(name: string, value: any): void {
     set(this._evtOptions, name, value)
@@ -204,20 +237,35 @@ class RegistryItem extends CustomEventEmitter {
     this._isResolveUpdateUrls = false
   }
 
-  update(data: any, bChange: boolean = true): void {
+  update(data: any, isUpdate: boolean = true): void {
     if (isNil(data)) return
     data = castRegistryItemData(data)
-    this._setUrls(data, bChange)
+    this._setUrls(data, isUpdate)
     this._setEventOptions(data)
+    // custom sort
+    this._urls = sortBy(this._urls, url => {
+      let nOrder: number
+      const { type, value } = url
+      const corefile = get(this._urlOptions, 'corefile', 'ibsheet.js')
+      if (type === 'css') {
+        nOrder = 1
+      } else if (isIBSheet(this.name)) {
+        if (includes(value, 'ibleaders.js')) nOrder = 3  // license
+        else if (includes(value, 'locale/')) nOrder = 4  // locale
+        else if (includes(value, corefile)) nOrder = 5   // corefile
+        else nOrder = 6 // plugins
+      } else {
+        nOrder = 2
+      }
+      return nOrder
+    })
+    // console.log(this._urls)
   }
 
   test(): boolean {
     const validator = this.getEventOption('validate')
     if (isNil(validator)) return true
     return validator.call(window)
-  }
-  get loaded(): boolean {
-    return this._loaded
   }
   load(options?: any): this {
     const eventData = { target: this }

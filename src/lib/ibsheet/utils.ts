@@ -6,6 +6,10 @@ export function existsIBSheetStatic(name: string = IBSHEET_GLOBAL) {
   return !isNil(get(window, name))
 }
 
+export function isIBSheet(name: string | undefined) {
+  return name === IBSHEET
+}
+
 export function getIBSheetStatic(name: string = IBSHEET_GLOBAL): any {
   return get(window, name)
 }
@@ -27,4 +31,13 @@ export function validSheetRegistData(param?: RegistryParam): boolean {
   const name = get(param, 'name')
   if (isNil(name)) return false
   return trim(name) === IBSHEET
+}
+
+export function setIBSheetLicense(value: string): void {
+  let ibleaders = get(window, 'ibleaders')
+  if (isNil(ibleaders)) {
+    ibleaders = {}
+    set(window, 'ibleaders', ibleaders)
+  }
+  set(ibleaders, 'license', value)
 }

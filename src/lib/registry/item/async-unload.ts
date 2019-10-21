@@ -54,26 +54,41 @@ export function asyncRemoveDepndentUrls(
   })
 }
 
-export function asyncRemoveIBSheetElements(options?: any): Promise<any>[] {
+export function asyncRemoveIBSheetElements(options?: any, onlySheet: boolean = false): Promise<any>[] {
   const isDebugMode = get(options, 'debug', false)
-  return ['.SheetMain.IBMain', '#IBSheetControlsSheetMain'].map(xpath => {
+  let xPathList = [
+    'HEAD>DIV[id^=IBFastColumns]',
+    'HEAD>DIV[id^=IBOverflowColumns]'
+  ]
+  if (!onlySheet) {
+    xPathList = xPathList.concat([
+      'BODY>.SheetMain.IBMain',
+      'BODY>#IBSheetControlsSheetMain'
+    ])
+  }
+
+  return xPathList.map(xpath => {
     return new Promise((resolve, reject) => {
-      let success = false
-      let el: HTMLElement | null = null
+      let success = true
+      let elems: any
       try {
-        el = document.querySelector(xpath)
-        if (!isNil(el)) {
-          const parent = el.parentElement as HTMLElement
-          parent.removeChild(el)
-          success = true
+        elems = document.querySelectorAll(xpath) || []
+        if (elems.length) {
+          elems.forEach((el: any) => {
+            const parent = el.parentElement as HTMLElement
+            parent.removeChild(el)
+          })
+        } else {
+          success = false
         }
       } catch (err) {
+        success = false
         reject(err)
       }
-      if (isDebugMode) {
+      if (isDebugMode && success) {
         console.log('# remove element:', xpath, '--', success)
       }
-      resolve(el)
+      resolve(elems)
     })
   })
 }

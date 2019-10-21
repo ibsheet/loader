@@ -1,19 +1,18 @@
 import {
   findIndex,
-  has,
   isNil,
   castArray,
   remove,
   includes,
   lastIndexOf
 } from '../shared/lodash'
-import { IBSHEET, IBSHEET_GLOBAL } from '../constant'
 import { IBSheetLoaderStatic } from '../main'
-import { RegistryParam } from './interface'
 import { CustomEventEmitter } from '../custom'
-import { existsIBSheetStatic, destroyIBSheetStatic } from '../ibsheet'
-import { RegistryItemUpdateData, RegistryItemData, RegistryItem } from './item'
+import { isIBSheet } from '../ibsheet'
+import { RegistryParam } from './interface'
+import { RegItemUpdateData, RegistryItemData, RegistryItem } from './item'
 import { generateVersion } from './utils'
+import { defaultsIBSheetEvents } from './for-ibsheet'
 
 class LoaderRegistry extends CustomEventEmitter {
   private _list: RegistryItem[]
@@ -30,12 +29,14 @@ class LoaderRegistry extends CustomEventEmitter {
   get length(): number {
     return this._list.length
   }
+  protected getUberOption(sPath: string, def: any) {
+    return this._uber.getOption(sPath, def)
+  }
 
   add(
     data: string | RegistryItemData,
     overwrite: boolean = false
   ): RegistryItem | undefined {
-    const self = this
     let item
     try {
       item = new RegistryItem(data)
@@ -45,6 +46,7 @@ class LoaderRegistry extends CustomEventEmitter {
     }
 
     const { alias, urls } = item.raw
+    const bIBSheet = isIBSheet(item.name)
     const existItem = this.get(alias)
     if (!isNil(existItem)) {
       if (overwrite) {
@@ -64,34 +66,11 @@ class LoaderRegistry extends CustomEventEmitter {
         return
       }
       item.version = generateVersion(item)
+    } else if (bIBSheet) {
+      defaultsIBSheetEvents.call(this, item)
     }
 
-    // IBSheet Default Validator
-    if (item.name === IBSHEET) {
-      const CustomGlobalName = this._uber.getOption(
-        'globals.ibsheet',
-        IBSHEET_GLOBAL
-      )
-      if (!has(data, 'validate')) {
-        item.setEventOption('validate', function() {
-          return existsIBSheetStatic(CustomGlobalName)
-        })
-      }
-
-      if (!has(data, 'unload')) {
-        item.setEventOption('unload', function() {
-          if (this.debug) {
-            console.log(
-              `%c[${this.name}.unload / custom] ${this.alias}`,
-              'color:royalblue'
-            )
-          }
-          destroyIBSheetStatic(CustomGlobalName)
-        })
-      }
-    }
-
-    self._list.push(item)
+    this._list.push(item)
     return item
   }
 
@@ -147,7 +126,7 @@ class LoaderRegistry extends CustomEventEmitter {
     return findIndex(this._list, { alias })
   }
 
-  update(alias: string, data: RegistryItemUpdateData) {
+  update(alias: string, data: RegItemUpdateData) {
     const item = this.get(alias)
     if (isNil(item)) return
     item.update(data)
