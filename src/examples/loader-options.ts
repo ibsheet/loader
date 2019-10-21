@@ -4,13 +4,15 @@ export const ibseetLibData = {
   name: 'ibsheet',
   // version: '8.0',
   baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`,
-  urls: [
-    'locale/ko.js',
-    // 'locale/en.js',
-    'ibsheet.js',
-    { url: 'css/default/main.css', target: 'head' }
-    // `${IBSHEET_BASEURL}/v8/ibleaders.js`
-  ]
+  theme: 'default',
+  license: `${IBSHEET_BASEURL}/v8/ibleaders.js`,
+  // urls: [
+  //   'ibsheet.js',
+  //   'locale/ko.js',
+  //   // 'locale/en.js',
+  //   // `${IBSHEET_BASEURL}/v8/ibleaders.js`
+  //   { url: 'css/default/main.css', target: 'head' },
+  // ]
 }
 
 const fontAwesome = {

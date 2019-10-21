@@ -4,7 +4,7 @@ import get from 'lodash/get'
 import defaultsDeep from 'lodash/defaultsDeep'
 import { IBSheetLoaderStatic } from '../lib'
 
-import { IBSheetSampleData } from './ibsheet-data'
+import { IBSheetSampleData } from './sheet-data'
 
 const ALIAS_FONTAWESOME = 'font-awesome@5'
 const ALIAS_SWEETALERT = 'swal2@8'
@@ -148,7 +148,7 @@ export function initTestBoxControls(loader: IBSheetLoaderStatic) {
     const $testBox = $(selector).attr('data-alias', alias)
     const ctrlBtns = controlsData.map(_data => {
       const { sid, activeClass } = _data
-      const isUnloadCtrl = (sid === 'off')
+      const isUnloadCtrl = sid === 'off'
       const classes = ['btn btn-sm']
       if (isUnloadCtrl) {
         classes.push('active', activeClass)
