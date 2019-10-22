@@ -65,17 +65,15 @@ export function defaultsIBSheetUrls(data: RegistryItemData): string[] {
   if (!isEmpty(plugins)) {
     castArray(plugins).forEach(plugin => {
       switch(plugin) {
-        case 'excel':
-        case 'common':
-        case 'dialog':
-          plugin = `ibsheet-${plugin}.js`
-          break
+        // case 'excel':
+        // case 'common':
+        // case 'dialog':
+        //   plugin = `ibsheet-${plugin}.js`
+        //   break
         default:
-          if (this.debug) {
-            console.warn('not support plugins:', plugin)
-          }
+          plugin = `ibsheet-${plugin}.js`
       }
-      urls.push(plugin)
+      pushIfNotExistsUrl(urls, plugin)
     })
   }
 
