@@ -61,42 +61,20 @@ Using browser:
 
 ```js
 var loader = window.IBSheetLoader
-loader.config({
-  registry: [
-    {
-      name: 'ibsheet',
-      baseUrl: '<publicpath>/ibsheet',
-      urls: [
-        'css/default/main.css',
-        'ibleaders.js',
-        'locale/ko.js',
-        'ibsheet.js'
-      ]
-    }
-  ]
+loader.load({
+  name: 'ibsheet',
+  baseUrl: '<publicpath>/ibsheet'
 })
 loader.createSheet(options)
 ```
 
 ### note: CommonJS usage
 
-***comming soon***
-
 ```js
 const loader = require('@ibsheet/loader')
-loader.config({
-  registry: [
-    {
-      name: 'ibsheet',
-      baseUrl: '<publicpath>/ibsheet',
-      urls: [
-        'css/default/main.css',
-        'ibleaders.js',
-        'locale/ko.js',
-        'ibsheet.js'
-      ]
-    }
-  ]
+loader.load({
+  name: 'ibsheet',
+  baseUrl: '<publicpath>/ibsheet'
 })
 loader.createSheet(options)
 ```
@@ -105,19 +83,9 @@ loader.createSheet(options)
 
 ```js
 import loader from '@ibsheet/loader'
-loader.config({
-  registry: [
-    {
-      name: 'ibsheet',
-      baseUrl: '<publicpath>/ibsheet',
-      urls: [
-        'css/default/main.css',
-        'ibleaders.js',
-        'locale/ko.js',
-        'ibsheet.js'
-      ]
-    }
-  ]
+loader.load({
+  name: 'ibsheet',
+  baseUrl: '<publicpath>/ibsheet'
 })
 loader.createSheet(options)
 ```
@@ -126,19 +94,9 @@ loader.createSheet(options)
 
 ```ts
 import { IBSheetLoader as loader } from '@ibsheet/loader'
-loader.config({
-  registry: [
-    {
-      name: 'ibsheet',
-      baseUrl: '<publicpath>/ibsheet',
-      urls: [
-        'css/default/main.css',
-        'ibleaders.js',
-        'locale/ko.js',
-        'ibsheet.js'
-      ]
-    }
-  ]
+loader.load({
+  name: 'ibsheet',
+  baseUrl: '<publicpath>/ibsheet'
 })
 loader.createSheet(options)
 ```
