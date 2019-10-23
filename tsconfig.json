@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2015",
-    "outDir": "dist/module",
+    "outDir": "dist/esm",
     "rootDir": "src",
     "moduleResolution": "node",
     "module": "commonjs",

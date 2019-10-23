@@ -1,26 +1,14 @@
-import {
-  get, isNil,
-  castArray,
-  isEmpty
-} from '../shared/lodash'
-import {
-  basename
-} from '../shared/path-utils'
+import { get, isNil, castArray, isEmpty } from '../shared/lodash'
+import { basename } from '../shared/path-utils'
 import { IBSHEET_GLOBAL } from '../constant'
 import {
   existsIBSheetStatic,
   destroyIBSheetStatic,
   setIBSheetLicense
 } from '../ibsheet'
-import {
-  RegistryItemData,
-  RegItemEventName
-} from './item/interface'
+import { RegistryItemData, RegItemEventName } from './item/interface'
 import { RegistryItem } from './item'
-import {
-  castRegistryItemData,
-  pushIfNotExistsUrl
-} from './utils'
+import { castRegistryItemData, pushIfNotExistsUrl } from './utils'
 
 /**
  * @desc RegistryItem 스코프에서 IBSheet 기본 파일 추가
@@ -42,7 +30,7 @@ export function defaultsIBSheetUrls(data: RegistryItemData): string[] {
   [
     { name: 'theme', def: 'default' },
     { name: 'locale', def: 'ko' },
-    { name: 'corefile', def: 'ibsheet.js' },
+    { name: 'corefile', def: 'ibsheet.js' }
   ].forEach(o => {
     const { name, def } = o
     let url = get(data, name, def)
@@ -64,7 +52,7 @@ export function defaultsIBSheetUrls(data: RegistryItemData): string[] {
   const plugins = get(data, 'plugins')
   if (!isEmpty(plugins)) {
     castArray(plugins).forEach(plugin => {
-      switch(plugin) {
+      switch (plugin) {
         // case 'excel':
         // case 'common':
         // case 'dialog':
@@ -79,7 +67,11 @@ export function defaultsIBSheetUrls(data: RegistryItemData): string[] {
 
   const license = get(data, 'license')
   if (!isEmpty(license)) {
-    if (/^https?:/.test(license) || /^[./]/.test(license) || /.*\.js$/.test(license)) {
+    if (
+      /^https?:/.test(license) ||
+      /^[./]/.test(license) ||
+      /.*\.js$/.test(license)
+    ) {
       urls.push(license)
     } else {
       setIBSheetLicense(license)
@@ -92,10 +84,7 @@ export function defaultsIBSheetUrls(data: RegistryItemData): string[] {
  * @desc LoaderRegistry 스코프에서 IBSheet 기본 이벤트 추가
  */
 export function defaultsIBSheetEvents(item: RegistryItem): void {
-  const CustomGlobalName = this.getUberOption(
-    'globals.ibsheet',
-    IBSHEET_GLOBAL
-  )
+  const CustomGlobalName = this.getUberOption('globals.ibsheet', IBSHEET_GLOBAL)
   ;[
     {
       name: RegItemEventName.VALIDATE,

@@ -3,7 +3,7 @@ import { RegistryItemURL } from './url'
 // export type RegistryItemUrlTarget = 'head'|'body'
 
 export enum RegItemEventName {
-  VALIDATE ='validate',
+  VALIDATE = 'validate',
   LOAD = 'load',
   UNLOAD = 'unload',
   DEPENDENT_URLS = 'dependentUrls'
@@ -24,9 +24,7 @@ export interface RegItemEventOptions {
   dependentUrls?: string[]
 }
 
-export interface RegItemUpdateData
-  extends RegItemUrlData,
-    RegItemEventOptions {
+export interface RegItemUpdateData extends RegItemUrlData, RegItemEventOptions {
   // any others
 }
 

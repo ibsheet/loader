@@ -9,22 +9,31 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { get } = require('lodash')
 
 const pkg = require('./package.json')
-
-const nodeEnv = process.env.NODE_ENV || 'development'
-const isDevMode = nodeEnv === 'development'
-
-const {
-  filename: OUTPUT_FILE,
-  global: GLOBAL_NAME
-} = get(pkg, 'jslib', {
-  filename: 'custom-lib',
-  global: 'CustomLib'
-})
-
 const {
   DefinePlugin
   // ProvidePlugin,
 } = webpack
+
+const nodeEnv = process.env.NODE_ENV || 'development'
+const isDevMode = nodeEnv === 'development'
+const BUILD_TARGET = get(process.env, 'BUILD_TARGET', 'esm')
+
+const GLOBAL_VAR_NAME = get(pkg, 'jslib.global', 'CustomLib')
+
+function getOutputName (buildTarget) {
+  let name
+  switch (buildTarget) {
+    case 'esm':
+    case 'cjs':
+      name = 'index'
+      break
+    default:
+      name = get(pkg, 'jslib.filename', 'custom-lib')
+  }
+  return name
+}
+
+const OUTPUT_NAME = getOutputName(BUILD_TARGET)
 
 const plugins = [
   // new ProvidePlugin({
@@ -47,6 +56,32 @@ const plugins = [
   })
 ]
 
+function getTsLoaderOptions (buildTarget) {
+  const outDir = `dist/${buildTarget}`
+  let declaration = true
+  let target
+  switch (buildTarget) {
+    case 'esm':
+      target = 'esnext'
+      break
+    case 'cjs':
+      target = 'es2015'
+      break
+    // case 'umd':
+    //   target = 'es5'
+    //   break
+    default:
+      target = 'es5'
+      declaration = false
+  }
+  return {
+    configFileName: !isDevMode ? 'tsconfig.prod.json' : 'tsconfig.dev.json',
+    target,
+    outDir,
+    declaration
+  }
+}
+
 const rules = [
   {
     enforce: 'pre',
@@ -60,7 +95,7 @@ const rules = [
         },
         {
           search: '##APP_GLOBAL##',
-          replace: GLOBAL_NAME
+          replace: GLOBAL_VAR_NAME
         }
       ]
     }
@@ -85,10 +120,8 @@ const rules = [
     loaders: [
       {
         loader: 'awesome-typescript-loader',
-        options: {
-          // https://github.com/s-panferov/awesome-typescript-loader#loader-options
-          configFileName: !isDevMode ? 'tsconfig.webpack.json' : 'tsconfig.webpack.dev.json'
-        }
+        // https://github.com/s-panferov/awesome-typescript-loader#loader-options
+        options: getTsLoaderOptions(BUILD_TARGET)
       },
       'source-map-loader'
     ]
@@ -118,7 +151,7 @@ const rules = [
 const config = {
   context: pathResolve(__dirname, './src'),
   entry: {
-    [OUTPUT_FILE]: './index.ts',
+    [OUTPUT_NAME]: './index.ts',
     sample: './sample.ts'
   },
   output: {
@@ -126,9 +159,9 @@ const config = {
     // publicPath: '/',
     filename: '[name].js'
     // chunkFilename: '[id].chunk.js'
-    // library: GLOBAL_NAME,
+    // library: GLOBAL_VAR_NAME,
     // libraryTarget: 'umd',
-    // libraryExport: OUTPUT_FILE
+    // libraryExport: OUTPUT_NAME
     // umdNamedDefine: true
     // globalObject: 'typeof self !== "undefined" ? self : this'
   },

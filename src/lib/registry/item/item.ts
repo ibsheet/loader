@@ -143,8 +143,15 @@ class RegistryItem extends CustomEventEmitter {
 
   private _createUrls(data: RegistryItemData): RegistryItemURL[] | undefined {
     const targetOpts = pick(data, [
-      'baseUrl', 'url', 'type', 'target', 'urls',
-      'corefile', 'theme', 'plugins', 'locale',
+      'baseUrl',
+      'url',
+      'type',
+      'target',
+      'urls',
+      'corefile',
+      'theme',
+      'plugins',
+      'locale',
       'license'
     ])
     if (isEmpty(targetOpts)) {
@@ -165,11 +172,7 @@ class RegistryItem extends CustomEventEmitter {
 
     let urls: any
     if (!bIBSheet) {
-      urls = get(
-        options,
-        'urls',
-        pick(options, ['url', 'target', 'type'])
-      )
+      urls = get(options, 'urls', pick(options, ['url', 'target', 'type']))
     } else {
       urls = defaultsIBSheetUrls(data)
     }
@@ -209,7 +212,7 @@ class RegistryItem extends CustomEventEmitter {
       RegItemEventName.VALIDATE,
       RegItemEventName.LOAD,
       RegItemEventName.UNLOAD,
-      RegItemEventName.DEPENDENT_URLS,
+      RegItemEventName.DEPENDENT_URLS
     ])
     if (isEmpty(targetOpts)) {
       return
@@ -250,9 +253,12 @@ class RegistryItem extends CustomEventEmitter {
       if (type === 'css') {
         nOrder = 1
       } else if (isIBSheet(this.name)) {
-        if (includes(value, 'ibleaders.js')) nOrder = 3  // license
-        else if (includes(value, 'locale/')) nOrder = 4  // locale
-        else if (includes(value, corefile)) nOrder = 5   // corefile
+        if (includes(value, 'ibleaders.js')) nOrder = 3
+        // license
+        else if (includes(value, 'locale/')) nOrder = 4
+        // locale
+        else if (includes(value, corefile)) nOrder = 5
+        // corefile
         else nOrder = 6 // plugins
       } else {
         nOrder = 2

@@ -3,7 +3,6 @@ import { CustomEventEmitter } from './custom'
 
 import {
   get,
-  set,
   has,
   isNil,
   castArray,
@@ -30,7 +29,7 @@ import {
 } from './ibsheet'
 
 // import { double, power } from './number'
-import { IBSHEET, APP_VERSION, APP_GLOBAL } from './constant'
+import { IBSHEET, APP_VERSION } from './constant'
 import { LoaderConfigOptions, DefaultLoaderConfig } from './config'
 import { LoaderRegistry, RegistryItem } from './registry'
 import { RegisteredItem, LoaderStatus, LoaderEventName } from './interface'
@@ -349,20 +348,3 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   // double: (value: number) => number
   // power: (base: number, exponent: number) => number
 }
-
-/**
- * test prototype
- * @hidden
- */
-// const fn = IBSheetLoaderStatic.prototype
-// fn.double = double
-// fn.power = power
-
-export const IBSheetLoader = new IBSheetLoaderStatic()
-
-// set global variable
-if (!has(window, APP_GLOBAL)) {
-  set(window, APP_GLOBAL, IBSheetLoader)
-}
-
-export default IBSheetLoader

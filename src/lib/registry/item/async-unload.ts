@@ -54,7 +54,10 @@ export function asyncRemoveDepndentUrls(
   })
 }
 
-export function asyncRemoveIBSheetElements(options?: any, onlySheet: boolean = false): Promise<any>[] {
+export function asyncRemoveIBSheetElements(
+  options?: any,
+  onlySheet: boolean = false
+): Promise<any>[] {
   const isDebugMode = get(options, 'debug', false)
   let xPathList = [
     'HEAD>DIV[id^=IBFastColumns]',

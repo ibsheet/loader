@@ -27,6 +27,7 @@ import toNumber from 'lodash/toNumber'
 import trim from 'lodash/trim'
 import unset from 'lodash/unset'
 import sortBy from 'lodash/sortBy'
+// import omit from 'lodash/omit'
 
 export {
   assignIn,
@@ -58,4 +59,5 @@ export {
   trim,
   unset,
   sortBy
+  // omit
 }

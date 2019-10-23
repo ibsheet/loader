@@ -5,7 +5,7 @@ export const ibseetLibData = {
   // version: '8.0',
   baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`,
   theme: 'default',
-  license: `${IBSHEET_BASEURL}/v8/ibleaders.js`,
+  license: `${IBSHEET_BASEURL}/v8/ibleaders.js`
   // urls: [
   //   'ibsheet.js',
   //   'locale/ko.js',
