@@ -1,7 +1,10 @@
 import find from 'lodash/find'
 import isNil from 'lodash/isNil'
 import get from 'lodash/get'
+import defaultsDeep from 'lodash/defaultsDeep'
 import { IBSheetLoaderStatic } from '../lib'
+
+import { IBSheetSampleData } from './sheet-data'
 
 const ALIAS_FONTAWESOME = 'font-awesome@5'
 const ALIAS_SWEETALERT = 'swal2@8'
@@ -61,14 +64,80 @@ function updateTestBoxControls(alias: string, bool: boolean) {
   $activeBtn.removeClass(DEACTIVE_CLASS).addClass(['active', activeClass])
 }
 
+function initIBSheetContainers(loader: IBSheetLoaderStatic) {
+  const $sheetTestBody = $('#ibsheet.test-box>.test-body')
+
+  const ctrlbox = $('<div/>', {
+    class: 'ibsheet-ctrlbox'
+  }).append(
+    IBSheetSampleData.map(data => {
+      const checkboxId = `${data.id}_ctrl`
+      return $('<div/>', {
+        class: 'form-check form-check-inline'
+      }).append(
+        $('<input/>', {
+          id: checkboxId,
+          type: 'checkbox',
+          class: 'form-check-input',
+          'data-alias': data.id
+        }).on('change', function(_evt) {
+          const el = this as HTMLInputElement
+          const bool = el.checked
+          const sid = el.getAttribute('data-alias')
+          const $wrapper = $(`#${sid}_wrapper`)
+          if (bool) {
+            $wrapper.addClass('active')
+            loader
+              .createSheet(data)
+              .then((sheet: any) => {
+                console.log('IBSheet version:', sheet.version())
+                console.log('ibsheet created:', sheet.id)
+                const callback = get(data, 'ready')
+                if (isNil(callback)) return
+                callback.call(null, sheet)
+              })
+              .catch(err => {
+                throw new Error(err)
+              })
+          } else {
+            loader.removeSheet(data.id)
+            $wrapper.removeClass('active loaded')
+          }
+        }),
+        $('<label/>', {
+          type: 'checkbox',
+          class: 'form-check-label',
+          for: checkboxId,
+          text: data.id
+        })
+      )
+    })
+  )
+
+  $sheetTestBody.append(
+    ctrlbox,
+    IBSheetSampleData.map(data => {
+      const css = defaultsDeep(get(data, 'css', {}), {
+        width: '100%',
+        height: '15rem'
+      })
+      return $('<div/>', {
+        id: data.el,
+        class: 'ibsheet-container',
+        css
+      })
+    })
+  )
+}
+
 export function initTestBoxControls(loader: IBSheetLoaderStatic) {
   loader
-    .bind('loaded unloaded', evt => {
+    .bind('loaded unloaded', (evt: any) => {
       const { alias, loaded } = evt.target.raw
       updateTestBoxControls(alias, loaded)
     })
     .list()
-    .forEach(data => {
+    .forEach((data: any) => {
       const { alias, loaded } = data
       updateTestBoxControls(alias, loaded)
     })
@@ -111,4 +180,6 @@ export function initTestBoxControls(loader: IBSheetLoaderStatic) {
       .append(ctrlBtns)
       .appendTo($testBox)
   })
+
+  initIBSheetContainers(loader)
 }

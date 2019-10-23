@@ -1,12 +1,12 @@
 import { isNil, concat } from '../../shared/lodash'
-import { LoaderRegistryItem } from '../../registry'
+import { RegistryItem } from '../../registry'
 import { getPreloadItems } from './get-preload-items'
 import { parseLoadItems } from './parse-load-items'
 
 export function getLoadItems(
   origins?: any,
   defaultLibrary: boolean = true
-): LoaderRegistryItem[] {
+): RegistryItem[] {
   const preLoadItems = getPreloadItems.apply(this, [
     origins,
     { defaultLibrary }

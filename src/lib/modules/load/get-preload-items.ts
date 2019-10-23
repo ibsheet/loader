@@ -1,14 +1,14 @@
 import { get, isArray, isObject, isNil, isString } from '../../shared/lodash'
 
-import { LoaderRegistryItem } from '../../registry'
+import { RegistryItem } from '../../registry'
 import { validSheetRegistData } from '../../ibsheet'
 
-import { ILoadTaskOptions } from './interface'
+import { LoadTaskOptions } from './interface'
 
 export function getPreloadItems(
   origins?: any,
-  options?: ILoadTaskOptions
-): LoaderRegistryItem[] {
+  options?: LoadTaskOptions
+): RegistryItem[] {
   const alsoDefaultLib = get(options, 'defaultLibrary', false)
   const needDefaultLoadTask = alsoDefaultLib && !this.loadedDefaultLib
   const noOrigins = isNil(origins)

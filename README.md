@@ -65,13 +65,12 @@ loader.config({
   registry: [
     {
       name: 'ibsheet',
-      // version: 8,
       baseUrl: '<publicpath>/ibsheet',
       urls: [
-        'ibsheet.js',
         'css/default/main.css',
+        'ibleaders.js',
         'locale/ko.js',
-        'ibleaders.js'
+        'ibsheet.js'
       ]
     }
   ]
@@ -89,13 +88,12 @@ loader.config({
   registry: [
     {
       name: 'ibsheet',
-      // version: 8,
       baseUrl: '<publicpath>/ibsheet',
       urls: [
-        'ibsheet.js',
         'css/default/main.css',
+        'ibleaders.js',
         'locale/ko.js',
-        'ibleaders.js'
+        'ibsheet.js'
       ]
     }
   ]
@@ -111,13 +109,12 @@ loader.config({
   registry: [
     {
       name: 'ibsheet',
-      // version: 8,
       baseUrl: '<publicpath>/ibsheet',
       urls: [
-        'ibsheet.js',
         'css/default/main.css',
+        'ibleaders.js',
         'locale/ko.js',
-        'ibleaders.js'
+        'ibsheet.js'
       ]
     }
   ]
@@ -128,18 +125,17 @@ loader.createSheet(options)
 ### note: TypeScript usage
 
 ```ts
-import { IBSheetLoaderInstance as loader } from '@ibsheet/loader'
+import { IBSheetLoader as loader } from '@ibsheet/loader'
 loader.config({
   registry: [
     {
       name: 'ibsheet',
-      // version: 8,
       baseUrl: '<publicpath>/ibsheet',
       urls: [
-        'ibsheet.js',
         'css/default/main.css',
+        'ibleaders.js',
         'locale/ko.js',
-        'ibleaders.js'
+        'ibsheet.js'
       ]
     }
   ]

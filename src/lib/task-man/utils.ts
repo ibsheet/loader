@@ -1,4 +1,4 @@
-import { LoaderEvent, LoaderStatus } from '../interface'
+import { LoaderEventName, LoaderStatus } from '../interface'
 import { LoaderTaskType } from './interface'
 
 import { LoaderTaskManager } from './task-manager'
@@ -10,17 +10,17 @@ import { LoaderTaskManager } from './task-manager'
  */
 export function bindTaskManEvents(
   taskMan: LoaderTaskManager,
-  eventList: LoaderEvent[]
+  eventList: LoaderEventName[]
 ): void {
   eventList.forEach(event => {
     taskMan.on(event, evt => {
       switch (evt.type) {
-        case LoaderEvent.LOAD:
-        case LoaderEvent.UNLOAD:
+        case LoaderEventName.LOAD:
+        case LoaderEventName.UNLOAD:
           this._status = LoaderStatus.WORKING
           break
-        case LoaderEvent.LOAD_COMPLETE:
-        case LoaderEvent.UNLOAD_COMPLETE:
+        case LoaderEventName.LOAD_COMPLETE:
+        case LoaderEventName.UNLOAD_COMPLETE:
           this._status = LoaderStatus.IDLE
           break
       }
@@ -30,11 +30,11 @@ export function bindTaskManEvents(
 }
 
 /** @hidden */
-export function isStartEvent(event: LoaderEvent): boolean {
+export function isStartEvent(event: LoaderEventName): boolean {
   let bool = false
   switch (event) {
-    case LoaderEvent.LOAD:
-    case LoaderEvent.UNLOAD:
+    case LoaderEventName.LOAD:
+    case LoaderEventName.UNLOAD:
       bool = true
       break
   }
@@ -42,11 +42,11 @@ export function isStartEvent(event: LoaderEvent): boolean {
 }
 
 /** @hidden */
-export function isResolveTaskEvent(event: LoaderEvent): boolean {
+export function isResolveTaskEvent(event: LoaderEventName): boolean {
   let bool = true
   switch (event) {
-    case LoaderEvent.LOAD:
-    case LoaderEvent.UNLOAD:
+    case LoaderEventName.LOAD:
+    case LoaderEventName.UNLOAD:
       bool = false
       break
   }
@@ -56,21 +56,21 @@ export function isResolveTaskEvent(event: LoaderEvent): boolean {
 /**
  * @hidden
  */
-export function getTaskEventsByType(type: LoaderTaskType): LoaderEvent[] {
+export function getTaskEventsByType(type: LoaderTaskType): LoaderEventName[] {
   return type === LoaderTaskType.LOAD
     ? [
-        LoaderEvent.LOAD,
-        LoaderEvent.LOADED,
-        LoaderEvent.LOAD_REJECT,
-        LoaderEvent.LOAD_FAILED,
-        LoaderEvent.LOAD_COMPLETE
+        LoaderEventName.LOAD,
+        LoaderEventName.LOADED,
+        LoaderEventName.LOAD_REJECT,
+        LoaderEventName.LOAD_FAILED,
+        LoaderEventName.LOAD_COMPLETE
       ]
     : [
-        LoaderEvent.UNLOAD,
-        LoaderEvent.UNLOADED,
-        LoaderEvent.UNLOAD_REJECT,
-        LoaderEvent.UNLOAD_FAILED,
-        LoaderEvent.UNLOAD_COMPLETE
+        LoaderEventName.UNLOAD,
+        LoaderEventName.UNLOADED,
+        LoaderEventName.UNLOAD_REJECT,
+        LoaderEventName.UNLOAD_FAILED,
+        LoaderEventName.UNLOAD_COMPLETE
       ]
 }
 

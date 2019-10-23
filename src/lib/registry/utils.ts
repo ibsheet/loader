@@ -6,25 +6,23 @@ import {
   isString,
   isNil,
   trim,
+  find,
   isNumber,
-  toNumber
+  toNumber,
+  last
 } from '../shared/lodash'
 import { VERSION_GENERATE_START_NUM } from '../config'
-import { LoaderRegistryDataType, IRegistryIdentifier } from './interface'
-import {
-  ILoaderRegistryItem,
-  ILoaderRegistryItemData,
-  IRegistryItemUrlData
-} from './item'
+import { RegistryParam, RegistryIdentifier } from './interface'
+import { RegistryItem, RegistryItemData, RegItemUrlData } from './item'
 
 /**
- * 인자가 문자열일 경우, ILoaderRegistryItemData 인터페이스로 캐스팅
+ * 인자가 문자열일 경우, RegistryItemData 인터페이스로 캐스팅
  * @param param
  * @hidden
  */
 export function castRegistryItemData(
-  param: LoaderRegistryDataType | IRegistryItemUrlData
-): ILoaderRegistryItemData {
+  param: RegistryParam | RegItemUrlData
+): RegistryItemData {
   if (isString(param)) {
     return { url: param }
   }
@@ -43,22 +41,18 @@ export const getFilenameFromURL = (
     console.warn('[UrlParser]', `${url} failed parse basename`)
     return
   }
-  // todo: angular package error
-  // return path.basename(pathname)
-  return pathname
+  return last(pathname.split('/'))
 }
 
-export function castRegistryAlias(
-  data: ILoaderRegistryItemData
-): string | undefined {
+export function castRegistryAlias(data: RegistryItemData): string | undefined {
   const idf = getRegistryIdentifier(data)
   if (isNil(idf)) return
   return idf.alias
 }
 
 export function getRegistryIdentifier(
-  data: ILoaderRegistryItemData
-): IRegistryIdentifier | undefined {
+  data: RegistryItemData
+): RegistryIdentifier | undefined {
   let name = get(data, 'name')
   const url = get(data, 'url')
   if (isNil(name) && !isNil(url)) {
@@ -85,7 +79,7 @@ export function getRegistryIdentifier(
  * @param item
  * @hidden
  */
-export function generateVersion(item: ILoaderRegistryItem): string {
+export function generateVersion(item: RegistryItem): string {
   const { version: ver } = item
 
   if (isNil(ver)) {
@@ -101,4 +95,16 @@ export function generateVersion(item: ILoaderRegistryItem): string {
     return `${ver}-${VERSION_GENERATE_START_NUM}`
   }
   return `${arr.join('-')}-${toNumber(num) + 1}`
+}
+
+/**
+ * if not exists push url
+ * @param urls
+ * @param url
+ */
+export function pushIfNotExistsUrl(urls: { url: string }[], url: string) {
+  const exists = find(urls, o => o.url.indexOf(url) > -1)
+  if (isNil(exists)) {
+    urls.push({ url })
+  }
 }

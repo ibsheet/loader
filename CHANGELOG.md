@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/ibsheet/loader/compare/v0.0.9...v1.0.0) (2019-10-23)
+
+
+### Bug Fixes
+
+* unload\n feat: added removeSheet ([8cf2063](https://github.com/ibsheet/loader/commit/8cf2063))
+
+
+### Features
+
+* `RegistryItem` name toLowerCase() ([be1eb6d](https://github.com/ibsheet/loader/commit/be1eb6d))
+* added `setInterval` manager for debug ([911f2bf](https://github.com/ibsheet/loader/commit/911f2bf))
+* change interface names ([f579500](https://github.com/ibsheet/loader/commit/f579500))
+* change main export name "IBSheetLoader" ([ec17e98](https://github.com/ibsheet/loader/commit/ec17e98))
+* change typedoc options ([229435a](https://github.com/ibsheet/loader/commit/229435a))
+* new options for ibsheet ([e1f1281](https://github.com/ibsheet/loader/commit/e1f1281))
+* refactoring exports module ([4f10e28](https://github.com/ibsheet/loader/commit/4f10e28))
+
+### [0.0.10](https://github.com/ibsheet/loader/compare/v0.0.9...v0.0.10) (2019-10-23)
+
+
+### Bug Fixes
+
+* unload\n feat: added removeSheet ([8cf2063](https://github.com/ibsheet/loader/commit/8cf2063))
+
+
+### Features
+
+* `RegistryItem` name toLowerCase() ([be1eb6d](https://github.com/ibsheet/loader/commit/be1eb6d))
+* added `setInterval` manager for debug ([911f2bf](https://github.com/ibsheet/loader/commit/911f2bf))
+* change interface names ([f579500](https://github.com/ibsheet/loader/commit/f579500))
+* change main export name "IBSheetLoader" ([ec17e98](https://github.com/ibsheet/loader/commit/ec17e98))
+* change typedoc options ([229435a](https://github.com/ibsheet/loader/commit/229435a))
+* new options for ibsheet ([e1f1281](https://github.com/ibsheet/loader/commit/e1f1281))
+* refactoring exports module ([4f10e28](https://github.com/ibsheet/loader/commit/4f10e28))
+
 ### [0.0.9](https://github.com/ibsheet/loader/compare/v0.0.8...v0.0.9) (2019-09-30)
 
 

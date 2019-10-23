@@ -1,10 +1,8 @@
 {
   "extends": "./tsconfig",
   "compilerOptions": {
-    "target": "es5",
-    "outDir": "dist/umd",
     "module": "commonjs",
-    "declaration": false,
+    "declaration": true,
     "sourceMap": true,
     "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
   },

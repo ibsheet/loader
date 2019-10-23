@@ -10,11 +10,6 @@ export interface IBSheetCreateOptions {
   data?: any
 }
 
-export interface IBSheetGlobalStatic {
-  // create: (...args: any[]) => void
-  create: (options: IBSheetCreateOptions) => any
-}
-
 export interface IBSheetInstance {
   id: string
   length: number

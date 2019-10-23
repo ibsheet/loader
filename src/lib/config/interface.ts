@@ -1,8 +1,8 @@
-import { LoaderRegistryDataType } from '../registry'
-import { ITaskManagerOptions } from '../task-man'
+import { RegistryParam } from '../registry'
+import { TaskManagerOptions } from '../task-man'
 
-export interface ISheetLoaderConfig extends ITaskManagerOptions {
+export interface LoaderConfigOptions extends TaskManagerOptions {
   debug?: boolean
-  registry?: LoaderRegistryDataType[]
+  registry?: RegistryParam[]
   ready?: Function
 }

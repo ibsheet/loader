@@ -4,12 +4,15 @@ export const ibseetLibData = {
   name: 'ibsheet',
   // version: '8.0',
   baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`,
-  urls: [
-    'ibsheet.js',
-    { url: 'css/default/main.css', target: 'head' },
-    'locale/ko.js'
-    // `${IBSHEET_BASEURL}/v8/ibleaders.js`
-  ]
+  theme: 'default',
+  license: `${IBSHEET_BASEURL}/v8/ibleaders.js`
+  // urls: [
+  //   'ibsheet.js',
+  //   'locale/ko.js',
+  //   // 'locale/en.js',
+  //   // `${IBSHEET_BASEURL}/v8/ibleaders.js`
+  //   { url: 'css/default/main.css', target: 'head' },
+  // ]
 }
 
 const fontAwesome = {
@@ -38,7 +41,16 @@ export const loaderOptions = {
   retry: {
     intervalTime: 200
   },
-  registry: [ibseetLibData, fontAwesome, swal2],
+  registry: [
+    ibseetLibData,
+    fontAwesome,
+    swal2,
+    {
+      name: 'pretty-checkbox',
+      url:
+        'https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css'
+    }
+  ],
   ready: function() {
     console.log(
       '%c[IBSheetLoader] Registered Items:',

@@ -1,7 +1,9 @@
-
+.circleci
 .codacy.yaml
 .coveralls.yaml
+.DS_Store
 .editorconfig
+.env
 .github
 .history
 .nyc_output
@@ -18,11 +20,13 @@ dist/docs
 nyc.config.js
 package
 src
+temp
 test
+testpack*
 tsconfig.*.json
 tsconfig.json
 tslint.json
 tslint.yaml
+typedoc.js
 webpack.*.js
 yarn.lock
-.env

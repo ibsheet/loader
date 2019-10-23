@@ -1,43 +1,39 @@
-import { CustomEventEmitter } from '../../custom'
-
+import { RegistryItemURL } from './url'
 // export type RegistryItemUrlType = 'css'|'js'
 // export type RegistryItemUrlTarget = 'head'|'body'
 
-export interface IRegistryItemUrlData {
+export enum RegItemEventName {
+  VALIDATE = 'validate',
+  LOAD = 'load',
+  UNLOAD = 'unload',
+  DEPENDENT_URLS = 'dependentUrls'
+}
+
+export interface RegItemUrlData {
   url?: string
   type?: string
   target?: string
-  urls?: IRegistryItemURL[]
+  urls?: RegistryItemURL[]
   baseUrl?: string
 }
 
-export interface IRegistryItemURL {
-  readonly id: string
-  readonly basename: string | undefined
-  value: string
-  type: string
-  target: string
-}
-
-export interface IRegistryItemEventOptions {
+export interface RegItemEventOptions {
   validate?: Function | null
   load?: Function | null
   unload?: Function | null
   dependentUrls?: string[]
 }
 
-export interface ILoaderRegistryItemUpdateData
-  extends IRegistryItemUrlData,
-    IRegistryItemEventOptions {
+export interface RegItemUpdateData extends RegItemUrlData, RegItemEventOptions {
   // any others
 }
 
-export interface ILoaderRegistryItemData extends ILoaderRegistryItemUpdateData {
+export interface RegistryItemData extends RegItemUpdateData {
   name?: string
   version?: string | null
 }
 
-export interface ILoaderRegistryItemRawData {
+export interface RegItemRawData {
   id: string
   urls: string[]
   name: string
@@ -45,26 +41,4 @@ export interface ILoaderRegistryItemRawData {
   alias: string
   loaded: boolean
   error?: any
-}
-
-export interface ILoaderRegistryItem extends CustomEventEmitter {
-  readonly id: string
-  readonly urls: IRegistryItemURL[]
-  readonly updateUrls: IRegistryItemURL[]
-  readonly alias: string
-  readonly raw: ILoaderRegistryItemRawData
-  readonly hasVersion: boolean
-  readonly loaded: boolean
-  readonly changed: boolean
-  readonly isResolveUpdateUrls: boolean
-  name: string
-  version: string | null
-  error: any
-  resolveUpdateUrls(fn: (...args: any[]) => void): void
-  load(options?: any): this
-  unload(options?: any): this
-  getEventOption(name: string, def?: any): any
-  setEventOption(name: string, value: any): void
-  update(data: any, isInit?: boolean): void
-  test(): boolean
 }

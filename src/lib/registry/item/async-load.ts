@@ -1,10 +1,10 @@
 import { isNil, get } from '../../shared/lodash'
 import { appendJs, appendCss } from '../../shared/dom-utils'
-import { LoaderRegistryItem } from './item'
+import { RegistryItem } from './item'
 import { RegistryItemURL } from './url'
 
 export function asyncImportItemUrls(options?: any): Promise<RegistryItemURL[]> {
-  const self: LoaderRegistryItem = this
+  const self: RegistryItem = this
   const urls = !this.changed ? this.urls : this.updateUrls
 
   const debug = get(options, 'debug', false)

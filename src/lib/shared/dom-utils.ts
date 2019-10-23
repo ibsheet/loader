@@ -1,11 +1,14 @@
 import { isNil, get } from './lodash'
 
-export interface IAppendElementOptions {
+export interface DomAppendOptions {
   id: string
   url: string
   target?: string
 }
 
+/**
+ * @hidden
+ */
 export function documentReady(callback: (evt?: Event) => void): any {
   if (document.readyState !== 'loading') {
     return callback()
@@ -13,9 +16,10 @@ export function documentReady(callback: (evt?: Event) => void): any {
   document.addEventListener('DOMContentLoaded', callback)
 }
 
-export function createLinkElement(
-  data: IAppendElementOptions
-): HTMLLinkElement {
+/**
+ * @hidden
+ */
+export function createLinkElement(data: DomAppendOptions): HTMLLinkElement {
   const { id, url } = data
   const linkEl: HTMLLinkElement = document.createElement('link')
   ;[
@@ -30,9 +34,10 @@ export function createLinkElement(
   return linkEl
 }
 
-export function createScriptElement(
-  data: IAppendElementOptions
-): HTMLScriptElement {
+/**
+ * @hidden
+ */
+export function createScriptElement(data: DomAppendOptions): HTMLScriptElement {
   const { id, url } = data
   const scriptEl: HTMLScriptElement = document.createElement('script')
   ;[{ name: 'id', value: id }, { name: 'src', value: url }].forEach(attrs => {
@@ -49,7 +54,7 @@ export function existsElementById(id: string) {
 /**
  * @hidden
  */
-function checkDuplicate(data: IAppendElementOptions): boolean {
+function checkDupElements(data: DomAppendOptions): boolean {
   const { id, url } = data
   if (existsElementById(id)) {
     console.warn('[DomValidate]', `exists ${url}`)
@@ -58,16 +63,16 @@ function checkDuplicate(data: IAppendElementOptions): boolean {
   return false
 }
 
-export function appendCss(data: IAppendElementOptions): boolean {
-  if (checkDuplicate(data)) return false
+export function appendCss(data: DomAppendOptions): boolean {
+  if (checkDupElements(data)) return false
   const el = createLinkElement(data)
   const target = get(data, 'target', 'head')
   document[target].appendChild(el)
   return true
 }
 
-export function appendJs(data: IAppendElementOptions): boolean {
-  if (checkDuplicate(data)) return false
+export function appendJs(data: DomAppendOptions): boolean {
+  if (checkDupElements(data)) return false
   const el = createScriptElement(data)
   const target = get(data, 'target', 'body')
   document[target].appendChild(el)

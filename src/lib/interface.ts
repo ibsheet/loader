@@ -1,8 +1,4 @@
-import { LoaderRegistry } from './registry'
-import { ISheetLoaderConfig } from './config'
-import { CustomEventEmitter } from './custom'
-
-export enum LoaderEvent {
+export enum LoaderEventName {
   LOAD = 'load',
   LOAD_REJECT = 'load-reject',
   LOAD_FAILED = 'load-failed',
@@ -18,13 +14,14 @@ export enum LoaderEvent {
   CREATED = 'created'
 }
 
-export interface IRegisteredItem {
+export interface RegisteredItem {
   alias: string
   loaded: boolean
   error?: any
 }
-export interface ILoaderEvent {
-  type: LoaderEvent
+
+export interface LoaderEvent {
+  type: LoaderEventName
   target: any
   data?: any
   message?: string
@@ -34,20 +31,4 @@ export enum LoaderStatus {
   IDLE,
   PENDING,
   WORKING
-}
-
-export interface IBSheetLoaderStatic extends CustomEventEmitter {
-  readonly ready: boolean
-  readonly debug: boolean
-  readonly status: LoaderStatus
-  registry: LoaderRegistry
-  config(options: ISheetLoaderConfig): this
-  getOption(name: string): any
-  list(): IRegisteredItem[]
-  load(args?: any, alsoDefault?: boolean): this
-  createSheet(options: any): any
-  reload(alias?: string): this
-  unload(alias?: string | string[]): this
-  reset(): this
-  version: string
 }

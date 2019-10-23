@@ -7,10 +7,6 @@
     "semicolon": [
       true,
       "never"
-    ],
-    "interface-name": [
-      true,
-      "always-prefix"
     ]
   }
 }

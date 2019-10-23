@@ -1,25 +1,21 @@
 import {
   findIndex,
-  has,
   isNil,
   castArray,
   remove,
   includes,
   lastIndexOf
 } from '../shared/lodash'
-import { IBSHEET, IBSHEET_GLOBAL } from '../constant'
-import { IBSheetLoaderStatic } from '../interface'
-import { ILoaderRegistry, LoaderRegistryDataType } from './interface'
+import { IBSheetLoaderStatic } from '../main'
 import { CustomEventEmitter } from '../custom'
-import {
-  ILoaderRegistryItemUpdateData,
-  ILoaderRegistryItemData,
-  LoaderRegistryItem
-} from './item'
+import { isIBSheet } from '../ibsheet'
+import { RegistryParam } from './interface'
+import { RegItemUpdateData, RegistryItemData, RegistryItem } from './item'
 import { generateVersion } from './utils'
+import { defaultsIBSheetEvents } from './for-ibsheet'
 
-class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
-  private _list: LoaderRegistryItem[]
+class LoaderRegistry extends CustomEventEmitter {
+  private _list: RegistryItem[]
   private _uber: IBSheetLoaderStatic
   constructor(uber: IBSheetLoaderStatic) {
     super()
@@ -33,21 +29,24 @@ class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
   get length(): number {
     return this._list.length
   }
+  protected getUberOption(sPath: string, def: any) {
+    return this._uber.getOption(sPath, def)
+  }
 
   add(
-    data: string | ILoaderRegistryItemData,
+    data: string | RegistryItemData,
     overwrite: boolean = false
-  ): LoaderRegistryItem | undefined {
-    const self = this
+  ): RegistryItem | undefined {
     let item
     try {
-      item = new LoaderRegistryItem(data)
+      item = new RegistryItem(data)
     } catch (err) {
       console.warn(err)
       return
     }
 
     const { alias, urls } = item.raw
+    const bIBSheet = isIBSheet(item.name)
     const existItem = this.get(alias)
     if (!isNil(existItem)) {
       if (overwrite) {
@@ -67,54 +66,40 @@ class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
         return
       }
       item.version = generateVersion(item)
+    } else if (bIBSheet) {
+      defaultsIBSheetEvents.call(this, item)
     }
 
-    // IBSheet Default Validator
-    if (item.name === IBSHEET) {
-      if (!has(data, 'validate')) {
-        item.setEventOption('validate', () => {
-          return window[IBSHEET_GLOBAL] != null
-        })
-      }
-      if (!has(data, 'unload')) {
-        item.setEventOption('unload', () => {
-          return (window[IBSHEET_GLOBAL] = undefined)
-        })
-      }
-    }
-
-    self._list.push(item)
+    this._list.push(item)
     return item
   }
 
-  addAll(
-    params: LoaderRegistryDataType[],
-    overwrite: boolean = false
-  ): LoaderRegistryItem[] {
+  addAll(params: RegistryParam[], overwrite: boolean = false): RegistryItem[] {
     return castArray(params)
       .map((data: any) => {
         return this.add(data, overwrite)
       })
-      .filter(Boolean) as LoaderRegistryItem[]
+      .filter(Boolean) as RegistryItem[]
   }
 
   exists(alias: string): boolean {
     return !isNil(this.get(alias))
   }
 
-  get(alias: string): LoaderRegistryItem | null {
+  get(alias: string): RegistryItem | null {
     const ndx = this.getIndexByAlias(alias)
     if (ndx < 0) return null
     return this._list[ndx]
   }
 
-  info(alias: string): string {
+  info(alias: string): string | undefined {
     let res: any = this.getAll(alias).map(item => item.raw)
+    if (!res.length) return
     if (res.length === 1) res = res[0]
     return JSON.stringify(res, null, 2)
   }
 
-  getAll(query: string): LoaderRegistryItem[] {
+  getAll(query: string): RegistryItem[] {
     const hasVersion = lastIndexOf(query, '@') > 0
     return this._list.filter(item => {
       if (hasVersion) {
@@ -124,13 +109,13 @@ class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
     })
   }
 
-  findOne(query: string): LoaderRegistryItem | undefined {
+  findOne(query: string): RegistryItem | undefined {
     const items = this.getAll(query)
     if (items.length) return items[0]
     return
   }
 
-  findLoadedOne(query: string): LoaderRegistryItem | undefined {
+  findLoadedOne(query: string): RegistryItem | undefined {
     const items = this.getAll(query)
     const loadedItems = items.filter(item => item.loaded)
     if (loadedItems.length) return loadedItems[0]
@@ -141,17 +126,17 @@ class LoaderRegistry extends CustomEventEmitter implements ILoaderRegistry {
     return findIndex(this._list, { alias })
   }
 
-  update(alias: string, data: ILoaderRegistryItemUpdateData) {
+  update(alias: string, data: RegItemUpdateData) {
     const item = this.get(alias)
     if (isNil(item)) return
     item.update(data)
   }
 
-  remove(alias: string): LoaderRegistryItem | LoaderRegistryItem[] | undefined {
+  remove(alias: string): RegistryItem | RegistryItem[] | undefined {
     const items = this.getAll(alias)
     if (!items.length) return
     const ids = items.map(item => item.id)
-    const result: LoaderRegistryItem[] = []
+    const result: RegistryItem[] = []
     remove(this._list, item => {
       const match = includes(ids, item.id)
       if (match) result.push(item)
