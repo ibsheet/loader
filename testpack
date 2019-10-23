@@ -1,0 +1,38 @@
+#!/bin/bash
+source ./.env
+yarn run-s fix build
+npm pack
+if [ -z $PKG_LINK_DIR ]; then
+  exit 0
+fi
+
+if [ -d $PKG_LINK_DIR ]; then
+  echo "-> [RM] $PKG_LINK_DIR/*"
+  rm -rf $PKG_LINK_DIR/*
+else
+  echo "-> [MKDIR] $PKG_LINK_DIR"
+  mkdir -p $PKG_LINK_DIR
+fi
+
+WORK_DIR=$(pwd)
+TEMP_BASE_DIR=./temp
+TEMP_PKG_DIR=$TEMP_BASE_DIR/package
+
+if [ -d $TEMP_BASE_DIR ]; then
+  echo "-> [RM] $TEMP_BASE_DIR/*"
+  rm -rf $TEMP_BASE_DIR/*
+else
+  echo "-> [MKDIR] $TEMP_BASE_DIR"
+  mkdir -p $TEMP_BASE_DIR
+fi
+
+TARGET_FILE=$(ls -t ibsheet-loader*.tgz|head -1)
+
+echo "-> [EXTRACT PACKAGE] $TARGET_FILE"
+mv ./$TARGET_FILE $TEMP_BASE_DIR/
+pv $TEMP_BASE_DIR/$TARGET_FILE|tar xzf - -C $TEMP_BASE_DIR
+
+ls -lh $TEMP_PKG_DIR
+echo "-> [MOVE LINK PACKAGE] $PKG_LINK_DIR"
+mv $TEMP_PKG_DIR/* $PKG_LINK_DIR/
+rm -r $TEMP_PKG_DIR
