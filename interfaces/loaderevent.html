@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IRegistryIdentifier | @ibsheet/loader</title>
+	<title>LoaderEvent | @ibsheet/loader</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="iregistryidentifier.html">IRegistryIdentifier</a>
+					<a href="loaderevent.html">LoaderEvent</a>
 				</li>
 			</ul>
-			<h1>Interface IRegistryIdentifier</h1>
+			<h1>Interface LoaderEvent</h1>
 		</div>
 	</div>
 </header>
@@ -70,12 +70,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="iloaderregistryaliasdata.html" class="tsd-signature-type">ILoaderRegistryAliasData</a>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">IRegistryIdentifier</span>
-							</li>
-						</ul>
+						<span class="target">LoaderEvent</span>
 					</li>
 				</ul>
 			</section>
@@ -86,9 +81,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iregistryidentifier.html#alias" class="tsd-kind-icon">alias</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iregistryidentifier.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iregistryidentifier.html#version" class="tsd-kind-icon">version</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="loaderevent.html#data" class="tsd-kind-icon">data</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="loaderevent.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="loaderevent.html#target" class="tsd-kind-icon">target</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="loaderevent.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 					</div>
@@ -97,34 +93,42 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="alias" class="tsd-anchor"></a>
-					<h3>alias</h3>
-					<div class="tsd-signature tsd-kind-icon">alias<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="data" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> data</h3>
+					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/640d93d/src/lib/registry/interface.ts#L15">lib/registry/interface.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/f7f7042/src/lib/interface.ts#L26">lib/interface.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="message" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> message</h3>
+					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="iloaderregistryaliasdata.html">ILoaderRegistryAliasData</a>.<a href="iloaderregistryaliasdata.html#name">name</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/640d93d/src/lib/registry/interface.ts#L10">lib/registry/interface.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/f7f7042/src/lib/interface.ts#L27">lib/interface.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="version" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> version</h3>
-					<div class="tsd-signature tsd-kind-icon">version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="target" class="tsd-anchor"></a>
+					<h3>target</h3>
+					<div class="tsd-signature tsd-kind-icon">target<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="iloaderregistryaliasdata.html">ILoaderRegistryAliasData</a>.<a href="iloaderregistryaliasdata.html#version">version</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/640d93d/src/lib/registry/interface.ts#L11">lib/registry/interface.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/f7f7042/src/lib/interface.ts#L25">lib/interface.ts:25</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="type" class="tsd-anchor"></a>
+					<h3>type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../enums/loadereventname.html" class="tsd-signature-type">LoaderEventName</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/f7f7042/src/lib/interface.ts#L24">lib/interface.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -143,16 +147,19 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="iregistryidentifier.html" class="tsd-kind-icon">IRegistry<wbr>Identifier</a>
+						<a href="loaderevent.html" class="tsd-kind-icon">Loader<wbr>Event</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="iregistryidentifier.html#alias" class="tsd-kind-icon">alias</a>
+								<a href="loaderevent.html#data" class="tsd-kind-icon">data</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="iregistryidentifier.html#name" class="tsd-kind-icon">name</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="loaderevent.html#message" class="tsd-kind-icon">message</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="iregistryidentifier.html#version" class="tsd-kind-icon">version</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="loaderevent.html#target" class="tsd-kind-icon">target</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="loaderevent.html#type" class="tsd-kind-icon">type</a>
 							</li>
 						</ul>
 					</li>

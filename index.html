@@ -69,13 +69,17 @@
 				</a>
 				<p><a href="https://www.codacy.com/manual/ibsheet/loader?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ibsheet/loader&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/271223b5e7944ad4bc78cbed119924b5" alt="Codacy Badge"></a>
 					<a href="https://circleci.com/gh/ibsheet/loader"><img src="https://circleci.com/gh/ibsheet/loader.svg?style=svg" alt="CircleCI"></a>
-					<a href="https://codecov.io/gh/ibsheet/loader"><img src="https://codecov.io/gh/ibsheet/loader/branch/master/graph/badge.svg" alt="codecov"></a>
+					<a href="https://www.npmjs.com/package/@ibsheet/loader"><img src="https://badge.fury.io/js/%40ibsheet%2Floader.svg" alt="npm version"></a>
+					<a href="https://packagephobia.now.sh/result?p=@ibsheet/loader"><img src="https://packagephobia.now.sh/badge?p=@ibsheet/loader" alt="install size"></a>
+					<a href="https://david-dm.org/ibsheet/loader"><img src="https://david-dm.org/ibsheet/loader/status.svg" alt="dependencies Status"></a>
+					<a href="https://david-dm.org/ibsheet/loader?type=dev"><img src="https://david-dm.org/ibsheet/loader/dev-status.svg" alt="devDependencies Status"></a>
+					<a href="https://snyk.io/test/github/ibsheet/loader"><img src="https://snyk.io/test/github/ibsheet/loader/badge.svg" alt="vulnerabilities"></a>
 					<a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg" alt="code style: prettier"></a>
 					<a href="https://conventionalcommits.org"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg" alt="Conventional Commits"></a>
-					<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
-					<a href="https://badge.fury.io/js/%40ibsheet%2Floader"><img src="https://badge.fury.io/js/%40ibsheet%2Floader.svg" alt="npm version"></a>
-				<a href="https://packagephobia.now.sh/result?p=@ibsheet/loader"><img src="https://packagephobia.now.sh/badge?p=@ibsheet/loader" alt="install size"></a></p>
-				<p>Dynamically load support module of IBSheet</p>
+					<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT"></a>
+					<a href="https://github.com/ibsheet/loader/issues"><img src="https://img.shields.io/github/issues/ibsheet/loader" alt="Github Issues"></a>
+				<a href="https://discord.gg/H2wyHXb"><img src="https://img.shields.io/discord/628734683823472650" alt="Discord"></a></p>
+				<p>Dynamically load support module for <a href="https://www.ibsheet.com">IBSheet</a></p>
 				<p><a href="http://standardjs.com"><img src="https://cdn.rawgit.com/standard/standard/master/badge.svg" alt="js-standard-style"></a></p>
 				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
 					<h2>features</h2>
@@ -97,42 +101,117 @@
 					<li><a href="https://codecov.io">codecov</a> - leading, dedicated code coverage</li>
 					<li><a href="https://snyk.io">snyk.io</a> - Continuously find and fix vulnerabilities for npm</li>
 				</ul>
+				<a href="#documents" id="documents" style="color: inherit; text-decoration: none;">
+					<h2>documents</h2>
+				</a>
+				<ul>
+					<li>TypeDoc: <a href="https://ibsheet.github.io/loader">https://ibsheet.github.io/loader</a></li>
+					<li>Manual: <a href="https://ibsheet.github.io/loader-manual">https://ibsheet.github.io/loader-manual</a></li>
+				</ul>
+				<a href="#installing" id="installing" style="color: inherit; text-decoration: none;">
+					<h2>installing</h2>
+				</a>
+				<p>Using npm:</p>
+				<pre><code class="language-sh">$ npm install @ibsheet/loader</code></pre>
+				<p>Using yarn:</p>
+				<pre><code class="language-sh">$ yarn add @ibsheet/loader</code></pre>
+				<p>Using browser:</p>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/@ibsheet/loader/dist/umd/ibsheet-loader.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+					<h2>example</h2>
+				</a>
+				<a href="#note-browser-usage" id="note-browser-usage" style="color: inherit; text-decoration: none;">
+					<h3>note: Browser usage</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">var</span> loader = <span class="hljs-built_in">window</span>.IBSheetLoader
+loader.config({
+  <span class="hljs-attr">registry</span>: [
+    {
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'ibsheet'</span>,
+      <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>,
+      <span class="hljs-attr">urls</span>: [
+        <span class="hljs-string">'css/default/main.css'</span>,
+        <span class="hljs-string">'ibleaders.js'</span>,
+        <span class="hljs-string">'locale/ko.js'</span>,
+        <span class="hljs-string">'ibsheet.js'</span>
+      ]
+    }
+  ]
+})
+loader.createSheet(options)</code></pre>
+				<a href="#note-commonjs-usage" id="note-commonjs-usage" style="color: inherit; text-decoration: none;">
+					<h3>note: CommonJS usage</h3>
+				</a>
+				<p><strong><em>comming soon</em></strong></p>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> loader = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@ibsheet/loader'</span>)
+loader.config({
+  <span class="hljs-attr">registry</span>: [
+    {
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'ibsheet'</span>,
+      <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>,
+      <span class="hljs-attr">urls</span>: [
+        <span class="hljs-string">'css/default/main.css'</span>,
+        <span class="hljs-string">'ibleaders.js'</span>,
+        <span class="hljs-string">'locale/ko.js'</span>,
+        <span class="hljs-string">'ibsheet.js'</span>
+      ]
+    }
+  ]
+})
+loader.createSheet(options)</code></pre>
+				<a href="#note-esmodule-usage" id="note-esmodule-usage" style="color: inherit; text-decoration: none;">
+					<h3>note: ESModule usage</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> loader <span class="hljs-keyword">from</span> <span class="hljs-string">'@ibsheet/loader'</span>
+loader.config({
+  <span class="hljs-attr">registry</span>: [
+    {
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'ibsheet'</span>,
+      <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>,
+      <span class="hljs-attr">urls</span>: [
+        <span class="hljs-string">'css/default/main.css'</span>,
+        <span class="hljs-string">'ibleaders.js'</span>,
+        <span class="hljs-string">'locale/ko.js'</span>,
+        <span class="hljs-string">'ibsheet.js'</span>
+      ]
+    }
+  ]
+})
+loader.createSheet(options)</code></pre>
+				<a href="#note-typescript-usage" id="note-typescript-usage" style="color: inherit; text-decoration: none;">
+					<h3>note: TypeScript usage</h3>
+				</a>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { IBSheetLoader <span class="hljs-keyword">as</span> loader } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ibsheet/loader'</span>
+loader.config({
+  registry: [
+    {
+      name: <span class="hljs-string">'ibsheet'</span>,
+      baseUrl: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>,
+      urls: [
+        <span class="hljs-string">'css/default/main.css'</span>,
+        <span class="hljs-string">'ibleaders.js'</span>,
+        <span class="hljs-string">'locale/ko.js'</span>,
+        <span class="hljs-string">'ibsheet.js'</span>
+      ]
+    }
+  ]
+})
+loader.createSheet(options)</code></pre>
 				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
 					<h2>development</h2>
 				</a>
 				<p>run webpack-dev-server <code>localhost:3033</code> </p>
-				<pre><code><span class="hljs-attribute">yarn serve</span></code></pre>
+				<pre><code class="language-sh">yarn serve</code></pre>
 				<a href="#build" id="build" style="color: inherit; text-decoration: none;">
 					<h3>build</h3>
 				</a>
-				<pre><code><span class="hljs-attribute">yarn build</span></code></pre>
-				<a href="#publish" id="publish" style="color: inherit; text-decoration: none;">
-					<h3>publish</h3>
-				</a>
-				<pre><code><span class="hljs-attr">yarn</span> <span class="hljs-string">build</span>
-<span class="hljs-attr">yarn</span> <span class="hljs-string">release</span>
-<span class="hljs-attr">npm</span> <span class="hljs-string">link</span>
-<span class="hljs-attr">npm</span> <span class="hljs-string">publish --access public</span></code></pre>
+				<pre><code class="language-sh">yarn build</code></pre>
 				<a href="#document" id="document" style="color: inherit; text-decoration: none;">
 					<h3>document</h3>
 				</a>
-				<p>API Document: <a href="https://ibsheet.github.io/loader/">https://ibsheet.github.io/loader/</a></p>
 				<ul>
 					<li>generate: <code>yarn doc</code></li>
 					<li>publish: <code>yarn doc:publish</code></li>
-				</ul>
-				<a href="#todo" id="todo" style="color: inherit; text-decoration: none;">
-					<h2>todo</h2>
-				</a>
-				<ul>
-					<li>git integration<ul>
-							<li><input checked="" disabled="" type="checkbox"> Codacy</li>
-							<li><input checked="" disabled="" type="checkbox"> CircleCI</li>
-							<li><input checked="" disabled="" type="checkbox"> codecov</li>
-							<li><input checked="" disabled="" type="checkbox"> snyk.io</li>
-							<li><input disabled="" type="checkbox"> npm badge</li>
-						</ul>
-					</li>
 				</ul>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>license</h2>
@@ -151,7 +230,7 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-enum">
-						<a href="enums/loaderevent.html" class="tsd-kind-icon">Loader<wbr>Event</a>
+						<a href="enums/loadereventname.html" class="tsd-kind-icon">Loader<wbr>Event<wbr>Name</a>
 					</li>
 					<li class=" tsd-kind-enum">
 						<a href="enums/loaderstatus.html" class="tsd-kind-icon">Loader<wbr>Status</a>
@@ -159,29 +238,32 @@
 					<li class=" tsd-kind-enum">
 						<a href="enums/loadertasktype.html" class="tsd-kind-icon">Loader<wbr>Task<wbr>Type</a>
 					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/regitemeventname.html" class="tsd-kind-icon">Reg<wbr>Item<wbr>Event<wbr>Name</a>
+					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/customeventemitter.html" class="tsd-kind-icon">Custom<wbr>Event<wbr>Emitter</a>
 					</li>
-					<li class=" tsd-kind-class tsd-is-not-exported">
-						<a href="classes/ibsheetglobal.html" class="tsd-kind-icon">IBSheet<wbr>Global</a>
+					<li class=" tsd-kind-class">
+						<a href="classes/ibsheetloaderstatic.html" class="tsd-kind-icon">IBSheet<wbr>Loader<wbr>Static</a>
 					</li>
-					<li class=" tsd-kind-class tsd-is-not-exported">
-						<a href="classes/ibsheetloader.html" class="tsd-kind-icon">IBSheet<wbr>Loader</a>
+					<li class=" tsd-kind-class">
+						<a href="classes/intervalmanager.html" class="tsd-kind-icon">Interval<wbr>Manager</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/loaderregistry.html" class="tsd-kind-icon">Loader<wbr>Registry</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/loaderregistryitem.html" class="tsd-kind-icon">Loader<wbr>Registry<wbr>Item</a>
+						<a href="classes/loadertaskmanager.html" class="tsd-kind-icon">Loader<wbr>Task<wbr>Manager</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/loadertaskmanager.html" class="tsd-kind-icon">Loader<wbr>Task<wbr>Manager</a>
+						<a href="classes/registryitem.html" class="tsd-kind-icon">Registry<wbr>Item</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/registryitemurl.html" class="tsd-kind-icon">Registry<wbr>ItemURL</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iappendelementoptions.html" class="tsd-kind-icon">IAppend<wbr>Element<wbr>Options</a>
+						<a href="interfaces/domappendoptions.html" class="tsd-kind-icon">Dom<wbr>Append<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/ibsheetcolsoptions.html" class="tsd-kind-icon">IBSheet<wbr>Cols<wbr>Options</a>
@@ -190,97 +272,61 @@
 						<a href="interfaces/ibsheetcreateoptions.html" class="tsd-kind-icon">IBSheet<wbr>Create<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/ibsheetglobalstatic.html" class="tsd-kind-icon">IBSheet<wbr>Global<wbr>Static</a>
-					</li>
-					<li class=" tsd-kind-interface">
 						<a href="interfaces/ibsheetinstance.html" class="tsd-kind-icon">IBSheet<wbr>Instance</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/ibsheetloaderstatic.html" class="tsd-kind-icon">IBSheet<wbr>Loader<wbr>Static</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/ibsheetoptions.html" class="tsd-kind-icon">IBSheet<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iloadtaskoptions.html" class="tsd-kind-icon">ILoad<wbr>Task<wbr>Options</a>
+						<a href="interfaces/loadtaskoptions.html" class="tsd-kind-icon">Load<wbr>Task<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iloaderevent.html" class="tsd-kind-icon">ILoader<wbr>Event</a>
+						<a href="interfaces/loaderconfigoptions.html" class="tsd-kind-icon">Loader<wbr>Config<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iloaderregistry.html" class="tsd-kind-icon">ILoader<wbr>Registry</a>
+						<a href="interfaces/loaderevent.html" class="tsd-kind-icon">Loader<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/nativefunctions.html" class="tsd-kind-icon">Native<wbr>Functions</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iloaderregistryaliasdata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Alias<wbr>Data</a>
+						<a href="interfaces/regitemeventoptions.html" class="tsd-kind-icon">Reg<wbr>Item<wbr>Event<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iloaderregistryitem.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item</a>
+						<a href="interfaces/regitemrawdata.html" class="tsd-kind-icon">Reg<wbr>Item<wbr>Raw<wbr>Data</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iloaderregistryitemdata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item<wbr>Data</a>
+						<a href="interfaces/regitemupdatedata.html" class="tsd-kind-icon">Reg<wbr>Item<wbr>Update<wbr>Data</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iloaderregistryitemrawdata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item<wbr>Raw<wbr>Data</a>
+						<a href="interfaces/regitemurldata.html" class="tsd-kind-icon">Reg<wbr>Item<wbr>Url<wbr>Data</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iloaderregistryitemupdatedata.html" class="tsd-kind-icon">ILoader<wbr>Registry<wbr>Item<wbr>Update<wbr>Data</a>
+						<a href="interfaces/registereditem.html" class="tsd-kind-icon">Registered<wbr>Item</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iloaderretryoptions.html" class="tsd-kind-icon">ILoader<wbr>Retry<wbr>Options</a>
+						<a href="interfaces/registryaliasdata.html" class="tsd-kind-icon">Registry<wbr>Alias<wbr>Data</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iregistereditem.html" class="tsd-kind-icon">IRegistered<wbr>Item</a>
+						<a href="interfaces/registryidentifier.html" class="tsd-kind-icon">Registry<wbr>Identifier</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iregistryidentifier.html" class="tsd-kind-icon">IRegistry<wbr>Identifier</a>
+						<a href="interfaces/registryitemdata.html" class="tsd-kind-icon">Registry<wbr>Item<wbr>Data</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iregistryitemeventoptions.html" class="tsd-kind-icon">IRegistry<wbr>Item<wbr>Event<wbr>Options</a>
+						<a href="interfaces/retryoptions.html" class="tsd-kind-icon">Retry<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iregistryitemurl.html" class="tsd-kind-icon">IRegistry<wbr>ItemURL</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/iregistryitemurldata.html" class="tsd-kind-icon">IRegistry<wbr>Item<wbr>Url<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/isheetloaderconfig.html" class="tsd-kind-icon">ISheet<wbr>Loader<wbr>Config</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/itaskmanageroptions.html" class="tsd-kind-icon">ITask<wbr>Manager<wbr>Options</a>
+						<a href="interfaces/taskmanageroptions.html" class="tsd-kind-icon">Task<wbr>Manager<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#loaderregistrydatatype" class="tsd-kind-icon">Loader<wbr>Registry<wbr>Data<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#alias_fontawesome" class="tsd-kind-icon">ALIAS_<wbr>FONTAWESOME</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#alias_ibsheet" class="tsd-kind-icon">ALIAS_<wbr>IBSHEET</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#alias_prettychkbox" class="tsd-kind-icon">ALIAS_<wbr>PRETTYCHKBOX</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#alias_sweetalert" class="tsd-kind-icon">ALIAS_<wbr>SWEETALERT</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#deactive_class" class="tsd-kind-icon">DEACTIVE_<wbr>CLASS</a>
+						<a href="globals.html#registryparam" class="tsd-kind-icon">Registry<wbr>Param</a>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#ibsheet" class="tsd-kind-icon">IBSHEET</a>
 					</li>
 					<li class=" tsd-kind-variable">
-						<a href="globals.html#ibsheet_baseurl" class="tsd-kind-icon">IBSHEET_<wbr>BASEURL</a>
-					</li>
-					<li class=" tsd-kind-variable">
 						<a href="globals.html#ibsheet_global" class="tsd-kind-icon">IBSHEET_<wbr>GLOBAL</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#ibsheetglobalinstance" class="tsd-kind-icon">IBSheet<wbr>Global<wbr>Instance</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#ibsheetsampledata" class="tsd-kind-icon">IBSheet<wbr>Sample<wbr>Data</a>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#load_test_retry_interval" class="tsd-kind-icon">LOAD_<wbr>TEST_<wbr>RETRY_<wbr>INTERVAL</a>
@@ -292,13 +338,7 @@
 						<a href="globals.html#version_generate_start_num" class="tsd-kind-icon">VERSION_<wbr>GENERATE_<wbr>START_<wbr>NUM</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#controlsdata" class="tsd-kind-icon">controls<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#ibsheetloader" class="tsd-kind-icon">ibsheet<wbr>Loader</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#testboxlist" class="tsd-kind-icon">test<wbr>Box<wbr>List</a>
+						<a href="globals.html#loadermodule" class="tsd-kind-icon">loader<wbr>Module</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#appendcss" class="tsd-kind-icon">append<wbr>Css</a>
@@ -316,34 +356,40 @@
 						<a href="globals.html#asyncremovedepndenturls" class="tsd-kind-icon">async<wbr>Remove<wbr>Depndent<wbr>Urls</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#asyncremoveibsheetelements" class="tsd-kind-icon">async<wbr>RemoveIBSheet<wbr>Elements</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#asyncremoveitemurls" class="tsd-kind-icon">async<wbr>Remove<wbr>Item<wbr>Urls</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#basename" class="tsd-kind-icon">basename</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#castregistryalias" class="tsd-kind-icon">cast<wbr>Registry<wbr>Alias</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="globals.html#createlinkelement" class="tsd-kind-icon">create<wbr>Link<wbr>Element</a>
+						<a href="globals.html#defaultsibsheetevents" class="tsd-kind-icon">defaultsIBSheet<wbr>Events</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="globals.html#createscriptelement" class="tsd-kind-icon">create<wbr>Script<wbr>Element</a>
+						<a href="globals.html#defaultsibsheeturls" class="tsd-kind-icon">defaultsIBSheet<wbr>Urls</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="globals.html#documentready" class="tsd-kind-icon">document<wbr>Ready</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#double" class="tsd-kind-icon">double</a>
+						<a href="globals.html#destroyibsheetstatic" class="tsd-kind-icon">destroyIBSheet<wbr>Static</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#existselementbyid" class="tsd-kind-icon">exists<wbr>Element<wbr>ById</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#existsibsheetstatic" class="tsd-kind-icon">existsIBSheet<wbr>Static</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#getelementsbytagname" class="tsd-kind-icon">get<wbr>Elements<wbr>ByTag<wbr>Name</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="globals.html#getloaditems" class="tsd-kind-icon">get<wbr>Load<wbr>Items</a>
+						<a href="globals.html#getibsheetstatic" class="tsd-kind-icon">getIBSheet<wbr>Static</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="globals.html#getloaderinstance" class="tsd-kind-icon">get<wbr>Loader<wbr>Instance</a>
+						<a href="globals.html#getloaditems" class="tsd-kind-icon">get<wbr>Load<wbr>Items</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#getpreloaditems" class="tsd-kind-icon">get<wbr>Preload<wbr>Items</a>
@@ -352,7 +398,7 @@
 						<a href="globals.html#getregistryidentifier" class="tsd-kind-icon">get<wbr>Registry<wbr>Identifier</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="globals.html#inittestboxcontrols" class="tsd-kind-icon">init<wbr>Test<wbr>Box<wbr>Controls</a>
+						<a href="globals.html#isibsheet" class="tsd-kind-icon">isIBSheet</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#parseloaditemdata" class="tsd-kind-icon">parse<wbr>Load<wbr>Item<wbr>Data</a>
@@ -361,13 +407,13 @@
 						<a href="globals.html#parseloaditems" class="tsd-kind-icon">parse<wbr>Load<wbr>Items</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="globals.html#power" class="tsd-kind-icon">power</a>
+						<a href="globals.html#pushifnotexistsurl" class="tsd-kind-icon">push<wbr>IfNot<wbr>Exists<wbr>Url</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#removeelembyid" class="tsd-kind-icon">remove<wbr>Elem<wbr>ById</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
-						<a href="globals.html#updatetestboxcontrols" class="tsd-kind-icon">update<wbr>Test<wbr>Box<wbr>Controls</a>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#setibsheetlicense" class="tsd-kind-icon">setIBSheet<wbr>License</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#validsheetregistdata" class="tsd-kind-icon">valid<wbr>Sheet<wbr>Regist<wbr>Data</a>
@@ -376,19 +422,7 @@
 						<a href="globals.html#defaultloaderconfig" class="tsd-kind-icon">Default<wbr>Loader<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-object-literal tsd-is-not-exported">
-						<a href="globals.html#fontawesome" class="tsd-kind-icon">font<wbr>Awesome</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="globals.html#ibseetlibdata" class="tsd-kind-icon">ibseet<wbr>Lib<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="globals.html#loaderoptions" class="tsd-kind-icon">loader<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-object-literal tsd-is-not-exported">
 						<a href="globals.html#retry" class="tsd-kind-icon">retry</a>
-					</li>
-					<li class=" tsd-kind-object-literal tsd-is-not-exported">
-						<a href="globals.html#swal2" class="tsd-kind-icon">swal2</a>
 					</li>
 				</ul>
 			</nav>

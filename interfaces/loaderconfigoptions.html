@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IAppendElementOptions | @ibsheet/loader</title>
+	<title>LoaderConfigOptions | @ibsheet/loader</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="iappendelementoptions.html">IAppendElementOptions</a>
+					<a href="loaderconfigoptions.html">LoaderConfigOptions</a>
 				</li>
 			</ul>
-			<h1>Interface IAppendElementOptions</h1>
+			<h1>Interface LoaderConfigOptions</h1>
 		</div>
 	</div>
 </header>
@@ -70,7 +70,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IAppendElementOptions</span>
+						<a href="taskmanageroptions.html" class="tsd-signature-type">TaskManagerOptions</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">LoaderConfigOptions</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -81,9 +86,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iappendelementoptions.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iappendelementoptions.html#target" class="tsd-kind-icon">target</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iappendelementoptions.html#url" class="tsd-kind-icon">url</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite"><a href="loaderconfigoptions.html#debug" class="tsd-kind-icon">debug</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="loaderconfigoptions.html#ready" class="tsd-kind-icon">ready</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="loaderconfigoptions.html#registry" class="tsd-kind-icon">registry</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="loaderconfigoptions.html#retry" class="tsd-kind-icon">retry</a></li>
 							</ul>
 						</section>
 					</div>
@@ -91,33 +97,45 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="id" class="tsd-anchor"></a>
-					<h3>id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
+					<a name="debug" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> debug</h3>
+					<div class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
+						<p>Overrides <a href="taskmanageroptions.html">TaskManagerOptions</a>.<a href="taskmanageroptions.html#debug">debug</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/640d93d/src/lib/shared/dom-utils.ts#L4">lib/shared/dom-utils.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/f7f7042/src/lib/config/interface.ts#L5">lib/config/interface.ts:5</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="target" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> target</h3>
-					<div class="tsd-signature tsd-kind-icon">target<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<a name="ready" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ready</h3>
+					<div class="tsd-signature tsd-kind-icon">ready<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/640d93d/src/lib/shared/dom-utils.ts#L6">lib/shared/dom-utils.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/f7f7042/src/lib/config/interface.ts#L7">lib/config/interface.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="url" class="tsd-anchor"></a>
-					<h3>url</h3>
-					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="registry" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> registry</h3>
+					<div class="tsd-signature tsd-kind-icon">registry<span class="tsd-signature-symbol">:</span> <a href="../globals.html#registryparam" class="tsd-signature-type">RegistryParam</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/640d93d/src/lib/shared/dom-utils.ts#L5">lib/shared/dom-utils.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/f7f7042/src/lib/config/interface.ts#L6">lib/config/interface.ts:6</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="retry" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> retry</h3>
+					<div class="tsd-signature tsd-kind-icon">retry<span class="tsd-signature-symbol">:</span> <a href="retryoptions.html" class="tsd-signature-type">RetryOptions</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="taskmanageroptions.html">TaskManagerOptions</a>.<a href="taskmanageroptions.html#retry">retry</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/f7f7042/src/lib/task-man/interface.ts#L8">lib/task-man/interface.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -136,16 +154,19 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="iappendelementoptions.html" class="tsd-kind-icon">IAppend<wbr>Element<wbr>Options</a>
+						<a href="loaderconfigoptions.html" class="tsd-kind-icon">Loader<wbr>Config<wbr>Options</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="iappendelementoptions.html#id" class="tsd-kind-icon">id</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
+								<a href="loaderconfigoptions.html#debug" class="tsd-kind-icon">debug</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="iappendelementoptions.html#target" class="tsd-kind-icon">target</a>
+								<a href="loaderconfigoptions.html#ready" class="tsd-kind-icon">ready</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="iappendelementoptions.html#url" class="tsd-kind-icon">url</a>
+								<a href="loaderconfigoptions.html#registry" class="tsd-kind-icon">registry</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="loaderconfigoptions.html#retry" class="tsd-kind-icon">retry</a>
 							</li>
 						</ul>
 					</li>
