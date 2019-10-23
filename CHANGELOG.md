@@ -19,7 +19,7 @@ All notable changes to this project will be documented in this file. See [standa
 * change main export name "IBSheetLoader" ([ec17e98](https://github.com/ibsheet/loader/commit/ec17e98))
 * change typedoc options ([229435a](https://github.com/ibsheet/loader/commit/229435a))
 * new options for ibsheet ([e1f1281](https://github.com/ibsheet/loader/commit/e1f1281))
-* refactoring exports module ([4f10e28](https://github.com/ibsheet/loader/commit/4f10e28))
+* refactoring export modules ([4f10e28](https://github.com/ibsheet/loader/commit/4f10e28))
 
 ### [0.0.9](https://github.com/ibsheet/loader/compare/v0.0.8...v0.0.9) (2019-09-30)
 
