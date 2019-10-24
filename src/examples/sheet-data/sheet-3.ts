@@ -592,6 +592,10 @@ export default {
     }
   ],
   ready: function(sheet: any) {
-    sheet.createPivotDialog()
+    try {
+      sheet.createPivotDialog()
+    } catch (err) {
+      console.error(`"createPivotDialog" feature requires "ibsheet-dialog.js" module`)
+    }
   }
 }
