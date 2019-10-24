@@ -9,9 +9,12 @@ export enum LoaderEventName {
   UNLOAD_FAILED = 'unload-failed',
   UNLOADED = 'unloaded',
   UNLOAD_COMPLETE = 'unload-complete',
-  CREATE = 'create',
-  CREATE_FAILED = 'create-failed',
-  CREATED = 'created'
+  CREATE_SHEET = 'create-sheet',
+  CREATE_SHEET_FAILED = 'create-sheet-failed',
+  CREATED_SHEET = 'created-sheet',
+  REMOVE_SHEET = 'remove-sheet',
+  REMOVE_SHEET_FAILED = 'remove-sheet-failed',
+  REMOVED_SHEET = 'removed-sheet'
 }
 
 export interface RegisteredItem {

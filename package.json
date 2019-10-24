@@ -7,7 +7,6 @@
   "version": "1.0.0",
   "description": "Dynamically load support module for IBSheet",
   "main": "index.js",
-  "module": "dist/esm/index.js",
   "typings": "index.d.ts",
   "scripts": {
     "build": "run-s clean build:prod:*",

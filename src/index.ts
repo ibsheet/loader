@@ -1,5 +1,4 @@
-import { keys } from './lib/shared/lodash'
-import * as LoaderExports from './lib'
+import { IBSheetLoader } from './main'
 
-const loaderModule = (module.exports = LoaderExports.default)
-keys(LoaderExports).forEach(key => (loaderModule[key] = LoaderExports[key]))
+export * from './lib'
+export { IBSheetLoader, IBSheetLoader as default }
