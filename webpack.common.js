@@ -74,8 +74,12 @@ function getTsLoaderOptions (buildTarget) {
       target = 'es5'
       declaration = false
   }
+  const configFileName = !isDevMode ? 'tsconfig.prod.json' : 'tsconfig.dev.json'
+  if (isDevMode) {
+    return { configFileName }
+  }
   return {
-    configFileName: !isDevMode ? 'tsconfig.prod.json' : 'tsconfig.dev.json',
+    configFileName,
     target,
     outDir,
     declaration

@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.webpack",
+  "extends": "./tsconfig",
   "compilerOptions": {
     "noUnusedLocals": false /* Report errors on unused locals. */,
     "noUnusedParameters": false /* Report errors on unused parameters. */
