@@ -124,77 +124,36 @@
 					<h3>note: Browser usage</h3>
 				</a>
 				<pre><code class="language-js"><span class="hljs-keyword">var</span> loader = <span class="hljs-built_in">window</span>.IBSheetLoader
-loader.config({
-  <span class="hljs-attr">registry</span>: [
-    {
-      <span class="hljs-attr">name</span>: <span class="hljs-string">'ibsheet'</span>,
-      <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>,
-      <span class="hljs-attr">urls</span>: [
-        <span class="hljs-string">'css/default/main.css'</span>,
-        <span class="hljs-string">'ibleaders.js'</span>,
-        <span class="hljs-string">'locale/ko.js'</span>,
-        <span class="hljs-string">'ibsheet.js'</span>
-      ]
-    }
-  ]
+loader.load({
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'ibsheet'</span>,
+  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>
 })
 loader.createSheet(options)</code></pre>
 				<a href="#note-commonjs-usage" id="note-commonjs-usage" style="color: inherit; text-decoration: none;">
 					<h3>note: CommonJS usage</h3>
 				</a>
-				<p><strong><em>comming soon</em></strong></p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> loader = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@ibsheet/loader'</span>)
-loader.config({
-  <span class="hljs-attr">registry</span>: [
-    {
-      <span class="hljs-attr">name</span>: <span class="hljs-string">'ibsheet'</span>,
-      <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>,
-      <span class="hljs-attr">urls</span>: [
-        <span class="hljs-string">'css/default/main.css'</span>,
-        <span class="hljs-string">'ibleaders.js'</span>,
-        <span class="hljs-string">'locale/ko.js'</span>,
-        <span class="hljs-string">'ibsheet.js'</span>
-      ]
-    }
-  ]
+loader.load({
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'ibsheet'</span>,
+  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>
 })
 loader.createSheet(options)</code></pre>
 				<a href="#note-esmodule-usage" id="note-esmodule-usage" style="color: inherit; text-decoration: none;">
 					<h3>note: ESModule usage</h3>
 				</a>
 				<pre><code class="language-js"><span class="hljs-keyword">import</span> loader <span class="hljs-keyword">from</span> <span class="hljs-string">'@ibsheet/loader'</span>
-loader.config({
-  <span class="hljs-attr">registry</span>: [
-    {
-      <span class="hljs-attr">name</span>: <span class="hljs-string">'ibsheet'</span>,
-      <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>,
-      <span class="hljs-attr">urls</span>: [
-        <span class="hljs-string">'css/default/main.css'</span>,
-        <span class="hljs-string">'ibleaders.js'</span>,
-        <span class="hljs-string">'locale/ko.js'</span>,
-        <span class="hljs-string">'ibsheet.js'</span>
-      ]
-    }
-  ]
+loader.load({
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'ibsheet'</span>,
+  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>
 })
 loader.createSheet(options)</code></pre>
 				<a href="#note-typescript-usage" id="note-typescript-usage" style="color: inherit; text-decoration: none;">
 					<h3>note: TypeScript usage</h3>
 				</a>
 				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { IBSheetLoader <span class="hljs-keyword">as</span> loader } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ibsheet/loader'</span>
-loader.config({
-  registry: [
-    {
-      name: <span class="hljs-string">'ibsheet'</span>,
-      baseUrl: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>,
-      urls: [
-        <span class="hljs-string">'css/default/main.css'</span>,
-        <span class="hljs-string">'ibleaders.js'</span>,
-        <span class="hljs-string">'locale/ko.js'</span>,
-        <span class="hljs-string">'ibsheet.js'</span>
-      ]
-    }
-  ]
+loader.load({
+  name: <span class="hljs-string">'ibsheet'</span>,
+  baseUrl: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>
 })
 loader.createSheet(options)</code></pre>
 				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
@@ -329,6 +288,9 @@ loader.createSheet(options)</code></pre>
 						<a href="globals.html#ibsheet_global" class="tsd-kind-icon">IBSHEET_<wbr>GLOBAL</a>
 					</li>
 					<li class=" tsd-kind-variable">
+						<a href="globals.html#ibsheetloader" class="tsd-kind-icon">IBSheet<wbr>Loader</a>
+					</li>
+					<li class=" tsd-kind-variable">
 						<a href="globals.html#load_test_retry_interval" class="tsd-kind-icon">LOAD_<wbr>TEST_<wbr>RETRY_<wbr>INTERVAL</a>
 					</li>
 					<li class=" tsd-kind-variable">
@@ -336,9 +298,6 @@ loader.createSheet(options)</code></pre>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#version_generate_start_num" class="tsd-kind-icon">VERSION_<wbr>GENERATE_<wbr>START_<wbr>NUM</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#loadermodule" class="tsd-kind-icon">loader<wbr>Module</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#appendcss" class="tsd-kind-icon">append<wbr>Css</a>
