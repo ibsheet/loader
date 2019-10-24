@@ -3,7 +3,7 @@
 .coveralls.yaml
 .DS_Store
 .editorconfig
-.env
+.env*
 .github
 .history
 .nyc_output
