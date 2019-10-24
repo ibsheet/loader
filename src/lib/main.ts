@@ -206,7 +206,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
           this.emit(LoaderEventName.CREATED_SHEET, { target: sheet })
           return resolve(sheet)
         } catch (err) {
-          this.emit(LoaderEventName.CREATE_SHEET_FAILED, assignIn(createEvtData, { error: err }))
+          this.emit(
+            LoaderEventName.CREATE_SHEET_FAILED,
+            assignIn(createEvtData, { error: err })
+          )
           return reject(err)
         }
       }
@@ -218,7 +221,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
           sheet = await createFn(sheetOpts)
           this.emit(LoaderEventName.CREATED_SHEET, { target: sheet })
         } catch (err) {
-          this.emit(LoaderEventName.CREATE_SHEET_FAILED, assignIn(createEvtData, { error: err }))
+          this.emit(
+            LoaderEventName.CREATE_SHEET_FAILED,
+            assignIn(createEvtData, { error: err })
+          )
           reject(err)
         }
         return resolve(sheet)
@@ -226,7 +232,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       try {
         this.load()
       } catch (err) {
-        this.emit(LoaderEventName.CREATE_SHEET_FAILED, assignIn(createEvtData, { error: err }))
+        this.emit(
+          LoaderEventName.CREATE_SHEET_FAILED,
+          assignIn(createEvtData, { error: err })
+        )
         reject(err)
       }
     })
@@ -247,11 +256,17 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       target.dispose()
       asyncRemoveIBSheetElements(this.options, true)
       setTimeout(() => {
-        this.emit(LoaderEventName.REMOVED_SHEET, { target: ibsheetStatic, data: { id: sid } })
+        this.emit(LoaderEventName.REMOVED_SHEET, {
+          target: ibsheetStatic,
+          data: { id: sid }
+        })
       }, 10)
     } catch (err) {
       console.error(err)
-      this.emit(LoaderEventName.REMOVE_SHEET_FAILED, { target: ibsheetStatic, error: err })
+      this.emit(LoaderEventName.REMOVE_SHEET_FAILED, {
+        target: ibsheetStatic,
+        error: err
+      })
     }
   }
 

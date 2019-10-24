@@ -27,7 +27,7 @@ export function defaultsIBSheetUrls(data: RegistryItemData): string[] {
     pushIfNotExistsUrl(urls, fname)
   }
 
-  [
+  ;[
     { name: 'theme', def: 'default' },
     { name: 'locale', def: 'ko' },
     { name: 'corefile', def: 'ibsheet.js' }
