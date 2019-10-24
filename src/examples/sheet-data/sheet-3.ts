@@ -595,7 +595,9 @@ export default {
     try {
       sheet.createPivotDialog()
     } catch (err) {
-      console.error(`"createPivotDialog" feature requires "ibsheet-dialog.js" module`)
+      console.error(
+        `"createPivotDialog" feature requires "ibsheet-dialog.js" module`
+      )
     }
   }
 }

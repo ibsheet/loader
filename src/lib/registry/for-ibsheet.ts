@@ -27,6 +27,8 @@ export function defaultsIBSheetUrls(data: RegistryItemData): string[] {
     pushIfNotExistsUrl(urls, fname)
   }
 
+  // fixed prettier issue
+  // tslint:disable-next-line:semicolon
   ;[
     { name: 'theme', def: 'default' },
     { name: 'locale', def: 'ko' },
