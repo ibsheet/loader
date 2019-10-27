@@ -4,7 +4,7 @@
     "filename": "ibsheet-loader",
     "global": "IBSheetLoader"
   },
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Dynamically load support module for IBSheet",
   "main": "index.js",
   "typings": "index.d.ts",
@@ -19,10 +19,10 @@
     "prebuild:prod:umd": "trash dist/umd",
     "build:prod:umd": "cross-env BUILD_TARGET=umd run-s build:prod",
     "fix": "run-s fix:*",
-    "fix:prettier": "prettier \"src/**/*.ts\" --write",
+    "fix:prettier": "prettier \"src/**/*.ts\" --write --list-different",
     "fix:tslint": "tslint --fix --project .",
     "test": "run-s build:prod:esm test:*",
-    "test:lint": "yarn tslint --project . && yarn prettier \"src/**/*.ts\" --write --list-different",
+    "test:lint": "yarn tslint --project . && yarn prettier \"src/**/*.ts\" --list-different",
     "pretest:unit": "trash .nyc_output",
     "test:unit": "nyc --silent ava --verbose",
     "cov": "run-s cov:html && open-cli coverage/index.html",
@@ -43,7 +43,7 @@
     "serve:prod": "cross-env NODE_ENV=production webpack-dev-server --config ./webpack.prod.js --port 3040 --host 0.0.0.0 --hot --inline --progress --watch --open --content-base dist/umd",
     "start": "run-s serve:dev",
     "prepare-release": "run-s reset test cov:check",
-    "prerelease": "run-s fix test",
+    "prerelease": "run-s test:*",
     "release": "standard-version"
   },
   "scripts-info": {

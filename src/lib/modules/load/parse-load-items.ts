@@ -1,7 +1,6 @@
-import isUrl from 'is-url'
-
 import { IBSHEET } from '../../constant'
 import { isString, castArray, isNil, isObject } from '../../shared/lodash'
+import { isUrlStr } from '../../shared/str-utils'
 import {
   LoaderRegistry,
   RegistryItem,
@@ -15,7 +14,7 @@ function parseLoadItemData(data: RegistryItemData): RegistryItem | undefined {
   let item: any
   if (isString(data)) {
     // check localpath or url
-    if (data.indexOf('/') >= 0 || isUrl(data)) {
+    if (isUrlStr(data)) {
       item = registry.add(data)
     }
     // check exists registry

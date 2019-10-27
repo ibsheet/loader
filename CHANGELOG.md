@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://github.com/ibsheet/loader/compare/v1.0.1...v1.0.2) (2019-10-27)
+
+
+### Bug Fixes
+
+* update ibsheet options ([e858024](https://github.com/ibsheet/loader/commit/e858024))
+
+### [1.0.1](https://github.com/ibsheet/loader/compare/v1.0.0...v1.0.1) (2019-10-24)
+
+
+### Bug Fixes
+
+* fixed webpack-dev ([c211b67](https://github.com/ibsheet/loader/commit/c211b67))
+
+
+### Features
+
+* refactoring export main modules ([f387367](https://github.com/ibsheet/loader/commit/f387367))
+* **new:** getIBSheetStatic, SheetEvents ([405cee5](https://github.com/ibsheet/loader/commit/405cee5))
+
 ## [1.0.0](https://github.com/ibsheet/loader/compare/v0.0.9...v1.0.0) (2019-10-23)
 
 

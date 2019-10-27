@@ -2,8 +2,8 @@ import { IBSHEET_BASEURL } from './constant'
 
 export const ibseetLibData = {
   name: 'ibsheet',
-  // version: '8.0',
   baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`,
+  // version: '8.0',
   theme: 'default',
   license: `${IBSHEET_BASEURL}/v8/ibleaders.js`
   // urls: [

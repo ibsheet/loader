@@ -11,7 +11,8 @@ import {
   defaultsDeep,
   bind,
   concat,
-  clone
+  clone,
+  assignIn
 } from './shared/lodash'
 import { documentReady } from './shared/dom-utils'
 import { IntervalManager } from './shared/interval-manager'
@@ -140,6 +141,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     })
   }
 
+  getIBSheetStatic(): any {
+    return this._ibsheet.global
+  }
+
   load(arg?: any, alsoDefaultLib: boolean = true): this {
     // const registry = this.registry
     const taskMan = this._loadTaskMan
@@ -173,7 +178,8 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   }
 
   createSheet(options: any): Promise<IBSheetInstance> {
-    const ibsheetOpts: IBSheetCreateOptions = {}
+    const sheetOpts: IBSheetCreateOptions = {}
+    const ibsheet = this._ibsheet
     ;[
       { key: 'id' },
       { key: 'el', alias: ['elementId'] },
@@ -185,18 +191,25 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
         .filter(Boolean)
         .forEach((prop: string) => {
           if (has(options, prop)) {
-            ibsheetOpts[key] = get(options, prop)
+            sheetOpts[key] = get(options, prop)
           }
         })
     })
-    const createFn = bind(this._ibsheet.create, this._ibsheet)
+    const createFn = bind(ibsheet.create, ibsheet)
+    const createEvtData = { target: ibsheet.global, data: sheetOpts }
     return new Promise(async (resolve, reject) => {
       let sheet: any
       if (this.loadedDefaultLib) {
         try {
-          sheet = await createFn(ibsheetOpts)
+          this.emit(LoaderEventName.CREATE_SHEET, createEvtData)
+          sheet = await createFn(sheetOpts)
+          this.emit(LoaderEventName.CREATED_SHEET, { target: sheet })
           return resolve(sheet)
         } catch (err) {
+          this.emit(
+            LoaderEventName.CREATE_SHEET_FAILED,
+            assignIn(createEvtData, { error: err })
+          )
           return reject(err)
         }
       }
@@ -204,8 +217,14 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       const defItem = this._getDefaultRegItem()
       defItem.once(LoaderEventName.LOADED, async () => {
         try {
-          sheet = await createFn(ibsheetOpts)
+          this.emit(LoaderEventName.CREATE_SHEET, createEvtData)
+          sheet = await createFn(sheetOpts)
+          this.emit(LoaderEventName.CREATED_SHEET, { target: sheet })
         } catch (err) {
+          this.emit(
+            LoaderEventName.CREATE_SHEET_FAILED,
+            assignIn(createEvtData, { error: err })
+          )
           reject(err)
         }
         return resolve(sheet)
@@ -213,6 +232,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       try {
         this.load()
       } catch (err) {
+        this.emit(
+          LoaderEventName.CREATE_SHEET_FAILED,
+          assignIn(createEvtData, { error: err })
+        )
         reject(err)
       }
     })
@@ -220,24 +243,42 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
 
   removeSheet(sid: string): void {
     if (!this.loadedDefaultLib) return
-    const ibsheet = this._ibsheet.global
+    const ibsheetStatic = this.getIBSheetStatic()
+    const target = ibsheetStatic[sid]
+    if (isNil(target)) {
+      if (this.debug) {
+        console.warn('not found target sheet:', sid)
+      }
+      return
+    }
+    this.emit(LoaderEventName.REMOVE_SHEET, { target })
     try {
-      ibsheet[sid].dispose()
+      target.dispose()
       asyncRemoveIBSheetElements(this.options, true)
+      setTimeout(() => {
+        this.emit(LoaderEventName.REMOVED_SHEET, {
+          target: ibsheetStatic,
+          data: { id: sid }
+        })
+      }, 10)
     } catch (err) {
       console.error(err)
+      this.emit(LoaderEventName.REMOVE_SHEET_FAILED, {
+        target: ibsheetStatic,
+        error: err
+      })
     }
   }
 
   sheetReady(callback?: (ibsheet?: any) => void): any {
     if (this.loadedDefaultLib) {
-      return Promise.resolve(this._ibsheet.global)
+      return Promise.resolve(this.getIBSheetStatic())
     }
     return new Promise((resolve, reject) => {
       try {
         const defItem = this._getDefaultRegItem()
         defItem.once(LoaderEventName.LOADED, () => {
-          const ibsheetStatic = this._ibsheet.global
+          const ibsheetStatic = this.getIBSheetStatic()
           try {
             if (!isNil(callback)) {
               callback.call(ibsheetStatic, ibsheetStatic)

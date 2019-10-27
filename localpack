@@ -2,16 +2,16 @@
 source ./.env
 yarn run-s fix build
 npm pack
-if [ -z $PKG_LINK_DIR ]; then
+if [ -z $LOCAL_PKG_DIR ]; then
   exit 0
 fi
 
-if [ -d $PKG_LINK_DIR ]; then
-  echo "-> [RM] $PKG_LINK_DIR/*"
-  rm -rf $PKG_LINK_DIR/*
+if [ -d $LOCAL_PKG_DIR ]; then
+  echo "-> [RM] $LOCAL_PKG_DIR/*"
+  rm -rf $LOCAL_PKG_DIR/*
 else
-  echo "-> [MKDIR] $PKG_LINK_DIR"
-  mkdir -p $PKG_LINK_DIR
+  echo "-> [MKDIR] $LOCAL_PKG_DIR"
+  mkdir -p $LOCAL_PKG_DIR
 fi
 
 WORK_DIR=$(pwd)
@@ -33,6 +33,6 @@ mv ./$TARGET_FILE $TEMP_BASE_DIR/
 pv $TEMP_BASE_DIR/$TARGET_FILE|tar xzf - -C $TEMP_BASE_DIR
 
 ls -lh $TEMP_PKG_DIR
-echo "-> [MOVE LINK PACKAGE] $PKG_LINK_DIR"
-mv $TEMP_PKG_DIR/* $PKG_LINK_DIR/
+echo "-> [MOVE LINK PACKAGE] $LOCAL_PKG_DIR"
+mv $TEMP_PKG_DIR/* $LOCAL_PKG_DIR/
 rm -r $TEMP_PKG_DIR

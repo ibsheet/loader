@@ -12,24 +12,23 @@ export function getPreloadItems(
   const alsoDefaultLib = get(options, 'defaultLibrary', false)
   const needDefaultLoadTask = alsoDefaultLib && !this.loadedDefaultLib
   const noOrigins = isNil(origins)
+  const res = []
 
-  let needDefaultItem = false
+  let needRegAlias = false
   if (needDefaultLoadTask) {
     if (noOrigins) {
-      needDefaultItem = true
+      needRegAlias = true
     } else if (isString(origins) || isObject(origins)) {
-      needDefaultItem = !validSheetRegistData(origins)
+      needRegAlias = !validSheetRegistData(origins)
     } else if (isArray(origins)) {
       const arr = origins.filter((t: any) => validSheetRegistData(t))
-      needDefaultItem = !arr.length
+      needRegAlias = !arr.length
     }
   }
 
-  let res = []
-  if (needDefaultItem) {
+  if (needRegAlias) {
     const defItem = this._getDefaultRegItem()
     res.push(defItem.alias)
   }
-
   return res
 }
