@@ -7,9 +7,11 @@ import {
   setIBSheetLicense
 } from '../ibsheet'
 import {
-  RegistryItem, RegistryItemURL,
+  RegistryItem,
+  RegistryItemURL,
   RegItemUrlData,
-  RegistryItemData, RegItemEventName
+  RegistryItemData,
+  RegItemEventName
 } from './item'
 import {
   castRegistryItemData,
@@ -49,7 +51,7 @@ export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
         break
       case 'locales':
         let values = value || []
-        const locale = get(data ,'locale', 'ko')
+        const locale = get(data, 'locale', 'ko')
         if (!values.length) {
           values = [locale]
         }
@@ -95,7 +97,10 @@ export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
   return urls
 }
 
-export function updateIBSheetUrls(originUrls: RegistryItemURL[], data: RegistryItemData): RegItemUrlData[] {
+export function updateIBSheetUrls(
+  originUrls: RegistryItemURL[],
+  data: RegistryItemData
+): RegItemUrlData[] {
   let urls: any = get(data, 'urls') || []
   const origins = originUrls.slice().map(o => o.value)
   if (urls.length) {
@@ -112,7 +117,7 @@ export function updateIBSheetUrls(originUrls: RegistryItemURL[], data: RegistryI
   // tslint:disable-next-line:semicolon
   ;[
     { name: 'theme', def: null },
-    { name: 'locales', def: null },
+    { name: 'locales', def: null }
     // { name: 'corefile', def: 'ibsheet.js' }
   ].forEach(o => {
     const { name } = o
@@ -131,22 +136,24 @@ export function updateIBSheetUrls(originUrls: RegistryItemURL[], data: RegistryI
         return
       case 'locales':
         let values = value || []
-        const locale = get(data ,'locale')
+        const locale = get(data, 'locale')
         if (!values.length) {
           values = [locale]
         }
         if (!values.length) return
-        const updateLocales = values.map((val: any) => {
-          if (!isFilePath(val, 'js')) {
-            val = `locale/${val}.js`
-          }
-          const exists = removeByCallback(origins, str => {
-            return str.indexOf(val) >= 0
+        const updateLocales = values
+          .map((val: any) => {
+            if (!isFilePath(val, 'js')) {
+              val = `locale/${val}.js`
+            }
+            const exists = removeByCallback(origins, str => {
+              return str.indexOf(val) >= 0
+            })
+            if (exists) return
+            urls.push(val)
+            return val
           })
-          if (exists) return
-          urls.push(val)
-          return val
-        }).filter(Boolean)
+          .filter(Boolean)
         if (updateLocales.length) {
           remove(origins, str => /locale\/[^/]+\.js$/i.test(str))
         }

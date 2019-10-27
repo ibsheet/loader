@@ -124,45 +124,47 @@ $(async () => {
   // confirm ibsheet-loader version
   console.log('* IBSheetLoader:', `v${loader.version}`)
 
-//   console.log(`==================== 9: SHEET EVENTS TEST ====================`)
-//   loader.bind(
-//     [
-//       'create-sheet',
-//       'create-sheet-failed',
-//       'created-sheet',
-//       'remove-sheet',
-//       'remove-sheet-failed',
-//       'removed-sheet'
-//     ].join(' '),
-//     function(evt: any) {
-//       let msg = ''
-//       switch (evt.type) {
-//         case 'create-sheet':
-//           msg = 'create sheet elementId: ' + evt.data.el
-//           break
-//         case 'create-sheet-failed':
-//           break
-//         case 'created-sheet':
-//           msg = 'created sheet.id: ' + evt.target.id
-//           break
-//         case 'remove-sheet':
-//           msg = 'remove sheet.id:' + evt.target.id
-//           break
-//         case 'remove-sheet-failed':
-//           break
-//         case 'removed-sheet':
-//           msg = 'removed sheet.id: ' + evt.data.id
-//           break
-//       }
-//       console.log(
-//         `%c[SHEET_EVENT.${evt.type}] ${msg}`,
-//         'background-color: yellow;color: black'
-//       )
-//     }
-//   )
-// })
+  //   console.log(`==================== 9: SHEET EVENTS TEST ====================`)
+  //   loader.bind(
+  //     [
+  //       'create-sheet',
+  //       'create-sheet-failed',
+  //       'created-sheet',
+  //       'remove-sheet',
+  //       'remove-sheet-failed',
+  //       'removed-sheet'
+  //     ].join(' '),
+  //     function(evt: any) {
+  //       let msg = ''
+  //       switch (evt.type) {
+  //         case 'create-sheet':
+  //           msg = 'create sheet elementId: ' + evt.data.el
+  //           break
+  //         case 'create-sheet-failed':
+  //           break
+  //         case 'created-sheet':
+  //           msg = 'created sheet.id: ' + evt.target.id
+  //           break
+  //         case 'remove-sheet':
+  //           msg = 'remove sheet.id:' + evt.target.id
+  //           break
+  //         case 'remove-sheet-failed':
+  //           break
+  //         case 'removed-sheet':
+  //           msg = 'removed sheet.id: ' + evt.data.id
+  //           break
+  //       }
+  //       console.log(
+  //         `%c[SHEET_EVENT.${evt.type}] ${msg}`,
+  //         'background-color: yellow;color: black'
+  //       )
+  //     }
+  //   )
+  // })
 
-  console.log(`==================== 10: IBSHEET UPDATE TEST ====================`)
+  console.log(
+    `==================== 10: IBSHEET UPDATE TEST ====================`
+  )
   loader.load({
     name: 'ibsheet',
     baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`,

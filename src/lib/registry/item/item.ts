@@ -30,10 +30,7 @@ import { RegistryItemURL } from './url'
 import { asyncImportItemUrls } from './async-load'
 import { asyncRemoveItemUrls } from './async-unload'
 import { asyncItemTest } from './async-test'
-import {
-  defaultsIBSheetUrls,
-  updateIBSheetUrls
-} from '../for-ibsheet'
+import { defaultsIBSheetUrls, updateIBSheetUrls } from '../for-ibsheet'
 
 class RegistryItem extends CustomEventEmitter {
   private _id: string
@@ -144,7 +141,10 @@ class RegistryItem extends CustomEventEmitter {
     fn.apply(this, args)
   }
 
-  private _createUrls(data: RegistryItemData, isUpdate: boolean = false): RegistryItemURL[] | undefined {
+  private _createUrls(
+    data: RegistryItemData,
+    isUpdate: boolean = false
+  ): RegistryItemURL[] | undefined {
     const targetOpts = pick(data, [
       'baseUrl',
       'url',
