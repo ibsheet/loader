@@ -30,7 +30,10 @@ import { RegistryItemURL } from './url'
 import { asyncImportItemUrls } from './async-load'
 import { asyncRemoveItemUrls } from './async-unload'
 import { asyncItemTest } from './async-test'
-import { defaultsIBSheetUrls } from '../for-ibsheet'
+import {
+  defaultsIBSheetUrls,
+  updateIBSheetUrls
+} from '../for-ibsheet'
 
 class RegistryItem extends CustomEventEmitter {
   private _id: string
@@ -141,7 +144,7 @@ class RegistryItem extends CustomEventEmitter {
     fn.apply(this, args)
   }
 
-  private _createUrls(data: RegistryItemData): RegistryItemURL[] | undefined {
+  private _createUrls(data: RegistryItemData, isUpdate: boolean = false): RegistryItemURL[] | undefined {
     const targetOpts = pick(data, [
       'baseUrl',
       'url',
@@ -152,6 +155,7 @@ class RegistryItem extends CustomEventEmitter {
       'theme',
       'plugins',
       'locale',
+      'locales',
       'license'
     ])
     if (isEmpty(targetOpts)) {
@@ -174,7 +178,11 @@ class RegistryItem extends CustomEventEmitter {
     if (!bIBSheet) {
       urls = get(options, 'urls', pick(options, ['url', 'target', 'type']))
     } else {
-      urls = defaultsIBSheetUrls(data)
+      if (!isUpdate) {
+        urls = defaultsIBSheetUrls(data)
+      } else {
+        urls = updateIBSheetUrls(this.urls, data)
+      }
     }
 
     if (isEmpty(urls)) return
@@ -197,8 +205,8 @@ class RegistryItem extends CustomEventEmitter {
     return res
   }
   private _setUrls(data: RegistryItemData, isUpdate: boolean = false): void {
-    const urls = this._createUrls(data)
-
+    // console.log('_setUrls', isUpdate)
+    const urls = this._createUrls(data, isUpdate)
     if (isNil(urls)) return
     if (isUpdate) {
       this._updateUrls = urls

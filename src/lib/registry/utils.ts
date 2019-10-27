@@ -102,9 +102,31 @@ export function generateVersion(item: RegistryItem): string {
  * @param urls
  * @param url
  */
-export function pushIfNotExistsUrl(urls: { url: string }[], url: string) {
-  const exists = find(urls, o => o.url.indexOf(url) > -1)
+export function pushIfNotExistsUrl(urls: { url: string }[], value: string): void {
+  const exists = find(urls, o => {
+    const { url } = o
+    return url.indexOf(value) > -1
+  })
   if (isNil(exists)) {
-    urls.push({ url })
+    urls.push({ url: value })
   }
+}
+
+/**
+ * if not exists push url
+ * @param urls
+ * @param url
+ */
+export function removeByCallback(urls: any[], callback: (url: string) => boolean): boolean {
+  let res = false
+  if (!urls.length) return false
+  urls = urls.map(url => {
+    const bool = callback(url)
+    if (bool) {
+      if (!res) res = true
+      return
+    }
+    return url
+  }).filter(Boolean)
+  return res
 }
