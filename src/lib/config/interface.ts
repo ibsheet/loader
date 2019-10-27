@@ -5,4 +5,7 @@ export interface LoaderConfigOptions extends TaskManagerOptions {
   debug?: boolean
   registry?: RegistryParam[]
   ready?: Function
+  globals?: {
+    ibsheet?: string
+  }
 }

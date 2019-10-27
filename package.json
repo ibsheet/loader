@@ -4,10 +4,9 @@
     "filename": "ibsheet-loader",
     "global": "IBSheetLoader"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Dynamically load support module for IBSheet",
   "main": "index.js",
-  "typings": "index.d.ts",
   "scripts": {
     "build": "run-s clean build:prod:*",
     "build:dev": "webpack --config ./webpack.dev.js --progress --color --display-error-details",

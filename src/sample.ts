@@ -56,10 +56,14 @@ $(async () => {
   // init test-box controls
   initTestBoxControls(loader)
 
-  // console.log(
-  //   `==================== 4-1: FIRST LOAD (registry) ====================`
-  // )
+  console.log(
+    `==================== 4-1: FIRST LOAD (registry) ====================`
+  )
   // loader.load()
+  loader.load({
+    name: 'ibsheet',
+    baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`
+  })
 
   // console.log(
   //   `==================== 4-2: FIRST LOAD (immediatly) ====================`
@@ -161,18 +165,25 @@ $(async () => {
   //     }
   //   )
   // })
+  // loader.once('created-sheet', function(evt: any) {
+  //   // evt.target: IBSheet 인스턴스
+  //   const sid = evt.target.id
+  //   setTimeout(function() {
+  //     loader.removeSheet(sid)
+  //   }, 3000)
+  // })
 
-  console.log(
-    `==================== 10: IBSHEET UPDATE TEST ====================`
-  )
-  loader.load({
-    name: 'ibsheet',
-    baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`,
-    locale: 'ko'
-  })
+  // console.log(
+  //   `==================== 10: IBSHEET UPDATE TEST ====================`
+  // )
+  // loader.load({
+  //   name: 'ibsheet',
+  //   baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`,
+  //   locale: 'ko'
+  // })
 
-  loader.load({
-    name: 'ibsheet',
-    locale: 'en'
-  })
+  // loader.load({
+  //   name: 'ibsheet',
+  //   locale: 'en'
+  // })
 })
