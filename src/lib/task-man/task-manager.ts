@@ -141,7 +141,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
         this._resolveJobs()
       })
       .catch((err: any) => {
-        this.emit(LoaderEventName.LOAD_FAILED, err)
+        this.emit(LoaderEventName.LOAD_FAILED, { target: this, error: err })
         this._working = false
         throw new Error(err)
       })
