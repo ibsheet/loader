@@ -20,6 +20,7 @@ import {
 } from './utils'
 
 /**
+ * @ignore
  * @desc RegistryItem 스코프에서 IBSheet 기본 파일 추가
  */
 export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
@@ -97,6 +98,10 @@ export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
   return urls
 }
 
+/**
+ * @ignore
+ * @todo 리팩토링 with [[defaultsIBSheetUrls]]
+ */
 export function updateIBSheetUrls(
   originUrls: RegistryItemURL[],
   data: RegistryItemData
@@ -189,6 +194,7 @@ export function updateIBSheetUrls(
 }
 
 /**
+ * @ignore
  * @desc LoaderRegistry 스코프에서 IBSheet 기본 이벤트 추가
  */
 export function defaultsIBSheetEvents(item: RegistryItem): void {

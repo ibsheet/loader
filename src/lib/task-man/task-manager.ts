@@ -9,6 +9,7 @@ import { IBSheetLoaderStatic } from '../main'
 import { LoaderTaskType, TaskManagerOptions } from './interface'
 import { getTaskEventsByType, isResolveTaskEvent } from './utils'
 
+/** @ignore */
 export class LoaderTaskManager extends CustomEventEmitter {
   private _type: LoaderTaskType
   private _stack: RegistryItem[]

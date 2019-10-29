@@ -4,6 +4,7 @@
 
 import { get, bind, remove } from './lodash'
 
+/** @ignore */
 interface NativeFunctions {
   // https://www.w3schools.com/jsref/met_win_setinterval.asp
   setInterval: (
@@ -14,6 +15,7 @@ interface NativeFunctions {
   clearInterval: (handle?: number | undefined) => void
 }
 
+/** @ignore */
 export class IntervalManager {
   private _native: NativeFunctions
   private _store: number[] = []

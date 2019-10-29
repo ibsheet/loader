@@ -1,6 +1,7 @@
 import { isEmpty, isNil } from './lodash'
 import isUrl from 'is-url'
 
+/** @ignore */
 export function basename(str: string): string | undefined {
   if (isEmpty(str)) return
   let base = new String(str).substring(str.lastIndexOf('/') + 1)
@@ -10,11 +11,13 @@ export function basename(str: string): string | undefined {
   return base
 }
 
+/** @ignore */
 export function isUrlStr(str: string | undefined): boolean {
   if (isNil(str) || isEmpty(str)) return false
   return str.indexOf('/') >= 0 || isUrl(str)
 }
 
+/** @ignore */
 export function isFilePath(str: string | undefined, type?: string): boolean {
   if (isNil(str) || isEmpty(str)) return false
   const bUrl = str.indexOf('/') >= 0 || isUrl(str)

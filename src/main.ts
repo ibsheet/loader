@@ -2,6 +2,9 @@ import { has, set } from './lib/shared/lodash'
 import { APP_GLOBAL } from './lib/constant'
 import { IBSheetLoaderStatic } from './lib/main'
 
+/**
+ * 로더 인스턴스
+ */
 export const IBSheetLoader = new IBSheetLoaderStatic()
 
 // set global variable

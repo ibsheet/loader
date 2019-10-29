@@ -4,7 +4,7 @@ import { LoaderTaskType } from './interface'
 import { LoaderTaskManager } from './task-manager'
 
 /**
- * @hidden
+ * @ignore
  * @param taskMan
  * @param eventList
  */
@@ -29,7 +29,7 @@ export function bindTaskManEvents(
   })
 }
 
-/** @hidden */
+/** @ignore */
 export function isStartEvent(event: LoaderEventName): boolean {
   let bool = false
   switch (event) {
@@ -41,7 +41,7 @@ export function isStartEvent(event: LoaderEventName): boolean {
   return bool
 }
 
-/** @hidden */
+/** @ignore */
 export function isResolveTaskEvent(event: LoaderEventName): boolean {
   let bool = true
   switch (event) {
@@ -53,9 +53,7 @@ export function isResolveTaskEvent(event: LoaderEventName): boolean {
   return bool
 }
 
-/**
- * @hidden
- */
+/** @ignore */
 export function getTaskEventsByType(type: LoaderTaskType): LoaderEventName[] {
   return type === LoaderTaskType.LOAD
     ? [
@@ -75,7 +73,7 @@ export function getTaskEventsByType(type: LoaderTaskType): LoaderEventName[] {
 }
 
 /**
- * @hidden
+ * @ignore
  * @param type
  */
 export function createTaskManager(

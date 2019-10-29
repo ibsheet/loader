@@ -2,6 +2,7 @@ import { isString, trim, get, set, isNil } from '../shared/lodash'
 import { IBSHEET, IBSHEET_GLOBAL } from '../constant'
 import { RegistryParam } from '../registry'
 
+/** @ignore */
 export function existsIBSheetStatic(name: string = IBSHEET_GLOBAL) {
   return !isNil(get(window, name))
 }

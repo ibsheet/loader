@@ -6,9 +6,7 @@ export interface DomAppendOptions {
   target?: string
 }
 
-/**
- * @hidden
- */
+/** @ignore */
 export function documentReady(callback: (evt?: Event) => void): any {
   if (document.readyState !== 'loading') {
     return callback()
@@ -16,9 +14,7 @@ export function documentReady(callback: (evt?: Event) => void): any {
   document.addEventListener('DOMContentLoaded', callback)
 }
 
-/**
- * @hidden
- */
+/** @ignore */
 export function createLinkElement(data: DomAppendOptions): HTMLLinkElement {
   const { id, url } = data
   const linkEl: HTMLLinkElement = document.createElement('link')
@@ -34,9 +30,7 @@ export function createLinkElement(data: DomAppendOptions): HTMLLinkElement {
   return linkEl
 }
 
-/**
- * @hidden
- */
+/** @ignore */
 export function createScriptElement(data: DomAppendOptions): HTMLScriptElement {
   const { id, url } = data
   const scriptEl: HTMLScriptElement = document.createElement('script')
@@ -51,9 +45,7 @@ export function existsElementById(id: string) {
   return !isNil(document.getElementById(id))
 }
 
-/**
- * @hidden
- */
+/** @ignore */
 function checkDupElements(data: DomAppendOptions): boolean {
   const { id, url } = data
   if (existsElementById(id)) {
@@ -63,6 +55,7 @@ function checkDupElements(data: DomAppendOptions): boolean {
   return false
 }
 
+/** @ignore */
 export function appendCss(data: DomAppendOptions): boolean {
   if (checkDupElements(data)) return false
   const el = createLinkElement(data)
@@ -71,6 +64,7 @@ export function appendCss(data: DomAppendOptions): boolean {
   return true
 }
 
+/** @ignore */
 export function appendJs(data: DomAppendOptions): boolean {
   if (checkDupElements(data)) return false
   const el = createScriptElement(data)
@@ -79,6 +73,7 @@ export function appendJs(data: DomAppendOptions): boolean {
   return true
 }
 
+/** @ignore */
 export function removeElemById(id: string): HTMLElement | undefined {
   const elem: any = document.getElementById(id)
   if (isNil(elem)) return
@@ -86,6 +81,7 @@ export function removeElemById(id: string): HTMLElement | undefined {
   return elem
 }
 
+/** @ignore */
 export function getElementsByTagName(tagName: string): HTMLElement[] {
   const elems = document.getElementsByTagName(tagName)
   return Array.prototype.slice.call(elems, 0)

@@ -33,15 +33,25 @@ import { asyncItemTest } from './async-test'
 import { defaultsIBSheetUrls, updateIBSheetUrls } from '../for-ibsheet'
 
 class RegistryItem extends CustomEventEmitter {
+  /** @ignore */
   private _id: string
+  /** @ignore */
   private _name: string | undefined
+  /** @ignore */
   private _version: string | null
+  /** @ignore */
   private _urls: RegistryItemURL[]
+  /** @ignore */
   private _loaded: boolean = false
+  /** @ignore */
   private _isResolveUpdateUrls: boolean
+  /** @ignore */
   private _updateUrls: RegistryItemURL[]
+  /** @ignore */
   private _urlOptions: RegItemUrlData = {}
+  /** @ignore */
   private _evtOptions: RegItemEventOptions = {}
+  /** @ignore */
   error = null
 
   constructor(data: string | RegistryItemData) {
@@ -93,6 +103,7 @@ class RegistryItem extends CustomEventEmitter {
   set version(value: string | null) {
     this._version = value
   }
+  /** @ignore */
   get hasVersion(): boolean {
     return !isNil(this.version)
   }
@@ -105,14 +116,15 @@ class RegistryItem extends CustomEventEmitter {
   get urls(): RegistryItemURL[] {
     return this._urls
   }
+  /** @ignore */
   get updateUrls(): RegistryItemURL[] {
     return this._updateUrls
   }
+  /** @ignore */
   get isResolveUpdateUrls(): boolean {
     if (!this.changed) return true
     return this._isResolveUpdateUrls
   }
-
   get raw(): RegItemRawData {
     const raw = {
       id: this.id,
@@ -131,16 +143,17 @@ class RegistryItem extends CustomEventEmitter {
   get loaded(): boolean {
     return this._loaded
   }
+  /** @ignore */
   get changed(): boolean {
     return !!this._updateUrls.length
   }
-
+  /** @ignore */
   private _customEventHandle(name: string, ...args: any[]) {
     const fn = this.getEventOption(name)
     if (isNil(fn)) return
     fn.apply(this, args)
   }
-
+  /** @ignore */
   private _createUrls(
     data: RegistryItemData,
     isUpdate: boolean = false
@@ -204,6 +217,7 @@ class RegistryItem extends CustomEventEmitter {
     })
     return res
   }
+  /** @ignore */
   private _setUrls(data: RegistryItemData, isUpdate: boolean = false): void {
     // console.log('_setUrls', isUpdate)
     const urls = this._createUrls(data, isUpdate)
@@ -214,7 +228,7 @@ class RegistryItem extends CustomEventEmitter {
     }
     this._urls = urls
   }
-
+  /** @ignore */
   private _setEventOptions(data: RegistryItemData) {
     const targetOpts = pick(data, [
       RegItemEventName.VALIDATE,
@@ -227,20 +241,25 @@ class RegistryItem extends CustomEventEmitter {
     }
     this._evtOptions = defaultsDeep(targetOpts, this._evtOptions)
   }
+  /** @ignore */
   getEventOption(name: string, def?: any): any {
     return get(this._evtOptions, name, def)
   }
+  /** @ignore */
   hasEventOption(name: string): boolean {
     return !isNil(get(this._evtOptions, name))
   }
+  /** @ignore */
   setEventOption(name: string, value: any): void {
     set(this._evtOptions, name, value)
   }
+  /** @ignore */
   resolveUpdateUrls(callback: (...args: any[]) => void) {
     if (this.isResolveUpdateUrls) return
     this._isResolveUpdateUrls = true
     this.once(LoaderEventName.LOADED, callback)
   }
+  /** @ignore */
   clearUpdateUrls(): void {
     if (!this.changed) return
     this._urls = this._updateUrls.slice()
@@ -276,11 +295,13 @@ class RegistryItem extends CustomEventEmitter {
     // console.log(this._urls)
   }
 
+  /** @ignore */
   test(): boolean {
     const validator = this.getEventOption('validate')
     if (isNil(validator)) return true
     return validator.call(window)
   }
+
   load(options?: any): this {
     const eventData = { target: this }
     this.clearUpdateUrls()
@@ -313,6 +334,7 @@ class RegistryItem extends CustomEventEmitter {
       })
     return this
   }
+
   unload(options?: any): this {
     const eventData = { target: this }
     this.emit(LoaderEventName.UNLOAD, eventData)
@@ -338,10 +360,7 @@ class RegistryItem extends CustomEventEmitter {
     return this
   }
 
-  // @override
-  public emit(event: string | symbol, ...args: any[]): boolean {
-    return super.emit(event, assignIn({ type: event }, ...args))
-  }
+  /** @ignore */
   public toString = (): string => {
     return this.alias
   }
