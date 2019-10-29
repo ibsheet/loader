@@ -70,7 +70,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="taskmanageroptions.html" class="tsd-signature-type">TaskManagerOptions</a>
+						<span class="tsd-signature-type">TaskManagerOptions</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">LoaderConfigOptions</span>
@@ -87,6 +87,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite"><a href="loaderconfigoptions.html#debug" class="tsd-kind-icon">debug</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="loaderconfigoptions.html#globals" class="tsd-kind-icon">globals</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="loaderconfigoptions.html#ready" class="tsd-kind-icon">ready</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="loaderconfigoptions.html#registry" class="tsd-kind-icon">registry</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="loaderconfigoptions.html#retry" class="tsd-kind-icon">retry</a></li>
@@ -102,9 +103,19 @@
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> debug</h3>
 					<div class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
-						<p>Overrides <a href="taskmanageroptions.html">TaskManagerOptions</a>.<a href="taskmanageroptions.html#debug">debug</a></p>
+						<p>Overrides TaskManagerOptions.debug</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/c2e0681/src/lib/config/interface.ts#L5">lib/config/interface.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/config/interface.ts#L5">lib/config/interface.ts:5</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="globals" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> globals</h3>
+					<div class="tsd-signature tsd-kind-icon">globals<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/config/interface.ts#L8">lib/config/interface.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -114,17 +125,17 @@
 					<div class="tsd-signature tsd-kind-icon">ready<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/c2e0681/src/lib/config/interface.ts#L7">lib/config/interface.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/config/interface.ts#L7">lib/config/interface.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="registry" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> registry</h3>
-					<div class="tsd-signature tsd-kind-icon">registry<span class="tsd-signature-symbol">:</span> <a href="../globals.html#registryparam" class="tsd-signature-type">RegistryParam</a><span class="tsd-signature-symbol">[]</span></div>
+					<div class="tsd-signature tsd-kind-icon">registry<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegistryParam</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/c2e0681/src/lib/config/interface.ts#L6">lib/config/interface.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/config/interface.ts#L6">lib/config/interface.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -133,9 +144,9 @@
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> retry</h3>
 					<div class="tsd-signature tsd-kind-icon">retry<span class="tsd-signature-symbol">:</span> <a href="retryoptions.html" class="tsd-signature-type">RetryOptions</a></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="taskmanageroptions.html">TaskManagerOptions</a>.<a href="taskmanageroptions.html#retry">retry</a></p>
+						<p>Inherited from TaskManagerOptions.retry</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/c2e0681/src/lib/task-man/interface.ts#L8">lib/task-man/interface.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/task-man/interface.ts#L9">lib/task-man/interface.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -151,6 +162,45 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="../enums/loadereventname.html" class="tsd-kind-icon">Loader<wbr>Event<wbr>Name</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/regitemeventname.html" class="tsd-kind-icon">Reg<wbr>Item<wbr>Event<wbr>Name</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/customeventemitter.html" class="tsd-kind-icon">Custom<wbr>Event<wbr>Emitter</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/ibsheetloaderstatic.html" class="tsd-kind-icon">IBSheet<wbr>Loader<wbr>Static</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/loaderregistry.html" class="tsd-kind-icon">Loader<wbr>Registry</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/registryitem.html" class="tsd-kind-icon">Registry<wbr>Item</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/registryitemurl.html" class="tsd-kind-icon">Registry<wbr>ItemURL</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="domappendoptions.html" class="tsd-kind-icon">Dom<wbr>Append<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="ibsheetcolsoptions.html" class="tsd-kind-icon">IBSheet<wbr>Cols<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="ibsheetcreateoptions.html" class="tsd-kind-icon">IBSheet<wbr>Create<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="ibsheetinstance.html" class="tsd-kind-icon">IBSheet<wbr>Instance</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="ibsheetoptions.html" class="tsd-kind-icon">IBSheet<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="loadtaskoptions.html" class="tsd-kind-icon">Load<wbr>Task<wbr>Options</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
@@ -158,6 +208,9 @@
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
 								<a href="loaderconfigoptions.html#debug" class="tsd-kind-icon">debug</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="loaderconfigoptions.html#globals" class="tsd-kind-icon">globals</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="loaderconfigoptions.html#ready" class="tsd-kind-icon">ready</a>
@@ -172,6 +225,51 @@
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface">
+						<a href="loaderevent.html" class="tsd-kind-icon">Loader<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="regitemurldata.html" class="tsd-kind-icon">Reg<wbr>Item<wbr>Url<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="registryitemdata.html" class="tsd-kind-icon">Registry<wbr>Item<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="retryoptions.html" class="tsd-kind-icon">Retry<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="../globals.html#ibsheetloader" class="tsd-kind-icon">IBSheet<wbr>Loader</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#destroyibsheetstatic" class="tsd-kind-icon">destroyIBSheet<wbr>Static</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#existselementbyid" class="tsd-kind-icon">exists<wbr>Element<wbr>ById</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#getibsheetstatic" class="tsd-kind-icon">getIBSheet<wbr>Static</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#getloaditems" class="tsd-kind-icon">get<wbr>Load<wbr>Items</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#getpreloaditems" class="tsd-kind-icon">get<wbr>Preload<wbr>Items</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#isibsheet" class="tsd-kind-icon">isIBSheet</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="../globals.html#parseloaditemdata" class="tsd-kind-icon">parse<wbr>Load<wbr>Item<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#parseloaditems" class="tsd-kind-icon">parse<wbr>Load<wbr>Items</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#setibsheetlicense" class="tsd-kind-icon">setIBSheet<wbr>License</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#validsheetregistdata" class="tsd-kind-icon">valid<wbr>Sheet<wbr>Regist<wbr>Data</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
