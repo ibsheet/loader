@@ -3,6 +3,7 @@ import { appendJs, appendCss } from '../../shared/dom-utils'
 import { RegistryItem } from './item'
 import { RegistryItemURL } from './url'
 
+/** @ignore */
 export function asyncImportItemUrls(options?: any): Promise<RegistryItemURL[]> {
   const self: RegistryItem = this
   const urls = !this.changed ? this.urls : this.updateUrls

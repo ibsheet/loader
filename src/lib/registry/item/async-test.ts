@@ -5,6 +5,7 @@ import {
 } from '../../config'
 import { RegistryItem } from './item'
 
+/** @ignore */
 export function asyncItemTest(options: any): Promise<RegistryItem> {
   const self: RegistryItem = this
   const debug = get(options, 'debug', false)

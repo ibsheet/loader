@@ -5,7 +5,7 @@ import { IBSheetCreateOptions, IBSheetInstance } from './interface'
 import { getIBSheetStatic } from './utils'
 
 /**
- * @hidden
+ * @ignore
  */
 export class IBSheetGlobalStatic {
   private _name: string

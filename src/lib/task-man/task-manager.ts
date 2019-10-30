@@ -9,6 +9,7 @@ import { IBSheetLoaderStatic } from '../main'
 import { LoaderTaskType, TaskManagerOptions } from './interface'
 import { getTaskEventsByType, isResolveTaskEvent } from './utils'
 
+/** @ignore */
 export class LoaderTaskManager extends CustomEventEmitter {
   private _type: LoaderTaskType
   private _stack: RegistryItem[]
@@ -141,7 +142,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
         this._resolveJobs()
       })
       .catch((err: any) => {
-        this.emit(LoaderEventName.LOAD_FAILED, err)
+        this.emit(LoaderEventName.LOAD_FAILED, { target: this, error: err })
         this._working = false
         throw new Error(err)
       })

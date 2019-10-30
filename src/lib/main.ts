@@ -39,16 +39,31 @@ import { RegisteredItem, LoaderStatus, LoaderEventName } from './interface'
  * IBSheetLoaderStatic Main Class
  */
 export class IBSheetLoaderStatic extends CustomEventEmitter {
+  /** @ignore */
   private _status: LoaderStatus = LoaderStatus.PENDING
+  /** @ignore */
   private _ready: boolean = false
+  /** @ignore */
   private _loadTaskMan: LoaderTaskManager
+  /** @ignore */
   private _unloadTaskMan: LoaderTaskManager
+  /** @ignore */
   private _options: LoaderConfigOptions
+  /** @ignore */
   private _ibsheet: IBSheetGlobalStatic
 
+  /** @ignore */
   intervalMan: IntervalManager
+
+  /**
+   * 라이브러리 저장소
+   * @see https://ibsheet.github.io/loader-manual/docs/basic/registry
+   */
   registry: LoaderRegistry
 
+  /**
+   * 스크립트를 로드하면 singleton객체로 초기화되므로 단 한번만 호출됩니다.
+   */
   constructor() {
     super()
     this._ibsheet = new IBSheetGlobalStatic()
@@ -61,31 +76,40 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     })
     return this
   }
+
+  /** @ignore */
   get debug(): boolean {
     return this.getOption('debug', false)
   }
+
+  /**
+   * 버전정보를 반환
+   */
   get version(): string {
     return APP_VERSION
   }
-  /**
-   * @desc
-   * DOMContentLoaded 상태를 반환
-   */
+
+  /** @ignore */
   get ready(): boolean {
     return this._ready
   }
+  /** @ignore */
   get status(): LoaderStatus {
     return this._status
   }
+  /**
+   * 현재 설정상태를 반환
+   */
   get options(): LoaderConfigOptions {
     return clone(this._options)
   }
+  /** @ignore */
   get loadedDefaultLib(): boolean {
     const item = this._getDefaultRegItem(false)
     if (isNil(item)) return false
     return item.loaded
   }
-
+  /** @ignore */
   private _getDefaultRegItem(throwError: boolean = true): RegistryItem {
     const item = this.registry.findOne(IBSHEET)
     if (throwError && isNil(item)) {
@@ -93,13 +117,16 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     }
     return item as RegistryItem
   }
-
+  /** @ignore */
   private _initTasksManagers(): void {
     const createTaskMan = bind(createTaskManager, this)
     this._loadTaskMan = createTaskMan(LoaderTaskType.LOAD, this)
     this._unloadTaskMan = createTaskMan(LoaderTaskType.UNLOAD, this)
   }
-
+  /**
+   * 로더의 기본속성을 변경할 수 있습니다.
+   * @see https://ibsheet.github.io/loader-manual/docs/basic/configuration
+   */
   config(options?: LoaderConfigOptions): this {
     let loaderOpts
     if (!isNil(options)) {
@@ -119,18 +146,26 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     if (this.debug) {
       this.intervalMan = new IntervalManager(window, loaderOpts)
     }
-
     return this
   }
 
+  /** @ignore */
   getOption(sPath: string, def?: any): any {
     return get(this.options, sPath, def)
   }
 
+  /**
+   * 해당 라이브러리의 정보를 반환
+   * @param alias 라이브러리 별칭
+   * @alias [[LoaderRegistry.info]]
+   */
   info(alias: string): string | undefined {
     return this.registry.info(alias)
   }
 
+  /**
+   * 등록된 라이브러리의 정보 중에서 `alias`와 `loaded`정보만을 매핑해서 번환
+   */
   list(): RegisteredItem[] {
     return this.registry.list().map(alias => {
       const item = this.registry.get(alias) as RegistryItem
@@ -141,6 +176,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     })
   }
 
+  /**
+   * 로드된 IBSheet 객체를 반환, 로드되지 않았다면 `undefined`
+   * @see https://docs.ibleaders.com/ibsheet/v8/manual/#docs/static/static
+   */
   getIBSheetStatic(): any {
     return this._ibsheet.global
   }
@@ -177,6 +216,12 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     return this
   }
 
+  /**
+   * 로드된 `ibsheet`라이브러리로부터 새로운 시트를 만듭니다.
+   * @param options IBSheet 생성 옵션
+   * @see https://ibsheet.github.io/loader-manual/docs/ibsheet/create-sheet
+   * @see https://docs.ibleaders.com/ibsheet/v8/manual/#docs/static/create
+   */
   createSheet(options: any): Promise<IBSheetInstance> {
     const sheetOpts: IBSheetCreateOptions = {}
     const ibsheet = this._ibsheet
@@ -241,6 +286,12 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     })
   }
 
+  /**
+   * 만들어진 `IBSheet`를 제거(dispose)합니다.
+   * @param sid 제거할 시트 아이디
+   * @see https://ibsheet.github.io/loader-manual/docs/ibsheet/remove-sheet
+   * @see https://docs.ibleaders.com/ibsheet/v8/manual/#docs/funcs/dispose
+   */
   removeSheet(sid: string): void {
     if (!this.loadedDefaultLib) return
     const ibsheetStatic = this.getIBSheetStatic()
@@ -297,6 +348,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     })
   }
 
+  /** @ignore */
   reload(arg?: string | string[]): this {
     const self = this
     if (isNil(arg)) {
@@ -332,6 +384,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     return this
   }
 
+  /**
+   * 요청한 목록의 라이브러리를 `DOM`에서 제거합니다.
+   * @param params 제거할 라이브러리의 `name` 또는 `alias` 목록
+   */
   unload(params?: string | string[]): this {
     const registry = this.registry
     const taskMan = this._unloadTaskMan
@@ -382,6 +438,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     return this
   }
 
+  /** @ignore */
   reset(): this {
     return this
   }

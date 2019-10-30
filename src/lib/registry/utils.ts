@@ -18,7 +18,7 @@ import { RegistryItem, RegistryItemData, RegItemUrlData } from './item'
 /**
  * 인자가 문자열일 경우, RegistryItemData 인터페이스로 캐스팅
  * @param param
- * @hidden
+ * @ignore
  */
 export function castRegistryItemData(
   param: RegistryParam | RegItemUrlData
@@ -29,9 +29,7 @@ export function castRegistryItemData(
   return param
 }
 
-/**
- * @hidden
- */
+/** @ignore */
 export const getFilenameFromURL = (
   url: string | undefined
 ): string | undefined => {
@@ -44,12 +42,14 @@ export const getFilenameFromURL = (
   return last(pathname.split('/'))
 }
 
+/** @ignore */
 export function castRegistryAlias(data: RegistryItemData): string | undefined {
   const idf = getRegistryIdentifier(data)
   if (isNil(idf)) return
   return idf.alias
 }
 
+/** @ignore */
 export function getRegistryIdentifier(
   data: RegistryItemData
 ): RegistryIdentifier | undefined {
@@ -77,7 +77,7 @@ export function getRegistryIdentifier(
 /**
  * 별칭이 중복될 경우 임의로 버전을 업데이트
  * @param item
- * @hidden
+ * @ignore
  */
 export function generateVersion(item: RegistryItem): string {
   const { version: ver } = item
@@ -99,6 +99,7 @@ export function generateVersion(item: RegistryItem): string {
 
 /**
  * if not exists push url
+ * @ignore
  * @param urls
  * @param url
  */
@@ -115,11 +116,7 @@ export function pushIfNotExistsUrl(
   }
 }
 
-/**
- * if not exists push url
- * @param urls
- * @param url
- */
+/** @ignore */
 export function removeByCallback(
   urls: any[],
   callback: (url: string) => boolean

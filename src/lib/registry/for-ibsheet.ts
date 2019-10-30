@@ -20,6 +20,7 @@ import {
 } from './utils'
 
 /**
+ * @ignore
  * @desc RegistryItem 스코프에서 IBSheet 기본 파일 추가
  */
 export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
@@ -76,7 +77,7 @@ export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
         //   plugin = `ibsheet-${plugin}.js`
         //   break
         default:
-          plugin = `ibsheet-${plugin}.js`
+          plugin = `plugins/ibsheet-${plugin}.js`
       }
       pushIfNotExistsUrl(urls, plugin)
     })
@@ -97,6 +98,10 @@ export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
   return urls
 }
 
+/**
+ * @ignore
+ * @todo 리팩토링 with [[defaultsIBSheetUrls]]
+ */
 export function updateIBSheetUrls(
   originUrls: RegistryItemURL[],
   data: RegistryItemData
@@ -129,7 +134,7 @@ export function updateIBSheetUrls(
           value = `css/${value}/main.css`
         }
         const exists = removeByCallback(origins, str => {
-          return str.indexOf(value) >= 0
+          return /.*css\/.*\/main\.css/.test(str)
         })
         if (exists) return
         urls.push(value)
@@ -174,7 +179,7 @@ export function updateIBSheetUrls(
         //   plugin = `ibsheet-${plugin}.js`
         //   break
         default:
-          plugin = `ibsheet-${plugin}.js`
+          plugin = `plugins/ibsheet-${plugin}.js`
       }
       const exists = removeByCallback(origins, val => {
         return val.indexOf(plugin) >= 0
@@ -189,6 +194,7 @@ export function updateIBSheetUrls(
 }
 
 /**
+ * @ignore
  * @desc LoaderRegistry 스코프에서 IBSheet 기본 이벤트 추가
  */
 export function defaultsIBSheetEvents(item: RegistryItem): void {

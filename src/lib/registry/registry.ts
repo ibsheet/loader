@@ -15,14 +15,18 @@ import { generateVersion } from './utils'
 import { defaultsIBSheetEvents } from './for-ibsheet'
 
 class LoaderRegistry extends CustomEventEmitter {
+  /** @ignore */
   private _list: RegistryItem[]
+  /** @ignore */
   private _uber: IBSheetLoaderStatic
+  /** @ignore */
   constructor(uber: IBSheetLoaderStatic) {
     super()
     this._list = []
     this._uber = uber
     return this
   }
+  /** @ignore */
   get debug(): boolean {
     return this._uber.debug
   }

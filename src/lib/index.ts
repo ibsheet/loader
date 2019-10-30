@@ -10,7 +10,7 @@ export { IBSheetLoaderStatic } from './main'
 
 /**
  * test prototype
- * @hidden
+ * @ignore
  */
 // const fn = IBSheetLoaderStatic.prototype
 // fn.double = double

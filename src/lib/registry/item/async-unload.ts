@@ -11,6 +11,7 @@ import { IBSHEET } from '../../constant'
 // import { RegistryItem } from './item'
 import { RegistryItemURL } from './url'
 
+/** @ignore */
 export function asyncRemoveDepndentUrls(
   options?: any
 ): Promise<any>[] | undefined {
@@ -54,6 +55,7 @@ export function asyncRemoveDepndentUrls(
   })
 }
 
+/** @ignore */
 export function asyncRemoveIBSheetElements(
   options?: any,
   onlySheet: boolean = false
@@ -96,6 +98,7 @@ export function asyncRemoveIBSheetElements(
   })
 }
 
+/** @ignore */
 export function asyncRemoveItemUrls(options?: any): Promise<any[]> {
   const urls = this.urls
   const isDebugMode = get(options, 'debug', false)

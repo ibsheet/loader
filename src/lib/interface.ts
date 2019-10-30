@@ -1,3 +1,6 @@
+/**
+ * 로더 이벤트 목록
+ */
 export enum LoaderEventName {
   LOAD = 'load',
   LOAD_REJECT = 'load-reject',
@@ -17,6 +20,7 @@ export enum LoaderEventName {
   REMOVED_SHEET = 'removed-sheet'
 }
 
+/** @ignore */
 export interface RegisteredItem {
   alias: string
   loaded: boolean
@@ -28,8 +32,10 @@ export interface LoaderEvent {
   target: any
   data?: any
   message?: string
+  error?: any
 }
 
+/** @ignore */
 export enum LoaderStatus {
   IDLE,
   PENDING,
