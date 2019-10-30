@@ -77,7 +77,7 @@ export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
         //   plugin = `ibsheet-${plugin}.js`
         //   break
         default:
-          plugin = `ibsheet-${plugin}.js`
+          plugin = `plugins/ibsheet-${plugin}.js`
       }
       pushIfNotExistsUrl(urls, plugin)
     })
@@ -179,7 +179,7 @@ export function updateIBSheetUrls(
         //   plugin = `ibsheet-${plugin}.js`
         //   break
         default:
-          plugin = `ibsheet-${plugin}.js`
+          plugin = `plugins/ibsheet-${plugin}.js`
       }
       const exists = removeByCallback(origins, val => {
         return val.indexOf(plugin) >= 0
