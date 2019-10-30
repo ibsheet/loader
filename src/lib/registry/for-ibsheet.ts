@@ -134,7 +134,7 @@ export function updateIBSheetUrls(
           value = `css/${value}/main.css`
         }
         const exists = removeByCallback(origins, str => {
-          return str.indexOf(value) >= 0
+          return /.*css\/.*\/main\.css/.test(str)
         })
         if (exists) return
         urls.push(value)
