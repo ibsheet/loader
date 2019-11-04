@@ -43,7 +43,9 @@
     "start": "run-s serve:dev",
     "prepare-release": "run-s reset test cov:check",
     "prerelease": "run-s test:*",
-    "release": "standard-version"
+    "release": "standard-version",
+    "release:patch": "run-s release --release-as patch",
+    "release:minor": "run-s release --release-as minor"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
