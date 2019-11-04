@@ -8,7 +8,9 @@ import {
 } from '../constant'
 import { RegistryParam } from '../registry'
 
-shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_')
+shortid.characters(
+  '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_'
+)
 
 /** @ignore */
 export function existsIBSheetStatic(name: string = IBSHEET_GLOBAL) {
