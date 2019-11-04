@@ -8,5 +8,3 @@ export function getLoaderInstance() {
   ibsheetLoader = get(window, 'IBSheetLoader')
   return ibsheetLoader
 }
-
-export default getLoaderInstance

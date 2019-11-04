@@ -41,16 +41,19 @@ Dynamically load support module for [IBSheet](https://www.ibsheet.com)
 ## installing
 
 Using npm:
+
 ```sh
 $ npm install @ibsheet/loader
 ```
 
 Using yarn:
+
 ```sh
 $ yarn add @ibsheet/loader
 ```
 
 Using browser:
+
 ```html
 <script src="https://unpkg.com/@ibsheet/loader/dist/umd/ibsheet-loader.min.js"></script>
 ```

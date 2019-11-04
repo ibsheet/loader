@@ -1,6 +1,7 @@
 import find from 'lodash/find'
 import isNil from 'lodash/isNil'
 import get from 'lodash/get'
+import set from 'lodash/set'
 import defaultsDeep from 'lodash/defaultsDeep'
 import { IBSheetLoaderStatic } from '../lib'
 
@@ -66,12 +67,22 @@ function updateTestBoxControls(alias: string, bool: boolean) {
 
 function initIBSheetContainers(loader: IBSheetLoaderStatic) {
   const $sheetTestBody = $('#ibsheet.test-box>.test-body')
+  const aSheetContainers: any[] = []
 
   const ctrlbox = $('<div/>', {
     class: 'ibsheet-ctrlbox'
   }).append(
-    IBSheetSampleData.map(data => {
-      const checkboxId = `${data.id}_ctrl`
+    IBSheetSampleData.map((data, ndx) => {
+      const sheetId = `sheet${ndx + 1}`
+      const checkboxId = `${sheetId}_ctrl`
+      const $wrapper = $('<div/>', {
+        class: 'ibsheet-container',
+        css: defaultsDeep(get(data, 'css', {}), {
+          width: '100%',
+          height: '15rem'
+        })
+      })
+      aSheetContainers.push($wrapper)
       return $('<div/>', {
         class: 'form-check form-check-inline'
       }).append(
@@ -79,14 +90,14 @@ function initIBSheetContainers(loader: IBSheetLoaderStatic) {
           id: checkboxId,
           type: 'checkbox',
           class: 'form-check-input',
-          'data-alias': data.id
+          'data-alias': sheetId
         }).on('change', function(_evt) {
           const el = this as HTMLInputElement
           const bool = el.checked
-          const sid = el.getAttribute('data-alias')
-          const $wrapper = $(`#${sid}_wrapper`)
           if (bool) {
             $wrapper.addClass('active')
+            set(data, 'element', $wrapper[0])
+            console.log(data)
             loader
               .createSheet(data)
               .then((sheet: any) => {
@@ -100,7 +111,7 @@ function initIBSheetContainers(loader: IBSheetLoaderStatic) {
                 throw new Error(err)
               })
           } else {
-            loader.removeSheet(data.id)
+            loader.removeSheet(sheetId)
             $wrapper.removeClass('active loaded')
           }
         }),
@@ -108,26 +119,13 @@ function initIBSheetContainers(loader: IBSheetLoaderStatic) {
           type: 'checkbox',
           class: 'form-check-label',
           for: checkboxId,
-          text: data.id
+          text: sheetId
         })
       )
     })
   )
 
-  $sheetTestBody.append(
-    ctrlbox,
-    IBSheetSampleData.map(data => {
-      const css = defaultsDeep(get(data, 'css', {}), {
-        width: '100%',
-        height: '15rem'
-      })
-      return $('<div/>', {
-        id: data.el,
-        class: 'ibsheet-container',
-        css
-      })
-    })
-  )
+  $sheetTestBody.append(ctrlbox, aSheetContainers)
 }
 
 export function initTestBoxControls(loader: IBSheetLoaderStatic) {

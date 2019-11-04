@@ -1,10 +1,8 @@
-const id = 'sheet3'
 const css = {
   height: '45rem'
 }
 
 export default {
-  id,
   css,
   options: {
     Def: {

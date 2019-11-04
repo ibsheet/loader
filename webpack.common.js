@@ -89,7 +89,7 @@ function getTsLoaderOptions (buildTarget) {
 const rules = [
   {
     enforce: 'pre',
-    test: /constant\/constant\.ts/,
+    test: /constant\.tsx?$/,
     loader: 'string-replace-loader',
     options: {
       multiple: [
@@ -100,16 +100,11 @@ const rules = [
         {
           search: '##APP_GLOBAL##',
           replace: GLOBAL_VAR_NAME
-        }
-      ]
-    }
-  },
-  {
-    enforce: 'pre',
-    test: /examples\/constant\.ts/,
-    loader: 'string-replace-loader',
-    options: {
-      multiple: [
+          // replace: (match, p1, offset, string) => {
+          //   console.log('-- STRING_REPLACE_LOADER --')
+          //   return 'STRING_REPLACE_LOADER'
+          // }
+        },
         {
           search: '<IBSHEET_BASE_URL>',
           replace: process.env.IBSHEET_BASE_URL || ''
