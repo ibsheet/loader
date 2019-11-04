@@ -353,9 +353,12 @@ class RegistryItem extends CustomEventEmitter {
         this.emit(LoaderEventName.UNLOADED, eventData)
       })
       .catch((err: any) => {
-        this.emit(LoaderEventName.UNLOAD_FAILED, assignIn(eventData, {
-          error: err
-        }))
+        this.emit(
+          LoaderEventName.UNLOAD_FAILED,
+          assignIn(eventData, {
+            error: err
+          })
+        )
       })
     return this
   }
