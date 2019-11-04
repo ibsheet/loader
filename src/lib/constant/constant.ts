@@ -14,3 +14,15 @@ export const IBSHEET_GLOBAL = 'IBSheet'
  * @ignore
  */
 export const IBSHEET = 'ibsheet'
+
+/**
+ * Auto Generate Sheet ID Prefix
+ * @ignore
+ */
+export const IBSHEET_PREFIX = 'sheet_'
+
+/**
+ * Auto Generate Sheet Element ID Prefix
+ * @ignore
+ */
+export const IBSHEET_EL_PREFIX = 'sheetouter_'

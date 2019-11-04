@@ -26,7 +26,9 @@ import { getLoadItems } from './modules'
 import {
   IBSheetInstance,
   IBSheetCreateOptions,
-  IBSheetGlobalStatic
+  IBSheetGlobalStatic,
+  generateSheetID,
+  generateElementID
 } from './ibsheet'
 
 // import { double, power } from './number'
@@ -240,6 +242,25 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
           }
         })
     })
+
+    // if not defined "id"
+    if (!has(sheetOpts, 'id')) {
+      sheetOpts.id = generateSheetID()
+    }
+
+    // if not defined "el"
+    if (!has(sheetOpts, 'el') && has(options, 'element')) {
+      sheetOpts.el = ((el: HTMLElement) => {
+        let sid = el.getAttribute('id')
+        if (isNil(sid)) {
+          sid = generateElementID()
+          console.log('elementId:', sid)
+          el.setAttribute('id', sid)
+        }
+        return sid
+      })(get(options, 'element'))
+    }
+
     const createFn = bind(ibsheet.create, ibsheet)
     const createEvtData = { target: ibsheet.global, data: sheetOpts }
     return new Promise(async (resolve, reject) => {
