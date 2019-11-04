@@ -4,7 +4,7 @@
     "filename": "ibsheet-loader",
     "global": "IBSheetLoader"
   },
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Dynamically load support module for IBSheet",
   "main": "index.js",
   "scripts": {
@@ -44,8 +44,8 @@
     "prepare-release": "run-s reset test cov:check",
     "prerelease": "run-s test:*",
     "release": "standard-version",
-    "release:patch": "run-s release --release-as patch",
-    "release:minor": "run-s release --release-as minor"
+    "release:patch": "yarn release --release-as patch",
+    "release:minor": "yarn release --release-as minor"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
