@@ -1,4 +1,9 @@
+import shortid from 'shortid'
 import { isNil, get } from './lodash'
+
+shortid.characters(
+  '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_'
+)
 
 export interface DomAppendOptions {
   id: string
@@ -41,8 +46,24 @@ export function createScriptElement(data: DomAppendOptions): HTMLScriptElement {
   return scriptEl
 }
 
-export function existsElementById(id: string) {
+/** @ignore */
+export function existsElementById(id: string): boolean {
   return !isNil(document.getElementById(id))
+}
+
+/** @ignore */
+export function validUniqueElementId(value: string | null | undefined): boolean {
+  if (isNil(value)) return false
+  return !existsElementById(value)
+}
+
+/** @ignore */
+export function genUniqueElementId(prefix: string): string {
+  let sid: string
+  do {
+    sid = prefix + shortid.generate()
+  } while (!validUniqueElementId(sid))
+  return sid
 }
 
 /** @ignore */
