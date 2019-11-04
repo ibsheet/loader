@@ -30,7 +30,8 @@ TARGET_FILE=$(ls -t ibsheet-loader*.tgz|head -1)
 
 echo "-> [EXTRACT PACKAGE] $TARGET_FILE"
 mv ./$TARGET_FILE $TEMP_BASE_DIR/
-pv $TEMP_BASE_DIR/$TARGET_FILE|tar xzf - -C $TEMP_BASE_DIR
+# pv $TEMP_BASE_DIR/$TARGET_FILE|tar xzf - -C $TEMP_BASE_DIR
+tar xzvf $TEMP_BASE_DIR/$TARGET_FILE -C $TEMP_BASE_DIR
 
 ls -lh $TEMP_PKG_DIR
 echo "-> [MOVE LINK PACKAGE] $LOCAL_PKG_DIR"
