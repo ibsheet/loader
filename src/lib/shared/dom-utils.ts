@@ -52,7 +52,9 @@ export function existsElementById(id: string): boolean {
 }
 
 /** @ignore */
-export function validUniqueElementId(value: string | null | undefined): boolean {
+export function validUniqueElementId(
+  value: string | null | undefined
+): boolean {
   if (isNil(value)) return false
   return !existsElementById(value)
 }
