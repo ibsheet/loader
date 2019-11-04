@@ -1,7 +1,4 @@
-const id = 'sheet1'
-
 export default {
-  id,
   options: {
     Def: {
       RelWidth: 1

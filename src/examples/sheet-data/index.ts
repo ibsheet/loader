@@ -1,4 +1,5 @@
 import set from 'lodash/set'
+import clone from 'lodash/clone'
 import { SheetSampleData } from './interface'
 import sheet1 from './sheet-1'
 import sheet2 from './sheet-2'
@@ -8,12 +9,14 @@ export const IBSheetSampleData: SheetSampleData[] = [
   sheet1,
   sheet2,
   sheet3
-].map(data => {
-  const sid = `${data.id}_wrapper`
-  set(data, 'el', sid)
+]
+
+export function getSheetData(ndx: number, el: HTMLElement): SheetSampleData {
+  const data = clone(IBSheetSampleData[ndx])
+  set(data, 'element', el)
   set(data, 'options.Events.onRenderFirstFinish', function(_evt: any) {
-    const $el = $(`#${sid}`)
+    const $el = $(el)
     $el.addClass('loaded')
   })
   return data
-})
+}

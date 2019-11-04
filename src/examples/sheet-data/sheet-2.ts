@@ -1,7 +1,4 @@
-const id = 'sheet2'
-
 export default {
-  id,
   data: [
     {
       sa_nm: '홍길동',
