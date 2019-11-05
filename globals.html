@@ -110,7 +110,8 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="globals.html#destroyibsheetstatic" class="tsd-kind-icon">destroyIBSheet<wbr>Static</a></li>
-								<li class="tsd-kind-function"><a href="globals.html#existselementbyid" class="tsd-kind-icon">exists<wbr>Element<wbr>ById</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#generateelementid" class="tsd-kind-icon">generate<wbr>ElementID</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#generatesheetid" class="tsd-kind-icon">generate<wbr>SheetID</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#getibsheetstatic" class="tsd-kind-icon">getIBSheet<wbr>Static</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#getloaditems" class="tsd-kind-icon">get<wbr>Load<wbr>Items</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#getpreloaditems" class="tsd-kind-icon">get<wbr>Preload<wbr>Items</a></li>
@@ -132,7 +133,7 @@
 					<div class="tsd-signature tsd-kind-icon">IBSheet<wbr>Loader<span class="tsd-signature-symbol">:</span> <a href="classes/ibsheetloaderstatic.html" class="tsd-signature-type">IBSheetLoaderStatic</a><span class="tsd-signature-symbol"> =&nbsp;new IBSheetLoaderStatic()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/main.ts#L8">main.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/be7b881/src/main.ts#L8">main.ts:8</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -154,7 +155,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/ibsheet/utils.ts#L18">lib/ibsheet/utils.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/be7b881/src/lib/ibsheet/utils.ts#L24">lib/ibsheet/utils.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -168,25 +169,36 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="existselementbyid" class="tsd-anchor"></a>
-					<h3>exists<wbr>Element<wbr>ById</h3>
+					<a name="generateelementid" class="tsd-anchor"></a>
+					<h3>generate<wbr>ElementID</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">exists<wbr>Element<wbr>ById<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">generate<wbr>ElementID<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/shared/dom-utils.ts#L44">lib/shared/dom-utils.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/be7b881/src/lib/ibsheet/utils.ts#L56">lib/ibsheet/utils.ts:56</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>id: <span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="generatesheetid" class="tsd-anchor"></a>
+					<h3>generate<wbr>SheetID</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">generate<wbr>SheetID<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/be7b881/src/lib/ibsheet/utils.ts#L52">lib/ibsheet/utils.ts:52</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -200,7 +212,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/ibsheet/utils.ts#L14">lib/ibsheet/utils.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/be7b881/src/lib/ibsheet/utils.ts#L20">lib/ibsheet/utils.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -223,7 +235,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/modules/load/get-load-items.ts#L6">lib/modules/load/get-load-items.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/be7b881/src/lib/modules/load/get-load-items.ts#L6">lib/modules/load/get-load-items.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -249,7 +261,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/modules/load/get-preload-items.ts#L8">lib/modules/load/get-preload-items.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/be7b881/src/lib/modules/load/get-preload-items.ts#L8">lib/modules/load/get-preload-items.ts:8</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -275,7 +287,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/ibsheet/utils.ts#L10">lib/ibsheet/utils.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/be7b881/src/lib/ibsheet/utils.ts#L16">lib/ibsheet/utils.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -298,7 +310,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/modules/load/parse-load-items.ts#L12">lib/modules/load/parse-load-items.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/be7b881/src/lib/modules/load/parse-load-items.ts#L12">lib/modules/load/parse-load-items.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -324,7 +336,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/modules/load/parse-load-items.ts#L51">lib/modules/load/parse-load-items.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/be7b881/src/lib/modules/load/parse-load-items.ts#L51">lib/modules/load/parse-load-items.ts:51</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -347,7 +359,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/ibsheet/utils.ts#L37">lib/ibsheet/utils.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/be7b881/src/lib/ibsheet/utils.ts#L43">lib/ibsheet/utils.ts:43</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -370,7 +382,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/8f522ae/src/lib/ibsheet/utils.ts#L28">lib/ibsheet/utils.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/be7b881/src/lib/ibsheet/utils.ts#L34">lib/ibsheet/utils.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -456,7 +468,10 @@
 						<a href="globals.html#destroyibsheetstatic" class="tsd-kind-icon">destroyIBSheet<wbr>Static</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="globals.html#existselementbyid" class="tsd-kind-icon">exists<wbr>Element<wbr>ById</a>
+						<a href="globals.html#generateelementid" class="tsd-kind-icon">generate<wbr>ElementID</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#generatesheetid" class="tsd-kind-icon">generate<wbr>SheetID</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#getibsheetstatic" class="tsd-kind-icon">getIBSheet<wbr>Static</a>
