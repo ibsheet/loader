@@ -1,5 +1,5 @@
-import shortid from 'shortid'
 import { isString, trim, get, set, isNil } from '../shared/lodash'
+import { genUniqueElementId } from '../shared/dom-utils'
 import {
   IBSHEET,
   IBSHEET_PREFIX,
@@ -7,10 +7,6 @@ import {
   IBSHEET_GLOBAL
 } from '../constant'
 import { RegistryParam } from '../registry'
-
-shortid.characters(
-  '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_'
-)
 
 /** @ignore */
 export function existsIBSheetStatic(name: string = IBSHEET_GLOBAL) {
@@ -54,9 +50,9 @@ export function setIBSheetLicense(value: string): void {
 }
 
 export function generateSheetID(): string {
-  return IBSHEET_PREFIX + shortid.generate()
+  return genUniqueElementId(IBSHEET_PREFIX)
 }
 
 export function generateElementID(): string {
-  return IBSHEET_EL_PREFIX + shortid.generate()
+  return genUniqueElementId(IBSHEET_EL_PREFIX)
 }
