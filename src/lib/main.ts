@@ -254,7 +254,9 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
         let sid = el.getAttribute('id')
         if (isNil(sid)) {
           sid = generateElementID()
-          console.log('elementId:', sid)
+          if (this.debug) {
+            console.log('generated element id:', sid)
+          }
           el.setAttribute('id', sid)
         }
         return sid
