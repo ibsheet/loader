@@ -63,7 +63,7 @@ export function validUniqueElementId(
 export function genUniqueElementId(prefix: string): string {
   let sid: string
   do {
-    sid = prefix + shortid.generate()
+    sid = (prefix + shortid.generate()).replace(/\$/g, '_')
   } while (!validUniqueElementId(sid))
   return sid
 }
