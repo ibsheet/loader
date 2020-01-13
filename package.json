@@ -118,7 +118,7 @@
     "tslint-loader": "^3.5.4",
     "typedoc": "^0.15.0",
     "typescript": "^3.6.2",
-    "webpack": "^4.40.2",
+    "webpack": "^4",
     "webpack-cli": "^3.3.8",
     "webpack-dev-server": "^3.8.0",
     "webpack-merge": "^4.2.2"
@@ -127,6 +127,9 @@
     "is-url": "^1.2.4",
     "shortid": "^2.2.15",
     "uuid": "^3.3.3"
+  },
+  "peerDependencies": {
+    "serialize-javascript": "^2.1.1"
   },
   "sideEffects": false,
   "prettier": {
