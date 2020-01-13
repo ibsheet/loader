@@ -22,15 +22,15 @@ Dynamically load support module for [IBSheet](https://www.ibsheet.com)
 * [x] [TypeScript 3.0](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-0.html)
 * [x] [TSLint](https://palantir.github.io/tslint/)
 * [x] [standard JS](https://standardjs.com/)
-* [x] [AVA](https://github.com/avajs/ava), [nyc](https://github.com/istanbuljs/nyc)
+* ~~[x] [AVA](https://github.com/avajs/ava), [nyc](https://github.com/istanbuljs/nyc)~~
 * [x] [Webpack 4](https://webpack.js.org/)
 * [x] [Standard Version](https://github.com/conventional-changelog/standard-version)
 
 ### continuous integration
 
-* [Codacy](https://www.codacy.com) - Automated code reviews & code analytics
+* ~~[Codacy](https://www.codacy.com) - Automated code reviews & code analytics~~
 * [CircleCI](https://circleci.com) - Continuous Integration and Delivery
-* [codecov](https://codecov.io) - leading, dedicated code coverage
+* ~~[codecov](https://codecov.io) - leading, dedicated code coverage~~
 * [snyk.io](https://snyk.io) - Continuously find and fix vulnerabilities for npm
 
 ## documents
@@ -60,37 +60,34 @@ Using browser:
 
 ## example
 
-### note: Browser usage
+### note: Browser usage (ES3)
 
 ```js
 var loader = window.IBSheetLoader
 loader.load({
   name: 'ibsheet',
   baseUrl: '<publicpath>/ibsheet'
-})
-loader.createSheet(options)
+}).createSheet(options)
 ```
 
-### note: CommonJS usage
+### note: CommonJS usage (ES5)
 
 ```js
 const loader = require('@ibsheet/loader')
 loader.load({
   name: 'ibsheet',
   baseUrl: '<publicpath>/ibsheet'
-})
-loader.createSheet(options)
+}).createSheet(options)
 ```
 
-### note: ESModule usage
+### note: ESModule usage (ES6)
 
 ```js
 import loader from '@ibsheet/loader'
 loader.load({
   name: 'ibsheet',
   baseUrl: '<publicpath>/ibsheet'
-})
-loader.createSheet(options)
+}).createSheet(options)
 ```
 
 ### note: TypeScript usage
@@ -100,8 +97,7 @@ import { IBSheetLoader as loader } from '@ibsheet/loader'
 loader.load({
   name: 'ibsheet',
   baseUrl: '<publicpath>/ibsheet'
-})
-loader.createSheet(options)
+}).createSheet(options)
 ```
 
 ## development
