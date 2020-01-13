@@ -88,18 +88,19 @@
 					<li><input checked="" disabled="" type="checkbox"> <a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-0.html">TypeScript 3.0</a></li>
 					<li><input checked="" disabled="" type="checkbox"> <a href="https://palantir.github.io/tslint/">TSLint</a></li>
 					<li><input checked="" disabled="" type="checkbox"> <a href="https://standardjs.com/">standard JS</a></li>
-					<li><input checked="" disabled="" type="checkbox"> <a href="https://github.com/avajs/ava">AVA</a>, <a href="https://github.com/istanbuljs/nyc">nyc</a></li>
 					<li><input checked="" disabled="" type="checkbox"> <a href="https://webpack.js.org/">Webpack 4</a></li>
 					<li><input checked="" disabled="" type="checkbox"> <a href="https://github.com/conventional-changelog/standard-version">Standard Version</a></li>
+					<li><input checked="" disabled="" type="checkbox"> <del><a href="https://github.com/avajs/ava">AVA</a></del></li>
+					<li><input checked="" disabled="" type="checkbox"> <del><a href="https://github.com/istanbuljs/nyc">nyc</a></del></li>
 				</ul>
 				<a href="#continuous-integration" id="continuous-integration" style="color: inherit; text-decoration: none;">
 					<h3>continuous integration</h3>
 				</a>
 				<ul>
-					<li><a href="https://www.codacy.com">Codacy</a> - Automated code reviews &amp; code analytics</li>
 					<li><a href="https://circleci.com">CircleCI</a> - Continuous Integration and Delivery</li>
-					<li><a href="https://codecov.io">codecov</a> - leading, dedicated code coverage</li>
 					<li><a href="https://snyk.io">snyk.io</a> - Continuously find and fix vulnerabilities for npm</li>
+					<li><del><a href="https://www.codacy.com">Codacy</a> - Automated code reviews &amp; code analytics</del></li>
+					<li><del><a href="https://codecov.io">codecov</a> - leading, dedicated code coverage</del></li>
 				</ul>
 				<a href="#documents" id="documents" style="color: inherit; text-decoration: none;">
 					<h2>documents</h2>
@@ -120,33 +121,30 @@
 				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
 					<h2>example</h2>
 				</a>
-				<a href="#note-browser-usage" id="note-browser-usage" style="color: inherit; text-decoration: none;">
-					<h3>note: Browser usage</h3>
+				<a href="#note-browser-usage-es3" id="note-browser-usage-es3" style="color: inherit; text-decoration: none;">
+					<h3>note: Browser usage (ES3)</h3>
 				</a>
 				<pre><code class="language-js"><span class="hljs-keyword">var</span> loader = <span class="hljs-built_in">window</span>.IBSheetLoader
 loader.load({
   <span class="hljs-attr">name</span>: <span class="hljs-string">'ibsheet'</span>,
   <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>
-})
-loader.createSheet(options)</code></pre>
-				<a href="#note-commonjs-usage" id="note-commonjs-usage" style="color: inherit; text-decoration: none;">
-					<h3>note: CommonJS usage</h3>
+}).createSheet(options)</code></pre>
+				<a href="#note-commonjs-usage-es5" id="note-commonjs-usage-es5" style="color: inherit; text-decoration: none;">
+					<h3>note: CommonJS usage (ES5)</h3>
 				</a>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> loader = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@ibsheet/loader'</span>)
 loader.load({
   <span class="hljs-attr">name</span>: <span class="hljs-string">'ibsheet'</span>,
   <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>
-})
-loader.createSheet(options)</code></pre>
-				<a href="#note-esmodule-usage" id="note-esmodule-usage" style="color: inherit; text-decoration: none;">
-					<h3>note: ESModule usage</h3>
+}).createSheet(options)</code></pre>
+				<a href="#note-esmodule-usage-es6" id="note-esmodule-usage-es6" style="color: inherit; text-decoration: none;">
+					<h3>note: ESModule usage (ES6)</h3>
 				</a>
 				<pre><code class="language-js"><span class="hljs-keyword">import</span> loader <span class="hljs-keyword">from</span> <span class="hljs-string">'@ibsheet/loader'</span>
 loader.load({
   <span class="hljs-attr">name</span>: <span class="hljs-string">'ibsheet'</span>,
   <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>
-})
-loader.createSheet(options)</code></pre>
+}).createSheet(options)</code></pre>
 				<a href="#note-typescript-usage" id="note-typescript-usage" style="color: inherit; text-decoration: none;">
 					<h3>note: TypeScript usage</h3>
 				</a>
@@ -154,8 +152,7 @@ loader.createSheet(options)</code></pre>
 loader.load({
   name: <span class="hljs-string">'ibsheet'</span>,
   baseUrl: <span class="hljs-string">'&lt;publicpath&gt;/ibsheet'</span>
-})
-loader.createSheet(options)</code></pre>
+}).createSheet(options)</code></pre>
 				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
 					<h2>development</h2>
 				</a>
