@@ -61,7 +61,7 @@ Using browser:
 
 ## example
 
-### note: Browser usage (ES3)
+### note: Browser usage (ES3, ES5)
 
 ```js
 var loader = window.IBSheetLoader
@@ -71,7 +71,7 @@ loader.load({
 }).createSheet(options)
 ```
 
-### note: Node.js usage (CommonJS, ES5)
+### note: Node.js usage (CommonJS)
 
 ```js
 var loader = require('@ibsheet/loader')
@@ -81,20 +81,11 @@ loader.load({
 }).createSheet(options)
 ```
 
-### note: ESModule usage (ES6)
+### note: ESModule usage (ES6, TypeScript)
 
 ```js
 import loader from '@ibsheet/loader'
-loader.load({
-  name: 'ibsheet',
-  baseUrl: '<publicpath>/ibsheet'
-}).createSheet(options)
-```
-
-### note: TypeScript usage
-
-```ts
-import { IBSheetLoader as loader } from '@ibsheet/loader'
+// or import { IBSheetLoader as loader } from '@ibsheet/loader'
 loader.load({
   name: 'ibsheet',
   baseUrl: '<publicpath>/ibsheet'
