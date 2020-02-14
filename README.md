@@ -74,7 +74,7 @@ loader.load({
 ### note: CommonJS usage (ES5)
 
 ```js
-const loader = require('@ibsheet/loader')
+var loader = require('@ibsheet/loader')
 loader.load({
   name: 'ibsheet',
   baseUrl: '<publicpath>/ibsheet'
