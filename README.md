@@ -3,7 +3,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/271223b5e7944ad4bc78cbed119924b5)](https://www.codacy.com/manual/ibsheet/loader?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ibsheet/loader&amp;utm_campaign=Badge_Grade)
 [![CircleCI](https://circleci.com/gh/ibsheet/loader.svg?style=svg)](https://circleci.com/gh/ibsheet/loader)
 [![npm version](https://badge.fury.io/js/%40ibsheet%2Floader.svg)](https://www.npmjs.com/package/@ibsheet/loader)
-[![install size](https://packagephobia.now.sh/badge?p=@ibsheet/loader)](https://packagephobia.now.sh/result?p=@ibsheet/loader)
 [![dependencies Status](https://david-dm.org/ibsheet/loader/status.svg)](https://david-dm.org/ibsheet/loader)
 [![devDependencies Status](https://david-dm.org/ibsheet/loader/dev-status.svg)](https://david-dm.org/ibsheet/loader?type=dev)
 [![vulnerabilities](https://snyk.io/test/github/ibsheet/loader/badge.svg)](https://snyk.io/test/github/ibsheet/loader)
@@ -11,7 +10,6 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Github Issues](https://img.shields.io/github/issues/ibsheet/loader)](https://github.com/ibsheet/loader/issues)
-[![Discord](https://img.shields.io/discord/628734683823472650)](https://discord.gg/H2wyHXb)
 
 Dynamically load support module for [IBSheet](https://www.ibsheet.com)
 
