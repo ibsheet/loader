@@ -71,7 +71,7 @@ loader.load({
 }).createSheet(options)
 ```
 
-### note: CommonJS usage (ES5)
+### note: Node.js usage (CommonJS, ES5)
 
 ```js
 var loader = require('@ibsheet/loader')
