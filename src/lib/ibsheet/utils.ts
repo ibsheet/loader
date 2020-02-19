@@ -24,7 +24,7 @@ export function getIBSheetStatic(name: string = IBSHEET_GLOBAL): any {
 export function destroyIBSheetStatic(name: string = IBSHEET_GLOBAL) {
   const ibsheet = getIBSheetStatic(name)
   try {
-    ibsheet.disposeAll()
+    ibsheet.disposeAll(true, true)
   } catch (err) {
     // nothing
   }
