@@ -4,9 +4,19 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [1.0.11](https://github.com/ibsheet/loader/compare/v1.0.10...v1.0.11) (2020-02-19)
 
+### Features
+
+* disposeAll 호출시 인자 사용하도록 수정
+
 ### [1.0.10](https://github.com/ibsheet/loader/compare/v1.0.9...v1.0.10) (2020-02-14)
 
+### Misc
+
+* update readme.md
+
 ### [1.0.9](https://github.com/ibsheet/loader/compare/v1.0.8...v1.0.9) (2020-02-14)
+
+* deprecated
 
 ### [1.0.8](https://github.com/ibsheet/loader/compare/v1.0.7...v1.0.8) (2019-12-02)
 
@@ -15,7 +25,6 @@ All notable changes to this project will be documented in this file. See [standa
 * fixed - 자동생성 아이디의 특수문자(`$`) 치환 (jquery 사용시 오류)
 
 ### [1.0.7](https://github.com/ibsheet/loader/compare/v1.0.6...v1.0.7) (2019-11-21)
-
 
 ### Bug Fixes
 
