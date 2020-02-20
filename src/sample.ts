@@ -69,27 +69,25 @@ $(async () => {
       name: 'ibsheet-common',
       url: `${IBSHEET_BASEURL}/v8/plugins/common/nightly/latest/ibsheet-common.js`
       // url: `/ibsheet/ibsheet-common.js`
-    },
+    }
   ])
 
   // loader.load()
-  loader.load({
-    name: 'ibsheet',
-    baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`
-  })
-  .once('loaded', (evt: any) => {
-    const item = evt.target
-    if (item.name === 'ibsheet') {
-      // loader
-      //   .load('ibsheet-excel')
-      //   .load('ibsheet-common'
-      console.log('** plugins load start')
-      loader.load([
-        'ibsheet-excel',
-        'ibsheet-common'
-      ])
-    }
-  })
+  loader
+    .load({
+      name: 'ibsheet',
+      baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`
+    })
+    .once('loaded', (evt: any) => {
+      const item = evt.target
+      if (item.name === 'ibsheet') {
+        // loader
+        //   .load('ibsheet-excel')
+        //   .load('ibsheet-common'
+        console.log('** plugins load start')
+        loader.load(['ibsheet-excel', 'ibsheet-common'])
+      }
+    })
 
   // console.log(
   //   `==================== 4-2: FIRST LOAD (immediatly) ====================`
