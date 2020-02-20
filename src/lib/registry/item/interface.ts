@@ -21,9 +21,14 @@ export interface RegItemUrlData {
   baseUrl?: string
 }
 
+// export interface ValidatorItem {
+//   name: string
+//   callback: () => boolean
+// }
+
 /** @ignore */
 export interface RegItemEventOptions {
-  validate?: Function | null
+  validate?: () => boolean | null
   load?: Function | null
   unload?: Function | null
   dependentUrls?: string[]
