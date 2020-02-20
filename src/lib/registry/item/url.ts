@@ -10,6 +10,9 @@ class RegistryItemURL {
   private _basename: string
   type: string = 'js'
   target: string = 'body'
+  dependencies: string[] = []
+  validate: Function | null = null
+  loaded: boolean = false
 
   constructor(data: RegItemUrlData) {
     // console.log(data)
@@ -18,8 +21,9 @@ class RegistryItemURL {
       throw new Error(`[RegistryItemURL] invalid url, ${url}`)
     }
     this.value = url
-    this.type = get(data, 'data', this.type)
-    this.target = get(data, 'data', this.target)
+    this.type = get(data, 'type', this.type)
+    this.target = get(data, 'target', this.target)
+
     this._id = uuid()
   }
 

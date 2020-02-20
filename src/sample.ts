@@ -49,7 +49,7 @@ $(async () => {
         'color:magenta',
         loader.list()
       )
-      console.log('loaded items:', evt.data.map((item: any) => item.alias))
+      console.log('LOAD_COMPLETE:', evt.data.map((item: any) => item.alias))
     })
 
   // console.log(`==================== 3: SETUP TEST-BOX CONTROLS ====================`)
@@ -59,35 +59,34 @@ $(async () => {
   console.log(
     `==================== 4-1: FIRST LOAD (registry) ====================`
   )
-  loader.registry.addAll([
-    {
-      name: 'ibsheet-excel',
-      url: `${IBSHEET_BASEURL}/v8/plugins/excel/nightly/latest/ibsheet-excel.js`
-      // url: `/ibsheet/ibsheet-excel.js`
-    },
-    {
-      name: 'ibsheet-common',
-      url: `${IBSHEET_BASEURL}/v8/plugins/common/nightly/latest/ibsheet-common.js`
-      // url: `/ibsheet/ibsheet-common.js`
-    }
-  ])
+  // loader.registry.addAll([
+  //   {
+  //     name: 'ibsheet-excel',
+  //     url: `${IBSHEET_BASEURL}/v8/plugins/excel/nightly/latest/ibsheet-excel.js`
+  //     // url: `/ibsheet/ibsheet-excel.js`
+  //   },
+  //   {
+  //     name: 'ibsheet-common',
+  //     url: `${IBSHEET_BASEURL}/v8/plugins/common/nightly/latest/ibsheet-common.js`
+  //     // url: `/ibsheet/ibsheet-common.js`
+  //   },
+  //   {
+  //     name: 'ibsheet-dialog',
+  //     url: `${IBSHEET_BASEURL}/v8/plugins/common/nightly/latest/ibsheet-dialog.js`
+  //     // url: `/ibsheet/ibsheet-dialog.js`
+  //   }
+  // ])
+  loader.registry.add({
+    name: 'ibsheet',
+    baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`,
+    // plugins: ['common', 'excel', 'dialog']
+    plugins: [
+      'common', 'excel', 'dialog'
+    ].map(name => `${IBSHEET_BASEURL}/v8/plugins/${name}/nightly/latest/ibsheet-${name}.js`)
+  })
+  // console.log('** registry list:', loader.registry.getAll())
 
-  // loader.load()
-  loader
-    .load({
-      name: 'ibsheet',
-      baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`
-    })
-    .once('loaded', (evt: any) => {
-      const item = evt.target
-      if (item.name === 'ibsheet') {
-        // loader
-        //   .load('ibsheet-excel')
-        //   .load('ibsheet-common'
-        console.log('** plugins load start')
-        loader.load(['ibsheet-excel', 'ibsheet-common'])
-      }
-    })
+  loader.load()
 
   // console.log(
   //   `==================== 4-2: FIRST LOAD (immediatly) ====================`

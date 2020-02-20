@@ -13,10 +13,11 @@ import {
   assignIn,
   isEmpty,
   sortBy,
-  includes
+  includes,
+  every
 } from '../../shared/lodash'
 import { LoaderEventName } from '../../interface'
-import { isIBSheet } from '../../ibsheet'
+import { isIBSheet, IBSheet8GlobalInstance } from '../../ibsheet'
 
 import { castRegistryItemData, castRegistryAlias } from '../utils'
 import {
@@ -191,6 +192,7 @@ class RegistryItem extends CustomEventEmitter {
     if (!bIBSheet) {
       urls = get(options, 'urls', pick(options, ['url', 'target', 'type']))
     } else {
+      // TODO: IBSheet8 전용속성 분기 로직 리팩토링
       if (!isUpdate) {
         urls = defaultsIBSheetUrls(data)
       } else {
@@ -201,7 +203,7 @@ class RegistryItem extends CustomEventEmitter {
     if (isEmpty(urls)) return
 
     const baseUrl = get(options, 'baseUrl')
-    const res = castArray(urls).map(data => {
+    const aResult = castArray(urls).map(data => {
       data = castRegistryItemData(data) as RegItemUrlData
       const { url } = data
       if (!isNil(baseUrl) && !/^\w+:\/\//.test(url)) {
@@ -213,9 +215,31 @@ class RegistryItem extends CustomEventEmitter {
           )
         )
       }
-      return new RegistryItemURL(data)
+      const uItem = new RegistryItemURL(data)
+      const { basename } = uItem
+      /**
+       * TODO: IBSheet8 전용 lazyload URL 분기 로직 리팩토링
+       */
+      if (/^ibsheet-[\w]+$/.test(basename)) {
+        uItem.dependencies = ['ibsheet']
+      }
+      const IBSHEET_GLOBAL = IBSheet8GlobalInstance.name
+      switch (basename) {
+        case 'ibsheet':
+          uItem.validate = this.getEventOption('validate', null)
+          break
+        case 'ibsheet-excel':
+        case 'ibsheet-common':
+        case 'ibsheet-dialog':
+          const suffix = basename.replace(/^ibsheet-/, '')
+          const sPath = `${IBSHEET_GLOBAL}.Plugins.PluginVers.ib${suffix}`
+          uItem.validate = () => !isNil(get(window, sPath))
+          break
+      }
+      return uItem
     })
-    return res
+
+    return aResult
   }
   /** @ignore */
   private _setUrls(data: RegistryItemData, isUpdate: boolean = false): void {
@@ -240,6 +264,27 @@ class RegistryItem extends CustomEventEmitter {
       return
     }
     this._evtOptions = defaultsDeep(targetOpts, this._evtOptions)
+  }
+  /** @ignore */
+  private _asyncImportUrls(eventData: any, options?: any) {
+    asyncImportItemUrls
+      .call(this, options)
+      .then(() => {
+        // urls
+        asyncItemTest
+          .call(this, options)
+          .then(() => {
+            // item
+            this._loaded = true
+            this.emit(LoaderEventName.LOADED, eventData)
+          })
+          .catch(() => {
+            this.emit(LoaderEventName.LOAD_FAILED, eventData)
+          })
+      })
+      .catch((err: any) => {
+        this.emit(LoaderEventName.LOAD_REJECT, assignIn(eventData, err))
+      })
   }
   /** @ignore */
   getEventOption(name: string, def?: any): any {
@@ -297,9 +342,12 @@ class RegistryItem extends CustomEventEmitter {
 
   /** @ignore */
   test(): boolean {
-    const validator = this.getEventOption('validate')
-    if (isNil(validator)) return true
-    return validator.call(window)
+    const aResult = this.urls.map(uItem => {
+      const { validate } = uItem
+      if (isNil(validate)) return true
+      return validate.call(window)
+    })
+    return every(aResult)
   }
 
   load(options?: any): this {
@@ -314,24 +362,10 @@ class RegistryItem extends CustomEventEmitter {
       throw new Error(err)
     }
     this.emit(LoaderEventName.LOAD, eventData)
-    asyncImportItemUrls
-      .call(this, options)
-      .then(() => {
-        // urls
-        asyncItemTest
-          .call(this, options)
-          .then(() => {
-            // item
-            this._loaded = true
-            this.emit(LoaderEventName.LOADED, eventData)
-          })
-          .catch(() => {
-            this.emit(LoaderEventName.LOAD_FAILED, eventData)
-          })
-      })
-      .catch((err: any) => {
-        this.emit(LoaderEventName.LOAD_REJECT, assignIn(eventData, err))
-      })
+    // TODO: preload
+    // TODO: lazyload
+    this._asyncImportUrls(eventData, options)
+
     return this
   }
 

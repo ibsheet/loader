@@ -1,5 +1,9 @@
 import { get, isNil, castArray, isEmpty, remove } from '../shared/lodash'
-import { basename, isFilePath } from '../shared/str-utils'
+import {
+  basename,
+  isFilePath,
+  isUrlStr
+} from '../shared/str-utils'
 import { IBSHEET_GLOBAL } from '../constant'
 import {
   existsIBSheetStatic,
@@ -69,17 +73,20 @@ export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
 
   const plugins = get(data, 'plugins')
   if (!isEmpty(plugins)) {
-    castArray(plugins).forEach(plugin => {
-      switch (plugin) {
-        // case 'excel':
-        // case 'common':
-        // case 'dialog':
-        //   plugin = `ibsheet-${plugin}.js`
-        //   break
-        default:
-          plugin = `plugins/ibsheet-${plugin}.js`
+    castArray(plugins).forEach(value => {
+      // URL 주소 예외처리
+      if (!isUrlStr(value)) {
+        switch (value) {
+          // case 'excel':
+          // case 'common':
+          // case 'dialog':
+          //   value = `ibsheet-${value}.js`
+          //   break
+          default:
+            value = `plugins/ibsheet-${value}.js`
+        }
       }
-      pushIfNotExistsUrl(urls, plugin)
+      pushIfNotExistsUrl(urls, value)
     })
   }
 
