@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.12](https://github.com/ibsheet/loader/compare/v1.0.11...v1.0.12) (2020-02-20)
+
+
+### Bug Fixes
+
+* load시 Array<string>타입 오류 해결 ([4a473d0](https://github.com/ibsheet/loader/commit/4a473d0))
+
 ### [1.0.11](https://github.com/ibsheet/loader/compare/v1.0.10...v1.0.11) (2020-02-19)
 
 ### Features
