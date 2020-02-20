@@ -69,8 +69,8 @@ class RegistryItem extends CustomEventEmitter {
 
     // name
     if (isNil(this.name)) {
-      const firstUrl = this.urls[0]
-      const name = firstUrl.basename
+      const firstUrl = get(this.urls, 0)
+      const name = get(firstUrl, 'basename')
       if (isNil(name) || !name.length) {
         throw new Error(
           `required name property, not found from url: ${firstUrl.value}`

@@ -1,4 +1,4 @@
-import { isNil, concat } from '../../shared/lodash'
+import { isNil, concat, castArray } from '../../shared/lodash'
 import { RegistryItem } from '../../registry'
 import { getPreloadItems } from './get-preload-items'
 import { parseLoadItems } from './parse-load-items'
@@ -17,7 +17,8 @@ export function getLoadItems(
   if (preLoadItems.length) {
     aLoadItems = noOrigins ? preLoadItems : concat(preLoadItems, origins)
   } else if (!noOrigins) {
-    aLoadItems = [origins]
+    // fix: 배열 아이템 처리 오류 해결
+    aLoadItems = castArray(origins)
   }
 
   // no action
