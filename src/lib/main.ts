@@ -27,6 +27,7 @@ import {
   IBSheetInstance,
   IBSheetCreateOptions,
   IBSheetGlobalStatic,
+  IBSheet8GlobalInstance,
   generateSheetID,
   generateElementID
 } from './ibsheet'
@@ -52,7 +53,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   /** @ignore */
   private _options: LoaderConfigOptions
   /** @ignore */
-  private _ibsheet: IBSheetGlobalStatic
+  private _ibsheet: IBSheetGlobalStatic = IBSheet8GlobalInstance
 
   /** @ignore */
   intervalMan: IntervalManager
@@ -68,7 +69,6 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
    */
   constructor() {
     super()
-    this._ibsheet = new IBSheetGlobalStatic()
     this._options = clone(DefaultLoaderConfig)
     this.registry = new LoaderRegistry(this)
     this._initTasksManagers()

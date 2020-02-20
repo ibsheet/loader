@@ -44,3 +44,5 @@ export class IBSheetGlobalStatic {
     }
   }
 }
+
+export const IBSheet8GlobalInstance = new IBSheetGlobalStatic()
