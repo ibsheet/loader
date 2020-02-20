@@ -18,7 +18,9 @@ export function asyncItemTest(options: any): Promise<RegistryItem> {
   return new Promise((resolve, reject) => {
     let nCount = 1
     const testInterval = setInterval(() => {
-      if (nCount > MAX_RETRY) {
+      // console.log(nCount, MAX_RETRY)
+      if (nCount >= MAX_RETRY) {
+        clearInterval(testInterval)
         return reject(`maximum retry attempts reached: ${MAX_RETRY}`)
       }
       if (self.test()) {
