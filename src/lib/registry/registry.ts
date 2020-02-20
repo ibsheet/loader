@@ -103,7 +103,10 @@ class LoaderRegistry extends CustomEventEmitter {
     return JSON.stringify(res, null, 2)
   }
 
-  getAll(query: string): RegistryItem[] {
+  getAll(query?: string): RegistryItem[] {
+    if (isNil(query)) {
+      return this._list
+    }
     const hasVersion = lastIndexOf(query, '@') > 0
     return this._list.filter(item => {
       if (hasVersion) {
