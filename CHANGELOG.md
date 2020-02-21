@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/ibsheet/loader/compare/v1.1.1...v1.1.2) (2020-02-21)
+
+
+### Bug Fixes
+
+* LazyLoadManager.checkLoadableItems 기능 오류 수정 ([4a95079](https://github.com/ibsheet/loader/commit/4a95079))
+
 ### [1.1.1](https://github.com/ibsheet/loader/compare/v1.1.0...v1.1.1) (2020-02-21)
 
 
