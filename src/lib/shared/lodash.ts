@@ -28,6 +28,8 @@ import trim from 'lodash/trim'
 import unset from 'lodash/unset'
 import sortBy from 'lodash/sortBy'
 import every from 'lodash/every'
+import isFunction from 'lodash/isFunction'
+// import pull from 'lodash/pull'
 // import omit from 'lodash/omit'
 
 export {
@@ -60,6 +62,8 @@ export {
   trim,
   unset,
   sortBy,
-  every
+  every,
+  isFunction
+  // pull
   // omit
 }
