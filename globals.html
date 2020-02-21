@@ -79,6 +79,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-class"><a href="classes/customeventemitter.html" class="tsd-kind-icon">Custom<wbr>Event<wbr>Emitter</a></li>
 								<li class="tsd-kind-class"><a href="classes/ibsheetloaderstatic.html" class="tsd-kind-icon">IBSheet<wbr>Loader<wbr>Static</a></li>
+								<li class="tsd-kind-class"><a href="classes/lazyloadurlmanager.html" class="tsd-kind-icon">Lazy<wbr>LoadURLManager</a></li>
 								<li class="tsd-kind-class"><a href="classes/loaderregistry.html" class="tsd-kind-icon">Loader<wbr>Registry</a></li>
 								<li class="tsd-kind-class"><a href="classes/registryitem.html" class="tsd-kind-icon">Registry<wbr>Item</a></li>
 								<li class="tsd-kind-class"><a href="classes/registryitemurl.html" class="tsd-kind-icon">Registry<wbr>ItemURL</a></li>
@@ -98,11 +99,14 @@
 								<li class="tsd-kind-interface"><a href="interfaces/regitemurldata.html" class="tsd-kind-icon">Reg<wbr>Item<wbr>Url<wbr>Data</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/registryitemdata.html" class="tsd-kind-icon">Registry<wbr>Item<wbr>Data</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/retryoptions.html" class="tsd-kind-icon">Retry<wbr>Options</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/validatableitem.html" class="tsd-kind-icon">Validatable<wbr>Item</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#async_import_url" class="tsd-kind-icon">ASYNC_<wbr>IMPORT_<wbr>URL</a></li>
+								<li class="tsd-kind-variable"><a href="globals.html#ibsheet8globalinstance" class="tsd-kind-icon">IBSheet8<wbr>Global<wbr>Instance</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#ibsheetloader" class="tsd-kind-icon">IBSheet<wbr>Loader</a></li>
 							</ul>
 						</section>
@@ -127,13 +131,33 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
+					<a name="async_import_url" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> ASYNC_<wbr>IMPORT_<wbr>URL</h3>
+					<div class="tsd-signature tsd-kind-icon">ASYNC_<wbr>IMPORT_<wbr>URL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"[AsnycImportURL]"</span><span class="tsd-signature-symbol"> =&nbsp;&quot;[AsnycImportURL]&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/lib/registry/item/async-load.ts#L9">lib/registry/item/async-load.ts:9</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="ibsheet8globalinstance" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> IBSheet8<wbr>Global<wbr>Instance</h3>
+					<div class="tsd-signature tsd-kind-icon">IBSheet8<wbr>Global<wbr>Instance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IBSheetGlobalStatic</span><span class="tsd-signature-symbol"> =&nbsp;new IBSheetGlobalStatic()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/lib/ibsheet/ibsheet-global.ts#L48">lib/ibsheet/ibsheet-global.ts:48</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable">
 					<a name="ibsheetloader" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> IBSheet<wbr>Loader</h3>
 					<div class="tsd-signature tsd-kind-icon">IBSheet<wbr>Loader<span class="tsd-signature-symbol">:</span> <a href="classes/ibsheetloaderstatic.html" class="tsd-signature-type">IBSheetLoaderStatic</a><span class="tsd-signature-symbol"> =&nbsp;new IBSheetLoaderStatic()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/097377a/src/main.ts#L8">main.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/main.ts#L8">main.ts:8</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -155,7 +179,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/097377a/src/lib/ibsheet/utils.ts#L24">lib/ibsheet/utils.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/lib/ibsheet/utils.ts#L24">lib/ibsheet/utils.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -178,7 +202,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/097377a/src/lib/ibsheet/utils.ts#L56">lib/ibsheet/utils.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/lib/ibsheet/utils.ts#L56">lib/ibsheet/utils.ts:56</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -195,7 +219,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/097377a/src/lib/ibsheet/utils.ts#L52">lib/ibsheet/utils.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/lib/ibsheet/utils.ts#L52">lib/ibsheet/utils.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -212,7 +236,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/097377a/src/lib/ibsheet/utils.ts#L20">lib/ibsheet/utils.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/lib/ibsheet/utils.ts#L20">lib/ibsheet/utils.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -235,7 +259,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/097377a/src/lib/modules/load/get-load-items.ts#L6">lib/modules/load/get-load-items.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/lib/modules/load/get-load-items.ts#L6">lib/modules/load/get-load-items.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -261,7 +285,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/097377a/src/lib/modules/load/get-preload-items.ts#L8">lib/modules/load/get-preload-items.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/lib/modules/load/get-preload-items.ts#L8">lib/modules/load/get-preload-items.ts:8</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -287,7 +311,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/097377a/src/lib/ibsheet/utils.ts#L16">lib/ibsheet/utils.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/lib/ibsheet/utils.ts#L16">lib/ibsheet/utils.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -310,7 +334,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/097377a/src/lib/modules/load/parse-load-items.ts#L12">lib/modules/load/parse-load-items.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/lib/modules/load/parse-load-items.ts#L12">lib/modules/load/parse-load-items.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -336,7 +360,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/097377a/src/lib/modules/load/parse-load-items.ts#L51">lib/modules/load/parse-load-items.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/lib/modules/load/parse-load-items.ts#L51">lib/modules/load/parse-load-items.ts:51</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -359,7 +383,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/097377a/src/lib/ibsheet/utils.ts#L43">lib/ibsheet/utils.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/lib/ibsheet/utils.ts#L43">lib/ibsheet/utils.ts:43</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -382,7 +406,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/097377a/src/lib/ibsheet/utils.ts#L34">lib/ibsheet/utils.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/ibsheet/loader/blob/18aceeb/src/lib/ibsheet/utils.ts#L34">lib/ibsheet/utils.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -418,6 +442,9 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/ibsheetloaderstatic.html" class="tsd-kind-icon">IBSheet<wbr>Loader<wbr>Static</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/lazyloadurlmanager.html" class="tsd-kind-icon">Lazy<wbr>LoadURLManager</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/loaderregistry.html" class="tsd-kind-icon">Loader<wbr>Registry</a>
@@ -460,6 +487,15 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/retryoptions.html" class="tsd-kind-icon">Retry<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/validatableitem.html" class="tsd-kind-icon">Validatable<wbr>Item</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#async_import_url" class="tsd-kind-icon">ASYNC_<wbr>IMPORT_<wbr>URL</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#ibsheet8globalinstance" class="tsd-kind-icon">IBSheet8<wbr>Global<wbr>Instance</a>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#ibsheetloader" class="tsd-kind-icon">IBSheet<wbr>Loader</a>
