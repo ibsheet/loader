@@ -104,11 +104,12 @@ class LoaderRegistry extends CustomEventEmitter {
   }
 
   getAll(query?: string): RegistryItem[] {
+    const items = this._list
     if (isNil(query)) {
-      return this._list
+      return items
     }
     const hasVersion = lastIndexOf(query, '@') > 0
-    return this._list.filter(item => {
+    return items.filter(item => {
       if (hasVersion) {
         return item.alias === query
       }

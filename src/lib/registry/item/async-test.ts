@@ -3,11 +3,11 @@ import {
   LOAD_TEST_RETRY_INTERVAL,
   LOAD_TEST_RETRY_MAX_COUNT
 } from '../../config'
-import { RegistryItem } from './item'
+import { ValidatableItem } from './interface'
 
 /** @ignore */
-export function asyncItemTest(options: any): Promise<RegistryItem> {
-  const self: RegistryItem = this
+export function asyncItemTest(options?: any): Promise<ValidatableItem> {
+  const self: ValidatableItem = this
   const debug = get(options, 'debug', false)
   const MAX_RETRY = get(options, 'retry.maxCount', LOAD_TEST_RETRY_MAX_COUNT)
   const INTERVAL_TIME = get(

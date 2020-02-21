@@ -1,22 +1,23 @@
 import uuid from 'uuid/v1'
 
-import { get, isNil } from '../../shared/lodash'
+import { CustomEventEmitter } from '../../custom'
+import { get, isNil, isFunction } from '../../shared/lodash'
 import { getFilenameFromURL } from '../utils'
-import { RegItemUrlData } from './interface'
+import { RegItemUrlData, ValidatableItem } from './interface'
 
-class RegistryItemURL {
+class RegistryItemURL extends CustomEventEmitter implements ValidatableItem {
   private _id: string
   private _value: string
   private _basename: string
+  private _dependencies: string[] = []
   type: string = 'js'
   target: string = 'body'
-  dependencies: string[] = []
   validate: Function | null = null
   loaded: boolean = false
 
   constructor(data: RegItemUrlData) {
-    // console.log(data)
-    let url = get(data, 'url')
+    super()
+    const url = get(data, 'url')
     if (isNil(url)) {
       throw new Error(`[RegistryItemURL] invalid url, ${url}`)
     }
@@ -57,6 +58,24 @@ class RegistryItemURL {
   }
   get basename(): string {
     return this._basename
+  }
+  get alias(): string {
+    return `${this.basename}.${this.type}`
+  }
+  /**
+   * 미리 로드되어야할 javascript의 basename 목록
+   */
+  get dependencies(): string[] {
+    return this._dependencies
+  }
+  set dependencies(arr: string[]) {
+    this._dependencies = arr.filter(str => str !== this.basename)
+  }
+
+  test(): boolean {
+    const fnValidate = this.validate
+    if (isNil(fnValidate) || !isFunction(fnValidate)) return true
+    return fnValidate()
   }
 }
 

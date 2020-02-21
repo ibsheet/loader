@@ -25,7 +25,8 @@ import {
   RegItemRawData,
   RegItemEventOptions,
   RegItemUrlData,
-  RegItemEventName
+  RegItemEventName,
+  ValidatableItem
 } from './interface'
 import { RegistryItemURL } from './url'
 import { asyncImportItemUrls } from './async-load'
@@ -33,7 +34,7 @@ import { asyncRemoveItemUrls } from './async-unload'
 import { asyncItemTest } from './async-test'
 import { defaultsIBSheetUrls, updateIBSheetUrls } from '../for-ibsheet'
 
-class RegistryItem extends CustomEventEmitter {
+class RegistryItem extends CustomEventEmitter implements ValidatableItem {
   /** @ignore */
   private _id: string
   /** @ignore */

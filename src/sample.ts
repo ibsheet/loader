@@ -49,7 +49,8 @@ $(async () => {
         'color:magenta',
         loader.list()
       )
-      console.log('LOAD_COMPLETE:', evt.data.map((item: any) => item.alias))
+      const loadedItems = evt.data.filter((t: any) => t.loaded)
+      console.log('LOAD_COMPLETE:', loadedItems.map((t: any) => t.alias))
     })
 
   // console.log(`==================== 3: SETUP TEST-BOX CONTROLS ====================`)

@@ -26,6 +26,11 @@ export interface RegItemUrlData {
 //   callback: () => boolean
 // }
 
+export interface ValidatableItem {
+  readonly alias: string
+  test: () => boolean
+}
+
 /** @ignore */
 export interface RegItemEventOptions {
   validate?: () => boolean | null
