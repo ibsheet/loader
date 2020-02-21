@@ -81,9 +81,10 @@ $(async () => {
     name: 'ibsheet',
     baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`,
     // plugins: ['common', 'excel', 'dialog']
-    plugins: [
-      'common', 'excel', 'dialog'
-    ].map(name => `${IBSHEET_BASEURL}/v8/plugins/${name}/nightly/latest/ibsheet-${name}.js`)
+    plugins: ['common', 'excel', 'dialog'].map(
+      name =>
+        `${IBSHEET_BASEURL}/v8/plugins/${name}/nightly/latest/ibsheet-${name}.js`
+    )
   })
   // console.log('** registry list:', loader.registry.getAll())
 

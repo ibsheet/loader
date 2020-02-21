@@ -47,41 +47,48 @@ export function asyncImportURL(options?: any): Promise<RegistryItemURL> {
  * @ignore
  * 특정 자바스크립트 파일에 의존적인 자바스크립트 로드를 위한 재귀함수
  */
-export function asyncImportURLs(aItems: RegistryItemURL[], lazyMan: LazyLoadURLManager, options?: any): Promise<RegistryItemURL>[] {
+export function asyncImportURLs(
+  aItems: RegistryItemURL[],
+  lazyMan: LazyLoadURLManager,
+  options?: any
+): Promise<RegistryItemURL>[] {
   const debug = get(options, 'debug', false)
-  return aItems.map(
-    (uItem: RegistryItemURL) => {
-      uItem.once(LoaderEventName.LOADED, (evt: any) => {
-        const item = evt.target
-        if (debug) {
-          console.log(`%c${ASYNC_IMPORT_URL} loaded: ${item.alias}`, 'color: green')
-        }
-        /**
-         * TODO: lazyLoad 자바스크립트에 대한 피드백(?) 처리
-         */
-        const lazyLoadUrls = lazyMan.checkLoadableItems(item)
-        if (!lazyLoadUrls.length) return
-        asyncImportURLs(lazyLoadUrls, lazyMan, options)
-      })
-      return new Promise((resolve, reject) => {
-        asyncImportURL.call(uItem, options)
-          .then((tItem: RegistryItemURL) => {
-            // console.log('* PreloadURL:', tItem.alias)
-            asyncItemTest.call(tItem, options)
-              .then((item: RegistryItemURL) => {
-                item.emit(LoaderEventName.LOADED, { target: item })
-                resolve(item)
-              })
-              .catch((message: string) => {
-                reject({ message })
-              })
-          })
-          .catch((err: any) => {
-            reject(err.message)
-          })
-      })
-    }
-  )
+  return aItems.map((uItem: RegistryItemURL) => {
+    uItem.once(LoaderEventName.LOADED, (evt: any) => {
+      const item = evt.target
+      if (debug) {
+        console.log(
+          `%c${ASYNC_IMPORT_URL} loaded: ${item.alias}`,
+          'color: green'
+        )
+      }
+      /**
+       * TODO: lazyLoad 자바스크립트에 대한 피드백(?) 처리
+       */
+      const lazyLoadUrls = lazyMan.checkLoadableItems(item)
+      if (!lazyLoadUrls.length) return
+      asyncImportURLs(lazyLoadUrls, lazyMan, options)
+    })
+    return new Promise((resolve, reject) => {
+      asyncImportURL
+        .call(uItem, options)
+        .then((tItem: RegistryItemURL) => {
+          // console.log('* PreloadURL:', tItem.alias)
+          asyncItemTest
+            .call(tItem, options)
+            .then((item: RegistryItemURL) => {
+              item.emit(LoaderEventName.LOADED, { target: item })
+              resolve(item)
+            })
+            .catch((message: string) => {
+              reject({ message })
+            })
+        })
+        .catch((err: any) => {
+          reject(err.message)
+        })
+    })
+  })
 }
 
 /** @ignore */
@@ -105,7 +112,9 @@ export function asyncImportItemUrls(options?: any): Promise<RegistryItemURL[]> {
       const bname = dependencies[i]
       if (!aImportJsNames.includes(bname)) {
         if (debug) {
-          console.warn(`${ASYNC_IMPORT_URL} Invalid Dependencies: Not in import list!`)
+          console.warn(
+            `${ASYNC_IMPORT_URL} Invalid Dependencies: Not in import list!`
+          )
         }
         return true
       }
@@ -114,7 +123,11 @@ export function asyncImportItemUrls(options?: any): Promise<RegistryItemURL[]> {
     return false
   })
 
-  const asyncTasks: Promise<RegistryItemURL>[] = asyncImportURLs(preloadUrls, lazyMan, options)
+  const asyncTasks: Promise<RegistryItemURL>[] = asyncImportURLs(
+    preloadUrls,
+    lazyMan,
+    options
+  )
 
   return Promise.all(asyncTasks)
 }

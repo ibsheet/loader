@@ -1,9 +1,5 @@
 import { get, isNil, castArray, isEmpty, remove } from '../shared/lodash'
-import {
-  basename,
-  isFilePath,
-  isUrlStr
-} from '../shared/str-utils'
+import { basename, isFilePath, isUrlStr } from '../shared/str-utils'
 import { IBSHEET_GLOBAL } from '../constant'
 import {
   existsIBSheetStatic,
