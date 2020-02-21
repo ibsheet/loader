@@ -155,7 +155,10 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
     if (isNil(fn)) return
     fn.apply(this, args)
   }
-  /** @ignore */
+  /**
+   * @ignore
+   * TODO: validate 추가속성 적용하기
+   */
   private _createUrls(
     data: RegistryItemData,
     isUpdate: boolean = false
@@ -225,16 +228,25 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
         uItem.dependencies = ['ibsheet']
       }
       const IBSHEET_GLOBAL = IBSheet8GlobalInstance.name
+      const validateIBSheet8CommonPlugins = () => {
+        const suffix = basename.replace(/^ibsheet-/, '')
+        const sPath = `${IBSHEET_GLOBAL}.Plugins.PluginVers.ib${suffix}`
+        return !isNil(get(window, sPath))
+      }
       switch (basename) {
         case 'ibsheet':
           uItem.validate = this.getEventOption('validate', null)
           break
         case 'ibsheet-excel':
+          // TODO: ibsheet-excel, 다른 플러그인들과 검증 로직 통일
+          uItem.validate = () => {
+            if (validateIBSheet8CommonPlugins()) return true
+            return !isNil(get(window, `${IBSHEET_GLOBAL}.down2Excel`))
+          }
+          break
         case 'ibsheet-common':
         case 'ibsheet-dialog':
-          const suffix = basename.replace(/^ibsheet-/, '')
-          const sPath = `${IBSHEET_GLOBAL}.Plugins.PluginVers.ib${suffix}`
-          uItem.validate = () => !isNil(get(window, sPath))
+          uItem.validate = validateIBSheet8CommonPlugins
           break
       }
       return uItem
