@@ -1,4 +1,4 @@
-import { remove } from '../../shared/lodash'
+import { remove, every } from '../../shared/lodash'
 import { CustomEventEmitter } from '../../custom'
 import RegistryItemURL from './url'
 
@@ -22,7 +22,7 @@ export class LazyLoadURLManager extends CustomEventEmitter {
     const loadedList = this._loadedDendencies
     loadedList.push(lItem.basename)
     const nextLoadItems = remove(lazyItems, (item: RegistryItemURL) => {
-      return item.dependencies.some(bname => loadedList.includes(bname))
+      return every(item.dependencies.map(bname => loadedList.includes(bname)))
     })
     return nextLoadItems
   }
