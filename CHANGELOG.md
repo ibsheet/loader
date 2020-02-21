@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/ibsheet/loader/compare/v1.0.12...v1.1.0) (2020-02-21)
+
+
+### Bug Fixes
+
+* IBSheet8 전용 plugins 자바스크립트의 로드 오류 해결 ([a609aa4](https://github.com/ibsheet/loader/commit/a609aa4))
+* lint ([93cc418](https://github.com/ibsheet/loader/commit/93cc418))
+* 로드 실패시 setInterval 제거 ([cdc41fe](https://github.com/ibsheet/loader/commit/cdc41fe))
+
+
+### Features
+
+* registry.getAll 기능 개선, 인자 없이 호출가능(모든 레지스트리 아이템을 반환) ([561aed9](https://github.com/ibsheet/loader/commit/561aed9))
+* 레지스트리 이벤트 객체 인터페이스 개선 ([ffdd018](https://github.com/ibsheet/loader/commit/ffdd018))
+
 ### [1.0.12](https://github.com/ibsheet/loader/compare/v1.0.11...v1.0.12) (2020-02-20)
 
 
