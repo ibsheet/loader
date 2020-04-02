@@ -59,7 +59,7 @@ export function asyncImportURLs(
       if (debug) {
         console.log(
           `%c${ASYNC_IMPORT_URL} loaded: ${item.alias}`,
-          'color: green'
+          'color: black; background-color: white;'
         )
       }
       /**
