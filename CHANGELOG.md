@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [1.1.3](https://github.com/ibsheet/loader/compare/v1.1.2...v1.1.3) (2020-04-02)
 
+### Misc
+
+* debug 다크테마 loaded 디버그메세지 가시성 개선
+
 ### [1.1.2](https://github.com/ibsheet/loader/compare/v1.1.1...v1.1.2) (2020-02-21)
 
 
