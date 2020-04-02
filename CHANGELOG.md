@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.5](https://github.com/ibsheet/loader/compare/v1.1.4...v1.1.5) (2020-04-02)
+
+
+### Bug Fixes
+
+* unload() 시 check박스 해제하도록 변경, debugger 삭제 ([e9a65a6](https://github.com/ibsheet/loader/commit/e9a65a6bceb3bb2f440848ba99b1f34cd6dcfbef))
+
 ### [1.1.4](https://github.com/ibsheet/loader/compare/v1.1.3...v1.1.4) (2020-04-02)
 
 
