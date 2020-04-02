@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.4](https://github.com/ibsheet/loader/compare/v1.1.3...v1.1.4) (2020-04-02)
+
+
+### Features
+
+* load 시 ibsheet autoload 인터페이스 추가 ([f47cf9f](https://github.com/ibsheet/loader/commit/f47cf9f373bca38287543f328091349672639fa5))
+
+
+### Bug Fixes
+
+* test process ([81bb39f](https://github.com/ibsheet/loader/commit/81bb39fca3d14a91967935476f1a234e3c5787eb))
+
 ### [1.1.3](https://github.com/ibsheet/loader/compare/v1.1.2...v1.1.3) (2020-04-02)
 
 ### Misc
