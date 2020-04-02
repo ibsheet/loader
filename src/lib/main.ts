@@ -190,7 +190,6 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   load(arg?: any, alsoDefaultLib?: boolean): this {
     // const registry = this.registry
     const taskMan = this._loadTaskMan
-    debugger
     if (isNil(alsoDefaultLib)) {
       alsoDefaultLib = this.options.autoload
     }

@@ -167,6 +167,18 @@ export function initTestBoxControls(loader: IBSheetLoaderStatic) {
         if ($el.attr('data-alias') === 'on') {
           loader.load(alias)
         } else {
+          IBSheetSampleData.forEach((cur, ndx) => {
+            if (cur) {
+              const sheetId = `sheet${ndx + 1}`
+              const checkboxId = `${sheetId}_ctrl`
+              let checkboxObject = $('#' + checkboxId)[0] as HTMLInputElement
+
+              if (checkboxObject && checkboxObject.checked) {
+                checkboxObject.checked = false
+              }
+            }
+          })
+          $('.ibsheet-container').removeClass('active loaded')
           loader.unload(alias)
         }
       })
