@@ -14,7 +14,10 @@ $(async () => {
   const loader = getLoaderInstance()
 
   // console.log(`==================== 1: SET CONFIG ====================`)
-  loader.config({ debug: true })
+  loader.config({
+    autoload: false,
+    debug: true
+  })
   // loader.config(loaderOptions)
 
   // console.log(`==================== 2: ADD EVENT LISTENER ====================`)

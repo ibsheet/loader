@@ -132,7 +132,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   config(options?: LoaderConfigOptions): this {
     let loaderOpts
     if (!isNil(options)) {
-      loaderOpts = pick(options, ['debug', 'retry', 'globals'])
+      loaderOpts = pick(options, ['autoload', 'debug', 'retry', 'globals'])
       this._options = defaultsDeep(loaderOpts, this._options)
       const sheetGlobal = get(loaderOpts, 'globals.ibsheet')
       this._ibsheet.setGlobalName(sheetGlobal)
@@ -186,9 +186,14 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     return this._ibsheet.global
   }
 
-  load(arg?: any, alsoDefaultLib: boolean = true): this {
+  // 20200402 김의연, 서득원, 이재호 - [#] load 시 ibsheet autoload 인터페이스 추가
+  load(arg?: any, alsoDefaultLib?: boolean): this {
     // const registry = this.registry
     const taskMan = this._loadTaskMan
+    debugger
+    if (isNil(alsoDefaultLib)) {
+      alsoDefaultLib = this.options.autoload
+    }
     const aLoadItems = getLoadItems.apply(this, [arg, alsoDefaultLib])
 
     // add load tasks
@@ -298,7 +303,8 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
         return resolve(sheet)
       })
       try {
-        this.load()
+        // createSheet 시 IBSheet가 로드 되어있지 않은 경우 반드시 로드
+        this.load('ibsheet', true)
       } catch (err) {
         this.emit(
           LoaderEventName.CREATE_SHEET_FAILED,
