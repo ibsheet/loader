@@ -4,7 +4,7 @@
     "filename": "ibsheet-loader",
     "global": "IBSheetLoader"
   },
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Dynamically load support module for IBSheet",
   "main": "index.js",
   "scripts": {
@@ -124,6 +124,7 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
+    "@ibsheet/loader": "^1.1.2",
     "is-url": "^1.2.4",
     "shortid": "^2.2.15",
     "uuid": "^3.3.3"
