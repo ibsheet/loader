@@ -31,7 +31,7 @@ jobs:
           paths:
             - ~/.cache/yarn
       - run: yarn test
-      - run: yarn cov:send
+      # - run: yarn cov:send
       # - run: yarn cov:check
   # 'build':
   # 'deploy-npm':
