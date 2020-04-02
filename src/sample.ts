@@ -50,7 +50,10 @@ $(async () => {
         loader.list()
       )
       const loadedItems = evt.data.filter((t: any) => t.loaded)
-      console.log('LOAD_COMPLETE:', loadedItems.map((t: any) => t.alias))
+      console.log(
+        'LOAD_COMPLETE:',
+        loadedItems.map((t: any) => t.alias)
+      )
     })
 
   // console.log(`==================== 3: SETUP TEST-BOX CONTROLS ====================`)

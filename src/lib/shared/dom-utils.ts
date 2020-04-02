@@ -39,7 +39,10 @@ export function createLinkElement(data: DomAppendOptions): HTMLLinkElement {
 export function createScriptElement(data: DomAppendOptions): HTMLScriptElement {
   const { id, url } = data
   const scriptEl: HTMLScriptElement = document.createElement('script')
-  ;[{ name: 'id', value: id }, { name: 'src', value: url }].forEach(attrs => {
+  ;[
+    { name: 'id', value: id },
+    { name: 'src', value: url }
+  ].forEach(attrs => {
     const { name, value } = attrs
     scriptEl.setAttribute(name, value)
   })
