@@ -99,23 +99,35 @@ export function appendJs(data: DomAppendOptions): boolean {
   return true
 }
 
-//20201223 김상현 resolve를 받는 형태로 appendCss2 함수 추가
+// 20201223 김상현 resolve를 받는 형태로 appendCss2 함수 추가
 /** @ignore */
-export function appendCss2(data: DomAppendOptions,resolve: any, uItem: any): boolean {
+export function appendCss2(
+  data: DomAppendOptions,
+  resolve: any,
+  uItem: any
+): boolean {
   if (checkDupElements(data)) return false
   const el = createLinkElement(data)
-  el.onload = (()=>{resolve(uItem)})
+  el.onload = () => {
+    resolve(uItem)
+  }
   const target = get(data, 'target', 'head')
   document[target].appendChild(el)
   return true
 }
 
-//20201223 김상현 resolve를 받는 형태로 appendJs2 함수 추가
+// 20201223 김상현 resolve를 받는 형태로 appendJs2 함수 추가
 /** @ignore */
-export function appendJs2(data: DomAppendOptions, resolve: any, uItem: any): boolean {
+export function appendJs2(
+  data: DomAppendOptions,
+  resolve: any,
+  uItem: any
+): boolean {
   if (checkDupElements(data)) return false
   const el = createScriptElement(data)
-  el.onload = (()=>{resolve(uItem)})
+  el.onload = () => {
+    resolve(uItem)
+  }
   const target = get(data, 'target', 'body')
   document[target].appendChild(el)
   return true

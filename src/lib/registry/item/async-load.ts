@@ -19,11 +19,11 @@ export function asyncImportURL(options?: any): Promise<RegistryItemURL> {
     let errMsg = null
     switch (type) {
       case 'css':
-        //20201223 김상현 - 파일이 로드되었는지 확인한 후 resolve 하기 위해 resolve 전달하는 형식으로 변경
+        // 20201223 김상현 - 파일이 로드되었는지 확인한 후 resolve 하기 위해 resolve 전달하는 형식으로 변경
         isSuccess = appendCss2(elemData, resolve, uItem)
         break
       case 'js':
-        //20201223 김상현 - 파일이 로드되었는지 확인한 후 resolve 하기 위해 resolve 전달하는 형식으로 변경
+        // 20201223 김상현 - 파일이 로드되었는지 확인한 후 resolve 하기 위해 resolve 전달하는 형식으로 변경
         isSuccess = appendJs2(elemData, resolve, uItem)
         break
       default:
@@ -41,8 +41,8 @@ export function asyncImportURL(options?: any): Promise<RegistryItemURL> {
       }
       reject({ message: errMsg })
     }
-    //20201223 김상현 appendCss2,appendJs2에서 resolve를 호출함으로 여기는 주석처리함.
-    //resolve(uItem)
+    // 20201223 김상현 appendCss2,appendJs2에서 resolve를 호출함으로 여기는 주석처리함.
+    // resolve(uItem)
   })
 }
 
@@ -57,8 +57,6 @@ export function asyncImportURLs(
 ): Promise<RegistryItemURL>[] {
   const debug = get(options, 'debug', false)
   return aItems.map((uItem: RegistryItemURL) => {
-    
-    
     uItem.once(LoaderEventName.LOADED, (evt: any) => {
       const item = evt.target
       if (debug) {
@@ -74,8 +72,6 @@ export function asyncImportURLs(
       if (!lazyLoadUrls.length) return
       asyncImportURLs(lazyLoadUrls, lazyMan, options)
     })
-
-
 
     return new Promise((resolve, reject) => {
       asyncImportURL
