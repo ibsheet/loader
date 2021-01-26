@@ -4,7 +4,7 @@ import { IBSheetLoaderStatic } from './lib/main'
 
 import setPolyfill from './lib/polyfill'
 
-setPolyfill();
+setPolyfill()
 
 /**
  * 로더 인스턴스
