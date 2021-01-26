@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es5",
     "outDir": "dist/esm",
     "rootDir": "src",
     "moduleResolution": "node",
@@ -39,7 +39,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "removeComments": true,
 
-    "lib": ["es2017", "dom"],
+    "lib": ["es5", "dom"],
     // "types": ["node"],
     "typeRoots": ["node_modules/@types", "src/types"]
   },
