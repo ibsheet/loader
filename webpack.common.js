@@ -62,10 +62,10 @@ function getTsLoaderOptions (buildTarget) {
   let target
   switch (buildTarget) {
     case 'esm':
-      target = 'esnext'
+      target = 'es5'
       break
     case 'cjs':
-      target = 'es2015'
+      target = 'es5'
       break
     // case 'umd':
     //   target = 'es5'
