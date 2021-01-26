@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.11](https://github.com/ibsheet/loader/compare/v1.1.10...v1.1.11) (2021-01-26)
+
+
+### Bug Fixes
+
+* change compilerOptions ([6048b77](https://github.com/ibsheet/loader/commit/6048b77bead75b41e77b4a7ada40b47ee6fb96aa))
+
 ### [1.1.10](https://github.com/ibsheet/loader/compare/v1.1.9...v1.1.10) (2021-01-26)
 
 ### [1.1.9](https://github.com/ibsheet/loader/compare/v1.1.8...v1.1.9) (2021-01-26)
