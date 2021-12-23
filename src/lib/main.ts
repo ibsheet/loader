@@ -266,6 +266,16 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
         return sid
       })(get(options, 'element'))
     }
+    // onRenderFirstFinish 이벤트에서 OnAfterRenderFirstFinsh 함수를 호출해 주면 then이 실행되게 하자
+    const sheetRenderFirstFinish = function(sheet: any,mainResolve: Function): Promise<IBSheetInstance> {
+      return new Promise( (resolve)=>{
+        sheet.OnAfterRenderFirstFinish = function(callback: Function){
+          mainResolve(this);
+          resolve(this);
+          if(callback) callback(this);
+        };
+      });
+    }
 
     const createFn = bind(ibsheet.create, ibsheet)
     const createEvtData = { target: ibsheet.global, data: sheetOpts }
@@ -276,7 +286,21 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
           this.emit(LoaderEventName.CREATE_SHEET, createEvtData)
           sheet = await createFn(sheetOpts)
           this.emit(LoaderEventName.CREATED_SHEET, { target: sheet })
-          return resolve(sheet)
+
+          // ibsheet-common.js 에 CommonOptions에 Cfg:{LoaderCreateDelay:1} 가 설정되면 sheetCreate().then()의 시점을 onRenderFirstFinish() 이후로 바꾼다.
+
+          // 단 이렇게 사용하려면 CommonOptions에 다음 부분이 추가되어야 함.
+          // Event:{
+          //     onRenderFirstFinish:function(){
+          //         if (evt.sheet.OnAfterRenderFirstFinish) {  evt.sheet.OnAfterRenderFirstFinish(); }
+          //    }
+          // }
+          if(sheet.LoaderCreateDelay){
+            return await sheetRenderFirstFinish(sheet, resolve);
+          }else{
+            return resolve(sheet);
+          }
+
         } catch (err) {
           this.emit(
             LoaderEventName.CREATE_SHEET_FAILED,
