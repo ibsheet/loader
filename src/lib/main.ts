@@ -267,14 +267,17 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       })(get(options, 'element'))
     }
     // onRenderFirstFinish 이벤트에서 OnAfterRenderFirstFinsh 함수를 호출해 주면 then이 실행되게 하자
-    const sheetRenderFirstFinish = function(sheet: any,mainResolve: Function): Promise<IBSheetInstance> {
-      return new Promise( (resolve)=>{
-        sheet.OnAfterRenderFirstFinish = function(callback: Function){
-          mainResolve(this);
-          resolve(this);
-          if(callback) callback(this);
-        };
-      });
+    const sheetRenderFirstFinish = function(
+      sheet: any,
+      mainResolve: Function
+    ): Promise<IBSheetInstance> {
+      return new Promise(resolve => {
+        sheet.OnAfterRenderFirstFinish = function(callback: Function) {
+          mainResolve(this)
+          resolve(this)
+          if (callback) callback(this)
+        }
+      })
     }
 
     const createFn = bind(ibsheet.create, ibsheet)
@@ -295,12 +298,11 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
           //         if (evt.sheet.OnAfterRenderFirstFinish) {  evt.sheet.OnAfterRenderFirstFinish(); }
           //    }
           // }
-          if(sheet.LoaderCreateDelay){
-            return await sheetRenderFirstFinish(sheet, resolve);
-          }else{
-            return resolve(sheet);
+          if (sheet.LoaderCreateDelay) {
+            return await sheetRenderFirstFinish(sheet, resolve)
+          } else {
+            return resolve(sheet)
           }
-
         } catch (err) {
           this.emit(
             LoaderEventName.CREATE_SHEET_FAILED,
