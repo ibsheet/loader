@@ -1,6 +1,6 @@
 import { IBSHEET_BASEURL } from './constant'
 
-export const ibseetLibData = {
+export const ibsheetLibData = {
   name: 'ibsheet',
   baseUrl: `${IBSHEET_BASEURL}/v8/core/nightly/latest`,
   // version: '8.0',
@@ -42,7 +42,7 @@ export const loaderOptions = {
     intervalTime: 200
   },
   registry: [
-    ibseetLibData,
+    ibsheetLibData,
     fontAwesome,
     swal2,
     {
