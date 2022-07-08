@@ -10,4 +10,5 @@ export interface LoaderConfigOptions extends TaskManagerOptions {
     ibsheet?: string
   }
   autoload?: boolean
+  preset?: object // preset 인터페이스 추가
 }

@@ -133,7 +133,13 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   config(options?: LoaderConfigOptions): this {
     let loaderOpts
     if (!isNil(options)) {
-      loaderOpts = pick(options, ['autoload', 'debug', 'retry', 'globals'])
+      loaderOpts = pick(options, [
+        'autoload',
+        'debug',
+        'retry',
+        'globals',
+        'preset'
+      ])
       this._options = defaultsDeep(loaderOpts, this._options)
       const sheetGlobal = get(loaderOpts, 'globals.ibsheet')
       this._ibsheet.setGlobalName(sheetGlobal)
