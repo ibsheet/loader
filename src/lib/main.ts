@@ -287,10 +287,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
         const obj = {}
         for (let ws in window) {
           if (ws.startsWith('IB_')) {
-            obj[ws] = window[ws];
+            obj[ws] = window[ws]
           }
         }
-        resolve(obj);
+        resolve(obj)
       })
     }
 
