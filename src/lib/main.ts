@@ -42,6 +42,7 @@ import { RegisteredItem, LoaderStatus, LoaderEventName } from './interface'
  * IBSheetLoaderStatic Main Class
  */
 export class IBSheetLoaderStatic extends CustomEventEmitter {
+  [x: string]: {}
   /** @ignore */
   private _status: LoaderStatus = LoaderStatus.PENDING
   /** @ignore */
@@ -280,12 +281,28 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       })
     }
 
+    // window 전역에 있는 IB_ 로 시작하는 객체를 모듈로 사용할 수 있도록 하는 기능 추가
+    const setloaderPreset = function(): Promise<{}> {
+      return new Promise(resolve => {
+        const obj = {}
+        for (let ws in window) {
+          if (ws.startsWith('IB_')) {
+            obj[ws] = window[ws];
+          }
+        }
+        resolve(obj);
+      })
+    }
+
     const createFn = bind(ibsheet.create, ibsheet)
     const createEvtData = { target: ibsheet.global, data: sheetOpts }
     return new Promise(async (resolve, reject) => {
       let sheet: any
+
       if (this.loadedDefaultLib) {
         try {
+          // window 전역에 있는 IB_ 로 시작하는 객체를 모듈로 사용할 수 있도록 하는 기능 추가
+          this.loaderPreset = await setloaderPreset()
           this.emit(LoaderEventName.CREATE_SHEET, createEvtData)
           sheet = await createFn(sheetOpts)
           this.emit(LoaderEventName.CREATED_SHEET, { target: sheet })
@@ -315,6 +332,8 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       const defItem = this._getDefaultRegItem()
       defItem.once(LoaderEventName.LOADED, async () => {
         try {
+          // window 전역에 있는 IB_ 로 시작하는 객체를 모듈로 사용할 수 있도록 하는 기능 추가
+          this.loaderPreset = await setloaderPreset()
           this.emit(LoaderEventName.CREATE_SHEET, createEvtData)
           sheet = await createFn(sheetOpts)
           this.emit(LoaderEventName.CREATED_SHEET, { target: sheet })
