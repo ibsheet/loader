@@ -26,16 +26,16 @@ export class IBSheetGlobalStatic {
   async create(options: IBSheetCreateOptions): Promise<IBSheetInstance> {
     const ibsheet = this.global
     if (isNil(options)) {
-      throw new Error('undefined options')
+      throw new Error('undefined options.')
     }
     if (!has(options, 'id')) {
-      throw new Error('"id" property is required')
+      throw new Error('"id" property is required.')
     }
     if (!has(options, 'el')) {
-      throw new Error('"el" property is required')
+      throw new Error('"el" property is required.')
     }
     if (!has(options, 'options')) {
-      throw new Error('"options" property is required')
+      throw new Error('"options" property is required.')
     }
     try {
       return await ibsheet.create(options)
