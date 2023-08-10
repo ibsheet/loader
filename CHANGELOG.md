@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.22](https://github.com/ibsheet/loader/compare/v1.1.21...v1.1.22) (2023-08-10)
+
+
+### Bug Fixes
+
+* node-sass 제거 및 sass 추가, typescript 버전 업 (3.9.10) ([473e4a1](https://github.com/ibsheet/loader/commit/473e4a160904a7c16042e1877de74047b963fc78))
+
 ### [1.1.21](https://github.com/ibsheet/loader/compare/v1.1.20...v1.1.21) (2022-11-16)
 
 ### [1.1.20](https://github.com/ibsheet/loader/compare/v1.1.19...v1.1.20) (2022-11-16)
