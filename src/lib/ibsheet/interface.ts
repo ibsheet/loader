@@ -8,6 +8,7 @@ export interface IBSheetCreateOptions {
   // ibsheet options
   options?: IBSheetOptions
   data?: any
+  sync?: boolean
 }
 
 export interface IBSheetInstance {

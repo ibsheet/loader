@@ -242,7 +242,8 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       { key: 'id' },
       { key: 'el', alias: ['elementId'] },
       { key: 'options', alias: ['config'] },
-      { key: 'data' }
+      { key: 'data' },
+      { key: 'sync' }
     ].forEach((o: any) => {
       const { key } = o
       concat(key, get(o, 'alias'))
