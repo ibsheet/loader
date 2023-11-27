@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.23](https://github.com/ibsheet/loader/compare/v1.1.22...v1.1.23) (2023-11-27)
+
+
+### Bug Fixes
+
+* createSheet 에서 sync 옵션 적용되도록 수정. ([aee6546](https://github.com/ibsheet/loader/commit/aee6546112c54368daea4b730385cca7341b06fa))
+
 ### [1.1.22](https://github.com/ibsheet/loader/compare/v1.1.21...v1.1.22) (2023-08-10)
 
 
