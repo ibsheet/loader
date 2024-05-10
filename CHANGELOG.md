@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.24](https://github.com/ibsheet/loader/compare/v1.1.23...v1.1.24) (2024-05-10)
+
+
+### Bug Fixes
+
+* EventEmitter 이벤트 리스너 등록 제한 해제 ([7cdeb13](https://github.com/ibsheet/loader/commit/7cdeb13184f41f48896db2727445d94e1d2d2b23))
+
 ### [1.1.23](https://github.com/ibsheet/loader/compare/v1.1.22...v1.1.23) (2023-11-27)
 
 
