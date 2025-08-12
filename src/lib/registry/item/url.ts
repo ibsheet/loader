@@ -1,4 +1,4 @@
-import uuid from 'uuid/v1'
+import { v1 as uuidv1 } from 'uuid';
 
 import { CustomEventEmitter } from '../../custom'
 import { get, isNil, isFunction } from '../../shared/lodash'
@@ -25,7 +25,7 @@ class RegistryItemURL extends CustomEventEmitter implements ValidatableItem {
     this.type = get(data, 'type', this.type)
     this.target = get(data, 'target', this.target)
 
-    this._id = uuid()
+    this._id = uuidv1()
   }
 
   get id(): string {
@@ -69,7 +69,7 @@ class RegistryItemURL extends CustomEventEmitter implements ValidatableItem {
     return this._dependencies
   }
   set dependencies(arr: string[]) {
-    this._dependencies = arr.filter(str => str !== this.basename)
+    this._dependencies = arr.filter((str) => str !== this.basename)
   }
 
   test(): boolean {

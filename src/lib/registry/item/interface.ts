@@ -10,7 +10,7 @@ export enum RegItemEventName {
   LOAD = 'load',
   UNLOAD = 'unload',
   /** @ignore */
-  DEPENDENT_URLS = 'dependentUrls'
+  DEPENDENT_URLS = 'dependentUrls',
 }
 
 export interface RegItemUrlData {

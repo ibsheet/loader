@@ -1,4 +1,4 @@
-import uuid from 'uuid/v1'
+import { v1 as uuidv1 } from 'uuid';
 
 import { CustomEventEmitter } from '../../custom'
 import {
@@ -14,7 +14,7 @@ import {
   isEmpty,
   sortBy,
   includes,
-  every
+  every,
 } from '../../shared/lodash'
 import { LoaderEventName } from '../../interface'
 import { isIBSheet, IBSheet8GlobalInstance } from '../../ibsheet'
@@ -26,7 +26,7 @@ import {
   RegItemEventOptions,
   RegItemUrlData,
   RegItemEventName,
-  ValidatableItem
+  ValidatableItem,
 } from './interface'
 import { RegistryItemURL } from './url'
 import { asyncImportItemUrls } from './async-load'
@@ -75,7 +75,7 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
       const name = get(firstUrl, 'basename')
       if (isNil(name) || !name.length) {
         throw new Error(
-          `required name property, not found from url: ${firstUrl.value}`
+          `required name property, not found from url: ${firstUrl.value}`,
         )
       }
       this.name = name
@@ -85,7 +85,7 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
     this.version = get(data, 'version', null)
 
     // id
-    this._id = uuid()
+    this._id = uuidv1()
     return this
   }
 
@@ -112,7 +112,7 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
   get alias(): string {
     return castRegistryAlias({
       name: this.name,
-      version: this.version
+      version: this.version,
     }) as string
   }
   get urls(): RegistryItemURL[] {
@@ -130,11 +130,11 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
   get raw(): RegItemRawData {
     const raw = {
       id: this.id,
-      urls: this.urls.map(url => url.value),
+      urls: this.urls.map((url) => url.value),
       name: this.name as string,
       version: this.version,
       alias: this.alias,
-      loaded: this.loaded
+      loaded: this.loaded,
     }
     if (!isNil(this.error)) {
       set(raw, 'error', this.error)
@@ -161,7 +161,7 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
    */
   private _createUrls(
     data: RegistryItemData,
-    isUpdate: boolean = false
+    isUpdate: boolean = false,
   ): RegistryItemURL[] | undefined {
     const targetOpts = pick(data, [
       'baseUrl',
@@ -174,7 +174,7 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
       'plugins',
       'locale',
       'locales',
-      'license'
+      'license',
     ])
     if (isEmpty(targetOpts)) {
       return
@@ -207,7 +207,7 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
     if (isEmpty(urls)) return
 
     const baseUrl = get(options, 'baseUrl')
-    const aResult = castArray(urls).map(data => {
+    const aResult = castArray(urls).map((data) => {
       data = castRegistryItemData(data) as RegItemUrlData
       const { url } = data
       if (!isNil(baseUrl) && !/^\w+:\/\//.test(url)) {
@@ -215,8 +215,8 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
           data,
           'url',
           [trim(baseUrl).replace(/\/$/, ''), trim(url).replace(/^\//, '')].join(
-            '/'
-          )
+            '/',
+          ),
         )
       }
       const uItem = new RegistryItemURL(data)
@@ -271,7 +271,7 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
       RegItemEventName.VALIDATE,
       RegItemEventName.LOAD,
       RegItemEventName.UNLOAD,
-      RegItemEventName.DEPENDENT_URLS
+      RegItemEventName.DEPENDENT_URLS,
     ])
     if (isEmpty(targetOpts)) {
       return
@@ -331,7 +331,7 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
     this._setUrls(data, isUpdate)
     this._setEventOptions(data)
     // custom sort
-    this._urls = sortBy(this._urls, url => {
+    this._urls = sortBy(this._urls, (url) => {
       let nOrder: number
       const { type, value } = url
       const corefile = get(this._urlOptions, 'corefile', 'ibsheet.js')
@@ -355,7 +355,7 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
 
   /** @ignore */
   test(): boolean {
-    const aResult = this.urls.map(uItem => {
+    const aResult = this.urls.map((uItem) => {
       const { validate } = uItem
       if (isNil(validate)) return true
       return validate.call(window)
@@ -369,7 +369,7 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
     try {
       this._customEventHandle('load', {
         type: LoaderEventName.LOADED,
-        target: this
+        target: this,
       })
     } catch (err) {
       throw new Error(err)
@@ -388,7 +388,7 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
     try {
       this._customEventHandle('unload', {
         type: LoaderEventName.UNLOAD,
-        target: this
+        target: this,
       })
     } catch (err) {
       throw new Error(err)
@@ -403,8 +403,8 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
         this.emit(
           LoaderEventName.UNLOAD_FAILED,
           assignIn(eventData, {
-            error: err
-          })
+            error: err,
+          }),
         )
       })
     return this

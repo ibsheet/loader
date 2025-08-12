@@ -4,8 +4,6 @@ module.exports = {
   target: 'ES6',
   exclude: [
     '**/*.spec.ts',
-    'src/sample.ts',
-    'src/examples/**/*',
     'src/lib/number/**/*'
   ]
 }

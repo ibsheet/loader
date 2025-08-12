@@ -17,7 +17,7 @@ export enum LoaderEventName {
   CREATED_SHEET = 'created-sheet',
   REMOVE_SHEET = 'remove-sheet',
   REMOVE_SHEET_FAILED = 'remove-sheet-failed',
-  REMOVED_SHEET = 'removed-sheet'
+  REMOVED_SHEET = 'removed-sheet',
 }
 
 /** @ignore */
@@ -39,5 +39,5 @@ export interface LoaderEvent {
 export enum LoaderStatus {
   IDLE,
   PENDING,
-  WORKING
+  WORKING,
 }

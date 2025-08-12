@@ -53,7 +53,7 @@ export function asyncImportURL(options?: any): Promise<RegistryItemURL> {
 export function asyncImportURLs(
   aItems: RegistryItemURL[],
   lazyMan: LazyLoadURLManager,
-  options?: any
+  options?: any,
 ): Promise<RegistryItemURL>[] {
   const debug = get(options, 'debug', false)
   return aItems.map((uItem: RegistryItemURL) => {
@@ -62,7 +62,7 @@ export function asyncImportURLs(
       if (debug) {
         console.log(
           `%c${ASYNC_IMPORT_URL} loaded: ${item.alias}`,
-          'color: black; background-color: white;'
+          'color: black; background-color: white;',
         )
       }
       /**
@@ -103,8 +103,8 @@ export function asyncImportItemUrls(options?: any): Promise<RegistryItemURL[]> {
   const lazyMan = new LazyLoadURLManager()
 
   const aImportJsNames = urls
-    .filter(item => item.type === 'js')
-    .map(item => item.basename)
+    .filter((item) => item.type === 'js')
+    .map((item) => item.basename)
 
   const preloadUrls = urls.filter((item: RegistryItemURL) => {
     if (item.type !== 'js') return true
@@ -117,7 +117,7 @@ export function asyncImportItemUrls(options?: any): Promise<RegistryItemURL[]> {
       if (!aImportJsNames.includes(bname)) {
         if (debug) {
           console.warn(
-            `${ASYNC_IMPORT_URL} Invalid Dependencies: Not in import list!`
+            `${ASYNC_IMPORT_URL} Invalid Dependencies: Not in import list!`,
           )
         }
         return true
@@ -130,7 +130,7 @@ export function asyncImportItemUrls(options?: any): Promise<RegistryItemURL[]> {
   const asyncTasks: Promise<RegistryItemURL>[] = asyncImportURLs(
     preloadUrls,
     lazyMan,
-    options
+    options,
   )
 
   return Promise.all(asyncTasks)

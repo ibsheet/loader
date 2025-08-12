@@ -4,19 +4,19 @@ import { IBSHEET_GLOBAL } from '../constant'
 import {
   existsIBSheetStatic,
   destroyIBSheetStatic,
-  setIBSheetLicense
+  setIBSheetLicense,
 } from '../ibsheet'
 import {
   RegistryItem,
   RegistryItemURL,
   RegItemUrlData,
   RegistryItemData,
-  RegItemEventName
+  RegItemEventName,
 } from './item'
 import {
   castRegistryItemData,
   pushIfNotExistsUrl,
-  removeByCallback
+  removeByCallback,
 } from './utils'
 
 /**
@@ -40,36 +40,50 @@ export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
   ;[
     { name: 'theme', def: 'default' },
     { name: 'locales', def: ['ko'] },
-    { name: 'corefile', def: 'ibsheet.js' }
-  ].forEach(o => {
+    { name: 'corefile', def: 'ibsheet.js' },
+  ].forEach((o) => {
     const { name, def } = o
     let value = get(data, name, def)
     switch (name) {
       case 'theme':
-        if (!isFilePath(value, 'css')) {
+        if (typeof value === 'string' && !isFilePath(value, 'css')) {
           value = `css/${value}/main.css`
         }
         break
       case 'locales':
         let values = value || []
+        if (Array.isArray(value)) {
+          values = value
+        } else if (typeof value === 'string') {
+          values = [value]
+        }
         const locale = get(data, 'locale', 'ko')
-        if (!values.length) {
+        if (values.length === 0) {
           values = [locale]
         }
-        values.forEach((val: string) => {
-          if (!isFilePath(val, 'js')) {
-            val = `locale/${val}.js`
-          }
-          pushIfNotExistsUrl(urls, val)
-        })
+
+        if (Array.isArray(values)) {
+          values.forEach((val: string) => {
+            if (!isFilePath(val, 'js')) {
+              val = `locale/${val}.js`
+            }
+            pushIfNotExistsUrl(urls, val)
+          })
+        }
         return
     }
-    pushIfNotExistsUrl(urls, value)
+    
+    if (Array.isArray(value)) {
+      value.forEach((v) => pushIfNotExistsUrl(urls, v))
+    } else {
+      pushIfNotExistsUrl(urls, value)
+    }
   })
 
   const plugins = get(data, 'plugins')
-  if (!isEmpty(plugins)) {
-    castArray(plugins).forEach(value => {
+  if (!isEmpty(plugins) && Array.isArray(plugins)) {
+    castArray(plugins).forEach((val: string) => {
+      let value: string = val
       // URL 주소 예외처리
       if (!isUrlStr(value)) {
         switch (value) {
@@ -82,12 +96,12 @@ export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
             value = `plugins/ibsheet-${value}.js`
         }
       }
-      pushIfNotExistsUrl(urls, value)
+      pushIfNotExistsUrl(urls, value as string)
     })
   }
 
   const license = get(data, 'license')
-  if (!isEmpty(license)) {
+  if (!isEmpty(license) && typeof license === 'string') {
     if (
       /^https?:/.test(license) ||
       /^[./]/.test(license) ||
@@ -107,10 +121,10 @@ export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
  */
 export function updateIBSheetUrls(
   originUrls: RegistryItemURL[],
-  data: RegistryItemData
+  data: RegistryItemData,
 ): RegItemUrlData[] {
   let urls: any = get(data, 'urls') || []
-  const origins = originUrls.slice().map(o => o.value)
+  const origins = originUrls.slice().map((o) => o.value)
   if (urls.length) {
     urls = urls.map((o: any) => castRegistryItemData(o))
   }
@@ -125,9 +139,9 @@ export function updateIBSheetUrls(
   // tslint:disable-next-line:semicolon
   ;[
     { name: 'theme', def: null },
-    { name: 'locales', def: null }
+    { name: 'locales', def: null },
     // { name: 'corefile', def: 'ibsheet.js' }
-  ].forEach(o => {
+  ].forEach((o) => {
     const { name } = o
     let value = get(data, name)
     switch (name) {
@@ -136,7 +150,7 @@ export function updateIBSheetUrls(
         if (!isFilePath(value, 'css')) {
           value = `css/${value}/main.css`
         }
-        const exists = removeByCallback(origins, str => {
+        const exists = removeByCallback(origins, (str) => {
           return /.*css\/.*\/main\.css/.test(str)
         })
         if (exists) return
@@ -154,7 +168,7 @@ export function updateIBSheetUrls(
             if (!isFilePath(val, 'js')) {
               val = `locale/${val}.js`
             }
-            const exists = removeByCallback(origins, str => {
+            const exists = removeByCallback(origins, (str) => {
               return str.indexOf(val) >= 0
             })
             if (exists) return
@@ -163,7 +177,7 @@ export function updateIBSheetUrls(
           })
           .filter(Boolean)
         if (updateLocales.length) {
-          remove(origins, str => /locale\/[^/]+\.js$/i.test(str))
+          remove(origins, (str) => /locale\/[^/]+\.js$/i.test(str))
         }
         return
       // no support change "corefile"
@@ -172,9 +186,10 @@ export function updateIBSheetUrls(
     }
   })
 
-  let plugins = get(data, 'plugins')
-  if (!isEmpty(plugins)) {
-    castArray(plugins).forEach(plugin => {
+  const plugins = get(data, 'plugins')
+  if (!isEmpty(plugins) && Array.isArray(plugins)) {
+    castArray(plugins).forEach((plg: string) => {
+      let plugin: string = plg
       switch (plugin) {
         // case 'excel':
         // case 'common':
@@ -184,7 +199,7 @@ export function updateIBSheetUrls(
         default:
           plugin = `plugins/ibsheet-${plugin}.js`
       }
-      const exists = removeByCallback(origins, val => {
+      const exists = removeByCallback(origins, (val) => {
         return val.indexOf(plugin) >= 0
       })
       if (exists) return
@@ -205,23 +220,23 @@ export function defaultsIBSheetEvents(item: RegistryItem): void {
   ;[
     {
       name: RegItemEventName.VALIDATE,
-      callback: function() {
+      callback: function () {
         return existsIBSheetStatic(CustomGlobalName)
-      }
+      },
     },
     {
       name: RegItemEventName.UNLOAD,
-      callback: function() {
+      callback: function () {
         if (this.debug) {
           console.log(
             `%c[${this.name}.unload / custom] ${this.alias}`,
-            'color:royalblue'
+            'color:royalblue',
           )
         }
         destroyIBSheetStatic(CustomGlobalName)
-      }
-    }
-  ].forEach(data => {
+      },
+    },
+  ].forEach((data) => {
     const { name, callback } = data
     if (!item.hasEventOption(name)) {
       item.setEventOption(name, callback)

@@ -12,5 +12,5 @@ export interface TaskManagerOptions {
 /** @ignore */
 export enum LoaderTaskType {
   LOAD = 'load',
-  UNLOAD = 'unload'
+  UNLOAD = 'unload',
 }

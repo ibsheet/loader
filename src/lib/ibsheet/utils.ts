@@ -4,7 +4,7 @@ import {
   IBSHEET,
   IBSHEET_PREFIX,
   IBSHEET_EL_PREFIX,
-  IBSHEET_GLOBAL
+  IBSHEET_GLOBAL,
 } from '../constant'
 import { RegistryParam } from '../registry'
 
@@ -41,12 +41,9 @@ export function validSheetRegistData(param?: RegistryParam): boolean {
 }
 
 export function setIBSheetLicense(value: string): void {
-  let ibleaders = get(window, 'ibleaders')
-  if (isNil(ibleaders)) {
-    ibleaders = {}
-    set(window, 'ibleaders', ibleaders)
-  }
-  set(ibleaders, 'license', value)
+  let ibleaders = get(window, 'ibleaders') ?? {};
+  set(window, 'ibleaders', ibleaders);
+  set(ibleaders, 'license', value);
 }
 
 export function generateSheetID(): string {

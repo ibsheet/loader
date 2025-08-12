@@ -5,7 +5,7 @@ import {
   LoaderRegistry,
   RegistryItem,
   RegistryItemData,
-  getRegistryIdentifier
+  getRegistryIdentifier,
 } from '../../registry'
 import { LoaderTaskManager } from '../../task-man'
 
@@ -33,7 +33,7 @@ function parseLoadItemData(data: RegistryItemData): RegistryItem | undefined {
         console.log(
           `%c[load.parse] updated: ${alias}`,
           'color: royalblue',
-          data
+          data,
         )
         item.update(data)
       } else {
@@ -53,7 +53,7 @@ export function parseLoadItems(loadItems: RegistryItemData[]): RegistryItem[] {
 
   const res = castArray(loadItems)
     .map((data: RegistryItemData) => {
-      let item: RegistryItem | undefined = parseLoadItemData.call(this, data)
+      const item: RegistryItem | undefined = parseLoadItemData.call(this, data)
 
       if (isNil(item)) {
         console.warn(`invalid paramater: ${data}`)

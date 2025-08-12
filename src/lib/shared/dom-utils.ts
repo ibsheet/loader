@@ -2,7 +2,7 @@ import shortid from 'shortid'
 import { isNil, get } from './lodash'
 
 shortid.characters(
-  '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_'
+  '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_',
 )
 
 export interface DomAppendOptions {
@@ -27,8 +27,8 @@ export function createLinkElement(data: DomAppendOptions): HTMLLinkElement {
     { name: 'id', value: id },
     { name: 'rel', value: 'stylesheet' },
     { name: 'type', value: 'text/css' },
-    { name: 'href', value: url }
-  ].forEach(attrs => {
+    { name: 'href', value: url },
+  ].forEach((attrs) => {
     const { name, value } = attrs
     linkEl.setAttribute(name, value)
   })
@@ -41,8 +41,8 @@ export function createScriptElement(data: DomAppendOptions): HTMLScriptElement {
   const scriptEl: HTMLScriptElement = document.createElement('script')
   ;[
     { name: 'id', value: id },
-    { name: 'src', value: url }
-  ].forEach(attrs => {
+    { name: 'src', value: url },
+  ].forEach((attrs) => {
     const { name, value } = attrs
     scriptEl.setAttribute(name, value)
   })
@@ -56,7 +56,7 @@ export function existsElementById(id: string): boolean {
 
 /** @ignore */
 export function validUniqueElementId(
-  value: string | null | undefined
+  value: string | null | undefined,
 ): boolean {
   if (isNil(value)) return false
   return !existsElementById(value)
@@ -86,7 +86,12 @@ export function appendCss(data: DomAppendOptions): boolean {
   if (checkDupElements(data)) return false
   const el = createLinkElement(data)
   const target = get(data, 'target', 'head')
-  document[target].appendChild(el)
+  // document[target].appendChild(el)
+  const container = target === 'body' ? document.body : document.head
+  if (!container) return false
+
+  container.appendChild(el)
+
   return true
 }
 
@@ -95,7 +100,12 @@ export function appendJs(data: DomAppendOptions): boolean {
   if (checkDupElements(data)) return false
   const el = createScriptElement(data)
   const target = get(data, 'target', 'body')
-  document[target].appendChild(el)
+  // document[target].appendChild(el)
+  const container = target === 'body' ? document.body : document.head
+  if (!container) return false
+
+  container.appendChild(el)
+
   return true
 }
 
@@ -104,7 +114,7 @@ export function appendJs(data: DomAppendOptions): boolean {
 export function appendCss2(
   data: DomAppendOptions,
   resolve: any,
-  uItem: any
+  uItem: any,
 ): boolean {
   if (checkDupElements(data)) return false
   const el = createLinkElement(data)
@@ -112,7 +122,12 @@ export function appendCss2(
     resolve(uItem)
   }
   const target = get(data, 'target', 'head')
-  document[target].appendChild(el)
+  // document[target].appendChild(el)
+  const container = target === 'body' ? document.body : document.head
+  if (!container) return false
+
+  container.appendChild(el)
+
   return true
 }
 
@@ -121,7 +136,7 @@ export function appendCss2(
 export function appendJs2(
   data: DomAppendOptions,
   resolve: any,
-  uItem: any
+  uItem: any,
 ): boolean {
   if (checkDupElements(data)) return false
   const el = createScriptElement(data)
@@ -129,7 +144,12 @@ export function appendJs2(
     resolve(uItem)
   }
   const target = get(data, 'target', 'body')
-  document[target].appendChild(el)
+  // document[target].appendChild(el)
+  const container = target === 'body' ? document.body : document.head
+  if (!container) return false
+
+  container.appendChild(el)
+
   return true
 }
 

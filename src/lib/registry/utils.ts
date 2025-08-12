@@ -9,7 +9,7 @@ import {
   find,
   isNumber,
   toNumber,
-  last
+  last,
 } from '../shared/lodash'
 import { VERSION_GENERATE_START_NUM } from '../config'
 import { RegistryParam, RegistryIdentifier } from './interface'
@@ -21,7 +21,7 @@ import { RegistryItem, RegistryItemData, RegItemUrlData } from './item'
  * @ignore
  */
 export function castRegistryItemData(
-  param: RegistryParam | RegItemUrlData
+  param: RegistryParam | RegItemUrlData,
 ): RegistryItemData {
   if (isString(param)) {
     return { url: param }
@@ -31,10 +31,10 @@ export function castRegistryItemData(
 
 /** @ignore */
 export const getFilenameFromURL = (
-  url: string | undefined
+  url: string | undefined,
 ): string | undefined => {
   if (isNil(url)) return
-  let { pathname } = UrlParse(url)
+  const { pathname } = UrlParse(url)
   if (isNil(pathname)) {
     console.warn('[UrlParser]', `${url} failed parse basename`)
     return
@@ -51,7 +51,7 @@ export function castRegistryAlias(data: RegistryItemData): string | undefined {
 
 /** @ignore */
 export function getRegistryIdentifier(
-  data: RegistryItemData
+  data: RegistryItemData,
 ): RegistryIdentifier | undefined {
   let name = get(data, 'name')
   const url = get(data, 'url')
@@ -62,7 +62,7 @@ export function getRegistryIdentifier(
   name = trim(name)
   const res = {
     name,
-    alias: name
+    alias: name,
   }
   let version = get(data, 'version')
   if (!isNil(version)) {
@@ -90,7 +90,7 @@ export function generateVersion(item: RegistryItem): string {
   }
 
   const arr = ver.split('-')
-  let num: any = arr.pop()
+  const num: any = arr.pop()
   if (!isNumber(num)) {
     return `${ver}-${VERSION_GENERATE_START_NUM}`
   }
@@ -105,9 +105,9 @@ export function generateVersion(item: RegistryItem): string {
  */
 export function pushIfNotExistsUrl(
   urls: { url: string }[],
-  value: string
+  value: string,
 ): void {
-  const exists = find(urls, o => {
+  const exists = find(urls, (o) => {
     const { url } = o
     return url.indexOf(value) > -1
   })
@@ -119,12 +119,12 @@ export function pushIfNotExistsUrl(
 /** @ignore */
 export function removeByCallback(
   urls: any[],
-  callback: (url: string) => boolean
+  callback: (url: string) => boolean,
 ): boolean {
   let res = false
   if (!urls.length) return false
   urls = urls
-    .map(url => {
+    .map((url) => {
       const bool = callback(url)
       if (bool) {
         if (!res) res = true

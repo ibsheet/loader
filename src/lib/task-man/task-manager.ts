@@ -38,7 +38,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
   get options(): TaskManagerOptions {
     return {
       debug: this.debug,
-      retry: this._uber.getOption('retry')
+      retry: this._uber.getOption('retry'),
     }
   }
   get reserved(): boolean {
@@ -63,7 +63,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
     return item
   }
   private _resolveWipItem(item: RegistryItem): RegistryItem {
-    remove(this._wipList, o => o.id === item.id)
+    remove(this._wipList, (o) => o.id === item.id)
     return item
   }
   private _checkIgnoreItem(item: RegistryItem): boolean {
@@ -112,8 +112,8 @@ export class LoaderTaskManager extends CustomEventEmitter {
       const eventData = { target: item }
       this.emit(LoaderEventName.LOAD, eventData)
       const eventList = getTaskEventsByType(this.type)
-      const task = new Promise(resolve => {
-        eventList.forEach(event => {
+      const task = new Promise((resolve) => {
+        eventList.forEach((event) => {
           item.once(event, (evt: any) => {
             this.emit(event, eventData)
             if (isResolveTaskEvent(event)) {
@@ -129,12 +129,13 @@ export class LoaderTaskManager extends CustomEventEmitter {
     }
     if (!asyncTasks.length) return
     Promise.all(asyncTasks)
-      .then(items => {
+      .then((items) => {
         if (this.debug) {
           console.log(
-            `%c[IBSheetLoader] ${this.type} tasks all done -- ${now() -
-              startTime}ms`,
-            'color: green'
+            `%c[IBSheetLoader] ${this.type} tasks all done -- ${
+              now() - startTime
+            }ms`,
+            'color: green',
           )
         }
         this.emit(LoaderEventName.LOAD_COMPLETE, { target: this, data: items })

@@ -2,6 +2,7 @@
   "extends": "./tsconfig",
   "compilerOptions": {
     "noUnusedLocals": false /* Report errors on unused locals. */,
-    "noUnusedParameters": false /* Report errors on unused parameters. */
+    "noUnusedParameters": false /* Report errors on unused parameters. */,
+    "lib": ["es2015", "dom"]
   }
 }

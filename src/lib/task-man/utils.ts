@@ -10,10 +10,10 @@ import { LoaderTaskManager } from './task-manager'
  */
 export function bindTaskManEvents(
   taskMan: LoaderTaskManager,
-  eventList: LoaderEventName[]
+  eventList: LoaderEventName[],
 ): void {
-  eventList.forEach(event => {
-    taskMan.on(event, evt => {
+  eventList.forEach((event) => {
+    taskMan.on(event, (evt) => {
       switch (evt.type) {
         case LoaderEventName.LOAD:
         case LoaderEventName.UNLOAD:
@@ -61,14 +61,14 @@ export function getTaskEventsByType(type: LoaderTaskType): LoaderEventName[] {
         LoaderEventName.LOADED,
         LoaderEventName.LOAD_REJECT,
         LoaderEventName.LOAD_FAILED,
-        LoaderEventName.LOAD_COMPLETE
+        LoaderEventName.LOAD_COMPLETE,
       ]
     : [
         LoaderEventName.UNLOAD,
         LoaderEventName.UNLOADED,
         LoaderEventName.UNLOAD_REJECT,
         LoaderEventName.UNLOAD_FAILED,
-        LoaderEventName.UNLOAD_COMPLETE
+        LoaderEventName.UNLOAD_COMPLETE,
       ]
 }
 
@@ -78,7 +78,7 @@ export function getTaskEventsByType(type: LoaderTaskType): LoaderEventName[] {
  */
 export function createTaskManager(
   type: LoaderTaskType,
-  options?: any
+  options?: any,
 ): LoaderTaskManager {
   const taskMan = new LoaderTaskManager(type, options)
   const events = getTaskEventsByType(type)

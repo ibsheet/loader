@@ -63,7 +63,7 @@ export {
   unset,
   sortBy,
   every,
-  isFunction
+  isFunction,
   // pull
   // omit
 }

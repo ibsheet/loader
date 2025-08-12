@@ -25,7 +25,7 @@ export class IntervalManager {
     this._debug = get(options, 'debug', false)
     this._native = {
       setInterval: global.setInterval,
-      clearInterval: global.clearInterval
+      clearInterval: global.clearInterval,
     }
     global.setInterval = bind(this.setInterval, this)
     global.clearInterval = bind(this.clearInterval, this)
@@ -46,7 +46,7 @@ export class IntervalManager {
   }
   clearInterval(handle?: number | undefined): void {
     this._native.clearInterval.call(null, handle)
-    remove(this._store, n => n === handle)
+    remove(this._store, (n) => n === handle)
     if (this.debug) {
       console.log('# clearInterval handle:', handle, '--', this.length)
     }

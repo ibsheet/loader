@@ -7,7 +7,7 @@ import { LoadTaskOptions } from './interface'
 
 export function getPreloadItems(
   origins?: any,
-  options?: LoadTaskOptions
+  options?: LoadTaskOptions,
 ): RegistryItem[] {
   const alsoDefaultLib = get(options, 'defaultLibrary', false)
   const needDefaultLoadTask = alsoDefaultLib && !this.loadedDefaultLib

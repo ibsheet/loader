@@ -1,7 +1,7 @@
 import { get } from '../../shared/lodash'
 import {
   LOAD_TEST_RETRY_INTERVAL,
-  LOAD_TEST_RETRY_MAX_COUNT
+  LOAD_TEST_RETRY_MAX_COUNT,
 } from '../../config'
 import { ValidatableItem } from './interface'
 
@@ -13,7 +13,7 @@ export function asyncItemTest(options?: any): Promise<ValidatableItem> {
   const INTERVAL_TIME = get(
     options,
     'retry.intervalTime',
-    LOAD_TEST_RETRY_INTERVAL
+    LOAD_TEST_RETRY_INTERVAL,
   )
   return new Promise((resolve, reject) => {
     let nCount = 1
@@ -29,7 +29,7 @@ export function asyncItemTest(options?: any): Promise<ValidatableItem> {
       }
       if (debug) {
         console.warn(
-          `"${self.alias}" load delayed (${nCount * INTERVAL_TIME}ms)`
+          `"${self.alias}" load delayed (${nCount * INTERVAL_TIME}ms)`,
         )
       }
       nCount += 1

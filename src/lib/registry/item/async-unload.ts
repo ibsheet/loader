@@ -4,7 +4,7 @@ import {
   castArray,
   concat,
   findIndex,
-  includes
+  includes,
 } from '../../shared/lodash'
 import { removeElemById, getElementsByTagName } from '../../shared/dom-utils'
 import { IBSHEET } from '../../constant'
@@ -13,14 +13,14 @@ import { RegistryItemURL } from './url'
 
 /** @ignore */
 export function asyncRemoveDepndentUrls(
-  options?: any
+  options?: any,
 ): Promise<any>[] | undefined {
   const dependentUrls = this.getEventOption('dependentUrls')
   const isDebugMode = get(options, 'debug', false)
   if (isNil(dependentUrls)) return
   const allScriptEls = getElementsByTagName('script')
   const allLinkEls = getElementsByTagName('link')
-  return castArray(dependentUrls).map(sUrl => {
+  return castArray(dependentUrls).map((sUrl) => {
     return new Promise((resolve, reject) => {
       const type = sUrl.indexOf('.css') > 0 ? 'css' : 'js'
       const bScript = type === 'js'
@@ -38,7 +38,7 @@ export function asyncRemoveDepndentUrls(
           errMsg = get(
             err,
             'message',
-            `remove dependent url element error: ${sUrl}`
+            `remove dependent url element error: ${sUrl}`,
           )
         }
       } else {
@@ -58,21 +58,21 @@ export function asyncRemoveDepndentUrls(
 /** @ignore */
 export function asyncRemoveIBSheetElements(
   options?: any,
-  onlySheet: boolean = false
+  onlySheet: boolean = false,
 ): Promise<any>[] {
   const isDebugMode = get(options, 'debug', false)
   let xPathList = [
     'HEAD>DIV[id^=IBFastColumns]',
-    'HEAD>DIV[id^=IBOverflowColumns]'
+    'HEAD>DIV[id^=IBOverflowColumns]',
   ]
   if (!onlySheet) {
     xPathList = xPathList.concat([
       'BODY>.SheetMain.IBMain',
-      'BODY>#IBSheetControlsSheetMain'
+      'BODY>#IBSheetControlsSheetMain',
     ])
   }
 
-  return xPathList.map(xpath => {
+  return xPathList.map((xpath) => {
     return new Promise((resolve, reject) => {
       let success = true
       let elems: any
@@ -131,7 +131,7 @@ export function asyncRemoveItemUrls(options?: any): Promise<any[]> {
   const tasks: Promise<any>[] = concat(
     removeOptionElements,
     removeUrlTasks1,
-    removeUrlTasks2
+    removeUrlTasks2,
   )
   return Promise.all(tasks)
 }

@@ -12,7 +12,7 @@ import {
   bind,
   concat,
   clone,
-  assignIn
+  assignIn,
 } from './shared/lodash'
 import { documentReady } from './shared/dom-utils'
 import { IntervalManager } from './shared/interval-manager'
@@ -20,7 +20,7 @@ import { asyncRemoveIBSheetElements } from './registry/item/async-unload'
 import {
   LoaderTaskManager,
   createTaskManager,
-  LoaderTaskType
+  LoaderTaskType,
 } from './task-man'
 import { getLoadItems } from './modules'
 import {
@@ -29,7 +29,7 @@ import {
   IBSheetGlobalStatic,
   IBSheet8GlobalInstance,
   generateSheetID,
-  generateElementID
+  generateElementID,
 } from './ibsheet'
 
 // import { double, power } from './number'
@@ -138,11 +138,13 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
         'debug',
         'retry',
         'globals',
-        'preset'
+        'preset',
       ])
       this._options = defaultsDeep(loaderOpts, this._options)
       const sheetGlobal = get(loaderOpts, 'globals.ibsheet')
-      this._ibsheet.setGlobalName(sheetGlobal)
+      if (sheetGlobal) {
+        this._ibsheet.setGlobalName(sheetGlobal)
+      }
       const regOpts = get(options, 'registry')
       if (!isNil(regOpts)) {
         this.registry.addAll(regOpts, true)
@@ -176,11 +178,11 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
    * 등록된 라이브러리의 정보 중에서 `alias`와 `loaded`정보만을 매핑해서 번환
    */
   list(): RegisteredItem[] {
-    return this.registry.list().map(alias => {
+    return this.registry.list().map((alias) => {
       const item = this.registry.get(alias) as RegistryItem
       return {
         alias,
-        loaded: item.loaded
+        loaded: item.loaded,
       }
     })
   }
@@ -243,9 +245,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       { key: 'el', alias: ['elementId'] },
       { key: 'options', alias: ['config'] },
       { key: 'data' },
-      { key: 'sync' }
+      { key: 'sync' },
     ].forEach((o: any) => {
-      const { key } = o
+      // const { key } = o
+      const { key } = o as { key: keyof IBSheetCreateOptions; alias?: string[] }
       concat(key, get(o, 'alias'))
         .filter(Boolean)
         .forEach((prop: string) => {
@@ -275,12 +278,12 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       })(get(options, 'element'))
     }
     // onRenderFirstFinish 이벤트에서 OnAfterRenderFirstFinsh 함수를 호출해 주면 then이 실행되게 하자
-    const sheetRenderFirstFinish = function(
+    const sheetRenderFirstFinish = function (
       sheet: any,
-      mainResolve: Function
+      mainResolve: Function,
     ): Promise<IBSheetInstance> {
-      return new Promise(resolve => {
-        sheet.OnAfterRenderFirstFinish = function(callback: Function) {
+      return new Promise((resolve) => {
+        sheet.OnAfterRenderFirstFinish = function (callback: Function) {
           mainResolve(this)
           resolve(this)
           if (callback) callback(this)
@@ -289,12 +292,12 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     }
 
     // window 전역에 있는 IB_ 로 시작하는 객체를 모듈로 사용할 수 있도록 하는 기능 추가
-    const setloaderPreset = function(): Promise<{}> {
-      return new Promise(resolve => {
-        const obj = {}
-        for (let ws in window) {
+    const setloaderPreset = function (): Promise<{}> {
+      return new Promise((resolve) => {
+        const obj: Record<string, any> = {}
+        for (const ws in window) {
           if (ws.startsWith('IB_')) {
-            obj[ws] = window[ws]
+            obj[ws] = (window as any)[ws]
           }
         }
         resolve(obj)
@@ -330,7 +333,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
         } catch (err) {
           this.emit(
             LoaderEventName.CREATE_SHEET_FAILED,
-            assignIn(createEvtData, { error: err })
+            assignIn(createEvtData, { error: err }),
           )
           return reject(err)
         }
@@ -347,7 +350,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
         } catch (err) {
           this.emit(
             LoaderEventName.CREATE_SHEET_FAILED,
-            assignIn(createEvtData, { error: err })
+            assignIn(createEvtData, { error: err }),
           )
           reject(err)
         }
@@ -359,7 +362,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       } catch (err) {
         this.emit(
           LoaderEventName.CREATE_SHEET_FAILED,
-          assignIn(createEvtData, { error: err })
+          assignIn(createEvtData, { error: err }),
         )
         reject(err)
       }
@@ -389,14 +392,14 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       setTimeout(() => {
         this.emit(LoaderEventName.REMOVED_SHEET, {
           target: ibsheetStatic,
-          data: { id: sid }
+          data: { id: sid },
         })
       }, 10)
     } catch (err) {
       console.error(err)
       this.emit(LoaderEventName.REMOVE_SHEET_FAILED, {
         target: ibsheetStatic,
-        error: err
+        error: err,
       })
     }
   }
@@ -423,7 +426,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       } catch (err) {
         reject(err)
       }
-    }).catch(err => {
+    }).catch((err) => {
       throw new Error(err)
     })
   }
@@ -436,7 +439,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       if (isNil(item)) return this
       arg = item.alias
     }
-    castArray(arg).forEach(alias => {
+    castArray(arg).forEach((alias) => {
       const item = this.registry.findOne(alias)
       if (isNil(item)) {
         if (this.debug) {
@@ -445,13 +448,13 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
         return
       }
       if (item.loaded) {
-        item.once(LoaderEventName.UNLOADED, evt => {
+        item.once(LoaderEventName.UNLOADED, (evt) => {
           const target = evt.target
           const tAlias = target.alias
           if (this.debug) {
             console.log(
               `%c[IBSheetLoader] reload start - ${tAlias}`,
-              'background-color:green;color:white'
+              'background-color:green;color:white',
             )
           }
           self.load(tAlias, false)
@@ -486,7 +489,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
 
     // add load tasks
     const tasks = castArray(params)
-      .map(data => {
+      .map((data) => {
         let item: any
         if (isString(data)) {
           item = registry.get(data)

@@ -4,7 +4,7 @@ import { LoaderConfigOptions } from './interface'
 /** @ignore */
 const retry = {
   maxCount: LOAD_TEST_RETRY_MAX_COUNT,
-  intervalTime: LOAD_TEST_RETRY_INTERVAL
+  intervalTime: LOAD_TEST_RETRY_INTERVAL,
 }
 
 /**
@@ -14,7 +14,7 @@ const retry = {
 export const DefaultLoaderConfig: LoaderConfigOptions = {
   debug: false,
   retry,
-  autoload: true
+  autoload: true,
 }
 
 export default DefaultLoaderConfig

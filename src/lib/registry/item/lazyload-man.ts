@@ -22,7 +22,7 @@ export class LazyLoadURLManager extends CustomEventEmitter {
     const loadedList = this._loadedJsNames
     loadedList.push(lItem.basename)
     const nextLoadItems = remove(lazyItems, (item: RegistryItemURL) => {
-      return every(item.dependencies.map(bname => loadedList.includes(bname)))
+      return every(item.dependencies.map((bname) => loadedList.includes(bname)))
     })
     return nextLoadItems
   }

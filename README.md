@@ -14,10 +14,10 @@ Dynamically load support module for [IBSheet](https://www.ibsheet.com)
 
 ## features
 
-* [x] [TypeScript 3.0](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-0.html)
-* [x] [TSLint](https://palantir.github.io/tslint/)
+* [x] [TypeScript 5.8](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-8.html)
+* [x] [ESLint](https://eslint.org/)
 * [x] [standard JS](https://standardjs.com/)
-* [x] [Webpack 4](https://webpack.js.org/)
+* [x] [Webpack 5](https://webpack.js.org/)
 * [x] [Standard Version](https://github.com/conventional-changelog/standard-version)
 * [x] ~~[AVA](https://github.com/avajs/ava)~~
 * [x] ~~[nyc](https://github.com/istanbuljs/nyc)~~

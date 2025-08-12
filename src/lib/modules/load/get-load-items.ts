@@ -5,11 +5,11 @@ import { parseLoadItems } from './parse-load-items'
 
 export function getLoadItems(
   origins?: any,
-  defaultLibrary: boolean = true
+  defaultLibrary: boolean = true,
 ): RegistryItem[] {
   const preLoadItems = getPreloadItems.apply(this, [
     origins,
-    { defaultLibrary }
+    { defaultLibrary },
   ])
 
   const noOrigins = isNil(origins)

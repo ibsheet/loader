@@ -4,7 +4,7 @@ import {
   castArray,
   remove,
   includes,
-  lastIndexOf
+  lastIndexOf,
 } from '../shared/lodash'
 import { IBSheetLoaderStatic } from '../main'
 import { CustomEventEmitter } from '../custom'
@@ -39,7 +39,7 @@ class LoaderRegistry extends CustomEventEmitter {
 
   add(
     data: string | RegistryItemData,
-    overwrite: boolean = false
+    overwrite: boolean = false,
   ): RegistryItem | undefined {
     let item
     try {
@@ -58,7 +58,7 @@ class LoaderRegistry extends CustomEventEmitter {
           console.log(
             `%c[registry.add] update "${alias}":`,
             'color: royalblue',
-            data
+            data,
           )
         }
         existItem.update(data)
@@ -97,7 +97,7 @@ class LoaderRegistry extends CustomEventEmitter {
   }
 
   info(alias: string): string | undefined {
-    let res: any = this.getAll(alias).map(item => item.raw)
+    let res: any = this.getAll(alias).map((item) => item.raw)
     if (!res.length) return
     if (res.length === 1) res = res[0]
     return JSON.stringify(res, null, 2)
@@ -109,7 +109,7 @@ class LoaderRegistry extends CustomEventEmitter {
       return items
     }
     const hasVersion = lastIndexOf(query, '@') > 0
-    return items.filter(item => {
+    return items.filter((item) => {
       if (hasVersion) {
         return item.alias === query
       }
@@ -125,7 +125,7 @@ class LoaderRegistry extends CustomEventEmitter {
 
   findLoadedOne(query: string): RegistryItem | undefined {
     const items = this.getAll(query)
-    const loadedItems = items.filter(item => item.loaded)
+    const loadedItems = items.filter((item) => item.loaded)
     if (loadedItems.length) return loadedItems[0]
     return
   }
@@ -143,9 +143,9 @@ class LoaderRegistry extends CustomEventEmitter {
   remove(alias: string): RegistryItem | RegistryItem[] | undefined {
     const items = this.getAll(alias)
     if (!items.length) return
-    const ids = items.map(item => item.id)
+    const ids = items.map((item) => item.id)
     const result: RegistryItem[] = []
-    remove(this._list, item => {
+    remove(this._list, (item) => {
       const match = includes(ids, item.id)
       if (match) result.push(item)
       return match
@@ -155,7 +155,7 @@ class LoaderRegistry extends CustomEventEmitter {
   }
 
   list(): string[] {
-    return this._list.map(item => item.alias)
+    return this._list.map((item) => item.alias)
   }
 }
 
