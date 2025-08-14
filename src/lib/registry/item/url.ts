@@ -1,4 +1,4 @@
-import { v1 as uuidv1 } from 'uuid';
+import { v1 as uuidv1 } from 'uuid'
 
 import { CustomEventEmitter } from '../../custom'
 import { get, isNil, isFunction } from '../../shared/lodash'
@@ -12,7 +12,7 @@ class RegistryItemURL extends CustomEventEmitter implements ValidatableItem {
   private _dependencies: string[] = []
   type: string = 'js'
   target: string = 'body'
-  validate: Function | null = null
+  validate: (() => boolean) | null = null
   loaded: boolean = false
 
   constructor(data: RegItemUrlData) {

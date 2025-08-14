@@ -9,25 +9,25 @@ import { LazyLoadURLManager } from './lazyload-man'
 const ASYNC_IMPORT_URL = '[AsnycImportURL]'
 
 /** @ignore */
-export function asyncImportURL(options?: any): Promise<RegistryItemURL> {
-  const uItem: RegistryItemURL = this
+export function asyncImportURL(
+  this: RegistryItemURL,
+  options?: any,
+): Promise<RegistryItemURL> {
   const debug = get(options, 'debug', false)
   return new Promise((resolve, reject) => {
-    const { value: url, id, target, type, alias } = uItem
+    const { value: url, id, target, type, alias } = this
     const elemData = { id, url, target }
     let isSuccess = false
     let errMsg = null
+
     switch (type) {
       case 'css':
-        // 20201223 김상현 - 파일이 로드되었는지 확인한 후 resolve 하기 위해 resolve 전달하는 형식으로 변경
-        isSuccess = appendCss2(elemData, resolve, uItem)
+        isSuccess = appendCss2(elemData, resolve, this)
         break
       case 'js':
-        // 20201223 김상현 - 파일이 로드되었는지 확인한 후 resolve 하기 위해 resolve 전달하는 형식으로 변경
-        isSuccess = appendJs2(elemData, resolve, uItem)
+        isSuccess = appendJs2(elemData, resolve, this)
         break
       default:
-        // nothing
         errMsg = `[${alias}] not supported import type: ${type}`
     }
 
@@ -41,8 +41,6 @@ export function asyncImportURL(options?: any): Promise<RegistryItemURL> {
       }
       reject({ message: errMsg })
     }
-    // 20201223 김상현 appendCss2,appendJs2에서 resolve를 호출함으로 여기는 주석처리함.
-    // resolve(uItem)
   })
 }
 
@@ -96,9 +94,11 @@ export function asyncImportURLs(
 }
 
 /** @ignore */
-export function asyncImportItemUrls(options?: any): Promise<RegistryItemURL[]> {
-  const rItem: RegistryItem = this
-  const urls = !rItem.changed ? rItem.urls : rItem.updateUrls
+export function asyncImportItemUrls(
+  this: RegistryItem,
+  options?: any,
+): Promise<RegistryItemURL[]> {
+  const urls = !this.changed ? this.urls : this.updateUrls
   const debug = get(options, 'debug', false)
   const lazyMan = new LazyLoadURLManager()
 
@@ -111,7 +111,6 @@ export function asyncImportItemUrls(options?: any): Promise<RegistryItemURL[]> {
     const dependencies = item.dependencies
     const nDependLen = dependencies.length
     if (!nDependLen) return true
-    // dependencies 목록에 대한 유효성 검사
     for (let i = 0; i < nDependLen; i += 1) {
       const bname = dependencies[i]
       if (!aImportJsNames.includes(bname)) {

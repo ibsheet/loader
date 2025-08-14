@@ -1,4 +1,4 @@
-import { v1 as uuidv1 } from 'uuid';
+import { v1 as uuidv1 } from 'uuid'
 
 import { CustomEventEmitter } from '../../custom'
 import {

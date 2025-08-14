@@ -6,8 +6,10 @@ import {
 import { ValidatableItem } from './interface'
 
 /** @ignore */
-export function asyncItemTest(options?: any): Promise<ValidatableItem> {
-  const self: ValidatableItem = this
+export function asyncItemTest(
+  this: ValidatableItem,
+  options?: any,
+): Promise<ValidatableItem> {
   const debug = get(options, 'debug', false)
   const MAX_RETRY = get(options, 'retry.maxCount', LOAD_TEST_RETRY_MAX_COUNT)
   const INTERVAL_TIME = get(
@@ -15,23 +17,27 @@ export function asyncItemTest(options?: any): Promise<ValidatableItem> {
     'retry.intervalTime',
     LOAD_TEST_RETRY_INTERVAL,
   )
+
   return new Promise((resolve, reject) => {
     let nCount = 1
     const testInterval = setInterval(() => {
-      // console.log(nCount, MAX_RETRY)
       if (nCount >= MAX_RETRY) {
         clearInterval(testInterval)
         return reject(`maximum retry attempts reached: ${MAX_RETRY}`)
       }
-      if (self.test()) {
+
+      if (this.test()) {
+        // ✅ 직접 this 사용
         clearInterval(testInterval)
-        return resolve(self)
+        return resolve(this)
       }
+
       if (debug) {
         console.warn(
-          `"${self.alias}" load delayed (${nCount * INTERVAL_TIME}ms)`,
+          `"${this.alias}" load delayed (${nCount * INTERVAL_TIME}ms)`,
         )
       }
+
       nCount += 1
     }, INTERVAL_TIME)
   })

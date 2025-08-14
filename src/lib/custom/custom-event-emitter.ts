@@ -12,7 +12,7 @@ export class CustomEventEmitter extends EventEmitter {
   }
   bind(events: string | symbol, listener: (...args: any[]) => void): this {
     if (isString(events) && events.indexOf(' ') > 0) {
-      events.split(' ').forEach(event => {
+      events.split(' ').forEach((event) => {
         this.on(event, listener)
       })
       return this

@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/ibsheet/loader/compare/v1.1.21...v1.2.0) (2025-08-12)
+
+
+### Features
+
+* code-rabbit 동작 테스트용 임시 커밋 ([eb62acd](https://github.com/ibsheet/loader/commit/eb62acd15dfee98098461b717467f5a788497253))
+
+
+### Bug Fixes
+
+* createSheet 에서 sync 옵션 적용되도록 수정. ([aee6546](https://github.com/ibsheet/loader/commit/aee6546112c54368daea4b730385cca7341b06fa))
+* EventEmitter 이벤트 리스너 등록 제한 해제 ([7cdeb13](https://github.com/ibsheet/loader/commit/7cdeb13184f41f48896db2727445d94e1d2d2b23))
+* EventEmitter 이벤트 리스너 등록 제한 해제 로직 위치 변경 ([73f793b](https://github.com/ibsheet/loader/commit/73f793b6fd32167aeb93c5c445a288cec1ef6f2b))
+* node-sass 제거 및 sass 추가, typescript 버전 업 (3.9.10) ([473e4a1](https://github.com/ibsheet/loader/commit/473e4a160904a7c16042e1877de74047b963fc78))
+* yarn fix ([bc1f235](https://github.com/ibsheet/loader/commit/bc1f235a9f31b052ea1939f3f105d7b87a07827a))
+
 ### [1.1.25](https://github.com/ibsheet/loader/compare/v1.1.24...v1.1.25) (2024-08-19)
 
 

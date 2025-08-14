@@ -35,8 +35,8 @@ export interface ValidatableItem {
 /** @ignore */
 export interface RegItemEventOptions {
   validate?: () => boolean | null
-  load?: Function | null
-  unload?: Function | null
+  load?: (() => void) | null
+  unload?: (() => void) | null
   dependentUrls?: string[]
 }
 

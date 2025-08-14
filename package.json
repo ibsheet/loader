@@ -4,7 +4,7 @@
     "filename": "ibsheet-loader",
     "global": "IBSheetLoader"
   },
-  "version": "1.1.25",
+  "version": "1.2.0",
   "description": "Dynamically load support module for IBSheet",
   "exports": {
     ".": {
@@ -141,6 +141,7 @@
     "webpack-replace-plugin": "^0.0.4"
   },
   "dependencies": {
+    "@ibsheet/interface": "^1.0.0",
     "ajv": "^8.11.0",
     "babel-plugin-istanbul": "^7.0.0",
     "core-js": "^3.43.0",

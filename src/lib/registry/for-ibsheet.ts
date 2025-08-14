@@ -45,12 +45,13 @@ export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
     const { name, def } = o
     let value = get(data, name, def)
     switch (name) {
-      case 'theme':
+      case 'theme': {
         if (typeof value === 'string' && !isFilePath(value, 'css')) {
           value = `css/${value}/main.css`
         }
         break
-      case 'locales':
+      }
+      case 'locales': {
         let values = value || []
         if (Array.isArray(value)) {
           values = value
@@ -71,8 +72,9 @@ export function defaultsIBSheetUrls(data: RegistryItemData): RegItemUrlData[] {
           })
         }
         return
+      }
     }
-    
+
     if (Array.isArray(value)) {
       value.forEach((v) => pushIfNotExistsUrl(urls, v))
     } else {
@@ -145,7 +147,7 @@ export function updateIBSheetUrls(
     const { name } = o
     let value = get(data, name)
     switch (name) {
-      case 'theme':
+      case 'theme': {
         if (isNil(value)) return
         if (!isFilePath(value, 'css')) {
           value = `css/${value}/main.css`
@@ -156,7 +158,8 @@ export function updateIBSheetUrls(
         if (exists) return
         urls.push(value)
         return
-      case 'locales':
+      }
+      case 'locales': {
         let values = value || []
         const locale = get(data, 'locale')
         if (!values.length) {
@@ -180,6 +183,7 @@ export function updateIBSheetUrls(
           remove(origins, (str) => /locale\/[^/]+\.js$/i.test(str))
         }
         return
+      }
       // no support change "corefile"
       default:
         return

@@ -42,7 +42,7 @@ import { RegisteredItem, LoaderStatus, LoaderEventName } from './interface'
  * IBSheetLoaderStatic Main Class
  */
 export class IBSheetLoaderStatic extends CustomEventEmitter {
-  [x: string]: {}
+  [x: string]: unknown
   /** @ignore */
   private _status: LoaderStatus = LoaderStatus.PENDING
   /** @ignore */
@@ -280,19 +280,21 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     // onRenderFirstFinish 이벤트에서 OnAfterRenderFirstFinsh 함수를 호출해 주면 then이 실행되게 하자
     const sheetRenderFirstFinish = function (
       sheet: any,
-      mainResolve: Function,
+      mainResolve: (sheet: IBSheetInstance) => void,
     ): Promise<IBSheetInstance> {
       return new Promise((resolve) => {
-        sheet.OnAfterRenderFirstFinish = function (callback: Function) {
+        sheet.OnAfterRenderFirstFinish = function (
+          callback?: () => void,
+        ): void {
           mainResolve(this)
           resolve(this)
-          if (callback) callback(this)
+          if (callback) callback()
         }
       })
     }
 
     // window 전역에 있는 IB_ 로 시작하는 객체를 모듈로 사용할 수 있도록 하는 기능 추가
-    const setloaderPreset = function (): Promise<{}> {
+    const setloaderPreset = function (): Promise<Record<string, any>> {
       return new Promise((resolve) => {
         const obj: Record<string, any> = {}
         for (const ws in window) {
@@ -306,47 +308,40 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
 
     const createFn = bind(ibsheet.create, ibsheet)
     const createEvtData = { target: ibsheet.global, data: sheetOpts }
-    return new Promise(async (resolve, reject) => {
-      let sheet: any
-
-      if (this.loadedDefaultLib) {
+    return new Promise((resolve, reject) => {
+      ;(async () => {
         try {
-          // window 전역에 있는 IB_ 로 시작하는 객체를 모듈로 사용할 수 있도록 하는 기능 추가
-          this.loaderPreset = await setloaderPreset()
-          this.emit(LoaderEventName.CREATE_SHEET, createEvtData)
-          sheet = await createFn(sheetOpts)
-          this.emit(LoaderEventName.CREATED_SHEET, { target: sheet })
+          if (this.loadedDefaultLib) {
+            this.loaderPreset = await setloaderPreset()
+            this.emit(LoaderEventName.CREATE_SHEET, createEvtData)
+            const sheet = await createFn(sheetOpts)
+            this.emit(LoaderEventName.CREATED_SHEET, { target: sheet })
 
-          // ibsheet-common.js 에 CommonOptions에 Cfg:{LoaderCreateDelay:1} 가 설정되면 sheetCreate().then()의 시점을 onRenderFirstFinish() 이후로 바꾼다.
-
-          // 단 이렇게 사용하려면 CommonOptions에 다음 부분이 추가되어야 함.
-          // Event:{
-          //     onRenderFirstFinish:function(){
-          //         if (evt.sheet.OnAfterRenderFirstFinish) {  evt.sheet.OnAfterRenderFirstFinish(); }
-          //    }
-          // }
-          if (sheet.LoaderCreateDelay) {
-            return await sheetRenderFirstFinish(sheet, resolve)
-          } else {
-            return resolve(sheet)
+            if ((sheet as any).LoaderCreateDelay) {
+              return resolve(await sheetRenderFirstFinish(sheet, resolve))
+            } else {
+              return resolve(sheet)
+            }
           }
-        } catch (err) {
-          this.emit(
-            LoaderEventName.CREATE_SHEET_FAILED,
-            assignIn(createEvtData, { error: err }),
-          )
-          return reject(err)
-        }
-      }
-      // if not loaded
-      const defItem = this._getDefaultRegItem()
-      defItem.once(LoaderEventName.LOADED, async () => {
-        try {
-          // window 전역에 있는 IB_ 로 시작하는 객체를 모듈로 사용할 수 있도록 하는 기능 추가
-          this.loaderPreset = await setloaderPreset()
-          this.emit(LoaderEventName.CREATE_SHEET, createEvtData)
-          sheet = await createFn(sheetOpts)
-          this.emit(LoaderEventName.CREATED_SHEET, { target: sheet })
+
+          const defItem = this._getDefaultRegItem()
+          defItem.once(LoaderEventName.LOADED, async () => {
+            try {
+              this.loaderPreset = await setloaderPreset()
+              this.emit(LoaderEventName.CREATE_SHEET, createEvtData)
+              const sheet = await createFn(sheetOpts)
+              this.emit(LoaderEventName.CREATED_SHEET, { target: sheet })
+              resolve(sheet)
+            } catch (err) {
+              this.emit(
+                LoaderEventName.CREATE_SHEET_FAILED,
+                assignIn(createEvtData, { error: err }),
+              )
+              reject(err)
+            }
+          })
+
+          this.load('ibsheet', true)
         } catch (err) {
           this.emit(
             LoaderEventName.CREATE_SHEET_FAILED,
@@ -354,18 +349,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
           )
           reject(err)
         }
-        return resolve(sheet)
-      })
-      try {
-        // createSheet 시 IBSheet가 로드 되어있지 않은 경우 반드시 로드
-        this.load('ibsheet', true)
-      } catch (err) {
-        this.emit(
-          LoaderEventName.CREATE_SHEET_FAILED,
-          assignIn(createEvtData, { error: err }),
-        )
-        reject(err)
-      }
+      })()
     })
   }
 
@@ -433,7 +417,6 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
 
   /** @ignore */
   reload(arg?: string | string[]): this {
-    const self = this
     if (isNil(arg)) {
       const item = this._getDefaultRegItem(false)
       if (isNil(item)) return this
@@ -457,7 +440,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
               'background-color:green;color:white',
             )
           }
-          self.load(tAlias, false)
+          this.load(tAlias, false)
         })
         this.unload(alias)
         return

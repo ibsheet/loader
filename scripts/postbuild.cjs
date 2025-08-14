@@ -29,25 +29,11 @@ const minimalPkg = {
   repository: basePkg.repository,
   bugs: basePkg.bugs,
   homepage: basePkg.homepage,
+  dependencies: {
+    "@ibsheet/interface": "^1.0.0",
+  },
 }
 fs.writeFileSync(path.join(distRoot, 'package.json'), JSON.stringify(minimalPkg, null, 2))
-
-// index.js 생성 (esm export 기준)
-/*
-fs.writeFileSync(
-  path.join(distRoot, 'index.js'),
-  `export * from './esm/index.js';\n`
-)
-
-// index.d.ts 복사 또는 생성
-const typeFileSrc = path.resolve('./types/index.d.ts')
-const typeFileDest = path.join(distRoot, 'index.d.ts')
-if (fs.existsSync(typeFileSrc)) {
-  fs.copyFileSync(typeFileSrc, typeFileDest)
-} else {
-  fs.writeFileSync(typeFileDest,  `export * from './esm/index';\n`)
-}
-*/
 
 // README.md 복사
 const readmeSrc = path.resolve('./README.md')
@@ -63,21 +49,6 @@ if (fs.existsSync(licenseSrc)) {
   fs.copyFileSync(licenseSrc, licenseDest)
 }
 
-// 삭제 함수
-function removeDirIfExists(dirPath) {
-  if (fs.existsSync(dirPath)) {
-    fs.rmSync(dirPath, { recursive: true, force: true })
-    console.log(`✅ Removed dir: ${dirPath}`)
-  }
-}
-
-function removeFileIfExists(filePath) {
-  if (fs.existsSync(filePath)) {
-    fs.unlinkSync(filePath)
-    console.log(`🧹 Removed file: ${filePath}`)
-  }
-}
-
 const formats = ['esm', 'cjs', 'umd']
 formats.forEach((format) => {
   const libPath = path.resolve(__dirname, `../dist/${format}/lib`)
@@ -86,7 +57,6 @@ formats.forEach((format) => {
     console.log(`📦 Moved ${format}/lib → dist/lib`)
   }
 })
-
 
 /**
  * 경로를 '../lib'으로 재작성

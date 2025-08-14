@@ -26,7 +26,7 @@ export function destroyIBSheetStatic(name: string = IBSHEET_GLOBAL) {
   try {
     ibsheet.disposeAll(true, true)
   } catch (err) {
-    // nothing
+    console.warn('IBSheet disposeAll failed:', err)
   }
   set(window, name, undefined)
 }
@@ -41,9 +41,9 @@ export function validSheetRegistData(param?: RegistryParam): boolean {
 }
 
 export function setIBSheetLicense(value: string): void {
-  let ibleaders = get(window, 'ibleaders') ?? {};
-  set(window, 'ibleaders', ibleaders);
-  set(ibleaders, 'license', value);
+  const ibleaders = get(window, 'ibleaders') ?? {}
+  set(window, 'ibleaders', ibleaders)
+  set(ibleaders, 'license', value)
 }
 
 export function generateSheetID(): string {
