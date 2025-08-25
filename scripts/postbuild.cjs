@@ -30,7 +30,7 @@ const minimalPkg = {
   bugs: basePkg.bugs,
   homepage: basePkg.homepage,
   dependencies: {
-    "@ibsheet/interface": "^1.0.0",
+    "@ibsheet/interface": ">=1.0.0",
   },
 }
 fs.writeFileSync(path.join(distRoot, 'package.json'), JSON.stringify(minimalPkg, null, 2))
@@ -47,6 +47,13 @@ const licenseSrc = path.resolve('./LICENSE')
 const licenseDest = path.join(distRoot, 'LICENSE')
 if (fs.existsSync(licenseSrc)) {
   fs.copyFileSync(licenseSrc, licenseDest)
+}
+
+// CHANGELOG.md 복사
+const changemeSrc = path.resolve('./CHANGELOG.md')
+const changemeDest = path.join(distRoot, 'CHANGELOG.md')
+if (fs.existsSync(changemeSrc)) {
+  fs.copyFileSync(changemeSrc, changemeDest)
 }
 
 const formats = ['esm', 'cjs', 'umd']
