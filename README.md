@@ -26,7 +26,7 @@ Dynamically load support module for [IBSheet](https://www.ibsheet.com)
 
 * [CircleCI](https://circleci.com) - Continuous Integration and Delivery
 * [snyk.io](https://snyk.io) - Continuously find and fix vulnerabilities for npm
-* ~~[Codacy](https://www.codacy.com) - Automated code reviews & code analytics~~
+* [Codacy](https://www.codacy.com) - Automated code reviews & code analytics
 * ~~[codecov](https://codecov.io) - leading, dedicated code coverage~~
 
 ## documents
