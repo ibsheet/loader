@@ -38,7 +38,6 @@ import {
   IBChartCreateOptions,
   IBChartGlobalStatic,
   IBChartGlobalInstance,
-  generateChartID,
 } from './ibchart'
 
 import {
@@ -49,7 +48,13 @@ import {
 } from './ibmap'
 
 // import { double, power } from './number'
-import { IBSHEET, APP_VERSION, IBCHART, IBMAP, IBCHART_GLOBAL_OBJECT } from './constant'
+import {
+  IBSHEET,
+  APP_VERSION,
+  IBCHART,
+  IBMAP,
+  IBCHART_GLOBAL_OBJECT,
+} from './constant'
 import { LoaderConfigOptions, DefaultLoaderConfig } from './config'
 import { LoaderRegistry, RegistryItem } from './registry'
 import { RegisteredItem, LoaderStatus, LoaderEventName } from './interface'
@@ -139,9 +144,15 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     const item3 = this.registry.findOne(IBMAP)
     if (throwError && isNil(item) && isNil(item2) && isNil(item3)) {
       // throw new Error(`not found registration data for ${IBSHEET} library`)
-      throw new Error(`not found registration data for ${IBSHEET} library or ${IBCHART} library or ${IBMAP} library`)
+      throw new Error(
+        `not found registration data for ${IBSHEET} library or ${IBCHART} library or ${IBMAP} library`,
+      )
     }
-    return item as RegistryItem || item2 as RegistryItem || item3 as RegistryItem
+    return (
+      (item as RegistryItem) ||
+      (item2 as RegistryItem) ||
+      (item3 as RegistryItem)
+    )
   }
   /** @ignore */
   private _initTasksManagers(): void {
@@ -283,8 +294,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     if (!has(chartOpts, 'id')) {
       throw new Error('IBChart create error: need "id" property.')
       // chartOpts.id = generateChartID()
-    }
-    else if (!has(chartOpts, 'cont') && !has(chartOpts, 'el')) {
+    } else if (!has(chartOpts, 'cont') && !has(chartOpts, 'el')) {
       throw new Error('IBChart create error: need "el" or "cont" property.')
     }
 
@@ -339,7 +349,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
 
   removeChart(sid: string): void {
     if (!this.loadedDefaultLib) return
-    const ibchartstatic = (window as any)[IBCHART_GLOBAL_OBJECT];
+    const ibchartstatic = (window as any)[IBCHART_GLOBAL_OBJECT]
     const target = ibchartstatic[sid]
     if (isNil(target)) {
       if (this.debug) {
@@ -350,10 +360,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     this.emit(LoaderEventName.REMOVE_CHART, { target })
     try {
       target.dispose()
-      delete ibchartstatic[sid];
+      delete ibchartstatic[sid]
       ibchartstatic.forEach((chart: any, index: number) => {
         if (chart.getId() === sid) {
-          ibchartstatic.splice(index, 1);
+          ibchartstatic.splice(index, 1)
         }
       })
       this.emit(LoaderEventName.REMOVED_CHART, {
@@ -370,7 +380,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   }
 
   createMap(options: any): Promise<IBMapInstance> {
-    let opts: any = {}
+    const opts: any = {}
     const mapOpts: IBMapCreateOptions = {}
     const ibmap = this._ibmap
     ;[
@@ -388,7 +398,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     })
 
     if (!has(mapOpts, 'elem') && !has(mapOpts, 'el')) {
-        throw new Error('IBMap create error: need "el" or "elem" property.')
+      throw new Error('IBMap create error: need "el" or "elem" property.')
     } else if (!has(mapOpts, 'cfg') && !has(mapOpts, 'options')) {
       throw new Error('IBMap create error: need "options" or "cfg" property.')
     }
@@ -444,7 +454,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   removeMap(oMap: IBMapInstance): void {
     if (!this.loadedDefaultLib) return
 
-    const target = oMap;
+    const target = oMap
     if (isEmpty(target) && isNil(target)) {
       if (this.debug) {
         console.warn('not found target map:', target)
@@ -455,7 +465,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     try {
       target.dispose()
       this.emit(LoaderEventName.REMOVED_MAP, {
-        target: target
+        target: target,
       })
     } catch (err) {
       console.error(err)

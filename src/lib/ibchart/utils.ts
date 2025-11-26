@@ -4,7 +4,7 @@ import {
   IBCHART,
   IBCHART_GLOBAL,
   IBCHART_PREFIX,
-  IBCHART_EL_PREFIX
+  IBCHART_EL_PREFIX,
 } from '../constant'
 import { RegistryParam } from '../registry'
 
@@ -24,10 +24,10 @@ export function getIBChartStatic(name: string = IBCHART_GLOBAL): any {
 export function destroyIBChartStatic(name: string = IBCHART_GLOBAL) {
   const ibchart = getIBChartStatic(name)
   try {
-    for(let i = 0; i < ibchart.length; i++) {
-      ibchart[i].dispose();
+    for (let i = 0; i < ibchart.length; i++) {
+      ibchart[i].dispose()
     }
-    Object.keys(ibchart).forEach(key => delete ibchart[key]);
+    Object.keys(ibchart).forEach((key) => delete ibchart[key])
   } catch (err) {
     console.warn('IBChart disposeAll failed:', err)
   }

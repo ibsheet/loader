@@ -1,4 +1,4 @@
-export interface IBMapCreateOptions { 
+export interface IBMapCreateOptions {
   elem?: string
   cfg?: object
 }

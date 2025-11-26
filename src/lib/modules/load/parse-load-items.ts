@@ -68,7 +68,11 @@ export function parseLoadItems(loadItems: RegistryItemData[]): RegistryItem[] {
       }
 
       // ignore debug for default library
-      if (item.name === IBSHEET || item.name === IBCHART || item.name === IBMAP) {
+      if (
+        item.name === IBSHEET ||
+        item.name === IBCHART ||
+        item.name === IBMAP
+      ) {
         if (taskMan.exists(item) && !item.changed) {
           return
         }

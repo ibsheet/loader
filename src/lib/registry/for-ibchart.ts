@@ -1,20 +1,8 @@
-import { get, isNil, 
-  isEmpty, 
-} from '../shared/lodash'
-import { basename, 
-} from '../shared/str-utils'
-import {
-  setIBChartLicense,
-} from '../ibchart'
-import {
-  RegistryItemURL,
-  RegItemUrlData,
-  RegistryItemData,
-} from './item'
-import {
-  castRegistryItemData,
-  pushIfNotExistsUrl,
-} from './utils'
+import { get, isNil, isEmpty } from '../shared/lodash'
+import { basename } from '../shared/str-utils'
+import { setIBChartLicense } from '../ibchart'
+import { RegistryItemURL, RegItemUrlData, RegistryItemData } from './item'
+import { castRegistryItemData, pushIfNotExistsUrl } from './utils'
 
 export function defaultsIBChartUrls(data: RegistryItemData): RegItemUrlData[] {
   try {
@@ -22,19 +10,19 @@ export function defaultsIBChartUrls(data: RegistryItemData): RegItemUrlData[] {
     if (urls.length) {
       urls = urls.map((o: any) => castRegistryItemData(o))
     }
-  
+
     const url = get(data, 'url')
     if (!isNil(url) && urls.length) {
       const fname = basename(url) as string
       pushIfNotExistsUrl(urls, fname)
     }
-  
-    let chart = `ibchart.js`
+
+    const chart = `ibchart.js`
     pushIfNotExistsUrl(urls, chart)
-  
-    let chartinfo = `ibchartinfo.js`
+
+    const chartinfo = `ibchartinfo.js`
     pushIfNotExistsUrl(urls, chartinfo)
-  
+
     // dependentUrls 처리
     const dependentUrls = get(data, 'dependentUrls')
     if (!isNil(dependentUrls) && Array.isArray(dependentUrls)) {
@@ -42,7 +30,7 @@ export function defaultsIBChartUrls(data: RegistryItemData): RegItemUrlData[] {
         pushIfNotExistsUrl(urls, depUrl)
       })
     }
-  
+
     const license = get(data, 'license')
     if (!isEmpty(license) && typeof license === 'string') {
       if (
@@ -58,8 +46,8 @@ export function defaultsIBChartUrls(data: RegistryItemData): RegItemUrlData[] {
 
     return urls
   } catch (error) {
-    console.error('Error in defaultsIBChartUrls:', error);
-    throw error;
+    console.error('Error in defaultsIBChartUrls:', error)
+    throw error
   }
 }
 
@@ -79,10 +67,10 @@ export function updateIBChartUrls(
     pushIfNotExistsUrl(urls, fname)
   }
 
-  let chart = `ibchart.js`
+  const chart = `ibchart.js`
   pushIfNotExistsUrl(urls, chart)
 
-  let chartinfo = `ibchartinfo.js`
+  const chartinfo = `ibchartinfo.js`
   pushIfNotExistsUrl(urls, chartinfo)
 
   // dependentUrls 처리 추가

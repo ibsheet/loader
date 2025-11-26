@@ -1,11 +1,6 @@
 import { isString, trim, get, set, isNil } from '../shared/lodash'
 import { genUniqueElementId } from '../shared/dom-utils'
-import {
-  IBMAP,
-  IBMAP_GLOBAL,
-  IBMAP_PREFIX,
-  IBMAP_EL_PREFIX
-} from '../constant'
+import { IBMAP, IBMAP_GLOBAL, IBMAP_PREFIX, IBMAP_EL_PREFIX } from '../constant'
 import { RegistryParam } from '../registry'
 
 /** @ignore */
@@ -24,10 +19,10 @@ export function getIBMapStatic(name: string = IBMAP_GLOBAL): any {
 export function destroyIBMapStatic(name: string = IBMAP_GLOBAL) {
   const ibmap = getIBMapStatic(name)
   try {
-    for(let i = 0; i < ibmap.length; i++) {
-      ibmap[i].dispose();
+    for (let i = 0; i < ibmap.length; i++) {
+      ibmap[i].dispose()
     }
-    Object.keys(ibmap).forEach(key => delete ibmap[key]);
+    Object.keys(ibmap).forEach((key) => delete ibmap[key])
   } catch (err) {
     console.warn('IBMap disposeAll failed:', err)
   }

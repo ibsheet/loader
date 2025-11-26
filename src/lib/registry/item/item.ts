@@ -18,8 +18,9 @@ import {
 } from '../../shared/lodash'
 import { LoaderEventName } from '../../interface'
 import { isIBSheet, IBSheet8GlobalInstance } from '../../ibsheet'
-import { isIBChart
-  // , IBChartGlobalInstance 
+import {
+  isIBChart,
+  // , IBChartGlobalInstance
 } from '../../ibchart'
 import { isIBMap } from '../../ibmap'
 
@@ -215,15 +216,13 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
         } else {
           urls = updateIBSheetUrls(this.urls, data)
         }
-      }
-      else if (bIBChart) {
+      } else if (bIBChart) {
         if (!isUpdate) {
           urls = defaultsIBChartUrls(data)
         } else {
           urls = updateIBChartUrls(this.urls, data)
         }
-      }
-      else if (bIBMap) {
+      } else if (bIBMap) {
         if (!isUpdate) {
           urls = defaultsIBMapUrls(data)
         } else {

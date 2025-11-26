@@ -1,20 +1,8 @@
-import { get, isNil, 
-  isEmpty, 
-} from '../shared/lodash'
-import { basename, 
-} from '../shared/str-utils'
-import {
-  setIBMapLicense,
-} from '../ibmap'
-import {
-  RegistryItemURL,
-  RegItemUrlData,
-  RegistryItemData,
-} from './item'
-import {
-  castRegistryItemData,
-  pushIfNotExistsUrl,
-} from './utils'
+import { get, isNil, isEmpty } from '../shared/lodash'
+import { basename } from '../shared/str-utils'
+import { setIBMapLicense } from '../ibmap'
+import { RegistryItemURL, RegItemUrlData, RegistryItemData } from './item'
+import { castRegistryItemData, pushIfNotExistsUrl } from './utils'
 
 export function defaultsIBMapUrls(data: RegistryItemData): RegItemUrlData[] {
   try {
@@ -22,19 +10,19 @@ export function defaultsIBMapUrls(data: RegistryItemData): RegItemUrlData[] {
     if (urls.length) {
       urls = urls.map((o: any) => castRegistryItemData(o))
     }
-  
+
     const url = get(data, 'url')
     if (!isNil(url) && urls.length) {
       const fname = basename(url) as string
       pushIfNotExistsUrl(urls, fname)
     }
 
-    let mapCss = `css/ibmap.css`
-    pushIfNotExistsUrl(urls, mapCss);
+    const mapCss = `css/ibmap.css`
+    pushIfNotExistsUrl(urls, mapCss)
 
-    let map = `ibmap.js`
+    const map = `ibmap.js`
     pushIfNotExistsUrl(urls, map)
-  
+
     // dependentUrls 처리
     const dependentUrls = get(data, 'dependentUrls')
     if (!isNil(dependentUrls) && Array.isArray(dependentUrls)) {
@@ -53,12 +41,12 @@ export function defaultsIBMapUrls(data: RegistryItemData): RegItemUrlData[] {
         urls.push(license)
       } else {
         setIBMapLicense(license)
-      } 
+      }
     }
     return urls
   } catch (error) {
-    console.error('Error in defaultsIBMapUrls:', error);
-    throw error;
+    console.error('Error in defaultsIBMapUrls:', error)
+    throw error
   }
 }
 
@@ -78,10 +66,10 @@ export function updateIBMapUrls(
     pushIfNotExistsUrl(urls, fname)
   }
 
-  let mapCss = `css/ibmap.css`
-  pushIfNotExistsUrl(urls, mapCss);
+  const mapCss = `css/ibmap.css`
+  pushIfNotExistsUrl(urls, mapCss)
 
-  let map = `ibmap.js`
+  const map = `ibmap.js`
   pushIfNotExistsUrl(urls, map)
 
   // dependentUrls 처리 추가

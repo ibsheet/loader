@@ -25,7 +25,7 @@ export function getPreloadItems(
       needRegAlias = needRegAlias && !validChartRegistData(origins)
       needRegAlias = needRegAlias && !validMapRegistData(origins)
     } else if (isArray(origins)) {
-      const arrS= origins.filter((t: any) => validSheetRegistData(t))
+      const arrS = origins.filter((t: any) => validSheetRegistData(t))
       const arrC = origins.filter((t: any) => validChartRegistData(t))
       const arrM = origins.filter((t: any) => validMapRegistData(t))
       needRegAlias = !arrS.length && !arrC.length && !arrM.length

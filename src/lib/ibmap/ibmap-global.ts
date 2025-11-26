@@ -1,15 +1,14 @@
 import { IBMAP_GLOBAL } from '../constant'
-import { 
-  has, 
-  isNil } from '../shared/lodash'
-import { IBMapInstance } from './interface';
+import { has, isNil } from '../shared/lodash'
+import { IBMapInstance } from './interface'
 
-import { getIBMapStatic } from "./utils";
+import { getIBMapStatic } from './utils'
 
 export class IBMapGlobalStatic {
-  private _name: string;
-  constructor(name: string = IBMAP_GLOBAL) { //IBMapCharts
-    this._name = name;
+  private _name: string
+  constructor(name: string = IBMAP_GLOBAL) {
+    //IBMapCharts
+    this._name = name
   }
   get name(): string {
     return this._name
@@ -33,8 +32,8 @@ export class IBMapGlobalStatic {
       throw new Error('"cfg" property is required.')
     }
     try {
-      const map = ibmap.create(options.elem, options.cfg);
-      return await map;
+      const map = ibmap.create(options.elem, options.cfg)
+      return await map
     } catch (err) {
       throw new Error(err)
     }
