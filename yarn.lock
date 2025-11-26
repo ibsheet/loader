@@ -853,10 +853,10 @@
   resolved "https://registry.npmjs.org/@hutson/parse-repository-url/-/parse-repository-url-3.0.2.tgz"
   integrity sha512-H9XAx3hc0BQHY6l+IFSWHDySypcXsvsuLhgYLUGywmJ5pswRVQJUHpOsobnLYp2ZUaUlKiKDrgWWhosOwAEM8Q==
 
-"@ibsheet/interface@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@ibsheet/interface/-/interface-1.0.0.tgz#03b8df59c95ac9e4c4af61be1cea42de66a11e93"
-  integrity sha512-/yFTULUe8rgImnZG8684Mcr6vOLCBsbYMUnEuZC8voflxNtz4AqkOBbGJD9csMs6gCiAs/MzNQYk/GQnUsj/Hg==
+"@ibsheet/interface@latest":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@ibsheet/interface/-/interface-1.0.3.tgz#38a70982fcf03ee43750a5895bc5321e521f25a8"
+  integrity sha512-tFXJ0xKEM8Gq99pgjZTQtmYtt0fS9Fv2EVIcTugZOubHFb4sUvJQyxOJ5+5OdptK3YiLiz5qR93HBJWCzC7zpQ==
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
@@ -4400,6 +4400,11 @@ he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/he/-/he-1.2.0.tgz"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
+
+highcharts@^12.4.0:
+  version "12.4.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-12.4.0.tgz#6bc0d551960e4e275d5a605e77b75625deeea225"
+  integrity sha512-o6UxxfChSUrvrZUbWrAuqL1HO/+exhAUPcZY6nnqLsadZQlnP16d082sg7DnXKZCk1gtfkyfkp6g3qkIZ9miZg==
 
 hosted-git-info@^2.1.4:
   version "2.8.9"

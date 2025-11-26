@@ -18,6 +18,10 @@ import {
 } from '../../shared/lodash'
 import { LoaderEventName } from '../../interface'
 import { isIBSheet, IBSheet8GlobalInstance } from '../../ibsheet'
+import { isIBChart
+  // , IBChartGlobalInstance 
+} from '../../ibchart'
+import { isIBMap } from '../../ibmap'
 
 import { castRegistryItemData, castRegistryAlias } from '../utils'
 import {
@@ -33,6 +37,8 @@ import { asyncImportItemUrls } from './async-load'
 import { asyncRemoveItemUrls } from './async-unload'
 import { asyncItemTest } from './async-test'
 import { defaultsIBSheetUrls, updateIBSheetUrls } from '../for-ibsheet'
+import { defaultsIBChartUrls, updateIBChartUrls } from '../for-ibchart'
+import { defaultsIBMapUrls, updateIBMapUrls } from '../for-ibmap'
 
 class RegistryItem extends CustomEventEmitter implements ValidatableItem {
   /** @ignore */
@@ -175,12 +181,18 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
       'locale',
       'locales',
       'license',
+      'highcharts',
+      'dependentUrls',
     ])
     if (isEmpty(targetOpts)) {
       return
     }
 
     const bIBSheet = isIBSheet(this.name)
+
+    const bIBChart = isIBChart(this.name)
+
+    const bIBMap = isIBMap(this.name)
 
     const options = defaultsDeep(targetOpts, this._urlOptions)
     this._urlOptions = options
@@ -193,14 +205,30 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
     }
 
     let urls: any
-    if (!bIBSheet) {
+    if (!bIBSheet && !bIBChart && !bIBMap) {
       urls = get(options, 'urls', pick(options, ['url', 'target', 'type']))
     } else {
-      // TODO: IBSheet8 전용속성 분기 로직 리팩토링
-      if (!isUpdate) {
-        urls = defaultsIBSheetUrls(data)
-      } else {
-        urls = updateIBSheetUrls(this.urls, data)
+      if (bIBSheet) {
+        // TODO: IBSheet8 전용속성 분기 로직 리팩토링
+        if (!isUpdate) {
+          urls = defaultsIBSheetUrls(data)
+        } else {
+          urls = updateIBSheetUrls(this.urls, data)
+        }
+      }
+      else if (bIBChart) {
+        if (!isUpdate) {
+          urls = defaultsIBChartUrls(data)
+        } else {
+          urls = updateIBChartUrls(this.urls, data)
+        }
+      }
+      else if (bIBMap) {
+        if (!isUpdate) {
+          urls = defaultsIBMapUrls(data)
+        } else {
+          urls = updateIBMapUrls(this.urls, data)
+        }
       }
     }
 
@@ -235,6 +263,8 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
       }
       switch (basename) {
         case 'ibsheet':
+        case 'ibchart':
+        case 'ibmap':
           uItem.validate = this.getEventOption('validate', null)
           break
         case 'ibsheet-excel':
@@ -256,7 +286,6 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
   }
   /** @ignore */
   private _setUrls(data: RegistryItemData, isUpdate: boolean = false): void {
-    // console.log('_setUrls', isUpdate)
     const urls = this._createUrls(data, isUpdate)
     if (isNil(urls)) return
     if (isUpdate) {
@@ -350,7 +379,6 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
       }
       return nOrder
     })
-    // console.log(this._urls)
   }
 
   /** @ignore */

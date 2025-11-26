@@ -5,6 +5,7 @@ import {
   get,
   has,
   isNil,
+  isEmpty,
   castArray,
   isString,
   pick,
@@ -32,8 +33,23 @@ import {
   generateElementID,
 } from './ibsheet'
 
+import {
+  IBChartInstance,
+  IBChartCreateOptions,
+  IBChartGlobalStatic,
+  IBChartGlobalInstance,
+  generateChartID,
+} from './ibchart'
+
+import {
+  IBMapInstance,
+  IBMapCreateOptions,
+  IBMapGlobalStatic,
+  IBMapGlobalInstance,
+} from './ibmap'
+
 // import { double, power } from './number'
-import { IBSHEET, APP_VERSION } from './constant'
+import { IBSHEET, APP_VERSION, IBCHART, IBMAP, IBCHART_GLOBAL_OBJECT } from './constant'
 import { LoaderConfigOptions, DefaultLoaderConfig } from './config'
 import { LoaderRegistry, RegistryItem } from './registry'
 import { RegisteredItem, LoaderStatus, LoaderEventName } from './interface'
@@ -55,6 +71,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   private _options: LoaderConfigOptions
   /** @ignore */
   private _ibsheet: IBSheetGlobalStatic = IBSheet8GlobalInstance
+
+  private _ibchart: IBChartGlobalStatic = IBChartGlobalInstance
+
+  private _ibmap: IBMapGlobalStatic = IBMapGlobalInstance
 
   /** @ignore */
   intervalMan: IntervalManager
@@ -115,10 +135,13 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   /** @ignore */
   private _getDefaultRegItem(throwError: boolean = true): RegistryItem {
     const item = this.registry.findOne(IBSHEET)
-    if (throwError && isNil(item)) {
-      throw new Error(`not found registration data for ${IBSHEET} library`)
+    const item2 = this.registry.findOne(IBCHART)
+    const item3 = this.registry.findOne(IBMAP)
+    if (throwError && isNil(item) && isNil(item2) && isNil(item3)) {
+      // throw new Error(`not found registration data for ${IBSHEET} library`)
+      throw new Error(`not found registration data for ${IBSHEET} library or ${IBCHART} library or ${IBMAP} library`)
     }
-    return item as RegistryItem
+    return item as RegistryItem || item2 as RegistryItem || item3 as RegistryItem
   }
   /** @ignore */
   private _initTasksManagers(): void {
@@ -144,6 +167,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
       const sheetGlobal = get(loaderOpts, 'globals.ibsheet')
       if (sheetGlobal) {
         this._ibsheet.setGlobalName(sheetGlobal)
+      }
+      const chartGlobal = get(loaderOpts, 'globals.ibchart')
+      if (chartGlobal) {
+        this._ibchart.setGlobalName(chartGlobal)
       }
       const regOpts = get(options, 'registry')
       if (!isNil(regOpts)) {
@@ -195,6 +222,10 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     return this._ibsheet.global
   }
 
+  getIBChartStatic(): any {
+    return this._ibchart.global
+  }
+
   // 20200402 김의연, 서득원, 이재호 - [#] load 시 ibsheet autoload 인터페이스 추가
   load(arg?: any, alsoDefaultLib?: boolean): this {
     // const registry = this.registry
@@ -224,11 +255,215 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     if (!tasks.length) {
       return this
     }
-    // console.log('@@@', tasks.map((o: any) => o.alias))
 
     // start import library
     taskMan.start()
     return this
+  }
+
+  createChart(options: any): Promise<IBChartInstance> {
+    let opts: any = {}
+    const chartOpts: IBChartCreateOptions = {}
+    const ibchart = this._ibchart
+    ;[
+      { key: 'id' },
+      { key: 'cont', alias: ['el'] },
+      { key: 'options', alias: ['config'] },
+    ].forEach((o: any) => {
+      const { key } = o as { key: keyof IBChartCreateOptions; alias?: string[] }
+      concat(key, get(o, 'alias'))
+        .filter(Boolean)
+        .forEach((prop: string) => {
+          if (has(options, prop)) {
+            chartOpts[key] = get(options, prop)
+          }
+        })
+    })
+
+    if (!has(chartOpts, 'id')) {
+      throw new Error('IBChart create error: need "id" property.')
+      // chartOpts.id = generateChartID()
+    }
+    else if (!has(chartOpts, 'cont') && !has(chartOpts, 'el')) {
+      throw new Error('IBChart create error: need "el" or "cont" property.')
+    }
+
+    if (has(chartOpts, 'options')) {
+      if (typeof chartOpts.options === 'object') {
+        opts = defaultsDeep(opts, chartOpts.options)
+      }
+    }
+
+    opts.id = chartOpts.id
+    opts.cont = chartOpts.cont
+
+    const createFn = bind(ibchart.create, ibchart)
+    const createEvtData = { target: ibchart.global, data: opts }
+    return new Promise((resolve, reject) => {
+      ;(async () => {
+        try {
+          if (this.loadedDefaultLib) {
+            this.emit(LoaderEventName.CREATE_CHART, createEvtData)
+            const chart = await createFn(opts)
+            this.emit(LoaderEventName.CREATED_CHART, { target: chart })
+            return resolve(chart)
+          }
+
+          const defItem = this._getDefaultRegItem()
+          defItem.once(LoaderEventName.LOADED, async () => {
+            try {
+              this.emit(LoaderEventName.CREATE_CHART, createEvtData)
+              const chart = await createFn(opts)
+              this.emit(LoaderEventName.CREATED_CHART, { target: chart })
+              resolve(chart)
+            } catch (err) {
+              this.emit(
+                LoaderEventName.CREATE_CHART_FAILED,
+                assignIn(createEvtData, { error: err }),
+              )
+              reject(err)
+            }
+          })
+
+          this.load('ibchart', true)
+        } catch (err) {
+          this.emit(
+            LoaderEventName.CREATE_CHART_FAILED,
+            assignIn(createEvtData, { error: err }),
+          )
+          reject(err)
+        }
+      })()
+    })
+  }
+
+  removeChart(sid: string): void {
+    if (!this.loadedDefaultLib) return
+    const ibchartstatic = (window as any)[IBCHART_GLOBAL_OBJECT];
+    const target = ibchartstatic[sid]
+    if (isNil(target)) {
+      if (this.debug) {
+        console.warn('not found target chart:', sid)
+      }
+      return
+    }
+    this.emit(LoaderEventName.REMOVE_CHART, { target })
+    try {
+      target.dispose()
+      delete ibchartstatic[sid];
+      ibchartstatic.forEach((chart: any, index: number) => {
+        if (chart.getId() === sid) {
+          ibchartstatic.splice(index, 1);
+        }
+      })
+      this.emit(LoaderEventName.REMOVED_CHART, {
+        target: ibchartstatic,
+        data: { id: sid },
+      })
+    } catch (err) {
+      console.error(err)
+      this.emit(LoaderEventName.REMOVE_CHART_FAILED, {
+        target: ibchartstatic,
+        error: err,
+      })
+    }
+  }
+
+  createMap(options: any): Promise<IBMapInstance> {
+    let opts: any = {}
+    const mapOpts: IBMapCreateOptions = {}
+    const ibmap = this._ibmap
+    ;[
+      { key: 'elem', alias: ['el'] },
+      { key: 'cfg', alias: ['options'] },
+    ].forEach((o: any) => {
+      const { key } = o as { key: keyof IBMapCreateOptions; alias?: string[] }
+      concat(key, get(o, 'alias'))
+        .filter(Boolean)
+        .forEach((prop: string) => {
+          if (has(options, prop)) {
+            mapOpts[key] = get(options, prop)
+          }
+        })
+    })
+
+    if (!has(mapOpts, 'elem') && !has(mapOpts, 'el')) {
+        throw new Error('IBMap create error: need "el" or "elem" property.')
+    } else if (!has(mapOpts, 'cfg') && !has(mapOpts, 'options')) {
+      throw new Error('IBMap create error: need "options" or "cfg" property.')
+    }
+
+    if (has(mapOpts, 'cfg')) {
+      if (typeof mapOpts.cfg === 'object') {
+        opts['cfg'] = defaultsDeep(opts['cfg'], mapOpts.cfg)
+      }
+    }
+
+    opts.elem = mapOpts.elem
+
+    const createFn = bind(ibmap.createMap, ibmap)
+    const createEvtData = { target: ibmap.global, data: opts }
+    return new Promise((resolve, reject) => {
+      ;(async () => {
+        try {
+          if (this.loadedDefaultLib) {
+            this.emit(LoaderEventName.CREATE_MAP, createEvtData)
+            const map = await createFn(opts)
+            this.emit(LoaderEventName.CREATED_MAP, { target: map })
+            return resolve(map)
+          }
+
+          const defItem = this._getDefaultRegItem()
+          defItem.once(LoaderEventName.LOADED, async () => {
+            try {
+              this.emit(LoaderEventName.CREATE_MAP, createEvtData)
+              const map = await createFn(opts)
+              this.emit(LoaderEventName.CREATED_MAP, { target: map })
+              resolve(map)
+            } catch (err) {
+              this.emit(
+                LoaderEventName.CREATE_MAP_FAILED,
+                assignIn(createEvtData, { error: err }),
+              )
+              reject(err)
+            }
+          })
+
+          this.load('ibmap', true)
+        } catch (err) {
+          this.emit(
+            LoaderEventName.CREATE_MAP_FAILED,
+            assignIn(createEvtData, { error: err }),
+          )
+          reject(err)
+        }
+      })()
+    })
+  }
+
+  removeMap(oMap: IBMapInstance): void {
+    if (!this.loadedDefaultLib) return
+
+    const target = oMap;
+    if (isEmpty(target) && isNil(target)) {
+      if (this.debug) {
+        console.warn('not found target map:', target)
+      }
+      return
+    }
+    this.emit(LoaderEventName.REMOVE_MAP, { target })
+    try {
+      target.dispose()
+      this.emit(LoaderEventName.REMOVED_MAP, {
+        target: target
+      })
+    } catch (err) {
+      console.error(err)
+      this.emit(LoaderEventName.REMOVE_MAP_FAILED, {
+        target: target,
+        error: err,
+      })
+    }
   }
 
   /**
@@ -497,7 +732,6 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     if (!tasks.length) {
       return this
     }
-    // console.log('@@@ unload', tasks.map((o: any) => o.alias))
 
     // start remove library
     taskMan.start()

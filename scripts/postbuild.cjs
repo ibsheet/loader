@@ -30,8 +30,11 @@ const minimalPkg = {
   bugs: basePkg.bugs,
   homepage: basePkg.homepage,
   dependencies: {
-    "@ibsheet/interface": ">=1.0.0",
+    "@ibsheet/interface": "latest",
   },
+  peerDependencies: {
+    "@types/node": "latest",
+  }
 }
 fs.writeFileSync(path.join(distRoot, 'package.json'), JSON.stringify(minimalPkg, null, 2))
 

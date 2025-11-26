@@ -18,6 +18,18 @@ export enum LoaderEventName {
   REMOVE_SHEET = 'remove-sheet',
   REMOVE_SHEET_FAILED = 'remove-sheet-failed',
   REMOVED_SHEET = 'removed-sheet',
+  CREATE_CHART = 'create-chart',
+  CREATE_CHART_FAILED = 'create-chart-failed',
+  CREATED_CHART = 'created-chart',
+  REMOVE_CHART = 'remove-chart',
+  REMOVE_CHART_FAILED = 'remove-chart-failed',
+  REMOVED_CHART = 'removed-chart',
+  CREATE_MAP = 'create-map',
+  CREATE_MAP_FAILED = 'create-map-failed',
+  CREATED_MAP = 'created-map',
+  REMOVE_MAP = 'remove-map',
+  REMOVE_MAP_FAILED = 'remove-map-failed',
+  REMOVED_MAP = 'removed-map',
 }
 
 /** @ignore */

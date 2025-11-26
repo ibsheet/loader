@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBSheet Loader Dev Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    .container {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #sheetContainer {
+      width: 100%;
+      height: 400px;
+      margin-top: 20px;
+    }
+    #chartContainer {
+      width: 100%;
+      height: 400px;
+      margin-top: 20px;
+    }
+    .log {
+      background-color: #f4f4f4;
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>IBSheet Loader Development Test</h1>
+
+  <!-- IBSheet Test -->
+  <div class="container">
+    <h2>IBSheet Test</h2>
+    <button onclick="doLoadIBSheet()">Load IBSheet</button>
+    <button onclick="doCreateSheet()">Create Sheet</button>
+    <button onclick="doDeleteSheet()">Delete Sheet</button>
+    <button onclick="doUnloadIBSheet()">Unload IBSheet</button>
+    <div id="sheetContainer" style="width: 100%; height: 200px"></div>
+    <div class="log" id="sheetLog"></div>
+  </div>
+
+  <!-- IBChart Test -->
+  <div class="container">
+    <h2>IBChart Test</h2>
+    <button onclick="doLoadIBChart()">Load IBChart</button>
+    <button onclick="doCreateChart()">Create Chart</button>
+    <button onclick="doDeleteChart()">Delete Chart</button>
+    <button onclick="doUnloadIBChart()">Unload IBChart</button>
+    <div id="chartContainer"></div>
+    <div class="log" id="chartLog"></div>
+  </div>
+
+  <!-- IBMap Text -->
+  <div class="container">
+    <h2>IBMap Test</h2>
+    <button onclick="doLoadIBMap()">Load IBMap</button>
+    <button onclick="doCreateMap()">Create Map</button>
+    <button onclick="doDeleteMap()">Delete Map</button>
+    <button onclick="doUnloadIBMap()">Unload IBMap</button>
+    <div id="mapContainer" style="width: 100%; height: 400px; margin-top: 20px;"></div>
+    <div class="log" id="mapLog"></div>
+  </div>
+
+  <!-- Loader 스크립트 -->
+  <script src="/ibsheet-loader.js"></script>
+  <!--
+  <script src="/map/ibmap.js"></script>
+  -->
+
+  <script>
+    const loader = window.IBSheetLoader;
+
+    // loader
+    // .once('loaded', evt => {
+    //   // log('sheetLog', '✓ IBSheet loaded successfully');
+    //   console.log('loader ibsheet loaded');
+    //   console.log(evt);
+    //   const target = evt.target
+    //   console.log(target);
+    //   // if (target.alias === 'ibsheet') {
+    //   //   IBSheet = loader.getIBSheetStatic()
+    //   //   console.log('IBSheet Static :');
+    //   //   console.log(IBSheet);
+    //   // }
+    // })
+    // .load({
+    //   name: 'ibsheet',
+    //   baseUrl: '/sheet',
+    //   locales: ['ko'],
+    //   plugins: ['dialog', 'common', 'excel'],
+    //   // dependentUrls: [
+    //   //   // 추가 의존성 파일이 있다면 여기에
+    //   // ],
+    //   // license: 'your-license-key-here'
+    //   license: '1234',
+    // })
+    // // .once('loaded', evt => {
+    // //   console.log('loader ibchart loaded');
+    // //   console.log(evt);
+    // //   const target = evt.target
+    // //   console.log(target);
+    // //   // if (target.alias === 'ibsheet') {
+    // //   //   IBSheet = loader.getIBSheetStatic()
+    // //   //   console.log('IBSheet Static :');
+    // //   //   console.log(IBSheet);
+    // //   // }
+    // // })
+    // .load({
+    //   name: 'ibchart',
+    //   baseUrl: '/chart',
+    //   dependentUrls: [
+    //     // '/highcharts/highcharts.js',
+    //     // '/highcharts/highcharts-more.js',
+    //     // '/highcharts/modules/solid-gauge.js',
+    //     // '/highcharts/modules/heatmap.js'
+    //   ],
+    //   // license: '/ibleaders.js'
+    //   license: '5678',
+    // })
+    // // .once('loaded', evt => {
+    // //   console.log('loader ibmap loaded');
+    // //   console.log(evt);
+    // //   const target = evt.target
+    // //   console.log(target);
+    // //   // if (target.alias === 'ibsheet') {
+    // //   //   IBSheet = loader.getIBSheetStatic()
+    // //   //   console.log('IBSheet Static :');
+    // //   //   console.log(IBSheet);
+    // //   // }
+    // // })
+    // .load({
+    //   name: 'ibmap',
+    //   baseUrl: '/map',
+    //   dependentUrls: [
+    //     'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+    //     'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+    //   ],
+    //   // license: '/ibleaders.js'
+    // })
+
+    // --------------------------------- loader.once sheet event listeners
+    loader.once('create-sheet', evt => {
+      console.log('loader once create-sheet event');
+      console.log(evt);
+      const { data } = evt
+      console.log('create sheetId:', data.id)
+    })
+
+    loader.once('created-sheet', evt => {
+      console.log('loader once created-sheet event');
+      const sheet = evt.target
+      console.log('created sheetId:', sheet.id)
+    })
+
+    loader.once('create-sheet-failed', evt => {
+      console.log('loader once create-sheet-failed event');
+      console.log(evt);
+      const { data, error } = evt
+      console.error('[CREATE_SHEET_ERROR]', data.id, error)
+    })
+    
+    loader.once('remove-sheet', evt => {
+      console.log('loader once remove-sheet event');
+      const sheet = evt.target
+      console.log('remove sheetId:', sheet.id)
+    })
+
+    loader.once('removed-sheet', evt => {
+      console.log('loader once removed-sheet event');
+      const { data } = evt
+      console.log('removed sheetId:', data.id)
+    })
+
+    loader.once('remove-sheet-failed', evt => {
+      console.log('loader once remove-sheet-failed event');
+      const { data, error } = evt
+      console.error('[REMOVE_SHEET_ERROR]', data.id, error)
+    })
+
+    // --------------------------------- loader.once chart event listeners
+    loader.once('create-chart', evt => {
+      console.log('loader once create-chart event');
+      console.log(evt);
+      // const { data } = evt
+      console.log(evt.target);
+      // console.log('create chartId:', evt.target.getId())
+    })
+
+    loader.once('created-chart', evt => {
+      console.log('loader once created-chart event');
+      console.log(evt);
+      // const chart = evt.target
+      console.log('created chartId:', evt.target.getId())
+    })
+
+    loader.once('create-chart-failed', evt => {
+      console.log('loader once create-chart-failed event');
+      console.log(evt);
+      // const { data, error } = evt
+      // console.error('[CREATE_CHART_ERROR]', data.id, error)
+    })
+    
+    loader.once('remove-chart', evt => {
+      console.log('loader once remove-chart event');
+      console.log(evt);
+      // const chart = evt.target
+      // console.log('remove chartId:', chart.id)
+    })
+
+    loader.once('removed-chart', evt => {
+      console.log('loader once removed-chart event');
+      console.log(evt);
+      // const { data } = evt
+      // console.log('removed chartId:', data.id)
+    })
+
+    loader.once('remove-chart-failed', evt => {
+      console.log('loader once remove-chart-failed event');
+      console.log(evt);
+      // const { data, error } = evt
+      // console.error('[REMOVE_CHART_ERROR]', data.id, error)
+    })
+
+    // --------------------------------- loader.once map event listeners
+    loader.once('create-map', evt => {
+      console.log('loader once create-map event');
+      console.log(evt);
+      // const { data } = evt
+      // console.log('create chartId:', data.id)
+    })
+
+    loader.once('created-map', evt => {
+      console.log('loader once created-map event');
+      console.log(evt);
+      // const chart = evt.target
+      // console.log('created chartId:', chart.id)
+    })
+
+    loader.once('create-map-failed', evt => {
+      console.log('loader once create-map-failed event');
+      console.log(evt);
+      // const { data, error } = evt
+      // console.error('[CREATE_MAP_ERROR]', data.id, error)
+    })
+    
+    loader.once('remove-map', evt => {
+      console.log('loader once remove-map event');
+      console.log(evt);
+      // const map = evt.target
+      // console.log('remove mapId:', map.id)
+    })
+
+    loader.once('removed-map', evt => {
+      console.log('loader once removed-map event');
+      console.log(evt);
+      // const { data } = evt
+      // console.log('removed mapId:', data.id)
+    })
+
+    loader.once('remove-map-failed', evt => {
+      console.log('loader once remove-map-failed event');
+      console.log(evt);
+      // const { data, error } = evt
+      // console.error('[REMOVE_MAP_ERROR]', data.id, error)
+    })
+
+
+    let sheetInstance = null;
+    let chartInstance = null;
+    let mapInstance = null;
+
+    function log(elementId, message) {
+      const logEl = document.getElementById(elementId);
+      const time = new Date().toLocaleTimeString();
+      logEl.innerHTML += `[${time}] ${message}<br>`;
+      logEl.scrollTop = logEl.scrollHeight;
+      console.log(message);
+    }
+
+    // IBSheet 로드
+    function doLoadIBSheet() {
+      log('sheetLog', 'Loading IBSheet...');
+      
+      loader
+      .once('loaded', evt => {
+        // log('sheetLog', '✓ IBSheet loaded successfully');
+        console.log('loader ibsheet loaded');
+        console.log(evt);
+        const target = evt.target
+        console.log(target);
+        console.log('ibsheet loaded!')
+        if (target.alias === 'ibsheet') {
+          IBSheet = loader.getIBSheetStatic()
+          console.log('IBSheet Static :');
+          console.log(IBSheet);
+        }
+      })
+      .load({
+        name: 'ibsheet',
+        baseUrl: '/sheet',
+        locales: ['ko'],
+        plugins: ['dialog', 'common', 'excel'],
+        // dependentUrls: [
+        //   // 추가 의존성 파일이 있다면 여기에
+        // ],
+        // license: 'your-license-key-here'
+        license: '1234',
+      })
+      // .then(() => {
+      //   log('sheetLog', '✓ IBSheet loaded successfully');
+      // }).catch(err => {
+      //   log('sheetLog', '✗ Error loading IBSheet: ' + err.message);
+      // });
+    }
+
+    // IBSheet 생성
+    function doCreateSheet() {
+      if (!window.IBSheet) {
+        log('sheetLog', '✗ IBSheet not loaded yet');
+        return;
+      }
+
+      log('sheetLog', 'Creating sheet...');
+      
+      loader.createSheet({
+        id: 'sheet',
+        el: 'sheetContainer',
+        options: {
+          Cfg: {
+            SearchMode: 2,
+            HeaderMerge: 3
+          },
+          Cols: [
+            { Header: 'ID', Name: 'id', Type: 'Text', Width: 80 },
+            { Header: 'Name', Name: 'name', Type: 'Text', Width: 150 },
+            { Header: 'Age', Name: 'age', Type: 'Int', Width: 80 }
+          ]
+        },
+        data: [
+          { id: '1', name: 'John', age: 25 },
+          { id: '2', name: 'Jane', age: 30 },
+          { id: '3', name: 'Bob', age: 35 }
+        ]
+      }).then(sheet => {
+        sheetInstance = sheet;
+        log('sheetLog', '✓ Sheet created successfully');
+      }).catch(err => {
+        log('sheetLog', '✗ Error creating sheet: ' + err.message);
+      });
+    }
+
+    function doDeleteSheet() {
+      if (!sheetInstance) {
+        log('sheetLog', '✗ No sheet instance to delete');
+        return;
+      } else {
+        console.log('sheetInstance :', sheetInstance);
+        let sheetId = sheetInstance.id;
+        loader.removeSheet(sheetId);
+        sheetInstance = null;
+        console.log('Sheet removed:', sheetInstance);
+      }
+    } 
+
+    // IBSheet 언로드
+    function doUnloadIBSheet() {
+      log('sheetLog', 'Unloading IBSheet...');
+      
+      loader.unload('ibsheet')
+      sheetInstance = null;
+      // .then(() => {
+      //   sheetInstance = null;
+      //   document.getElementById('sheetContainer').innerHTML = '';
+      //   log('sheetLog', '✓ IBSheet unloaded successfully');
+      // }).catch(err => {
+      //   log('sheetLog', '✗ Error unloading IBSheet: ' + err.message);
+      // });
+    }
+
+    // IBChart 로드
+    function doLoadIBChart() {
+      log('chartLog', 'Loading IBChart...');
+      
+      loader
+      .once('loaded', evt => {
+        console.log('loader ibchart loaded');
+        console.log(evt);
+        const target = evt.target
+        console.log(target);
+        if (target.alias === 'ibchart') {
+          IBChart = loader.getIBChartStatic()
+          console.log('IBChart Static :');
+          console.log(IBChart);
+        }
+        // if (target.alias === 'ibsheet') {
+        //   IBSheet = loader.getIBSheetStatic()
+        //   console.log('IBSheet Static :');
+        //   console.log(IBSheet);
+        // }
+      })
+      .load({
+        name: 'ibchart',
+        baseUrl: '/chart',
+        dependentUrls: [
+          // '/highcharts/highcharts.js',
+          // '/highcharts/highcharts-more.js',
+          // '/highcharts/modules/solid-gauge.js',
+          // '/highcharts/modules/heatmap.js',
+          'https://code.highcharts.com/highcharts.js',
+          'https://code.highcharts.com/highcharts-more.js',
+          'https://code.highcharts.com/modules/solid-gauge.js'
+        ],
+        // license: '/ibleaders.js'
+        license: '5678',
+      })
+      // .then(() => {
+      //   log('chartLog', '✓ IBChart loaded successfully');
+      // }).catch(err => {
+      //   log('chartLog', '✗ Error loading IBChart: ' + err.message);
+      // });
+    }
+
+    // IBChart 생성
+    function doCreateChart() {
+      if (!window.IBChart) {
+        log('chartLog', '✗ IBChart not loaded yet');
+        return;
+      }
+
+      log('chartLog', 'Creating chart...');
+      
+      // chartInstance = loader.createChart(
+      loader.createChart(
+        {
+          id: 'myChart',
+          // cont: document.getElementById('chartContainer'),
+          // cont: 'chartContainer',
+          el: 'chartContainer',
+          options: {
+            width: '100%',
+            height: '400px',
+          }
+        }
+        /*{
+        id: 'myChart',
+        cont: 'chartContainer',
+        options: {
+          chart: {
+            type: 'column'
+          },
+          title: {
+            text: 'Sample Chart'
+          },
+          xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May']
+          },
+          yAxis: {
+            title: {
+              text: 'Values'
+            }
+          },
+          series: [{
+            name: 'Sales',
+            data: [29.9, 71.5, 106.4, 129.2, 144.0]
+          }]
+        }
+      }*/
+      ).then(chart => {
+        console.log('Chart created (from promise) :', chart);
+        chartInstance = chart;
+
+        console.log('chartInstance :', chartInstance);
+        // console.log('myChart :', myChart);
+        if (chartInstance) {
+          var chartInit = {
+            "colors": [
+              "#448EF6",
+              "#75C2F6",
+              "#65DAF7",
+              "#A7EFE9"
+            ],
+            "chart": {
+              "type": "bar"
+            },
+            "subtitle": {
+              "text": "통계청 항목별 월평균 가구지출(2022)",
+              "align": "left",
+              "style": {
+                "color": "#242424"
+              }
+            },
+            "xAxis": {
+              "categories": [
+                "주거비",
+                "주거관리비",
+                "교통비",
+                "통신비"
+              ],
+              "gridLineWidth": 1,
+              "lineWidth": 0
+            },
+            "yAxis": {
+              "title": {
+                "text": "단위(만원)",
+                "align": "high",
+                "style": {
+                  "color": "#575757",
+                  "fontSize": "10px"
+                }
+              },
+              "tickInterval": 3,
+              "gridLineWidth": 0
+            },
+            "plotOptions": {
+              "series": {
+                "dataLabels": {
+                  "enabled": true,
+                  "allowOverlap": true
+                },
+                "shadow": false,
+                "pointWidth": 15,
+                "pointPadding": 0.3,
+                "groupPadding": 0.1
+              }
+            },
+            "legend": {
+              "layout": "vertical",
+              "align": "right",
+              "verticalAlign": "top",
+              "x": -60,
+              "y": 30,
+              "floating": true,
+              "borderWidth": 0,
+              "backgroundColor": "#FFFFFF",
+              "shadow": true
+            },
+            "tooltip": {
+              "valueSuffix": "만원"
+            }
+          };
+  
+          chartInstance.setOptions(chartInit);
+          // myChart.setOptions(chartInit);
+  
+          var data = {
+            "series": [
+              {
+                "name": "서울",
+                "data": [
+                  13,
+                  15,
+                  22,
+                  15
+                ]
+              },
+              {
+                "name": "부산",
+                "data": [
+                  8,
+                  15,
+                  29,
+                  16
+                ]
+              },
+              {
+                "name": "대구",
+                "data": [
+                  7,
+                  20,
+                  29,
+                  17
+                ]
+              },
+              {
+                "name": "인천",
+                "data": [
+                  7,
+                  15,
+                  31,
+                  20
+                ]
+              }
+            ]
+          }
+  
+          chartInstance.loadSearchData(data, {append: true});
+          // myChart.loadSearchData(data, {append: true});
+          log('chartLog', '✓ Chart created successfully');
+      };
+
+      }).catch(err => {
+        log('chartLog', '✗ Error creating chart: ' + err.message);
+      });
+    }
+
+    function doDeleteChart() {
+      if (!chartInstance) {
+        log('chartLog', '✗ No chart instance to delete');
+        return;
+      } else {
+        console.log('chartInstance :', chartInstance);
+        let chartId = chartInstance.getId();
+        loader.removeChart(chartId);
+        chartInstance = null;
+      }
+    }
+
+    // IBChart 언로드
+    function doUnloadIBChart() {
+      log('chartLog', 'Unloading IBChart...');
+      
+      loader.unload('ibchart')
+      chartInstance = null;
+      // .then(() => {
+      //   chartInstance = null;
+      //   document.getElementById('chartContainer').innerHTML = '';
+      //   log('chartLog', '✓ IBChart unloaded successfully');
+      // }).catch(err => {
+      //   log('chartLog', '✗ Error unloading IBChart: ' + err.message);
+      // });
+    }
+
+    // IBMap 로드
+    function doLoadIBMap() {
+      log('mapLog', 'Loading IBMap...');
+      
+      loader
+      .once('loaded', evt => {
+        console.log('loader ibmap loaded');
+        console.log(evt);
+        const target = evt.target
+        console.log(target);
+        // if (target.alias === 'ibsheet') {
+        //   IBSheet = loader.getIBSheetStatic()
+        //   console.log('IBSheet Static :');
+        //   console.log(IBSheet);
+        // }
+      })
+      .load({
+        name: 'ibmap',
+        baseUrl: '/map',
+        dependentUrls: [
+          'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+          'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+        ],
+        // license: '/ibleaders.js'
+      })
+      // .then(() => {
+      //   log('chartLog', '✓ IBChart loaded successfully');
+      // }).catch(err => {
+      //   log('chartLog', '✗ Error loading IBChart: ' + err.message);
+      // });
+    }
+
+    // I  BChart 생성
+    function doCreateMap() {
+      if (!window.IBMapCharts) {
+        log('mapLog', '✗ IBMap not loaded yet');
+        return;
+      }
+
+      log('mapLog', 'Creating map...');
+
+      var cfg = {
+        "map": {
+          "scale": 1.1,
+          "shadow": false,
+          "select": {
+            "style": {
+              "backgroundColor": "#437FEA"
+            }
+          },
+          "tooltip": {
+            "style": {
+              "border": {
+                "color": "#aaa"
+              }
+            }
+          },
+          "hover": {
+            "style": {
+              "backgroundColor": "#75A5FA"
+            }
+          },
+          "dataLabel": {
+            "enable": false
+          },
+          "style": {
+            "backgroundColor": "#FFF",
+            "border": {
+              "width": 0.4,
+              "color": "#437FEA"
+            }
+          }
+        },
+        "legend": {
+          "enable": true,
+          "type": "symbol",
+          "align": "left",
+          "verticalAlign": "bottom",
+          "orient": "vertical",
+          "title": "A항공 운행 노선",
+          "range": [
+            "diamond",
+            "square",
+            "cross"
+          ],
+          "color": [
+            "red",
+            "#6482AD",
+            "rgb(180, 180, 80)"
+          ],
+          "domain": [
+            "김포국제공항",
+            "김해국제공항",
+            "제주국제공항"
+          ]
+        },
+        "line": {
+          "onclick": function(ev){
+            this.line.remove(ev.data.id);
+          }
+        },
+        "style": {
+          "backgroundColor": "#EDEDED"
+        }
+      }
+
+      // mapInstance = loader.createMap(
+      loader.createMap(
+        {
+          el: document.getElementById('mapContainer'),
+          // el: 'mapContainer',
+          options: cfg
+        }
+      ).then(map => {
+        console.log('Map created (from promise) :', map);
+        mapInstance = map;
+
+        console.log('mapInstance :', mapInstance);
+        if (mapInstance) {
+          // mapInstance
+          fetch("https://demo.ibsheet.com/ibsheet/v8/samples/customer-sample/assets/ibmap/map/new-kr/korea.json").then(res=>res.json()).then(data=>{
+              mapInstance.map._loadMap(data, function(data){
+                var points = [{
+                  "id": "p-001",
+                  "symbol": {
+                      "label" : "김포국제공항", // 심볼 주변에 표시될 레이블
+                      type : "diamond", // 심볼 모양
+                      style:{
+                          size: 100,
+                          color : "red",
+                          labelSize: "12px",
+                          labelPos: "top"
+                      }
+                  },
+                  "name": "김포국제공항",
+                  "lat": 37.558056,
+                  "lon": 126.790556
+              },{
+                  "id": "p-002",
+                  "symbol": {
+                      "label" : "제주국제공항", // 심볼 주변에 표시될 레이블
+                      type : "cross", // 심볼 모양
+                      style:{
+                          size: 100,
+                          color : "rgb(180, 180, 80)",
+                          labelSize: "12px",
+                          labelPos: "right",
+    
+                      }
+                  },
+                  "name": "제주국제공항",
+                  "lat": 33.511111,
+                  "lon": 126.492778
+              },{
+                  "id": "p-003",
+                  "symbol": {
+                      "label" : "김해국제공항", // 심볼 주변에 표시될 레이블
+                      type : "square", // 심볼 모양
+                      style:{
+                          size: 100,
+                          color : "#6482AD",
+                          labelSize: "12px",
+                          labelPos: "right"
+                      }
+                  },
+                  "name": "김해국제공항",
+                  "lat": 35.179444,
+                  "lon": 128.938056
+              }];
+              // 심볼 표현
+              mapInstance.point.add(points);
+        
+              var lineData = [
+                {
+                    // 추가하는 lind id
+                    "id": "l-001",
+                    "from": {  // 시작점
+                        "name": "김포국제공항",
+                        // 위도
+                        "lat": 37.558056,
+                        // 경도
+                        "lon": 126.790556
+                    },
+                    "to": {   // 끝점
+                        "name": "제주국제공항",
+                        // 위도
+                        "lat": 33.511111,
+                        // 경도
+                        "lon":126.492778
+                    },
+                    "style": {
+                        "border": {
+                            "width": 3, //연결선 굵기
+                            "color": "#FC4100", //연결선 색상
+                            "style": "dotted", //선 유형 "solid", "dashed", "dotted", "10 50"(선길이 공백길이)
+                            "animation": "stream 20s linear infinite" //애니메이션
+                        }
+                    },
+                    "label": {
+                        "text": "김포 -> 제주 노선 (주 14회)", //선 표시 레이블
+                    }
+                },
+                {
+                    "id": "l-002",
+                    "from": {  // 시작점
+                        "name": "김포국제공항",
+                        // 위도
+                        "lat": 37.558056,
+                        // 경도
+                        "lon": 126.790556
+                    },
+                    "to": {   // 끝점
+                        "name": "김해국제공항",
+                        // 위도
+                        "lat": 35.179444,
+                        // 경도
+                        "lon": 128.938056
+                    },
+                    "style": {
+                        "border": {
+                            "width": 3, //연결선 굵기
+                            "color": "#f8d50a", //연결선 색상
+                            "style": "solid", //선 유형 "solid", "dashed", "dotted", "10 50"(선길이 공백길이)
+                        }
+                    },
+                    "label": {
+                        "text": "김포 -> 김해 노선(주 7회)", //선 표시 레이블
+                        "textPosition": "right" //showDistance 사용시 거리정보 기준 레이블 표시 위치
+                    }
+                },
+                {
+                    "id": "l-003",
+                    "from": {   // 시작점
+                          "name": "김해국제공항",
+                          // 위도
+                          "lat": 35.179444,
+                          // 경도
+                          "lon": 128.938056
+                      },
+                    "to": {   // 끝점
+                          "name": "제주국제공항",
+                          // 위도
+                          "lat": 33.511111,
+                          // 경도
+                          "lon": 126.492778
+                  },
+                    "style": {
+                        "border": {
+                            "width": 3, //연결선 굵기
+                            "color": "#4793AF", //연결선 색상
+                            "style": "dashed", //선 유형 "solid", "dashed", "dotted", "10 50"(선길이 공백길이)
+                        }
+                    },
+                    "label": {
+                        "text": "김해 -> 제주 노선(주 1회)", //선 표시 레이블
+                    }
+                },
+              ];
+              mapInstance.line.add(lineData);
+            });
+            log('mapLog', '✓ Chart created successfully');
+          })
+        }
+      })
+
+    }
+
+    function doDeleteMap() {
+      if (!mapInstance) {
+        log('mapLog', '✗ No map instance to delete');
+        return;
+      } else {
+        console.log('mapInstance :', mapInstance);
+        // let mapId = mapInstance.getId();
+        loader.removeMap(mapInstance);
+        mapInstance = null;
+      }
+    }
+
+    function doUnloadIBMap() {
+      log('mapLog', 'Unloading IBMap...');
+      
+      loader.unload('ibmap')
+      mapInstance = null;
+    }
+
+    // 페이지 로드 시 로거 초기화
+    window.addEventListener('load', () => {
+      log('sheetLog', 'Page loaded. Ready to test IBSheet.');
+      log('chartLog', 'Page loaded. Ready to test IBChart.');
+      log('mapLog', 'Page loaded. Ready to test IBMap.');
+    });
+  </script>
+</body>
+</html>

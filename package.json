@@ -47,8 +47,8 @@
     "reset": "git clean -dfx && git reset --hard && yarn",
     "info": "npm-scripts-info",
     "serve": "run-s serve:dev",
-    "serve:dev": "webpack-dev-server --mode development --config ./webpack.dev.cjs --hot --inline --progress --watch",
-    "serve:prod": "cross-env NODE_ENV=production webpack-dev-server --config ./webpack.prod.cjs --port 3040 --host 0.0.0.0 --hot --inline --progress --watch --open --content-base dist/umd",
+    "serve:dev": "webpack-dev-server --mode development --config ./webpack.dev.cjs --hot --progress --watch",
+    "serve:prod": "cross-env NODE_ENV=production webpack-dev-server --config ./webpack.prod.cjs --port 3040 --host 0.0.0.0 --hot --progress --watch --open --content-base dist/umd",
     "start": "run-s serve:dev",
     "prepare-release": "run-s reset test cov:check",
     "prerelease": "run-s test:*",
@@ -113,6 +113,7 @@
     "generate-package-json-webpack-plugin": "^2.6.0",
     "gh-pages": "^6.3.0",
     "handlebars-loader": "^1.7.1",
+    "highcharts": "^12.4.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.3",
     "lodash": "^4.17.15",
@@ -141,7 +142,7 @@
     "webpack-replace-plugin": "^0.0.4"
   },
   "dependencies": {
-    "@ibsheet/interface": "^1.0.0",
+    "@ibsheet/interface": "latest",
     "ajv": "^8.11.0",
     "babel-plugin-istanbul": "^7.0.0",
     "core-js": "^3.43.0",

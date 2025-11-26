@@ -8,6 +8,8 @@ export interface LoaderConfigOptions extends TaskManagerOptions {
   ready?: () => void
   globals?: {
     ibsheet?: string
+    ibchart?: string
+    ibmap?: string
   }
   autoload?: boolean
   preset?: object // preset 인터페이스 추가

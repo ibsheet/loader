@@ -1,5 +1,4 @@
-import { IBCol as IBSheetColsOptions } from '@ibsheet/interface'
-export { IBSheetColsOptions }
+export interface IBSheetColsOptions {}
 
 export interface IBSheetOptions {
   Cfg?: any

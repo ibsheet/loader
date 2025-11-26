@@ -1,4 +1,4 @@
-import { IBSHEET } from '../../constant'
+import { IBSHEET, IBCHART, IBMAP } from '../../constant'
 import { isString, castArray, isNil, isObject } from '../../shared/lodash'
 import { isUrlStr } from '../../shared/str-utils'
 import {
@@ -68,7 +68,7 @@ export function parseLoadItems(loadItems: RegistryItemData[]): RegistryItem[] {
       }
 
       // ignore debug for default library
-      if (item.name === IBSHEET) {
+      if (item.name === IBSHEET || item.name === IBCHART || item.name === IBMAP) {
         if (taskMan.exists(item) && !item.changed) {
           return
         }
