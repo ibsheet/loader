@@ -3,7 +3,7 @@ version: 2
 jobs:
   'code-coverage':
     docker:
-      - image: circleci/node:10
+      - image: cimg/node:20.10
     working_directory: ~/loader
     steps:
       - checkout
