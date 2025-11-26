@@ -1,6 +1,6 @@
 # ibsheet-loader
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/271223b5e7944ad4bc78cbed119924b5)](https://www.codacy.com/manual/ibsheet/loader?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ibsheet/loader&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e9189f42210a489f93d5543a47dd7e27)](https://app.codacy.com/gh/ibsheet/loader/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![CircleCI](https://circleci.com/gh/ibsheet/loader.svg?style=svg)](https://circleci.com/gh/ibsheet/loader)
 [![npm version](https://badge.fury.io/js/%40ibsheet%2Floader.svg)](https://www.npmjs.com/package/@ibsheet/loader)
 [![vulnerabilities](https://snyk.io/test/github/ibsheet/loader/badge.svg)](https://snyk.io/test/github/ibsheet/loader)
