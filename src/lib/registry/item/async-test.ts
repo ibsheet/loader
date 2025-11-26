@@ -8,14 +8,14 @@ import { ValidatableItem } from './interface'
 /** @ignore */
 export function asyncItemTest(
   this: ValidatableItem,
-  options?: any
+  options?: any,
 ): Promise<ValidatableItem> {
   const debug = get(options, 'debug', false)
   const MAX_RETRY = get(options, 'retry.maxCount', LOAD_TEST_RETRY_MAX_COUNT)
   const INTERVAL_TIME = get(
     options,
     'retry.intervalTime',
-    LOAD_TEST_RETRY_INTERVAL
+    LOAD_TEST_RETRY_INTERVAL,
   )
 
   return new Promise((resolve, reject) => {
@@ -34,7 +34,7 @@ export function asyncItemTest(
 
       if (debug) {
         console.warn(
-          `"${this.alias}" load delayed (${nCount * INTERVAL_TIME}ms)`
+          `"${this.alias}" load delayed (${nCount * INTERVAL_TIME}ms)`,
         )
       }
 

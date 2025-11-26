@@ -78,7 +78,7 @@ export function getTaskEventsByType(type: LoaderTaskType): LoaderEventName[] {
  */
 export function createTaskManager(
   type: LoaderTaskType,
-  options?: any
+  options?: any,
 ): LoaderTaskManager {
   const taskMan = new LoaderTaskManager(type, options)
   const events = getTaskEventsByType(type)
