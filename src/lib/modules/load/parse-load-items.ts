@@ -33,7 +33,7 @@ function parseLoadItemData(data: RegistryItemData): RegistryItem | undefined {
         console.log(
           `%c[load.parse] updated: ${alias}`,
           'color: royalblue',
-          data,
+          data
         )
         item.update(data)
       } else {

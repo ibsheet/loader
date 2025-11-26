@@ -58,7 +58,7 @@ export function asyncRemoveDepndentUrls(
 /** @ignore */
 export function asyncRemoveIBSheetElements(
   options?: any,
-  onlySheet: boolean = false,
+  onlySheet = false,
 ): Promise<any>[] {
   const isDebugMode = get(options, 'debug', false)
   let xPathList = [

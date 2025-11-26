@@ -10,10 +10,10 @@ class RegistryItemURL extends CustomEventEmitter implements ValidatableItem {
   private _value: string
   private _basename: string
   private _dependencies: string[] = []
-  type: string = 'js'
-  target: string = 'body'
+  type = 'js'
+  target = 'body'
   validate: (() => boolean) | null = null
-  loaded: boolean = false
+  loaded = false
 
   constructor(data: RegItemUrlData) {
     super()

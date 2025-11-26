@@ -14,8 +14,8 @@ export class LoaderTaskManager extends CustomEventEmitter {
   private _type: LoaderTaskType
   private _stack: RegistryItem[]
   private _wipList: RegistryItem[]
-  private _working: boolean = false
-  private _reserved: number = 0
+  private _working = false
+  private _reserved = 0
   private _uber: IBSheetLoaderStatic
 
   constructor(type: LoaderTaskType, uber: IBSheetLoaderStatic) {
@@ -69,7 +69,7 @@ export class LoaderTaskManager extends CustomEventEmitter {
   private _checkIgnoreItem(item: RegistryItem): boolean {
     return this.type === LoaderTaskType.LOAD ? item.loaded : !item.loaded
   }
-  add(item: RegistryItem, immediatly: boolean = false): RegistryItem | null {
+  add(item: RegistryItem, immediatly = false): RegistryItem | null {
     if (this._checkIgnoreItem(item)) {
       if (this.debug) {
         console.warn(`"${item.alias}" is already ${this.type}ed`)

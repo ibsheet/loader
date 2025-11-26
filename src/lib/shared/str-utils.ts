@@ -21,7 +21,7 @@ export function isUrlStr(str: string | undefined): boolean {
 export function isFilePath(str: string | undefined, type?: string): boolean {
   if (isNil(str) || isEmpty(str)) return false
   const bUrl = str.indexOf('/') >= 0 || isUrl(str)
-  let bFile: boolean = false
+  let bFile = false
   if (!isNil(type) && !isEmpty(type)) {
     bFile = new RegExp(`\\.${type}$`, 'i').test(str)
   }

@@ -39,7 +39,7 @@ class LoaderRegistry extends CustomEventEmitter {
 
   add(
     data: string | RegistryItemData,
-    overwrite: boolean = false,
+    overwrite = false,
   ): RegistryItem | undefined {
     let item
     try {
@@ -78,7 +78,7 @@ class LoaderRegistry extends CustomEventEmitter {
     return item
   }
 
-  addAll(params: RegistryParam[], overwrite: boolean = false): RegistryItem[] {
+  addAll(params: RegistryParam[], overwrite = false): RegistryItem[] {
     return castArray(params)
       .map((data: any) => {
         return this.add(data, overwrite)

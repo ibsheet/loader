@@ -39,13 +39,13 @@ Dynamically load support module for [IBSheet](https://www.ibsheet.com)
 Using npm:
 
 ```sh
-$ npm install @ibsheet/loader
+npm install @ibsheet/loader
 ```
 
 Using yarn:
 
 ```sh
-$ yarn add @ibsheet/loader
+yarn add @ibsheet/loader
 ```
 
 Using browser:

@@ -67,7 +67,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
   /** @ignore */
   private _status: LoaderStatus = LoaderStatus.PENDING
   /** @ignore */
-  private _ready: boolean = false
+  private _ready = false
   /** @ignore */
   private _loadTaskMan: LoaderTaskManager
   /** @ignore */
@@ -138,7 +138,7 @@ export class IBSheetLoaderStatic extends CustomEventEmitter {
     return item.loaded
   }
   /** @ignore */
-  private _getDefaultRegItem(throwError: boolean = true): RegistryItem {
+  private _getDefaultRegItem(throwError = true): RegistryItem {
     const item = this.registry.findOne(IBSHEET)
     const item2 = this.registry.findOne(IBCHART)
     const item3 = this.registry.findOne(IBMAP)

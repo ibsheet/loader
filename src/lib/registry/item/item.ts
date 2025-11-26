@@ -284,7 +284,7 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
     return aResult
   }
   /** @ignore */
-  private _setUrls(data: RegistryItemData, isUpdate: boolean = false): void {
+  private _setUrls(data: RegistryItemData, isUpdate = false): void {
     const urls = this._createUrls(data, isUpdate)
     if (isNil(urls)) return
     if (isUpdate) {
@@ -353,7 +353,7 @@ class RegistryItem extends CustomEventEmitter implements ValidatableItem {
     this._isResolveUpdateUrls = false
   }
 
-  update(data: any, isUpdate: boolean = true): void {
+  update(data: any, isUpdate = true): void {
     if (isNil(data)) return
     data = castRegistryItemData(data)
     this._setUrls(data, isUpdate)

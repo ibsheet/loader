@@ -5,7 +5,7 @@ import { parseLoadItems } from './parse-load-items'
 
 export function getLoadItems(
   origins?: any,
-  defaultLibrary: boolean = true,
+  defaultLibrary = true,
 ): RegistryItem[] {
   const preLoadItems = getPreloadItems.apply(this, [
     origins,
