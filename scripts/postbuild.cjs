@@ -25,7 +25,6 @@ const minimalPkg = {
       require: "./cjs/index.js",
     }
   },
-  engines: basePkg.engines,
   repository: basePkg.repository,
   bugs: basePkg.bugs,
   homepage: basePkg.homepage,

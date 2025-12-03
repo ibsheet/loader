@@ -20,6 +20,7 @@ export interface RegItemUrlData {
   urls?: RegistryItemURL[]
   baseUrl?: string
   validate?: () => boolean | null
+  dependencies?: string[]
 }
 
 // export interface ValidatorItem {

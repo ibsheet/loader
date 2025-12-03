@@ -17,19 +17,42 @@ export function defaultsIBChartUrls(data: RegistryItemData): RegItemUrlData[] {
       pushIfNotExistsUrl(urls, fname)
     }
 
-    const chart = `ibchart.js`
-    pushIfNotExistsUrl(urls, chart)
-
-    const chartinfo = `ibchartinfo.js`
-    pushIfNotExistsUrl(urls, chartinfo)
-
-    // dependentUrls 처리
+    // dependentUrls 처리 (순차 로딩을 위해 dependencies 설정)
+    // ibchart보다 먼저 로딩되어야 하므로 앞에 추가
     const dependentUrls = get(data, 'dependentUrls')
+    let lastDependentBasename: string | null = null
     if (!isNil(dependentUrls) && Array.isArray(dependentUrls)) {
+      let prevBasename: string | null = null
       dependentUrls.forEach((depUrl: string) => {
-        pushIfNotExistsUrl(urls, depUrl)
+        const urlData: RegItemUrlData = { url: depUrl }
+        if (prevBasename) {
+          urlData.dependencies = [prevBasename]
+        }
+        // basename 추출 (확장자 제외)
+        const filename = depUrl.split('/').pop() || depUrl
+        const parts = filename.split('.')
+        if (parts.length > 1) {
+          parts.pop() // 확장자 제거
+        }
+        prevBasename = parts.join('.')
+        lastDependentBasename = prevBasename
+        urls.push(urlData)
       })
     }
+
+    // ibchart.js는 dependentUrls의 마지막 JS 파일이 로딩된 후에 로딩되어야 함
+    const chartUrlData: RegItemUrlData = { url: `ibchart.js` }
+    if (lastDependentBasename) {
+      chartUrlData.dependencies = [lastDependentBasename]
+    }
+    urls.push(chartUrlData)
+
+    // ibchartinfo.js는 ibchart.js가 로딩된 후에 로딩되어야 함
+    const chartinfoUrlData: RegItemUrlData = {
+      url: `ibchartinfo.js`,
+      dependencies: ['ibchart'],
+    }
+    urls.push(chartinfoUrlData)
 
     const license = get(data, 'license')
     if (!isEmpty(license) && typeof license === 'string') {
@@ -67,19 +90,42 @@ export function updateIBChartUrls(
     pushIfNotExistsUrl(urls, fname)
   }
 
-  const chart = `ibchart.js`
-  pushIfNotExistsUrl(urls, chart)
-
-  const chartinfo = `ibchartinfo.js`
-  pushIfNotExistsUrl(urls, chartinfo)
-
-  // dependentUrls 처리 추가
+  // dependentUrls 처리 (순차 로딩을 위해 dependencies 설정)
+  // ibchart보다 먼저 로딩되어야 하므로 앞에 추가
   const dependentUrls = get(data, 'dependentUrls')
+  let lastDependentBasename: string | null = null
   if (!isNil(dependentUrls) && Array.isArray(dependentUrls)) {
+    let prevBasename: string | null = null
     dependentUrls.forEach((depUrl: string) => {
-      pushIfNotExistsUrl(urls, depUrl)
+      const urlData: RegItemUrlData = { url: depUrl }
+      if (prevBasename) {
+        urlData.dependencies = [prevBasename]
+      }
+      // basename 추출 (확장자 제외)
+      const filename = depUrl.split('/').pop() || depUrl
+      const parts = filename.split('.')
+      if (parts.length > 1) {
+        parts.pop() // 확장자 제거
+      }
+      prevBasename = parts.join('.')
+      lastDependentBasename = prevBasename
+      urls.push(urlData)
     })
   }
+
+  // ibchart.js는 dependentUrls의 마지막 JS 파일이 로딩된 후에 로딩되어야 함
+  const chartUrlData: RegItemUrlData = { url: `ibchart.js` }
+  if (lastDependentBasename) {
+    chartUrlData.dependencies = [lastDependentBasename]
+  }
+  urls.push(chartUrlData)
+
+  // ibchartinfo.js는 ibchart.js가 로딩된 후에 로딩되어야 함
+  const chartinfoUrlData: RegItemUrlData = {
+    url: `ibchartinfo.js`,
+    dependencies: ['ibchart'],
+  }
+  urls.push(chartinfoUrlData)
 
   // no support "license" update
   return urls.concat(origins)

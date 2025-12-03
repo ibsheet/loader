@@ -25,6 +25,11 @@ class RegistryItemURL extends CustomEventEmitter implements ValidatableItem {
     this.type = get(data, 'type', this.type)
     this.target = get(data, 'target', this.target)
 
+    const dependencies = get(data, 'dependencies')
+    if (!isNil(dependencies) && Array.isArray(dependencies)) {
+      this.dependencies = dependencies
+    }
+
     this._id = uuidv1()
   }
 
