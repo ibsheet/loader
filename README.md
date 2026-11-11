@@ -8,9 +8,17 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-Dynamically load support module for [IBSheet](https://www.ibsheet.com)
+Dynamically load support module for [IB Sheet](https://www.ibsheet.com)
 
 [![js-standard-style](https://cdn.rawgit.com/standard/standard/master/badge.svg)](http://standardjs.com)
+
+**@ibsheet/loader** loads the [**IBsheet 8**](https://www.ibsheet.com) data grid library into a web page on demand: the core script, CSS theme, locale files and plugins.
+
+**@ibsheet/loader**는 웹 데이터 그리드 [**IBsheet 8**](https://www.ibsheet.com)의 스크립트 · CSS 테마 · 언어팩 · 플러그인 파일을 필요할 때 웹페이지에 불러오는 라이브러리입니다.
+
+- IBsheet 8 homepage (제품 소개): https://www.ibsheet.com
+- IBsheet 8 manual (매뉴얼): https://docs.ibsheet.com/ibsheet/v8/manual/
+- MCP server for AI coding tools such as Claude Code, Cursor, GitHub Copilot, Codex CLI and Gemini CLI (AI 코딩 도구 연동): https://docs.ibsheet.com/ibsheet/v8/manual/docs/start/mcp.html
 
 ## features
 

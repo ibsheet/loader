@@ -12,6 +12,7 @@ const minimalPkg = {
   name: basePkg.name,
   version: basePkg.version,
   description: basePkg.description,
+  keywords: basePkg.keywords,
   license: basePkg.license,
   author: basePkg.author,
   homepage: basePkg.homepage,
